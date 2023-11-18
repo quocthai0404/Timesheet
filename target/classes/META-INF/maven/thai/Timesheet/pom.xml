@@ -3,4 +3,12 @@
   <groupId>thai</groupId>
   <artifactId>Timesheet</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <dependencies>
+	  <dependency>
+	    <groupId>com.microsoft.sqlserver</groupId>
+	    <artifactId>mssql-jdbc</artifactId>
+	    <version>9.4.1.jre16</version>
+	    
+	</dependency>
+  </dependencies>
 </project>
