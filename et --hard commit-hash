@@ -1,0 +1,128 @@
+[33mcommit a3476bab6678e5a39db4095b706a3e9bfcfdfe57[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Merge: 3477229 2c0abaa
+Author: baonghesi <baotrinh495@gmail.com>
+Date:   Sat Nov 18 19:42:02 2023 +0700
+
+    'baoo'
+
+[33mcommit 34772290174d04dd48157eac7488ca4088372a79[m
+Author: baonghesi <baotrinh495@gmail.com>
+Date:   Sat Nov 18 19:11:27 2023 +0700
+
+    'bao'
+
+[33mcommit 2c0abaaff9f61891a7b67cc7e8cf4f4e8aac6d1b[m
+Merge: fa0139e 7472a73
+Author: quocthai0404 <139846123+quocthai0404@users.noreply.github.com>
+Date:   Sat Nov 18 18:29:17 2023 +0700
+
+    Merge pull request #4 from quocthai0404/sub_branch
+    
+    Merge pull request #3 from quocthai0404/master
+
+[33mcommit 7472a73cc510e04f61daa21a25444f2129713fc9[m
+Merge: dec2fc2 fa0139e
+Author: quocthai0404 <139846123+quocthai0404@users.noreply.github.com>
+Date:   Sat Nov 18 18:28:53 2023 +0700
+
+    Merge pull request #3 from quocthai0404/master
+    
+    Merge
+
+[33mcommit fa0139e4950489a99ebd7ca72812c37e38a39efb[m
+Merge: f659161 b87e2b4
+Author: quocthai0404 <thaiphan0804@gmail.com>
+Date:   Sat Nov 18 14:41:05 2023 +0700
+
+    Merge remote-tracking branch 'origin'
+
+[33mcommit f6591612060ca8c83a417df76028405a78aa48f0[m
+Author: quocthai0404 <thaiphan0804@gmail.com>
+Date:   Sat Nov 18 14:36:23 2023 +0700
+
+    entity done
+
+[33mcommit b87e2b4b45c738c8e2372429dea7ac63de0de413[m
+Merge: 55bb88c dec2fc2
+Author: quocthai0404 <139846123+quocthai0404@users.noreply.github.com>
+Date:   Sat Nov 18 13:25:00 2023 +0700
+
+    Merge pull request #2 from quocthai0404/sub_branch
+    
+    Merge pull request #1 from quocthai0404/master
+
+[33mcommit dec2fc2358ec99b09d0929870ea2b89c5f2d349e[m[33m ([m[1;31morigin/sub_branch[m[33m)[m
+Merge: 09016c4 55bb88c
+Author: quocthai0404 <139846123+quocthai0404@users.noreply.github.com>
+Date:   Sat Nov 18 13:09:25 2023 +0700
+
+    Merge pull request #1 from quocthai0404/master
+    
+    ok
+
+[33mcommit 55bb88cb28c048d8c58d01868d217b626fb19bb4[m
+Merge: cca1aa8 09016c4
+Author: quocthai0404 <thaiphan0804@gmail.com>
+Date:   Sat Nov 18 13:07:23 2023 +0700
+
+    ok
+
+[33mcommit cca1aa8e2310f222ad7d1869d9ff6a002f20f72a[m
+Author: quocthai0404 <thaiphan0804@gmail.com>
+Date:   Sat Nov 18 13:05:03 2023 +0700
+
+    18-11
+
+[33mcommit bbd56e64fb2ca397e8fa5e3f88a97a7ef6a52878[m
+Author: quocthai0404 <thaiphan0804@gmail.com>
+Date:   Sat Nov 18 12:56:01 2023 +0700
+
+    begin
+
+[33mcommit 09016c44a8595424faaa040ecdfe97c9514bc5aa[m
+Author: quocthai0404 <thaiphan0804@gmail.com>
+Date:   Sat Nov 18 12:54:10 2023 +0700
+
+    c4
+
+[33mcommit f49c9e2fdaa7301d40f0f5d23289d87fc235dc6b[m
+Author: quocthai0404 <thaiphan0804@gmail.com>
+Date:   Sat Nov 18 12:40:28 2023 +0700
+
+    database connect
+
+[33mcommit 66cb0c7f8e860de613fb8c6abccbc0a053511b55[m
+Author: quocthai0404 <thaiphan0804@gmail.com>
+Date:   Fri Nov 17 18:08:02 2023 +0700
+
+    master commit
+
+[33mcommit e4d59b5ecbdabef47c485d94b4c75c672682dc35[m
+Author: quocthai0404 <thaiphan0804@gmail.com>
+Date:   Fri Nov 17 18:03:37 2023 +0700
+
+    ok
+
+[33mcommit 4ef1eb85b27cb765fc8d96ff4f6755db47b2887c[m
+Author: quocthai0404 <thaiphan0804@gmail.com>
+Date:   Fri Nov 17 18:00:02 2023 +0700
+
+    test
+
+[33mcommit f439363fa1d7dcf2520a4d85f7a6466022a679c7[m
+Author: quocthai0404 <thaiphan0804@gmail.com>
+Date:   Thu Nov 9 14:39:24 2023 +0700
+
+    hello world test
+
+[33mcommit 8733900a6683041274e76170b7e00c007b49a536[m
+Author: quocthai0404 <thaiphan0804@gmail.com>
+Date:   Thu Nov 9 14:33:34 2023 +0700
+
+    first commit
+
+[33mcommit 7820b6b03235398fb351c6b380ec5592ba680f35[m
+Author: quocthai0404 <thaiphan0804@gmail.com>
+Date:   Thu Nov 9 13:58:12 2023 +0700
+
+    'first'
