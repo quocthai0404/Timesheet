@@ -6,6 +6,7 @@ public class Run {
 		System.out.println("hello world");
 		System.out.println("test merge");
 		System.out.println("test 3");
+		System.out.println("c4");
 	}
 
 }
