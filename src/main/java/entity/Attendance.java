@@ -7,8 +7,8 @@ public class Attendance {
 	private int attendance_id;
 	private int employee_id;
 	private int work_schedule_id;
-	private Timestamp time_in;
-	private Timestamp time_out;
+	private java.sql.Timestamp time_in;
+	private java.sql.Timestamp time_out;
 	private double hours_works;
 	private String status;
 	/**
@@ -26,7 +26,7 @@ public class Attendance {
 	 * @param hours_works
 	 * @param status
 	 */
-	public Attendance(int attendance_id, int employee_id, int work_schedule_id, Timestamp time_in, Timestamp time_out,
+	public Attendance(int attendance_id, int employee_id, int work_schedule_id, java.sql.Timestamp time_in, java.sql.Timestamp time_out,
 			double hours_works, String status) {
 		
 		this.attendance_id = attendance_id;
@@ -55,16 +55,16 @@ public class Attendance {
 	public void setWork_schedule_id(int work_schedule_id) {
 		this.work_schedule_id = work_schedule_id;
 	}
-	public Timestamp getTime_in() {
+	public java.sql.Timestamp getTime_in() {
 		return time_in;
 	}
-	public void setTime_in(Timestamp time_in) {
+	public void setTime_in(java.sql.Timestamp time_in) {
 		this.time_in = time_in;
 	}
-	public Timestamp getTime_out() {
+	public java.sql.Timestamp getTime_out() {
 		return time_out;
 	}
-	public void setTime_out(Timestamp time_out) {
+	public void setTime_out(java.sql.Timestamp time_out) {
 		this.time_out = time_out;
 	}
 	public double getHours_works() {
