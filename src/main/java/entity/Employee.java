@@ -8,10 +8,10 @@ public class Employee {
 	private String employee_name;
 	private String position;
 	private Date birthday;
-	private boolean gender;
+	private Boolean gender;
 	
 	public Employee() {}
-	public Employee(int employee_id, String employee_name, String position, Date birthday, boolean gender) {
+	public Employee(int employee_id, String employee_name, String position, Date birthday, Boolean gender) {
 		this.employee_id = employee_id;
 		this.employee_name = employee_name;
 		this.position = position;
@@ -42,10 +42,10 @@ public class Employee {
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
-	public boolean isGender() {
+	public Boolean getGender() {
 		return gender;
 	}
-	public void setGender(boolean gender) {
+	public void setGender(Boolean gender) {
 		this.gender = gender;
 	}
 	@Override

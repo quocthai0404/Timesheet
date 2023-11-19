@@ -1,6 +1,5 @@
 package entity;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Leave {
@@ -11,7 +10,7 @@ public class Leave {
 	private int number_of_days;
 	private String reason;
 	private Boolean approved;
-	public Leave() {};
+	public Leave() {}
 	public Leave(int leave_id, int employee_id, String leave_type, Date startdate, int number_of_days, String reason,
 			Boolean approved) {
 		this.leave_id = leave_id;
@@ -66,9 +65,11 @@ public class Leave {
 	}
 	@Override
 	public String toString() {
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		return "Leave [leave_id=" + leave_id + ", employee_id=" + employee_id + ", leave_type=" + leave_type
-				+ ", startdate=" + df.format(startdate) + ", number_of_days=" + number_of_days + ", reason=" + reason
+				+ ", startdate=" + startdate + ", number_of_days=" + number_of_days + ", reason=" + reason
 				+ ", approved=" + approved + "]";
 	}
+	
+	
+	
 }
