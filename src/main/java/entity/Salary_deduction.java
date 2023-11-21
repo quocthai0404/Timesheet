@@ -3,30 +3,30 @@ import java.sql.*;
 import java.text.SimpleDateFormat;	
 import java.util.Date;
 public class Salary_deduction {
-	private int salary_đeucition_id;
+	private int salary_deduction_id;
 	private int employee_id;
-	private String deducition_reason;
-	private double deducition_amount;
-	private Date deducition_date;
+	private String deduction_reason;
+	private double deduction_amount;
+	private Date deduction_date;
 	
 	public Salary_deduction() {}
 
-	public Salary_deduction(int salary_đeucition_id, int employee_id, String deducition_reason,
-		Double deducition_amount, Date deducition_date) {
+	public Salary_deduction(int salary_deduction_id, int employee_id, String deduction_reason, double deduction_amount,
+			Date deduction_date) {
 		super();
-		this.salary_đeucition_id = salary_đeucition_id;
+		this.salary_deduction_id = salary_deduction_id;
 		this.employee_id = employee_id;
-		this.deducition_reason = deducition_reason;
-		this.deducition_amount = deducition_amount;
-		this.deducition_date = deducition_date;
+		this.deduction_reason = deduction_reason;
+		this.deduction_amount = deduction_amount;
+		this.deduction_date = deduction_date;
 	}
 
-	public int getSalary_đeucition_id() {
-		return salary_đeucition_id;
+	public int getSalary_deduction_id() {
+		return salary_deduction_id;
 	}
 
-	public void setSalary_đeucition_id(int salary_đeucition_id) {
-		this.salary_đeucition_id = salary_đeucition_id;
+	public void setSalary_deduction_id(int salary_deduction_id) {
+		this.salary_deduction_id = salary_deduction_id;
 	}
 
 	public int getEmployee_id() {
@@ -37,36 +37,37 @@ public class Salary_deduction {
 		this.employee_id = employee_id;
 	}
 
-	public String getDeducition_reason() {
-		return deducition_reason;
+	public String getDeduction_reason() {
+		return deduction_reason;
 	}
 
-	public void setDeducition_reason(String deducition_reason) {
-		this.deducition_reason = deducition_reason;
+	public void setDeduction_reason(String deduction_reason) {
+		this.deduction_reason = deduction_reason;
 	}
 
-	public Double getDeducition_amount() {
-		return deducition_amount;
+	public double getDeduction_amount() {
+		return deduction_amount;
 	}
 
-	public void setDeducition_amount(Double deducition_amount) {
-		this.deducition_amount = deducition_amount;
+	public void setDeduction_amount(double deduction_amount) {
+		this.deduction_amount = deduction_amount;
 	}
 
-	public Date getDeducition_date() {
-		return deducition_date;
+	public Date getDeduction_date() {
+		return deduction_date;
 	}
 
-	public void setDeducition_date(Date deducition_date) {
-		this.deducition_date = deducition_date;
+	public void setDeduction_date(Date deduction_date) {
+		this.deduction_date = deduction_date;
 	}
 
 	@Override
 	public String toString() {
-		return "Salary_deduction [salary_đeucition_id=" + salary_đeucition_id + ", employee_id=" + employee_id
-				+ ", deducition_reason=" + deducition_reason + ", deducition_amount=" + deducition_amount
-				+ ", deducition_date=" + deducition_date + "]";
+		return "Salary_deduction [salary_deduction_id=" + salary_deduction_id + ", employee_id=" + employee_id
+				+ ", deduction_reason=" + deduction_reason + ", deduction_amount=" + deduction_amount
+				+ ", deduction_date=" + deduction_date + "]";
 	}
 	
+
 	
 }
