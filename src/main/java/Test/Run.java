@@ -19,10 +19,10 @@ import entity.Salary_deduction;
 import entity.Work_schedule;
 public class Run {
 	public static void main(String[] args) {
-		List<Salary_deduction> list = new ArrayList<>();
-		Salary_deductionDAO dao = new Salary_deductionDAO();
-		list = dao.selectAllSalaryDeductions();
-		list.forEach(sd -> System.out.println(sd.toString()));
+//		List<Salary_deduction> list = new ArrayList<>();
+//		Salary_deductionDAO dao = new Salary_deductionDAO();
+//		list = dao.selectAllSalaryDeductions();
+//		list.forEach(sd -> System.out.println(sd.toString()));
 
 //		 String dateString = "2000-12-31 12:09:07";
 //	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -54,6 +54,12 @@ public class Run {
 		Work_scheduleDAO dao1 = new Work_scheduleDAO();
 		try {
 			dao1.update(3, 2, new SimpleDateFormat("yyyy-MM-dd").parse("2023-12-01"), 1, "overtime");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			dao1.add(2, new SimpleDateFormat("yyyy-MM-dd").parse("1999-12-01"), 1, "overtime");
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

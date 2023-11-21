@@ -88,17 +88,18 @@ public class Work_scheduleDAO {
 		try {
 			Connection con = JdbcUlti.getConnection();
 			
-			String sql = "INSERT INTO Users (username, password, fullname, email) VALUES (?, ?, ?, ?)";
+			String sql = "insert into work_schedule(employee_id, work_date, work_shift_id, work_type)"
+					+ "values (?, ?, ?, ?)";
 			 
 			PreparedStatement statement = con.prepareStatement(sql);
-			statement.setString(1, "bill");
-			statement.setString(2, "secretpass");
-			statement.setString(3, "Bill Gates");
-			statement.setString(4, "bill.gates@microsoft.com");
+			statement.setInt(1, employee_id);
+			statement.setDate(2,new java.sql.Date(work_date.getTime()));
+			statement.setInt(3, work_shift_id);
+			statement.setString(4, work_type);
 			 
 			int rowsInserted = statement.executeUpdate();
 			if (rowsInserted > 0) {
-			    System.out.println("A new user was inserted successfully!");
+			    System.out.println("A new work schedule was inserted successfully!");
 			}
 			
 			JdbcUlti.closeConnection(con);
