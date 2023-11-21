@@ -11,6 +11,7 @@ import entity.Attendance;
 import DAO.EmployeeDAO;
 import DAO.Salary_deductionDAO;
 import DAO.Work_scheduleDAO;
+import database.JdbcUlti;
 import entity.Employee;
 import entity.Leave;
 import entity.Salary;
@@ -22,13 +23,6 @@ public class Run {
 		Salary_deductionDAO dao = new Salary_deductionDAO();
 		list = dao.selectAllSalaryDeductions();
 		list.forEach(sd -> System.out.println(sd.toString()));
-		
-		
-		
-		
-		
-		
-		
 
 //		 String dateString = "2000-12-31 12:09:07";
 //	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -57,7 +51,13 @@ public class Run {
 //		List<Employee> list = new ArrayList<>();
 //		list = empdao.selectEmployee();
 //		list.forEach(emp -> System.out.println(emp.toString()));
-
+		Work_scheduleDAO dao1 = new Work_scheduleDAO();
+		try {
+			dao1.update(3, 2, new SimpleDateFormat("yyyy-MM-dd").parse("2023-12-01"), 1, "overtime");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		
 		  
