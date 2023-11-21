@@ -9,17 +9,19 @@ import java.util.List;
 import entity.Attendance;
 
 import DAO.EmployeeDAO;
+import DAO.Salary_deductionDAO;
 import DAO.Work_scheduleDAO;
 import entity.Employee;
 import entity.Leave;
 import entity.Salary;
+import entity.Salary_deduction;
 import entity.Work_schedule;
 public class Run {
 	public static void main(String[] args) {
-		List<Work_schedule> list = new ArrayList<>();
-		Work_scheduleDAO dao = new Work_scheduleDAO();
-		list = dao.selectWorkSchedule();
-		list.forEach(wc -> System.out.println(wc.toString()));
+		List<Salary_deduction> list = new ArrayList<>();
+		Salary_deductionDAO dao = new Salary_deductionDAO();
+		list = dao.selectAllSalaryDeductions();
+		list.forEach(sd -> System.out.println(sd.toString()));
 		
 		
 		

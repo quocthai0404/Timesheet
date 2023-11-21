@@ -1,20 +1,32 @@
 package entity;
 import java.sql.*;
+<<<<<<< HEAD
 
 import java.text.SimpleDateFormat;	
 import java.util.Date;
+=======
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+>>>>>>> 96050a2413f2a306d56d263fc845c85973f5140a
 public class Salary_deduction {
 	private int salary_deduction_id;
 	private int employee_id;
 	private String deduction_reason;
 	private double deduction_amount;
+<<<<<<< HEAD
 	private Date deduction_date;
 	
 	public Salary_deduction() {}
+=======
+	private Date deduction_date ;
+	
+	public Salary_deduction() {}
+
+>>>>>>> 96050a2413f2a306d56d263fc845c85973f5140a
 
 	public Salary_deduction(int salary_deduction_id, int employee_id, String deduction_reason, double deduction_amount,
 			Date deduction_date) {
-		super();
 		this.salary_deduction_id = salary_deduction_id;
 		this.employee_id = employee_id;
 		this.deduction_reason = deduction_reason;
@@ -23,53 +35,80 @@ public class Salary_deduction {
 	}
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 96050a2413f2a306d56d263fc845c85973f5140a
 	public int getSalary_deduction_id() {
 		return salary_deduction_id;
 	}
 
+
 	public void setSalary_deduction_id(int salary_deduction_id) {
 		this.salary_deduction_id = salary_deduction_id;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 96050a2413f2a306d56d263fc845c85973f5140a
 	}
+
 
 	public int getEmployee_id() {
 		return employee_id;
 	}
 
+
 	public void setEmployee_id(int employee_id) {
 		this.employee_id = employee_id;
 	}
+
 
 	public String getDeduction_reason() {
 		return deduction_reason;
 	}
 
+
 	public void setDeduction_reason(String deduction_reason) {
 		this.deduction_reason = deduction_reason;
 	}
+
 
 	public double getDeduction_amount() {
 		return deduction_amount;
 	}
 
+
 	public void setDeduction_amount(double deduction_amount) {
 		this.deduction_amount = deduction_amount;
 	}
+
 
 	public Date getDeduction_date() {
 		return deduction_date;
 	}
 
+
 	public void setDeduction_date(Date deduction_date) {
 		this.deduction_date = deduction_date;
 	}
 
+
 	@Override
 	public String toString() {
+<<<<<<< HEAD
 
+=======
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+>>>>>>> 96050a2413f2a306d56d263fc845c85973f5140a
 		return "Salary_deduction [salary_deduction_id=" + salary_deduction_id + ", employee_id=" + employee_id
 				+ ", deduction_reason=" + deduction_reason + ", deduction_amount=" + deduction_amount
-				+ ", deduction_date=" + deduction_date + "]";
+				+ ", deduction_date=" + df.format(deduction_date) + "]";
 	}
+<<<<<<< HEAD
+=======
+
+	
+	
+	
+>>>>>>> 96050a2413f2a306d56d263fc845c85973f5140a
 }
