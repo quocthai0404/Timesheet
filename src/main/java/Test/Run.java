@@ -51,15 +51,30 @@ public class Run {
 //		List<Employee> list = new ArrayList<>();
 //		list = empdao.selectEmployee();
 //		list.forEach(emp -> System.out.println(emp.toString()));
-		Work_scheduleDAO dao1 = new Work_scheduleDAO();
+//		Work_scheduleDAO dao1 = new Work_scheduleDAO();
+//		try {
+//			dao1.update(3, 2, new SimpleDateFormat("yyyy-MM-dd").parse("2023-12-01"), 1, "overtime");
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		try {
+//			dao1.add(2, new SimpleDateFormat("yyyy-MM-dd").parse("1999-12-01"), 1, "overtime");
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+		EmployeeDAO dao = new EmployeeDAO();
 		try {
-			dao1.update(3, 2, new SimpleDateFormat("yyyy-MM-dd").parse("2023-12-01"), 1, "overtime");
+			dao.add("thai", "manager", new SimpleDateFormat("yyyy-MM-dd").parse("2000-09-09"), true);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		try {
-			dao1.add(2, new SimpleDateFormat("yyyy-MM-dd").parse("1999-12-01"), 1, "overtime");
+			dao.update(1, "update", "up", new SimpleDateFormat("yyyy-MM-dd").parse("2000-09-09"), false);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
