@@ -37,21 +37,25 @@ public class SalaryDAO {
         }
         return list;
     }
-    public void deleteSalary(int salary_id) {
-    	try {
-    		Connection con = JdbcUlti.getConnection();
-            String sql = "delete from salary where salary_id=?";
-            try (PreparedStatement statement = con.prepareStatement(sql)) {
-                statement.setInt(1, salary_id);
-                statement.executeUpdate();
-            }
-            JdbcUlti.closeConnection(con);
-    	} catch (Exception e) {
-			e.printStackTrace();
-		}
-    }
+//    public void delete(int salary_id) {
+//    	try {
+//    		Connection con = JdbcUlti.getConnection();
+//            String sql = "delete from salary where salary_id=?";
+//            try (PreparedStatement statement = con.prepareStatement(sql)) {
+//                statement.setInt(1, salary_id);
+//                statement.executeUpdate();
+//                
+//                if (statement.executeUpdate() > 0) {
+//    			JOptionPane.showMessageDialog(null, "delete success");
+//                }
+//            }
+//            JdbcUlti.closeConnection(con);
+//    	} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//    }
     
-    public void updateSalary(int salary_id, int employee_id, double base_salary, double overtime_pay, double paid_leave_pay, double allowance) {
+    public void update(int salary_id, int employee_id, double base_salary, double overtime_pay, double paid_leave_pay, double allowance) {
         try {
             Connection con = JdbcUlti.getConnection();
             String sql = "update salary set employee_id = ?, base_salary = ?, overtime_pay = ?, paid_leave_pay = ?, allowance = ? WHERE salary_id = ?";
@@ -63,14 +67,19 @@ public class SalaryDAO {
                 statement.setDouble(5, allowance);
                 statement.setInt(6, salary_id);
                 statement.executeUpdate();
-            }
+                
+                if (statement.executeUpdate() > 0) {
+				JOptionPane.showMessageDialog(null, "update success");
+                }
             JdbcUlti.closeConnection(con);
+            }
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
     
-    public void addSalary(int employee_id, double base_salary, double overtime_pay, double paid_leave_pay, double allowance) {
+    public void add(int employee_id, double base_salary, double overtime_pay, double paid_leave_pay, double allowance) {
     	try {
     		Connection con = JdbcUlti.getConnection();
             String sql = "insert into salary (employee_id, base_salary, overtime_pay, paid_leave_pay, allowance) values (?,?,?,?,?)";
@@ -81,6 +90,9 @@ public class SalaryDAO {
                 statement.setDouble(4, paid_leave_pay);
                 statement.setDouble(5, allowance);
                 statement.executeUpdate();
+                if (statement.executeUpdate() > 0) {
+    				JOptionPane.showMessageDialog(null, "add success");
+                }
             }
             JdbcUlti.closeConnection(con);
     	} catch (Exception e) {
