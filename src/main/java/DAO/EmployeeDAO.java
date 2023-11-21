@@ -18,7 +18,9 @@ public class EmployeeDAO {
 			String sql = "select * from employee";
 			ResultSet rs = statement.executeQuery(sql);
 			while (rs.next()) {
-				list.add(new Employee(rs.getInt("employee_id"), rs.getString("employee_name"), 
+				list.add(new Employee(
+						rs.getInt("employee_id"),
+						rs.getString("employee_name"), 
 						rs.getString("position"),
 						rs.getDate("birthday"), rs.getBoolean("gender")	
 				));
