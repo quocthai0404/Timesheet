@@ -1,4 +1,5 @@
 package entity;
+<<<<<<< HEAD
 
 public class Detailed_salary {
 	private int detailed_salary_id ;
@@ -11,6 +12,32 @@ public class Detailed_salary {
 	private double number_of_overtime_hours ;
 	private double unpaid_leave_deduction ;
 	private double overtime_pay ;
+=======
+import java.sql.*;
+import java.text.SimpleDateFormat;	
+import java.util.Date;
+//detailed_salary_id int primary key identity not null,
+//employee_id int FOREIGN KEY REFERENCES employee(employee_id) not null,
+//base_salary float,
+//paid_leave_pay float, 
+//allowance float,
+//number_of_paid_leave_days int,
+//number_of_unpaid_leave_days int, 
+//number_of_overtime_hours float,
+//unpaid_leave_deduction float,
+//overtime_pay float
+public class Detailed_salary {
+	private int detailed_salary_id;
+	private int employee_id;
+	private double base_salary;
+	private double paid_leave_pay;
+	private double allowance;
+	private int number_of_paid_leave_days;
+	private int number_of_unpaid_leave_days;
+	private double number_of_overtime_hours;
+	private double unpaid_leave_deduction;
+	private double overtime_pay;
+>>>>>>> c7c8c31b4344985a1241e89d1f43a4cbc6c1e88b
 	
 	public Detailed_salary() {}
 
@@ -120,4 +147,8 @@ public class Detailed_salary {
 	}
 	
 	
+<<<<<<< HEAD
+=======
+	
+>>>>>>> c7c8c31b4344985a1241e89d1f43a4cbc6c1e88b
 }
