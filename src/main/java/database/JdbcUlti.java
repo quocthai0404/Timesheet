@@ -8,7 +8,7 @@ public class JdbcUlti {
 
 	public static Connection getConnection() {
 		Connection cn = null; 
-		String url = "jdbc:sqlserver://DESKTOP-6L06R65:1433; databaseName = timesheet ; user = sa; password = 123456;";
+		String url = "jdbc:sqlserver:LAPTOP-B4B62Q9N\\SQLEXPRESS:1433; databaseName = timesheet ; user = sa; password = 123;";
 		try {
 			cn = DriverManager.getConnection(url);
 		} catch (SQLException e) {
