@@ -37,7 +37,7 @@ public class SalaryDAO {
         }
         return list;
     }
-//    public void deleteSalary(int salary_id) {
+//    public void delete(int salary_id) {
 //    	try {
 //    		Connection con = JdbcUlti.getConnection();
 //            String sql = "delete from salary where salary_id=?";
@@ -55,7 +55,7 @@ public class SalaryDAO {
 //		}
 //    }
     
-    public void updateSalary(int salary_id, int employee_id, double base_salary, double overtime_pay, double paid_leave_pay, double allowance) {
+    public void update(int salary_id, int employee_id, double base_salary, double overtime_pay, double paid_leave_pay, double allowance) {
         try {
             Connection con = JdbcUlti.getConnection();
             String sql = "update salary set employee_id = ?, base_salary = ?, overtime_pay = ?, paid_leave_pay = ?, allowance = ? WHERE salary_id = ?";
@@ -79,7 +79,7 @@ public class SalaryDAO {
         }
     }
     
-    public void addSalary(int employee_id, double base_salary, double overtime_pay, double paid_leave_pay, double allowance) {
+    public void add(int employee_id, double base_salary, double overtime_pay, double paid_leave_pay, double allowance) {
     	try {
     		Connection con = JdbcUlti.getConnection();
             String sql = "insert into salary (employee_id, base_salary, overtime_pay, paid_leave_pay, allowance) values (?,?,?,?,?)";
