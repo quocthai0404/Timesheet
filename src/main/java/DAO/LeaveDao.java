@@ -35,25 +35,26 @@ public class LeaveDao {
 		}
 		return list;
 	}
-	public void delete(int leave_id){
-		try{
-			Connection con = JdbcUlti.getConnection();
-			
-			String sql = "DELETE FROM leave WHERE leave_id = ?";
-			 
-			PreparedStatement statement = con.prepareStatement(sql);
-			statement.setInt(1, leave_id);
-			 
-			
-			if (statement.executeUpdate() > 0) {
-			    System.out.println("A user was deleted successfully!");
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-	}
+//	public void delete(int leave_id){
+//		try{
+//			Connection con = JdbcUlti.getConnection();
+//			
+//			String sql = "DELETE FROM leave WHERE leave_id = ?";
+//			 
+//			PreparedStatement statement = con.prepareStatement(sql);
+//			statement.setInt(1, leave_id);
+//			 
+//			
+//			if (statement.executeUpdate() > 0) {
+//			    System.out.println("A user was deleted successfully!");
+//			}
+//			JdbcUlti.closeConnection(con);
+//			
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+//	}
 	public void update(int leave_id,int employee_id, String leave_type, Date  startdate, int number_of_days, String reason, Boolean approved ) {
 		
 		try {
@@ -74,6 +75,7 @@ public class LeaveDao {
 			if (statement.executeUpdate() > 0) {
 			    System.out.println("A leave was updated successfully!");
 			}
+			JdbcUlti.closeConnection(con);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -97,6 +99,7 @@ public class LeaveDao {
 			if (statement.executeUpdate() > 0) {
 			    System.out.println("A leave was added successfully!");
 			}
+			JdbcUlti.closeConnection(con);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

@@ -1,5 +1,10 @@
 package entity;
 import java.sql.*;
+
+
+import java.text.SimpleDateFormat;	
+import java.util.Date;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -8,10 +13,12 @@ public class Salary_deduction {
 	private int employee_id;
 	private String deduction_reason;
 	private double deduction_amount;
-	private Date deduction_date ;
+
+	private Date deduction_date;
+	
+
 	
 	public Salary_deduction() {}
-
 
 	public Salary_deduction(int salary_deduction_id, int employee_id, String deduction_reason, double deduction_amount,
 			Date deduction_date) {
@@ -23,6 +30,7 @@ public class Salary_deduction {
 	}
 
 
+
 	public int getSalary_deduction_id() {
 		return salary_deduction_id;
 	}
@@ -30,6 +38,7 @@ public class Salary_deduction {
 
 	public void setSalary_deduction_id(int salary_deduction_id) {
 		this.salary_deduction_id = salary_deduction_id;
+
 	}
 
 
@@ -76,12 +85,8 @@ public class Salary_deduction {
 	@Override
 	public String toString() {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		return "Salary_deduction [salary_deduction_id=" + salary_deduction_id + ", employee_id=" + employee_id
-				+ ", deduction_reason=" + deduction_reason + ", deduction_amount=" + deduction_amount
-				+ ", deduction_date=" + df.format(deduction_date) + "]";
+				return "Salary_deduction [salary_deduction_id=" + salary_deduction_id + ", employee_id=" + employee_id
+						+ ", deduction_reason=" + deduction_reason + ", deduction_amount=" + deduction_amount
+						+ ", deduction_date=" + df.format(deduction_date) + "]";
 	}
-
-	
-	
-	
 }
