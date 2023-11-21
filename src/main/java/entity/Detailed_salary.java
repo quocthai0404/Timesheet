@@ -123,8 +123,5 @@ public class Detailed_salary {
 				+ number_of_unpaid_leave_days + ", number_of_overtime_hours=" + number_of_overtime_hours
 				+ ", unpaid_leave_deduction=" + unpaid_leave_deduction + ", overtime_pay=" + overtime_pay + "]";
 	}
-<<<<<<< HEAD
-=======
-	
->>>>>>> 96050a2413f2a306d56d263fc845c85973f5140a
+
 }
