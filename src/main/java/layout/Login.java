@@ -1,4 +1,4 @@
-package login_form;
+package layout;
 
 import java.awt.EventQueue;    
 import javax.swing.JFrame;
@@ -22,6 +22,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Login extends JFrame {
 
@@ -40,7 +42,7 @@ public class Login extends JFrame {
     private JLabel lblLogin;
     private JLabel lblForgetpassword;
     private JLabel lblExit;
-    private JLabel lblNewLabel;
+    private JLabel lblLogo;
 
     /**
      * Launch the application.
@@ -228,7 +230,13 @@ public class Login extends JFrame {
         			.addGap(36))
         );
         
+        // Xử lý sự kiện click chuột cho nhãn "Sign In"
         lblLogin = new JLabel("              Sign In");
+        lblLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblLoginMouseClicked(evt);
+            }
+        });
         lblLogin.setFont(new Font("Calibri", Font.PLAIN, 18));
         lblLogin.setForeground(new Color(255, 255, 255));
         GroupLayout gl_panel_3 = new GroupLayout(panel_3);
@@ -243,18 +251,18 @@ public class Login extends JFrame {
         panel_3.setLayout(gl_panel_3);
         panel_2.setLayout(gl_panel_2);
         
-        lblNewLabel = new JLabel("");
-        lblNewLabel.setIcon(new ImageIcon("C:\\Users\\Admin\\git\\Timesheet\\src\\main\\java\\image\\LOGO.png"));
+        lblLogo = new JLabel("");
+        lblLogo.setIcon(new ImageIcon("C:\\Users\\Admin\\git\\Timesheet\\src\\main\\java\\image\\LOGO.png"));
         GroupLayout gl_panel_1 = new GroupLayout(panel_1);
         gl_panel_1.setHorizontalGroup(
         	gl_panel_1.createParallelGroup(Alignment.LEADING)
-        		.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 447, Short.MAX_VALUE)
+        		.addComponent(lblLogo, GroupLayout.PREFERRED_SIZE, 447, Short.MAX_VALUE)
         );
         gl_panel_1.setVerticalGroup(
         	gl_panel_1.createParallelGroup(Alignment.LEADING)
         		.addGroup(gl_panel_1.createSequentialGroup()
         			.addGap(89)
-        			.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 320, GroupLayout.PREFERRED_SIZE)
+        			.addComponent(lblLogo, GroupLayout.PREFERRED_SIZE, 320, GroupLayout.PREFERRED_SIZE)
         			.addContainerGap(84, Short.MAX_VALUE))
         );
         panel_1.setLayout(gl_panel_1);
@@ -270,4 +278,10 @@ public class Login extends JFrame {
 	protected void pwdPasswordFocusGained(FocusEvent e) {
 		pwdPassword.setText("");
 	}
+	 protected void lblLoginMouseClicked(MouseEvent e) {
+	        // Xử lý sự kiện khi nhấp chuột vào nhãn "Sign In"
+	        MainJFrame mainFrame = new MainJFrame(); 
+	        mainFrame.setVisible(true);
+	        dispose();  // Đóng cửa sổ hiện tại nếu cần
+	    }
 }
