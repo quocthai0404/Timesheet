@@ -284,4 +284,6 @@ public class Login extends JFrame {
 	        mainFrame.setVisible(true);
 	        dispose();  // Đóng cửa sổ hiện tại nếu cần
 	    }
+
 }
+
