@@ -13,6 +13,7 @@ import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
@@ -44,6 +45,7 @@ public class Login2 extends JFrame {
 			public void run() {
 				try {
 					Login2 frame = new Login2();
+					UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -56,6 +58,7 @@ public class Login2 extends JFrame {
 	 * Create the frame.
 	 */
 	public Login2() {
+		setTitle("Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		setPreferredSize(new Dimension(500, 400));
