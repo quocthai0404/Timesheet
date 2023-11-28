@@ -1,4 +1,4 @@
-package layout;
+package view;
 
 import java.awt.EventQueue;    
 import javax.swing.JFrame;
@@ -64,6 +64,8 @@ public class Login extends JFrame {
      * Create the frame.
      */
     public Login() {
+    	setSize(new Dimension(300, 300));
+    	setMaximumSize(new Dimension(600, 400));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 979, 542);
         contentPane = new JPanel();
@@ -138,13 +140,13 @@ public class Login extends JFrame {
         int iconHeight = 40;
 
         // Đọc biểu tượng từ đường dẫn và giới hạn kích thước cho username
-        ImageIcon originalUserIcon = new ImageIcon("C:\\Users\\Admin\\git\\Timesheet\\src\\main\\java\\image\\user_icon.png");
+        ImageIcon originalUserIcon = new ImageIcon("Timesheet\\src\\main\\java\\image\\user_icon.png");
         Image scaledUserImage = originalUserIcon.getImage().getScaledInstance(iconWidth, iconHeight, Image.SCALE_SMOOTH);
         ImageIcon scaledUserIcon = new ImageIcon(scaledUserImage);
         lblUsername.setIcon(scaledUserIcon);
 
         // Đọc biểu tượng từ đường dẫn và giới hạn kích thước cho password
-        ImageIcon originalPasswordIcon = new ImageIcon("C:\\Users\\Admin\\git\\Timesheet\\src\\main\\java\\image\\password_icon.png");
+        ImageIcon originalPasswordIcon = new ImageIcon("Timesheet\\src\\main\\java\\image\\password_icon.png");
         Image scaledPasswordImage = originalPasswordIcon.getImage().getScaledInstance(iconWidth, iconHeight, Image.SCALE_SMOOTH);
         ImageIcon scaledPasswordIcon = new ImageIcon(scaledPasswordImage);
 
@@ -232,11 +234,13 @@ public class Login extends JFrame {
         
         // Xử lý sự kiện click chuột cho nhãn "Sign In"
         lblLogin = new JLabel("              Sign In");
-        lblLogin.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblLoginMouseClicked(evt);
-            }
+        lblLogin.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		lblLoginMouseClicked(e);
+        	}
         });
+        
         lblLogin.setFont(new Font("Calibri", Font.PLAIN, 18));
         lblLogin.setForeground(new Color(255, 255, 255));
         GroupLayout gl_panel_3 = new GroupLayout(panel_3);
@@ -252,7 +256,7 @@ public class Login extends JFrame {
         panel_2.setLayout(gl_panel_2);
         
         lblLogo = new JLabel("");
-        lblLogo.setIcon(new ImageIcon("C:\\Users\\Admin\\git\\Timesheet\\src\\main\\java\\image\\LOGO.png"));
+        lblLogo.setIcon(new ImageIcon("Timesheet\\src\\main\\java\\image\\LOGO.png"));
         GroupLayout gl_panel_1 = new GroupLayout(panel_1);
         gl_panel_1.setHorizontalGroup(
         	gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -278,10 +282,8 @@ public class Login extends JFrame {
 	protected void pwdPasswordFocusGained(FocusEvent e) {
 		pwdPassword.setText("");
 	}
-	 protected void lblLoginMouseClicked(MouseEvent e) {
-	        // Xử lý sự kiện khi nhấp chuột vào nhãn "Sign In"
-	        MainJFrame mainFrame = new MainJFrame(); 
-	        mainFrame.setVisible(true);
-	        dispose();  // Đóng cửa sổ hiện tại nếu cần
-	    }
+	
+	protected void lblLoginMouseClicked(MouseEvent e) {
+		System.out.println("ok");
+	}
 }

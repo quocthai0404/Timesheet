@@ -7,7 +7,7 @@ import java.util.List;
 
 
 import entity.Attendance;
-
+import DAO.AccountDAO;
 import DAO.EmployeeDAO;
 import DAO.Salary_deductionDAO;
 import DAO.Work_scheduleDAO;
@@ -65,20 +65,22 @@ public class Run {
 //			e.printStackTrace();
 //		}
 		
-		EmployeeDAO dao = new EmployeeDAO();
-		try {
-			dao.add("thai", "manager", new SimpleDateFormat("yyyy-MM-dd").parse("2000-09-09"), true);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		try {
-			dao.update(1, "update", "up", new SimpleDateFormat("yyyy-MM-dd").parse("2000-09-09"), false);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//		EmployeeDAO dao = new EmployeeDAO();
+//		try {
+//			dao.add("thai", "manager", new SimpleDateFormat("yyyy-MM-dd").parse("2000-09-09"), true);
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		try {
+//			dao.update(1, "update", "up", new SimpleDateFormat("yyyy-MM-dd").parse("2000-09-09"), false);
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		AccountDAO dao = new AccountDAO();
+		dao.Login("admin");
 
 		
 		  
