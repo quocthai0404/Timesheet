@@ -138,13 +138,13 @@ public class Login extends JFrame {
         int iconHeight = 40;
 
         // Đọc biểu tượng từ đường dẫn và giới hạn kích thước cho username
-        ImageIcon originalUserIcon = new ImageIcon("C:\\Users\\Admin\\git\\Timesheet\\src\\main\\java\\image\\user_icon.png");
+        ImageIcon originalUserIcon = new ImageIcon(Login.class.getResource("/user_icon.png"));
         Image scaledUserImage = originalUserIcon.getImage().getScaledInstance(iconWidth, iconHeight, Image.SCALE_SMOOTH);
         ImageIcon scaledUserIcon = new ImageIcon(scaledUserImage);
         lblUsername.setIcon(scaledUserIcon);
 
         // Đọc biểu tượng từ đường dẫn và giới hạn kích thước cho password
-        ImageIcon originalPasswordIcon = new ImageIcon("C:\\Users\\Admin\\git\\Timesheet\\src\\main\\java\\image\\password_icon.png");
+        ImageIcon originalPasswordIcon = new ImageIcon(Login.class.getResource("/password_icon.png"));
         Image scaledPasswordImage = originalPasswordIcon.getImage().getScaledInstance(iconWidth, iconHeight, Image.SCALE_SMOOTH);
         ImageIcon scaledPasswordIcon = new ImageIcon(scaledPasswordImage);
 
@@ -252,7 +252,7 @@ public class Login extends JFrame {
         panel_2.setLayout(gl_panel_2);
         
         lblLogo = new JLabel("");
-        lblLogo.setIcon(new ImageIcon("C:\\Users\\Admin\\git\\Timesheet\\src\\main\\java\\image\\LOGO.png"));
+        lblLogo.setIcon(new ImageIcon(Login.class.getResource("/LOGO.png")));
         GroupLayout gl_panel_1 = new GroupLayout(panel_1);
         gl_panel_1.setHorizontalGroup(
         	gl_panel_1.createParallelGroup(Alignment.LEADING)
