@@ -22,6 +22,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
+import javax.swing.JCheckBox;
+import javax.swing.JPasswordField;
+import java.awt.Color;
+import javax.swing.border.LineBorder;
 
 public class Login2 extends JFrame {
 
@@ -32,9 +37,11 @@ public class Login2 extends JFrame {
 	private JLabel lblNewLabel_1;
 	private JLabel lblNewLabel_2;
 	private JTextField jtfUsername;
-	private JTextField jtfPassword;
 	private JButton btnLogin;
 	private JLabel lblForgotPassword;
+	private JLabel lblNewLabel_3;
+	private JPasswordField jtfPassword;
+	private JPanel panel_1;
 	
 
 	/**
@@ -60,7 +67,7 @@ public class Login2 extends JFrame {
 	public Login2() {
 		setTitle("Login");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 615, 400);
 		setPreferredSize(new Dimension(500, 400));
 		pack();
 		setLocationRelativeTo(null);
@@ -68,25 +75,27 @@ public class Login2 extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
-		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.X_AXIS));
 		
 		panel = new JPanel();
-		contentPane.add(panel);
-		
-		lblNewLabel = new JLabel("Login");
+		panel.setBackground(new Color(255, 255, 255));
 		
 		lblNewLabel_1 = new JLabel("Username");
+		lblNewLabel_1.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		
 		lblNewLabel_2 = new JLabel("Password");
+		lblNewLabel_2.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		
 		jtfUsername = new JTextField();
+		jtfUsername.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		jtfUsername.setBackground(new Color(255, 255, 255));
+		jtfUsername.setFont(new Font("Segoe UI", Font.BOLD, 11));
 		jtfUsername.setColumns(10);
-		
-		jtfPassword = new JTextField();
-		jtfPassword.setColumns(10);
 		
 		
 		btnLogin = new JButton("Login");
+		btnLogin.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		btnLogin.setBackground(new Color(255, 255, 255));
+		btnLogin.setFont(new Font("Segoe UI", Font.BOLD, 14));
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnLoginActionPerformed(e);
@@ -94,52 +103,86 @@ public class Login2 extends JFrame {
 		});
 		
 		lblForgotPassword = new JLabel("Forgot password?");
+		lblForgotPassword.addMouseListener(new MouseAdapter() {
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		        lblForgotPasswordMouseClicked(e);
+		    }
+		});
+		lblForgotPassword.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		
+		lblNewLabel_3 = new JLabel("");
+		
+		jtfPassword = new JPasswordField();
+		jtfPassword.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		
+		panel_1 = new JPanel();
+		panel_1.setBackground(new Color(0, 0, 0));
 		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addContainerGap(10, Short.MAX_VALUE)
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblNewLabel_2)
-						.addComponent(lblNewLabel_1)
-						.addComponent(lblForgotPassword, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE))
+					.addGap(46)
 					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(17)
-							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(jtfPassword)
-								.addComponent(jtfUsername, GroupLayout.DEFAULT_SIZE, 118, Short.MAX_VALUE)))
+							.addComponent(lblNewLabel_2, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addComponent(jtfPassword, GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+								.addComponent(lblForgotPassword, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnLogin, GroupLayout.PREFERRED_SIZE, 192, GroupLayout.PREFERRED_SIZE)))
 						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(18)
-							.addComponent(btnLogin, GroupLayout.PREFERRED_SIZE, 79, GroupLayout.PREFERRED_SIZE)))
-					.addGap(121))
-				.addGroup(Alignment.LEADING, gl_panel.createSequentialGroup()
-					.addGap(189)
-					.addComponent(lblNewLabel)
-					.addContainerGap(260, Short.MAX_VALUE))
+							.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE)
+							.addGap(4)
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 195, GroupLayout.PREFERRED_SIZE)
+								.addComponent(jtfUsername, GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE))))
+					.addGap(202)
+					.addComponent(lblNewLabel_3, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)
+					.addGap(218))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addGap(59)
-					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblNewLabel_1)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addComponent(lblNewLabel)
-							.addGap(18)
-							.addComponent(jtfUsername, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addGap(37)
+					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE)
+						.addComponent(jtfUsername, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE))
 					.addGap(27)
 					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblNewLabel_2)
-						.addComponent(jtfPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblForgotPassword)
-						.addComponent(btnLogin))
-					.addGap(368))
+						.addComponent(jtfPassword, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
+					.addGap(11)
+					.addComponent(lblForgotPassword, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+					.addGap(23)
+					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+						.addComponent(lblNewLabel_3)
+						.addComponent(btnLogin, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE))
+					.addGap(85))
 		);
+		
+		lblNewLabel = new JLabel("Login");
+		lblNewLabel.setForeground(new Color(255, 255, 255));
+		panel_1.add(lblNewLabel);
+		lblNewLabel.setFont(new Font("Segoe UI", Font.BOLD, 18));
 		panel.setLayout(gl_panel);
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 479, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(416, Short.MAX_VALUE))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 351, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
+		contentPane.setLayout(gl_contentPane);
 	}
 	
 	protected void btnLoginActionPerformed(ActionEvent e) {
@@ -151,4 +194,11 @@ public class Login2 extends JFrame {
 			System.out.println("incorrect username or password");
 		}
 	}
+	// Trong class Login2
+	protected void lblForgotPasswordMouseClicked(MouseEvent e) {
+	    Forget_Password forgetPasswordFrame = new Forget_Password();
+	    forgetPasswordFrame.setVisible(true);
+	    this.dispose();
+	}
+
 }

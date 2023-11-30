@@ -1,7 +1,8 @@
-package view;
+package view;	
 
-import java.awt.Dimension;
+import java.awt.Dimension;	
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -11,7 +12,6 @@ import javax.swing.table.DefaultTableModel;
 
 import DAO.AccountDAO;
 import DAO.EmployeeDAO;
-import DAO.StudentDAO;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -40,7 +40,7 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 import javax.swing.DefaultComboBoxModel;
-
+import view.Create_Employee_Account;
 public class MainJFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -327,11 +327,17 @@ public class MainJFrame extends JFrame {
 		panel_employee_management.setLayout(gl_panel_employee_management);
 		loadData();
 		
-		panel_create_emp_acc = new JPanel();
-		panelContainer.add(panel_create_emp_acc, "panel_create_emp_acc");
-		
-		panel_emp_work_schedule = new JPanel();
-		panelContainer.add(panel_emp_work_schedule, "panel_emp_work_schedule");
+		 panel_create_emp_acc = new JPanel();
+		 panelContainer.add(panel_create_emp_acc, "panel_create_emp_acc");
+
+		 // Thêm Create_Employee_Account vào panel_create_emp_acc
+		 Create_Employee_Account createEmployeeAccount = new Create_Employee_Account();
+		 panel_create_emp_acc.setLayout(new FlowLayout(FlowLayout.CENTER));
+		 panel_create_emp_acc.add(createEmployeeAccount);
+
+		 panel_emp_work_schedule = new JPanel();
+		 panelContainer.add(panel_emp_work_schedule, "panel_emp_work_schedule");
+
 		
 		panel_review_leave_reqs = new JPanel();
 		panelContainer.add(panel_review_leave_reqs, "panel_review_leave_reqs");
