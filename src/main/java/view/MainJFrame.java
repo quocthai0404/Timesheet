@@ -7,6 +7,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
+
+import DAO.AccountDAO;
+import DAO.EmployeeDAO;
+import DAO.StudentDAO;
+
 import javax.swing.BoxLayout;
 import java.awt.BorderLayout;
 import javax.swing.JDesktopPane;
@@ -22,6 +28,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.CardLayout;
 import javax.swing.SwingConstants;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 public class MainJFrame extends JFrame {
 
@@ -40,6 +48,9 @@ public class MainJFrame extends JFrame {
 	private JPanel panel_emp_work_schedule;
 	private JPanel panel_review_leave_reqs;
 	private JPanel panel_timekeeping_info;
+	private JScrollPane scrollPane;
+	private JTable tableEmployee;
+	private EmployeeDAO EmpDAO;
 	
 	
 	public MainJFrame() {
@@ -57,6 +68,12 @@ public class MainJFrame extends JFrame {
 		categoryPanel = new JPanel();
 		categoryPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		categoryPanel.setLayout(new BoxLayout(categoryPanel, BoxLayout.Y_AXIS));
+		btnCreate_employee_account = new JButton("<html>Create Employee<br>&nbsp &nbsp &nbsp Account</html>");
+		btnCreate_employee_account.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnClickSwitchPanel(e);
+			}
+		});
 		
 		btnEmployee_management = new JButton("Employee Management");
 		btnEmployee_management.addActionListener(new ActionListener() {
@@ -68,12 +85,6 @@ public class MainJFrame extends JFrame {
 		
 		btnEmployee_management.setMaximumSize(new Dimension(10000, 70));
 		categoryPanel.add(btnEmployee_management);
-		btnCreate_employee_account = new JButton("<html>Create Employee<br>&nbsp &nbsp &nbsp Account</html>");
-		btnCreate_employee_account.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				btnClickSwitchPanel(e);
-			}
-		});
 		btnCreate_employee_account.setHorizontalTextPosition(SwingConstants.CENTER);
 		
 		btnCreate_employee_account.setMaximumSize(new Dimension(1000000, 70));
@@ -127,6 +138,27 @@ public class MainJFrame extends JFrame {
 		panel_employee_management = new JPanel();
 		panelContainer.add(panel_employee_management, "panel_employee_management");
 		
+		scrollPane = new JScrollPane();
+		GroupLayout gl_panel_employee_management = new GroupLayout(panel_employee_management);
+		gl_panel_employee_management.setHorizontalGroup(
+			gl_panel_employee_management.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_employee_management.createSequentialGroup()
+					.addGap(64)
+					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 610, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(398, Short.MAX_VALUE))
+		);
+		gl_panel_employee_management.setVerticalGroup(
+			gl_panel_employee_management.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_employee_management.createSequentialGroup()
+					.addGap(84)
+					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(263, Short.MAX_VALUE))
+		);
+		
+		tableEmployee = new JTable();
+		scrollPane.setViewportView(tableEmployee);
+		panel_employee_management.setLayout(gl_panel_employee_management);
+		
 		panel_create_emp_acc = new JPanel();
 		panelContainer.add(panel_create_emp_acc, "panel_create_emp_acc");
 		
@@ -162,5 +194,7 @@ public class MainJFrame extends JFrame {
 		}
 		
 	}
-	
+	protected void loadAllDataToTable() {
+		
+	}
 }
