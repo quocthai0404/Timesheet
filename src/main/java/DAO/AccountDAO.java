@@ -4,6 +4,7 @@ import database.JdbcUlti;
 import entity.Account;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +17,7 @@ public class AccountDAO {
         try {
             con = JdbcUlti.getConnection();
             var statement = con.createStatement();
-            String sql = "SELECT * FROM tbltaikhoan";
+            String sql = "SELECT * FROM account";
             ResultSet rs = statement.executeQuery(sql);
 
             while (rs.next()) {
@@ -35,5 +36,26 @@ public class AccountDAO {
             JdbcUlti.closeConnection(con);
         }
         return list;
+    }
+    
+    public Boolean Login(String username, String password) {
+    	try {
+			Connection con = JdbcUlti.getConnection();
+			String sql = "select password from account where username=?";
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setString(1, username);
+			ResultSet rs = statement.executeQuery();
+			
+			while(rs.next()) {
+				if(password.equals(rs.getString(1))) {
+					return true;
+				}
+			}
+
+			JdbcUlti.closeConnection(con);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	return false;
     }
 }
