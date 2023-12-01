@@ -357,25 +357,13 @@ public class MainJFrame extends JFrame {
 		panel_employee_management.setLayout(gl_panel_employee_management);
 		loadData();
 		
-<<<<<<< HEAD
+
 		Create_Employee_Account = new Create_Employee_Account();
 		panelContainer.add(Create_Employee_Account, "panel_create_emp_acc");
 		
 		panel_emp_work_schedule = new JPanel();
 		panelContainer.add(panel_emp_work_schedule, "panel_emp_work_schedule");
-=======
-		 panel_create_emp_acc = new JPanel();
-		 panelContainer.add(panel_create_emp_acc, "panel_create_emp_acc");
 
-		 // Thêm Create_Employee_Account vào panel_create_emp_acc
-		 Create_Employee_Account createEmployeeAccount = new Create_Employee_Account();
-		 panel_create_emp_acc.setLayout(new FlowLayout(FlowLayout.CENTER));
-		 panel_create_emp_acc.add(createEmployeeAccount);
-
-		 panel_emp_work_schedule = new JPanel();
-		 panelContainer.add(panel_emp_work_schedule, "panel_emp_work_schedule");
-
->>>>>>> 389fcddebe59b49b3c0421bb43ae2f5b7a923a07
 		
 		panel_review_leave_reqs = new JPanel();
 		panelContainer.add(panel_review_leave_reqs, "panel_review_leave_reqs");
