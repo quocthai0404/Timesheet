@@ -196,19 +196,4 @@ from account
 where username='admin'
 go
 
-create proc selectPer
-@pageNumber int, @rowOfPages int
-as
-begin
-select * from employee
-	order by employee_id
-	offset (@pageNumber-1)*@rowOfPages rows
-	fetch next @rowOfPages rows only
-	end 
-go
-selectPer 6,20
 
-select * from employee
-	order by employee_id
-	offset (1-1)*20 rows
-	fetch next 20 rows only
