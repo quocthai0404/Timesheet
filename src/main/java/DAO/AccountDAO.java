@@ -58,4 +58,22 @@ public class AccountDAO {
 		}
     	return false;
     }
+    public String getPasswordFromAccount(String username) {
+        try {
+            Connection con = JdbcUlti.getConnection();
+            String sql = "select password from account where username=?";
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setString(1, username);
+            ResultSet rs = statement.executeQuery();
+
+            while (rs.next()) {
+                return rs.getString("password");
+            }
+
+            JdbcUlti.closeConnection(con);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
