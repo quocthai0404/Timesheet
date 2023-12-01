@@ -15,6 +15,7 @@ import DAO.StudentDAO;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
 
 import java.awt.BorderLayout;
 import javax.swing.JDesktopPane;
@@ -54,7 +55,8 @@ public class MainJFrame extends JFrame {
 	private JButton btnReview_leave_reqs;
 	private JButton btnTimekeeping_info;
 	private JPanel panel_employee_management;
-	private JPanel panel_create_emp_acc;
+//	private JPanel panel_create_emp_acc;
+	private JPanel Create_Employee_Account;
 	private JPanel panel_emp_work_schedule;
 	private JPanel panel_review_leave_reqs;
 	private JPanel panel_timekeeping_info;
@@ -81,7 +83,12 @@ public class MainJFrame extends JFrame {
 	private JRadioButton rdbtnNewRadioButton;
 	private JRadioButton rdbtnNewRadioButton_1;
 	private JButton btnAddEmployee;
+	private ButtonGroup G;
 	
+	//-----------------------
+	private String yearSelected;
+	private String monthSelected;
+	private String daySelected;
 	
 	public MainJFrame() {
 		setTitle("Manager Frame");
@@ -204,19 +211,37 @@ public class MainJFrame extends JFrame {
 		
 		
 		comboBox_year = new JComboBox();
+		comboBox_year.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				comboBox_yearActionPerformed(e);
+			}
+		});
 		for(Integer years = 1950; years<=Calendar.getInstance().get(Calendar.YEAR); years++) {
 			comboBox_year.addItem(years.toString());
 		}
+		comboBox_year.setSelectedIndex(0);
 		
 		
 		
 		comboBox_Month = new JComboBox();
+		comboBox_Month.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				comboBox_MonthActionPerformed(e);
+			}
+		});
 		comboBox_Month.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"}));
+		comboBox_Month.setSelectedIndex(0);
 		
 		comboBox_Day = new JComboBox();
+		comboBox_Day.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				comboBox_DayActionPerformed(e);
+			}
+		});
 		comboBox_Day.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11",
 				"12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23",
 				"24", "25", "26", "27", "28", "29", "30", "31"}));
+		comboBox_Day.setSelectedIndex(0);
 		
 		lblNewLabel_3 = new JLabel("-");
 		
@@ -228,11 +253,16 @@ public class MainJFrame extends JFrame {
 		
 		rdbtnNewRadioButton_1 = new JRadioButton("Female");
 		
-		ButtonGroup G = new ButtonGroup();
+		G = new ButtonGroup();
 		G.add(rdbtnNewRadioButton);
 		G.add(rdbtnNewRadioButton_1);
 		
 		btnAddEmployee = new JButton("Add Employee");
+		btnAddEmployee.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnAddEmployeeActionPerformed(e);
+			}
+		});
 		GroupLayout gl_panel_employee_management = new GroupLayout(panel_employee_management);
 		gl_panel_employee_management.setHorizontalGroup(
 			gl_panel_employee_management.createParallelGroup(Alignment.LEADING)
@@ -327,8 +357,8 @@ public class MainJFrame extends JFrame {
 		panel_employee_management.setLayout(gl_panel_employee_management);
 		loadData();
 		
-		panel_create_emp_acc = new JPanel();
-		panelContainer.add(panel_create_emp_acc, "panel_create_emp_acc");
+		Create_Employee_Account = new Create_Employee_Account();
+		panelContainer.add(Create_Employee_Account, "panel_create_emp_acc");
 		
 		panel_emp_work_schedule = new JPanel();
 		panelContainer.add(panel_emp_work_schedule, "panel_emp_work_schedule");
@@ -398,5 +428,28 @@ public class MainJFrame extends JFrame {
 
 		lblStatusPage.setText(firstPage+"/"+totalPage.intValue());
 		loadData();
+	}
+	protected void comboBox_yearActionPerformed(ActionEvent e) {
+		yearSelected = comboBox_year.getSelectedItem().toString();
+	}
+	protected void comboBox_MonthActionPerformed(ActionEvent e) {
+		monthSelected = comboBox_Month.getSelectedItem().toString();
+	}
+	
+	protected void comboBox_DayActionPerformed(ActionEvent e) {
+		daySelected = comboBox_Day.getSelectedItem().toString();
+	}
+	protected void btnAddEmployeeActionPerformed(ActionEvent e) {
+		System.out.println(textField_empName.getText());
+		System.out.println(textField_Position.getText());
+		System.out.println(yearSelected);
+		System.out.println(monthSelected);
+		System.out.println(daySelected);
+		if(rdbtnNewRadioButton.isSelected()) {
+			System.out.println("male");
+		}else {
+			System.out.println("female");
+		}
+		
 	}
 }
