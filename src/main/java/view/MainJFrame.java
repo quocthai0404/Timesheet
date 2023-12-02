@@ -3,6 +3,7 @@ package view;
 import java.awt.Dimension;	
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
+import java.awt.Image;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,6 +13,8 @@ import javax.swing.table.DefaultTableModel;
 
 import DAO.AccountDAO;
 import DAO.EmployeeDAO;
+import Validation.ValidTextNull;
+import Validation.ValidateDate;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -21,15 +24,19 @@ import java.awt.BorderLayout;
 import javax.swing.JDesktopPane;
 import javax.swing.JSplitPane;
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
 import java.awt.Color;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 import java.awt.CardLayout;
 import javax.swing.SwingConstants;
@@ -42,6 +49,10 @@ import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 import javax.swing.DefaultComboBoxModel;
 import view.Create_Employee_Account;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 public class MainJFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -55,7 +66,7 @@ public class MainJFrame extends JFrame {
 	private JButton btnReview_leave_reqs;
 	private JButton btnTimekeeping_info;
 	private JPanel panel_employee_management;
-//	private JPanel panel_create_emp_acc;
+
 	private JPanel Create_Employee_Account;
 	private JPanel panel_emp_work_schedule;
 	private JPanel panel_review_leave_reqs;
@@ -84,7 +95,8 @@ public class MainJFrame extends JFrame {
 	private JRadioButton rdbtnNewRadioButton_1;
 	private JButton btnAddEmployee;
 	private ButtonGroup G;
-	
+	private ValidateDate valid = new ValidateDate();
+	private ValidTextNull validText = new ValidTextNull();
 	//-----------------------
 	private String yearSelected;
 	private String monthSelected;
@@ -353,6 +365,12 @@ public class MainJFrame extends JFrame {
 		);
 		
 		tableEmployee = new JTable();
+		tableEmployee.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				tableEmployeeMouseClicked(e);
+			}
+		});
 		scrollPane.setViewportView(tableEmployee);
 		panel_employee_management.setLayout(gl_panel_employee_management);
 		loadData();
@@ -442,16 +460,49 @@ public class MainJFrame extends JFrame {
 		daySelected = comboBox_Day.getSelectedItem().toString();
 	}
 	protected void btnAddEmployeeActionPerformed(ActionEvent e) {
-		System.out.println(textField_empName.getText());
-		System.out.println(textField_Position.getText());
-		System.out.println(yearSelected);
-		System.out.println(monthSelected);
-		System.out.println(daySelected);
-		if(rdbtnNewRadioButton.isSelected()) {
-			System.out.println("male");
+		if(!(validText.isNull(textField_empName.getText())||validText.isNull(textField_Position.getText()))) {
+			JOptionPane.showMessageDialog(null, "Input fields cannot be blank");
+			return;
+		}
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		EmployeeDAO empDAO = new EmployeeDAO();
+		Boolean gender = rdbtnNewRadioButton.isSelected() ? true : false;
+		if(valid.checkDate(yearSelected, monthSelected, daySelected)) {
+			Date date = null;
+			try {
+				date = df.parse(yearSelected+"-"+monthSelected+"-"+daySelected);
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+			}
+			empDAO.add(textField_empName.getText(), textField_Position.getText(), date, gender);
+			loadData();
 		}else {
-			System.out.println("female");
+			JOptionPane.showMessageDialog(null, "Invalid date");
 		}
 		
+		
+	}
+	protected void tableEmployeeMouseClicked(MouseEvent e) {
+		if(e.getButton()==MouseEvent.BUTTON1) {
+			int row = tableEmployee.getSelectedRow();
+			textField_empID.setText(tableEmployee.getValueAt(row, 0).toString());
+			textField_empName.setText(tableEmployee.getValueAt(row, 1).toString());
+			textField_Position.setText(tableEmployee.getValueAt(row, 2).toString());
+			
+			String date = tableEmployee.getValueAt(row, 3).toString();
+			String[] parts = date.split("-");
+
+			comboBox_year.setSelectedIndex(Integer.parseInt(parts[0])-1950);
+			comboBox_Month.setSelectedIndex(Integer.parseInt(parts[1])-1);
+			comboBox_Day.setSelectedIndex(Integer.parseInt(parts[2])-1);
+			
+			
+
+			if (tableEmployee.getValueAt(row, 4).toString().equals("Male")) {
+				rdbtnNewRadioButton.setSelected(true);
+			} else { 
+				rdbtnNewRadioButton_1.setSelected(true);
+			}
+		}
 	}
 }
