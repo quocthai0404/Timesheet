@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import database.JdbcUlti;
 import entity.Employee;
 
@@ -79,7 +81,7 @@ public class EmployeeDAO {
 			 
 			int rowsUpdated = statement.executeUpdate();
 			if (rowsUpdated > 0) {
-			    System.out.println("A new employee schedule was inserted successfully!");
+			    JOptionPane.showMessageDialog(null, "A new employee schedule was inserted successfully!");
 			}
 			
 			JdbcUlti.closeConnection(con);
