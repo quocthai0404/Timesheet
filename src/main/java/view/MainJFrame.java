@@ -42,6 +42,7 @@ import javax.swing.JComboBox;
 import javax.swing.JRadioButton;
 import javax.swing.DefaultComboBoxModel;
 import view.Create_Employee_Account;
+import com.toedter.calendar.JDateChooser;
 public class MainJFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -57,7 +58,8 @@ public class MainJFrame extends JFrame {
 	private JPanel panel_employee_management;
 //	private JPanel panel_create_emp_acc;
 	private JPanel Create_Employee_Account;
-	private JPanel panel_emp_work_schedule;
+	private JPanel Manage_Employee_Work_Schedule;
+//	private JPanel panel_emp_work_schedule;
 	private JPanel panel_review_leave_reqs;
 	private JPanel panel_timekeeping_info;
 	private JScrollPane scrollPane;
@@ -180,7 +182,7 @@ public class MainJFrame extends JFrame {
 		btnPrevious = new JButton("Previous");
 		btnPrevious.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnPreviousActionPerformed(e);
+				btnPreviousActionPerformed(e); 
 			}
 		});
 		
@@ -361,8 +363,10 @@ public class MainJFrame extends JFrame {
 		Create_Employee_Account = new Create_Employee_Account();
 		panelContainer.add(Create_Employee_Account, "panel_create_emp_acc");
 		
-		panel_emp_work_schedule = new JPanel();
-		panelContainer.add(panel_emp_work_schedule, "panel_emp_work_schedule");
+		Manage_Employee_Work_Schedule = new Manage_Employee_Work_Schedule();
+		panelContainer.add(Manage_Employee_Work_Schedule, "panel_emp_work_schedule");
+		
+		
 
 		
 		panel_review_leave_reqs = new JPanel();
@@ -435,13 +439,14 @@ public class MainJFrame extends JFrame {
 		yearSelected = comboBox_year.getSelectedItem().toString();
 	}
 	protected void comboBox_MonthActionPerformed(ActionEvent e) {
-		monthSelected = comboBox_Month.getSelectedItem().toString();
+		monthSelected = comboBox_Month.getSelectedItem().toString();  
 	}
 	
 	protected void comboBox_DayActionPerformed(ActionEvent e) {
 		daySelected = comboBox_Day.getSelectedItem().toString();
 	}
 	protected void btnAddEmployeeActionPerformed(ActionEvent e) {
+		
 		System.out.println(textField_empName.getText());
 		System.out.println(textField_Position.getText());
 		System.out.println(yearSelected);
