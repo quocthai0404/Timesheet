@@ -8,7 +8,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import database.JdbcUlti;
+import entity.Employee;
 import entity.Work_schedule;
 
 public class Work_scheduleDAO {
@@ -75,7 +78,7 @@ public class Work_scheduleDAO {
 			 
 			int rowsUpdated = statement.executeUpdate();
 			if (rowsUpdated > 0) {
-			    System.out.println("An existing work schedule was updated successfully!");
+			    JOptionPane.showMessageDialog(null, "Update successfully!");
 			}
 			
 			JdbcUlti.closeConnection(con);
@@ -99,7 +102,9 @@ public class Work_scheduleDAO {
 			 
 			int rowsInserted = statement.executeUpdate();
 			if (rowsInserted > 0) {
-			    System.out.println("A new work schedule was inserted successfully!");
+				JOptionPane.showMessageDialog(null, "Add successfully!");
+			}else {
+				JOptionPane.showMessageDialog(null, "cannot handle this action!");
 			}
 			
 			JdbcUlti.closeConnection(con);
@@ -107,6 +112,52 @@ public class Work_scheduleDAO {
 			e.printStackTrace();
 		}
 	}
+	public int countRow() {
+		int count=0;
+		try {
+			Connection con = JdbcUlti.getConnection();
+			var statement = con.createStatement();
+			String sql = "SELECT COUNT(*) as count FROM work_schedule";
+			ResultSet rs = statement.executeQuery(sql);
+			while(rs.next()) {
+				count = rs.getInt(1);
+			}
+			JdbcUlti.closeConnection(con);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
+	public List<Work_schedule> selectPaginateEWS(int pageNumber, int rowOfPage) {
+		List<Work_schedule> list = new ArrayList<>();
+		try {
+			Connection con = JdbcUlti.getConnection();
+			
+			String sql = "select * from work_schedule\r\n"
+					+ "	order by work_schedule_id\r\n"
+					+ "	offset (?-1)*? rows\r\n"
+					+ "	fetch next ? rows only";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setInt(1, pageNumber);
+			st.setInt(2, rowOfPage);
+			st.setInt(3, rowOfPage);
+			ResultSet rs = st.executeQuery();
+			while(rs.next()) {
+				list.add(new Work_schedule(
+						rs.getInt("work_schedule_id"),
+						rs.getInt("employee_id"), 
+						rs.getDate("work_date"),
+						rs.getInt("work_shift_id"), 
+						rs.getString("work_type")	
+				));
+			}
+			JdbcUlti.closeConnection(con);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	} 
 	
 	
 	

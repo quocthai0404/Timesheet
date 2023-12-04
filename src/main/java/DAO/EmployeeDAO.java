@@ -57,7 +57,7 @@ public class EmployeeDAO {
 			 
 			int rowsUpdated = statement.executeUpdate();
 			if (rowsUpdated > 0) {
-			    System.out.println("An existing employee was updated successfully!");
+			    JOptionPane.showMessageDialog(null, "An existing employee was updated successfully!");
 			}
 			
 			JdbcUlti.closeConnection(con);
@@ -78,7 +78,7 @@ public class EmployeeDAO {
 			statement.setString(2, position);
 			statement.setDate(3, new java.sql.Date(birthday.getTime()));
 			statement.setBoolean(4, gender);
-			 
+
 			int rowsUpdated = statement.executeUpdate();
 			if (rowsUpdated > 0) {
 			    JOptionPane.showMessageDialog(null, "A new employee schedule was inserted successfully!");
