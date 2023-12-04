@@ -15,7 +15,6 @@ import com.toedter.calendar.JDateChooser;
 import com.toedter.calendar.demo.DateChooserPanel;
 
 import DAO.Work_scheduleDAO;
-import Validation.ValidTextNull;
 import Validation.ValidateDate;
 
 import javax.swing.JTextField;
@@ -52,7 +51,6 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 	private int firstPage = 1;
 	private int rowOfPage = 25;
 	private JDateChooser dateChooser;
-	private ValidTextNull validText = new ValidTextNull();
 	private ValidateDate valid = new ValidateDate();
 
 	/**
@@ -289,10 +287,10 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 			JOptionPane.showMessageDialog(null, "Vui long chon dong can update");
 			return;
 		}
-		if(!validText.isNull(textEmpId.getText())||!validText.isNull(textWorkshiftId.getText())||!validText.isNull(textWorkType.getText())||!validText.isNull(textWorkshiftId.getText())) {
-			JOptionPane.showMessageDialog(null, "Input fields cannot be blank");
-			return;
-		}
+//		if(!validText.isNull(textEmpId.getText())||!validText.isNull(textWorkshiftId.getText())||!validText.isNull(textWorkType.getText())||!validText.isNull(textWorkshiftId.getText())) {
+//			JOptionPane.showMessageDialog(null, "Input fields cannot be blank");
+//			return;
+//		}
 		if (dateChooser.getDate() == null) {
 			JOptionPane.showMessageDialog(null, "Invalid Date");
 			return;
@@ -309,10 +307,10 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 		loadData();
 	}
 	protected void do_btnAddEWS_actionPerformed(ActionEvent e) {
-		if(!validText.isNull(textEmpId.getText())||!validText.isNull(textWorkshiftId.getText())||!validText.isNull(textWorkType.getText())||!validText.isNull(textWorkshiftId.getText())) {
-			JOptionPane.showMessageDialog(null, "Input fields cannot be blank");
-			return;
-		}
+//		if(!validText.isNull(textEmpId.getText())||!validText.isNull(textWorkshiftId.getText())||!validText.isNull(textWorkType.getText())||!validText.isNull(textWorkshiftId.getText())) {
+//			JOptionPane.showMessageDialog(null, "Input fields cannot be blank");
+//			return;
+//		}
 		if (dateChooser.getDate() == null) {
 			JOptionPane.showMessageDialog(null, "Invalid Date");
 			return;

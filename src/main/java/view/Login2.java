@@ -190,6 +190,7 @@ public class Login2 extends JFrame {
 	protected void btnLoginActionPerformed(ActionEvent e) {
 		AccountDAO accDAO = new AccountDAO();
 		if(accDAO.Login(jtfUsername.getText(), String.valueOf(jtfPassword.getPassword()))) {
+			System.out.println(position);
 			if(position.equals("manager")) {
 				setVisible(false);
 				new MainJFrame();
