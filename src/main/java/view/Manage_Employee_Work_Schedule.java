@@ -12,11 +12,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import com.toedter.calendar.JDateChooser;
-
+import com.toedter.calendar.demo.DateChooserPanel;
 
 import DAO.Work_scheduleDAO;
 import Validation.ValidTextNull;
-
+import Validation.ValidateDate;
 
 import javax.swing.JTextField;
 import javax.swing.JTable;
@@ -25,7 +25,9 @@ import java.awt.event.ActionEvent;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class Manage_Employee_Work_Schedule extends JPanel {
@@ -51,6 +53,7 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 	private int rowOfPage = 25;
 	private JDateChooser dateChooser;
 	private ValidTextNull validText = new ValidTextNull();
+	private ValidateDate valid = new ValidateDate();
 
 	/**
 	 * Create the panel.
@@ -286,9 +289,14 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 			JOptionPane.showMessageDialog(null, "Vui long chon dong can update");
 			return;
 		}
-		if(!(validText.isNull(textEmpId.getText())||validText.isNull(textWorkshiftId.getText())||validText.isNull(textWorkType.getText())||validText.isNull(textWorkshiftId.getText()))) {
+		if(!validText.isNull(textEmpId.getText())||!validText.isNull(textWorkshiftId.getText())||!validText.isNull(textWorkType.getText())||!validText.isNull(textWorkshiftId.getText())) {
 			JOptionPane.showMessageDialog(null, "Input fields cannot be blank");
 			return;
+		}
+		if (dateChooser.getDate() == null) {
+			JOptionPane.showMessageDialog(null, "Invalid Date");
+			return;
+			
 		}
 		int row = table.getSelectedRow();
 		int empId = Integer.parseInt(textEmpId.getText());
@@ -301,10 +309,21 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 		loadData();
 	}
 	protected void do_btnAddEWS_actionPerformed(ActionEvent e) {
+		if(!validText.isNull(textEmpId.getText())||!validText.isNull(textWorkshiftId.getText())||!validText.isNull(textWorkType.getText())||!validText.isNull(textWorkshiftId.getText())) {
+			JOptionPane.showMessageDialog(null, "Input fields cannot be blank");
+			return;
+		}
+		if (dateChooser.getDate() == null) {
+			JOptionPane.showMessageDialog(null, "Invalid Date");
+			return;
+			
+		}
+		
 		int empId = Integer.parseInt(textEmpId.getText());
 		java.sql.Date sqlDate = new java.sql.Date(dateChooser.getDate().getTime());
 		int work_shift_id = (Integer.parseInt(textWorkshiftId.getText()));
 		String work_type = textWorkType.getText();
+		
 		
 		var dao = new Work_scheduleDAO();
 		dao.add( empId, sqlDate, work_shift_id, work_type);
@@ -312,15 +331,14 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 	}
 	
 	protected void do_this_mouseClicked(MouseEvent e) {
-		 if (!table.contains(e.getPoint())) { 
-	            table.clearSelection();
-	            textEmpId.setText("");
-	            textField_1.setText("");
-	            textWorkshiftId.setText("");
-	            textWorkType.setText("");
-	            dateChooser.setCalendar(null);
-	            
-	        }
+		if (e.getClickCount() == 2 && !table.contains(e.getPoint())) { 
+	        table.clearSelection();
+	        textEmpId.setText("");
+	        textField_1.setText("");
+	        textWorkshiftId.setText("");
+	        textWorkType.setText("");
+	        dateChooser.setCalendar(null);
+	    }
 	    
 	}
 }
