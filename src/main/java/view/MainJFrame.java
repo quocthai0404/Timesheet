@@ -37,6 +37,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.awt.event.ActionEvent;
 import java.awt.CardLayout;
 import javax.swing.SwingConstants;
@@ -67,7 +68,7 @@ public class MainJFrame extends JFrame {
 	private JButton btnTimekeeping_info;
 	private JPanel panel_employee_management;
 
-	private JPanel Create_Employee_Account;
+	private Create_Employee_Account Create_Employee_Account_panel;
 	private JPanel panel_emp_work_schedule;
 	private JPanel panel_review_leave_reqs;
 	private JPanel panel_timekeeping_info;
@@ -96,11 +97,12 @@ public class MainJFrame extends JFrame {
 	private JButton btnAddEmployee;
 	private ButtonGroup G;
 	private ValidateDate valid = new ValidateDate();
-	private ValidTextNull validText = new ValidTextNull();
 	//-----------------------
 	private String yearSelected;
 	private String monthSelected;
 	private String daySelected;
+	private JButton btnCreateEmpAcc;
+	private JButton btnUpdateEmp;
 	
 	public MainJFrame() {
 		setTitle("Manager Frame");
@@ -218,6 +220,7 @@ public class MainJFrame extends JFrame {
 		
 		textField_Position = new JTextField();
 		textField_Position.setColumns(10);
+		textField_Position.setEditable(false);
 		
 		lblNewLabel_2 = new JLabel("Birthday:");
 		
@@ -275,10 +278,24 @@ public class MainJFrame extends JFrame {
 				btnAddEmployeeActionPerformed(e);
 			}
 		});
+		
+		btnCreateEmpAcc = new JButton("Create Account");
+		btnCreateEmpAcc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnCreateEmpAccActionPerformed(e);
+			}
+		});
+		
+		btnUpdateEmp = new JButton("Update Employee");
+		btnUpdateEmp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnUpdateEmpActionPerformed(e);
+			}
+		});
 		GroupLayout gl_panel_employee_management = new GroupLayout(panel_employee_management);
 		gl_panel_employee_management.setHorizontalGroup(
-			gl_panel_employee_management.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel_employee_management.createSequentialGroup()
+			gl_panel_employee_management.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel_employee_management.createSequentialGroup()
 					.addGroup(gl_panel_employee_management.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_panel_employee_management.createSequentialGroup()
 							.addContainerGap()
@@ -302,18 +319,18 @@ public class MainJFrame extends JFrame {
 										.addComponent(lblNewLabel_2)
 										.addComponent(lblNewLabel_5))
 									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addGroup(gl_panel_employee_management.createParallelGroup(Alignment.LEADING)
+									.addGroup(gl_panel_employee_management.createParallelGroup(Alignment.TRAILING)
 										.addComponent(textField_Position, GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
 										.addComponent(textField_empName, GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
-										.addGroup(Alignment.TRAILING, gl_panel_employee_management.createSequentialGroup()
-											.addGroup(gl_panel_employee_management.createParallelGroup(Alignment.TRAILING)
-												.addGroup(Alignment.LEADING, gl_panel_employee_management.createSequentialGroup()
+										.addGroup(gl_panel_employee_management.createSequentialGroup()
+											.addGroup(gl_panel_employee_management.createParallelGroup(Alignment.LEADING)
+												.addGroup(gl_panel_employee_management.createSequentialGroup()
 													.addComponent(rdbtnNewRadioButton)
 													.addGap(18)
 													.addComponent(rdbtnNewRadioButton_1))
 												.addGroup(gl_panel_employee_management.createSequentialGroup()
 													.addComponent(comboBox_year, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-													.addPreferredGap(ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+													.addPreferredGap(ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
 													.addComponent(lblNewLabel_3)
 													.addGap(12)
 													.addComponent(comboBox_Month, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)))
@@ -321,7 +338,10 @@ public class MainJFrame extends JFrame {
 											.addComponent(lblNewLabel_4, GroupLayout.PREFERRED_SIZE, 4, GroupLayout.PREFERRED_SIZE)
 											.addPreferredGap(ComponentPlacement.RELATED)
 											.addComponent(comboBox_Day, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-								.addComponent(btnAddEmployee))))
+								.addGroup(gl_panel_employee_management.createParallelGroup(Alignment.TRAILING, false)
+									.addComponent(btnCreateEmpAcc, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(btnAddEmployee, GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+									.addComponent(btnUpdateEmp, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
 					.addGap(76))
 		);
 		gl_panel_employee_management.setVerticalGroup(
@@ -353,7 +373,11 @@ public class MainJFrame extends JFrame {
 								.addComponent(rdbtnNewRadioButton)
 								.addComponent(rdbtnNewRadioButton_1))
 							.addGap(37)
-							.addComponent(btnAddEmployee))
+							.addComponent(btnAddEmployee)
+							.addGap(18)
+							.addComponent(btnCreateEmpAcc)
+							.addGap(18)
+							.addComponent(btnUpdateEmp))
 						.addGroup(gl_panel_employee_management.createSequentialGroup()
 							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
@@ -376,8 +400,8 @@ public class MainJFrame extends JFrame {
 		loadData();
 		
 
-		Create_Employee_Account = new Create_Employee_Account();
-		panelContainer.add(Create_Employee_Account, "panel_create_emp_acc");
+		Create_Employee_Account_panel = new Create_Employee_Account();
+		panelContainer.add(Create_Employee_Account_panel, "panel_create_emp_acc");
 		
 		panel_emp_work_schedule = new JPanel();
 		panelContainer.add(panel_emp_work_schedule, "panel_emp_work_schedule");
@@ -460,10 +484,14 @@ public class MainJFrame extends JFrame {
 		daySelected = comboBox_Day.getSelectedItem().toString();
 	}
 	protected void btnAddEmployeeActionPerformed(ActionEvent e) {
-		if(!(validText.isNull(textField_empName.getText())||validText.isNull(textField_Position.getText()))) {
+		if(textField_empName.getText().isEmpty()||textField_Position.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Input fields cannot be blank");
 			return;
 		}
+		if(textField_Position.getText().toUpperCase().equals("manager".toUpperCase())) {
+			JOptionPane.showMessageDialog(null, "cannot to add manager");
+			return;
+		} 
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 		EmployeeDAO empDAO = new EmployeeDAO();
 		Boolean gender = rdbtnNewRadioButton.isSelected() ? true : false;
@@ -473,6 +501,14 @@ public class MainJFrame extends JFrame {
 				date = df.parse(yearSelected+"-"+monthSelected+"-"+daySelected);
 			} catch (ParseException e1) {
 				e1.printStackTrace();
+			}
+			Calendar calendar = new GregorianCalendar();
+			calendar.setTime(date);
+			int year = calendar.get(Calendar.YEAR);
+			System.out.println(year);
+			if(Calendar.getInstance().get(Calendar.YEAR)-year<18) {
+				JOptionPane.showMessageDialog(null, "Employee age must be greater than 18");
+				return;
 			}
 			empDAO.add(textField_empName.getText(), textField_Position.getText(), date, gender);
 			loadData();
@@ -503,6 +539,51 @@ public class MainJFrame extends JFrame {
 			} else { 
 				rdbtnNewRadioButton_1.setSelected(true);
 			}
+			
+			if(textField_Position.getText().equals("manager")) {
+				btnCreateEmpAcc.setEnabled(false);
+			}else {
+				btnCreateEmpAcc.setEnabled(true);
+			}
+		}
+	}
+	protected void btnCreateEmpAccActionPerformed(ActionEvent e) {
+		
+		Create_Employee_Account_panel.getValueFromPanel(textField_empID.getText(), textField_empName.getText(), textField_Position.getText());
+		cardLayout.show(panelContainer, "panel_create_emp_acc");
+		
+	}
+	protected void btnUpdateEmpActionPerformed(ActionEvent e) {
+		if(textField_empName.getText().isEmpty()||textField_Position.getText().isEmpty()) {
+			JOptionPane.showMessageDialog(null, "Input fields cannot be blank");
+			return;
+		}
+		if(textField_Position.getText().toUpperCase().equals("manager".toUpperCase())) {
+			JOptionPane.showMessageDialog(null, "cannot to update manager");
+			return;
+		} 
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		EmployeeDAO empDAO = new EmployeeDAO();
+		Boolean gender = rdbtnNewRadioButton.isSelected() ? true : false;
+		if(valid.checkDate(yearSelected, monthSelected, daySelected)) {
+			Date date = null;
+			try {
+				date = df.parse(yearSelected+"-"+monthSelected+"-"+daySelected);
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+			}
+			Calendar calendar = new GregorianCalendar();
+			calendar.setTime(date);
+			int year = calendar.get(Calendar.YEAR);
+			System.out.println(year);
+			if(Calendar.getInstance().get(Calendar.YEAR)-year<18) {
+				JOptionPane.showMessageDialog(null, "Employee age must be greater than 18");
+				return;
+			}
+			empDAO.update(Integer.parseInt(textField_empID.getText()), textField_empName.getText(), textField_Position.getText(), date, gender);
+			loadData();
+		}else {
+			JOptionPane.showMessageDialog(null, "Invalid date");
 		}
 	}
 }
