@@ -12,7 +12,7 @@ import java.util.List;
 
 
 import database.JdbcUlti;
-
+import entity.Employee;
 import entity.Leave;
 
 public class LeaveDao {
@@ -63,14 +63,13 @@ public class LeaveDao {
 			String sql = "UPDATE leave SET employee_id=?, leave_type=?, startdate=?, number_of_days=?, reason=?, approved=?  WHERE leave_id=?";
 			 
 			PreparedStatement statement = con.prepareStatement(sql);
-			statement.setInt(1, leave_id);
-			statement.setInt(2, employee_id);
-			statement.setString(3, leave_type);
-			statement.setDate(4, sqlDate);
-			statement.setInt(5,number_of_days);
-			statement.setString(6, reason);
-			statement.setBoolean(7, approved);
-			 
+			statement.setInt(1, employee_id);
+			statement.setString(2, leave_type);
+			statement.setDate(3, sqlDate);
+			statement.setInt(4,number_of_days);
+			statement.setString(5, reason);
+			statement.setBoolean(6, approved);
+			statement.setInt(7, leave_id); 
 			
 			if (statement.executeUpdate() > 0) {
 			    System.out.println("A leave was updated successfully!");
@@ -94,6 +93,7 @@ public class LeaveDao {
 			statement.setInt(4,number_of_days);
 			statement.setString(5, reason);
 			statement.setBoolean(6, approved);
+			
 			 
 			
 			if (statement.executeUpdate() > 0) {
@@ -104,5 +104,55 @@ public class LeaveDao {
 			e.printStackTrace();
 		}
 	}
+	
+	public int countRow() {
+		int count=0;
+		try {
+			Connection con = JdbcUlti.getConnection();
+			var statement = con.createStatement();
+			String sql = "SELECT COUNT(*) as count FROM leave";
+			ResultSet rs = statement.executeQuery(sql);
+			while(rs.next()) {
+				count = rs.getInt(1);
+			}
+			JdbcUlti.closeConnection(con);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
+	
+	public List<Leave> selectPaginateEmp(int pageNumber, int rowOfPage) {
+		List<Leave> list = new ArrayList<>();
+		try {
+			Connection con = JdbcUlti.getConnection();
+			
+			String sql = "select * from leave\r\n"
+					+ "	order by leave_id\r\n"
+					+ "	offset (?-1)*? rows\r\n"
+					+ "	fetch next ? rows only";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setInt(1, pageNumber);
+			st.setInt(2, rowOfPage);
+			st.setInt(3, rowOfPage);
+			ResultSet rs = st.executeQuery();
+			while(rs.next()) {
+				list.add(new Leave(
+						rs.getInt("leave_id"),
+						rs.getInt("employee_id"), 
+						rs.getString("leave_type"),
+						rs.getDate("startdate"),
+						rs.getInt("number_of_days"),
+						rs.getString("reason"),
+						rs.getBoolean("approved")	
+				));
+			}
+			JdbcUlti.closeConnection(con);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	} 
 }
 
