@@ -12,6 +12,7 @@ public class JdbcUlti {
 		//String dbName = "timesheet";
 		//------
 		Connection cn = null;
+
 		String serverName = "DESKTOP-6L06R65";
 		String dbName = "timesheet";
 		String username = "sa";
