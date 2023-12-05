@@ -14,7 +14,6 @@ import javax.swing.border.TitledBorder;
 import javax.swing.border.EtchedBorder;
 import com.toedter.calendar.JDateChooser;
 
-
 import database.JdbcUlti;
 
 import entity.Employee;
@@ -34,6 +33,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
 import javax.swing.UIManager;
+import javax.swing.JScrollPane;
 
 public class Create_Employee_Account extends JPanel {
     private JPanel jPanel23;
@@ -44,8 +44,10 @@ public class Create_Employee_Account extends JPanel {
     private JTextField txtEmail;
     private JTextField txtEmp_ID;
     private JTextField textEmpName;
-    private JTextField textField;
-
+    private JTextField textPosition;
+    private JScrollPane scrollPane;
+    private JButton btnPrevious;
+    private JButton btnNext;
     public Create_Employee_Account() {
     	setBackground(UIManager.getColor("Button.background"));
 
@@ -61,10 +63,10 @@ public class Create_Employee_Account extends JPanel {
         GroupLayout gl_jPanel23 = new GroupLayout(jPanel23);
         gl_jPanel23.setHorizontalGroup(
         	gl_jPanel23.createParallelGroup(Alignment.LEADING)
-        		.addGroup(gl_jPanel23.createSequentialGroup()
-        			.addContainerGap()
-        			.addComponent(lbAddNV5, GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
-        			.addGap(50))
+        		.addGroup(Alignment.TRAILING, gl_jPanel23.createSequentialGroup()
+        			.addGap(50)
+        			.addComponent(lbAddNV5, GroupLayout.DEFAULT_SIZE, 482, Short.MAX_VALUE)
+        			.addContainerGap())
         );
         gl_jPanel23.setVerticalGroup(
         	gl_jPanel23.createParallelGroup(Alignment.LEADING)
@@ -112,49 +114,75 @@ public class Create_Employee_Account extends JPanel {
         textEmpName.setColumns(10);
         textEmpName.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Employee Name", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
         
-        textField = new JTextField();
-        textField.setToolTipText("");
-        textField.setEditable(false);
-        textField.setColumns(10);
-        textField.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Position", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+        textPosition = new JTextField();
+        textPosition.setToolTipText("");
+        textPosition.setEditable(false);
+        textPosition.setColumns(10);
+        textPosition.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Position", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+        
+        scrollPane = new JScrollPane();
+        
+        btnPrevious = new JButton("Previous");
+        
+        btnNext = new JButton("Next");
         GroupLayout groupLayout = new GroupLayout(this);
         groupLayout.setHorizontalGroup(
         	groupLayout.createParallelGroup(Alignment.LEADING)
-        		.addGroup(groupLayout.createSequentialGroup()
-        			.addGap(51)
-        			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-        				.addComponent(jPanel23, GroupLayout.PREFERRED_SIZE, 542, GroupLayout.PREFERRED_SIZE)
-        				.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, 542, GroupLayout.PREFERRED_SIZE)
-        				.addComponent(txtPassword, GroupLayout.PREFERRED_SIZE, 542, GroupLayout.PREFERRED_SIZE)
-        				.addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, 542, GroupLayout.PREFERRED_SIZE)
-        				.addComponent(btnCreate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        		.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+        			.addGap(94)
+        			.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+        				.addComponent(jPanel23, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 919, Short.MAX_VALUE)
         				.addGroup(groupLayout.createSequentialGroup()
-        					.addComponent(txtEmp_ID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        					.addGap(18)
-        					.addComponent(textEmpName, GroupLayout.PREFERRED_SIZE, 220, GroupLayout.PREFERRED_SIZE)
-        					.addPreferredGap(ComponentPlacement.UNRELATED)
-        					.addComponent(textField)))
-        			.addContainerGap(498, Short.MAX_VALUE))
+        					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        							.addComponent(txtUsername, GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
+        							.addComponent(txtPassword, GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
+        							.addComponent(txtEmail, GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE))
+        						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+        							.addComponent(textPosition, Alignment.LEADING)
+        							.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+        								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        									.addComponent(btnCreate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        									.addComponent(txtEmp_ID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        								.addPreferredGap(ComponentPlacement.RELATED)
+        								.addComponent(textEmpName, GroupLayout.PREFERRED_SIZE, 220, GroupLayout.PREFERRED_SIZE))))
+        					.addGap(124)
+        					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+        						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 444, GroupLayout.PREFERRED_SIZE)
+        						.addGroup(groupLayout.createSequentialGroup()
+        							.addComponent(btnPrevious)
+        							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        							.addComponent(btnNext)))))
+        			.addGap(66))
         );
         groupLayout.setVerticalGroup(
         	groupLayout.createParallelGroup(Alignment.LEADING)
         		.addGroup(groupLayout.createSequentialGroup()
         			.addComponent(jPanel23, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
         			.addGap(45)
-        			.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-        				.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-        					.addComponent(txtEmp_ID, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
-        					.addComponent(textEmpName, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE))
-        				.addComponent(textField, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE))
-        			.addGap(18)
-        			.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
-        			.addGap(18)
-        			.addComponent(txtPassword, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
-        			.addGap(18)
-        			.addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
-        			.addGap(37)
-        			.addComponent(btnCreate, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-        			.addContainerGap(97, Short.MAX_VALUE))
+        			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        				.addGroup(groupLayout.createSequentialGroup()
+        					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+        						.addComponent(textEmpName, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(txtEmp_ID, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE))
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(textPosition, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.UNRELATED)
+        					.addComponent(txtUsername, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+        					.addGap(18)
+        					.addComponent(txtPassword, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+        					.addGap(18)
+        					.addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+        					.addGap(18)
+        					.addComponent(btnCreate, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE))
+        				.addGroup(groupLayout.createSequentialGroup()
+        					.addPreferredGap(ComponentPlacement.RELATED)
+        					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 249, GroupLayout.PREFERRED_SIZE)
+        					.addGap(18)
+        					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+        						.addComponent(btnNext)
+        						.addComponent(btnPrevious))))
+        			.addContainerGap(145, Short.MAX_VALUE))
         );
         setLayout(groupLayout);
     }
@@ -167,7 +195,6 @@ public class Create_Employee_Account extends JPanel {
             String username = txtUsername.getText();
             String password = txtPassword.getText();
             String email = txtEmail.getText();
-            String accPrivilege = txtAcc_privilege.getText();
 
             // Gọi stored procedure để thêm tài khoản
             try (Connection connection = JdbcUlti.getConnection();
@@ -177,7 +204,6 @@ public class Create_Employee_Account extends JPanel {
                 callableStatement.setString(2, username);
                 callableStatement.setString(3, password);
                 callableStatement.setString(4, email);
-                callableStatement.setString(5, accPrivilege);
 
                 callableStatement.execute();
             }
@@ -199,5 +225,11 @@ public class Create_Employee_Account extends JPanel {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Lỗi khi tạo tài khoản.", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
+    }
+    public void getValueFromPanel(String id, String name, String position) {
+    	txtEmp_ID.setText(id);
+    	textEmpName.setText(name);
+    	textPosition.setText(position);
+
     }
 }

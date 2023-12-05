@@ -14,7 +14,6 @@ public class JdbcUlti {
 		String password = "123";
 		String port = "1433";
 		String url = "jdbc:sqlserver://"+serverName+":"+port+"; databaseName = "+dbName +"; user = "+username+"; password = "+password+";";
-
 		try {
 			cn = DriverManager.getConnection(url);
 		} catch (SQLException e) {

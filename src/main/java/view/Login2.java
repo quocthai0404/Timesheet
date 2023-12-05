@@ -15,6 +15,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
@@ -42,6 +43,7 @@ public class Login2 extends JFrame {
 	private JLabel lblNewLabel_3;
 	private JPasswordField jtfPassword;
 	private JPanel panel_1;
+	private static String position;
 	
 
 	/**
@@ -187,18 +189,28 @@ public class Login2 extends JFrame {
 	
 	protected void btnLoginActionPerformed(ActionEvent e) {
 		AccountDAO accDAO = new AccountDAO();
-		if(accDAO.Login(jtfUsername.getText(), jtfPassword.getText())) {
-			setVisible(false);
-			new MainJFrame();
+		if(accDAO.Login(jtfUsername.getText(), String.valueOf(jtfPassword.getPassword()))) {
+			System.out.println(position);
+			if(position.equals("manager")) {
+				setVisible(false);
+				new MainJFrame();
+			}else {
+				setVisible(false);
+				new FrameForEmp();
+			}
 		}else {
-			System.out.println("incorrect username or password");
+			JOptionPane.showMessageDialog(null, "incorrect username or password");
 		}
+
 	}
 	// Trong class Login2
 	protected void lblForgotPasswordMouseClicked(MouseEvent e) {
 	    Forget_Password forgetPasswordFrame = new Forget_Password();
 	    forgetPasswordFrame.setVisible(true);
 	    this.dispose();
+	}
+	public void getPosition(String pos) {
+		position = pos;
 	}
 
 }

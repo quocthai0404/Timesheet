@@ -2,6 +2,7 @@ package DAO;
 
 import database.JdbcUlti;
 import entity.Account;
+import view.Login2;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -39,16 +40,24 @@ public class AccountDAO {
     }
     
     public Boolean Login(String username, String password) {
+    	Login2 lg = new Login2();
     	try {
 			Connection con = JdbcUlti.getConnection();
-			String sql = "select password from account where username=?";
+			String sql = "select account.username, account.password, employee.position\r\n"
+					+ "from account\r\n"
+					+ "inner join employee on employee.employee_id=account.employee_id\r\n"
+					+ "where account.username=?";
 			PreparedStatement statement = con.prepareStatement(sql);
 			statement.setString(1, username);
 			ResultSet rs = statement.executeQuery();
 			
 			while(rs.next()) {
-				if(password.equals(rs.getString(1))) {
+				if(rs.getString(1).equals(username)&&rs.getString(2).equals(password)) {
+					lg.getPosition(rs.getString(3));
+					System.out.println("login ok");
 					return true;
+				}else {
+					System.out.println("ko");
 				}
 			}
 
