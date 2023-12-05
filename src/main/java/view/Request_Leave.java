@@ -1,6 +1,7 @@
 package view;
 
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JLabel;
 import java.awt.Color;
 import java.awt.Font;
@@ -8,11 +9,17 @@ import javax.swing.SwingConstants;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser;
+
+import DAO.EmployeeDAO;
+import DAO.LeaveDao;
+
 import javax.swing.JTextPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 
 public class Request_Leave extends JPanel {
@@ -27,7 +34,8 @@ public class Request_Leave extends JPanel {
 	private JLabel lblReason;
 	private JTextField txtReason;
 	private JButton btnSend;
-
+	private JTable tableRequest;
+	
 	public Request_Leave() {
 		
 		panel = new JPanel();
@@ -128,15 +136,31 @@ public class Request_Leave extends JPanel {
 		setLayout(groupLayout);
 
 	}
-	protected void btnSendActionPerformed(ActionEvent e) {
-	 
-	    String startDate = ""; 
-	    String numsOfDate = txtNod.getText();
-	    String reason = txtReason.getText();
+	
+	public void loadData() {
+		DefaultTableModel model = new DefaultTableModel();
+		model.addColumn("Start Date");
+		model.addColumn("Number of Days");
+		model.addColumn("Reason");
+		EmployeeDAO dao = new EmployeeDAO();
+		
+		LeaveDao dao1 = new LeaveDao();
 
-	   
-	    dateLeave.setDate(null);
-	    txtNod.setText("");
-	    txtReason.setText("");
+	    dao1.selectLeave().forEach(leave -> {
+	        model.addRow(new Object[]{leave.getStartdate(), leave.getNumber_of_days(), leave.getReason()});
+	    });
+	    tableRequest.setModel(model);
+	}
+	
+	protected void btnSendActionPerformed(ActionEvent e) {
+		Date startDate = dateLeave.getDate();
+        String numsOfDate = txtNod.getText();
+        String reason = txtReason.getText();
+
+        // Gọi đến phương thức thêm mới trong LeaveDao
+        LeaveDao leaveDao = new LeaveDao();
+        leaveDao.addLeaveRequest(startDate, numsOfDate, reason); // Chú ý giá trị approved đặt là false
+        loadData();
+	    
 	}
 }

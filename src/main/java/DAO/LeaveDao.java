@@ -55,30 +55,53 @@ public class LeaveDao {
 //		}
 //		
 //	}
-	public void update(int leave_id,int employee_id, String leave_type, Date  startdate, int number_of_days, String reason, Boolean approved ) {
-		
-		try {
-			java.sql.Date sqlDate = new java.sql.Date(startdate.getTime());
-			Connection con = JdbcUlti.getConnection();
-			String sql = "UPDATE leave SET employee_id=?, leave_type=?, startdate=?, number_of_days=?, reason=?, approved=?  WHERE leave_id=?";
-			 
-			PreparedStatement statement = con.prepareStatement(sql);
-			statement.setInt(1, employee_id);
-			statement.setString(2, leave_type);
-			statement.setDate(3, sqlDate);
-			statement.setInt(4,number_of_days);
-			statement.setString(5, reason);
-			statement.setBoolean(6, approved);
-			statement.setInt(7, leave_id); 
-			
-			if (statement.executeUpdate() > 0) {
-			    System.out.println("A leave was updated successfully!");
-			}
-			JdbcUlti.closeConnection(con);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	
+	
+//	public void update(int leave_id,int employee_id, String leave_type, Date  startdate, int number_of_days, String reason, Boolean approved ) {
+//		
+//		try {
+//			java.sql.Date sqlDate = new java.sql.Date(startdate.getTime());
+//			Connection con = JdbcUlti.getConnection();
+//			String sql = "UPDATE leave SET employee_id=?, leave_type=?, startdate=?, number_of_days=?, reason=?, approved=?  WHERE leave_id=?";
+//			 
+//			PreparedStatement statement = con.prepareStatement(sql);
+//			statement.setInt(1, employee_id);
+//			statement.setString(2, leave_type);
+//			statement.setDate(3, sqlDate);
+//			statement.setInt(4,number_of_days);
+//			statement.setString(5, reason);
+//			statement.setBoolean(6, approved);
+//			statement.setInt(7, leave_id); 
+//			
+//			if (statement.executeUpdate() > 0) {
+//			    System.out.println("A leave was updated successfully!");
+//			}
+//			JdbcUlti.closeConnection(con);
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
+//	}
+	
+	public void update(int leave_id, boolean approved) {
+	    try {
+	        Connection con = JdbcUlti.getConnection();
+	        String sql = "UPDATE leave SET approved=? WHERE leave_id=?";
+	 
+	        PreparedStatement statement = con.prepareStatement(sql);
+	        statement.setBoolean(1, approved);
+	        statement.setInt(2, leave_id);
+	        
+	        if (statement.executeUpdate() > 0) {
+	            System.out.println("Approval status updated successfully!");
+	        }
+	        
+	        JdbcUlti.closeConnection(con);
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
 	}
+
+	
 	public void add(int employee_id, String leave_type, Date startdate, int number_of_days, String reason, Boolean approved) {
 		try {
 			java.sql.Date sqlDate = new java.sql.Date(startdate.getTime());
@@ -122,6 +145,50 @@ public class LeaveDao {
 		}
 		return count;
 	}
+	
+	public void updateLeaveRequest(Date startDate, String numsOfDate, String reason) {
+        try {
+ 
+            Connection connection = JdbcUlti.getConnection();
+            String sql = "UPDATE leave SET start_date=?, nums_of_date=?, reason=? WHERE leave_id=?";
+            
+            PreparedStatement statement = connection.prepareStatement(sql);
+            
+            statement.setDate(1, (java.sql.Date) startDate);
+            statement.setString(2, numsOfDate);
+            statement.setString(3, reason);
+            
+            if (statement.executeUpdate() > 0) {
+                System.out.println("leave request updated");
+            }
+            
+            JdbcUlti.closeConnection(connection);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Phương thức thêm mới dữ liệu vào cơ sở dữ liệu
+    public void addLeaveRequest(Date startDate, String numsOfDate, String reason) {
+        try {
+            Connection connection = JdbcUlti.getConnection();
+            String sql = "INSERT INTO leave (start_date, nums_of_date, reason) VALUES (?, ?, ?)";
+            
+            PreparedStatement statement = connection.prepareStatement(sql);
+            
+            statement.setDate(1, (java.sql.Date) startDate);	
+            statement.setString(2, numsOfDate);
+            statement.setString(3, reason);
+            
+            if (statement.executeUpdate() > 0) {
+                System.out.println("leave request updated added");
+            }
+            
+            JdbcUlti.closeConnection(connection);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 	
 	public List<Leave> selectPaginateEmp(int pageNumber, int rowOfPage) {
 		List<Leave> list = new ArrayList<>();
