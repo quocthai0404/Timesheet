@@ -33,7 +33,7 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>sqlFIle/timesheet.sql</name>
+			<name>src/main/java/Sql/timesheet.sql</name>
 			<type>1</type>
 			<locationURI>PARENT-2-PROJECT_LOC/OneDrive/Desktop/timesheet.sql</locationURI>
 		</link>
