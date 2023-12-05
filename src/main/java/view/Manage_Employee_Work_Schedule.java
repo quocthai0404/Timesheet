@@ -28,7 +28,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
 public class Manage_Employee_Work_Schedule extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -120,91 +119,88 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 		dateChooser = new JDateChooser();
 		dateChooser.setDateFormatString("yyyy-MM-dd");
 		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
+				.createSequentialGroup().addContainerGap()
+				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(btnPrevious, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
-							.addGap(125)
-							.addComponent(lblStatusPage)
-							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(btnNext, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE))
+								.addComponent(btnPrevious, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
+								.addGap(125).addComponent(lblStatusPage)
+								.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnNext, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE))
 						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 433, GroupLayout.PREFERRED_SIZE))
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
+						.createSequentialGroup().addPreferredGap(ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(lblWorkDate, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblEmpId, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblWorkShiftId, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblWorkShiftId, GroupLayout.PREFERRED_SIZE, 63,
+										GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblWorkType, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE))
-							.addGap(125)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGap(125)
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(textWorkType, GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
 								.addComponent(textWorkshiftId, GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
 								.addComponent(dateChooser, GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
-								.addComponent(textEmpId, 152, 152, 152)
-								.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(407))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(117)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-								.addComponent(btnUpdateWorkShift, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(btnAddEWS, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE))
-							.addGap(446))))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(21)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(textEmpId, 152, 152, 152).addComponent(textField_1,
+										GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
+						.addGap(407))
+						.addGroup(groupLayout.createSequentialGroup().addGap(117)
+								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+										.addComponent(btnUpdateWorkShift, Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(btnAddEWS, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 239,
+												Short.MAX_VALUE))
+								.addGap(446)))));
+		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
+				.createSequentialGroup()
+				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createSequentialGroup().addGap(21).addGroup(groupLayout
+								.createParallelGroup(Alignment.LEADING, false)
+								.addGroup(groupLayout.createSequentialGroup().addGap(126)
+										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+												.addComponent(dateChooser, GroupLayout.PREFERRED_SIZE,
+														GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+												.addComponent(lblWorkDate))
+										.addPreferredGap(ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+										.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+												.addComponent(lblWorkShiftId).addComponent(textWorkshiftId,
+														GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+														GroupLayout.PREFERRED_SIZE))
+										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+												.addGroup(groupLayout.createSequentialGroup().addGap(116)
+														.addComponent(btnAddEWS))
+												.addGroup(groupLayout.createSequentialGroup().addGap(50)
+														.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+																.addComponent(lblWorkType).addComponent(textWorkType,
+																		GroupLayout.PREFERRED_SIZE,
+																		GroupLayout.DEFAULT_SIZE,
+																		GroupLayout.PREFERRED_SIZE))))
+										.addGap(128))
 								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(126)
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(dateChooser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblWorkDate))
-									.addPreferredGap(ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
-									.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-										.addComponent(lblWorkShiftId)
-										.addComponent(textWorkshiftId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addGroup(groupLayout.createSequentialGroup()
-											.addGap(116)
-											.addComponent(btnAddEWS))
-										.addGroup(groupLayout.createSequentialGroup()
-											.addGap(50)
-											.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-												.addComponent(lblWorkType)
-												.addComponent(textWorkType, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-									.addGap(128))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-										.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 428, GroupLayout.PREFERRED_SIZE)
-										.addGroup(groupLayout.createSequentialGroup()
-											.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-											.addGap(361)
-											.addComponent(btnUpdateWorkShift)))
-									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-										.addComponent(btnPrevious)
-										.addComponent(btnNext)
-										.addComponent(lblStatusPage))
-									.addGap(16))))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(77)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(textEmpId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblEmpId))))
-					.addContainerGap(100, Short.MAX_VALUE))
-		);
+										.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+												.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 428,
+														GroupLayout.PREFERRED_SIZE)
+												.addGroup(groupLayout.createSequentialGroup()
+														.addComponent(textField_1, GroupLayout.PREFERRED_SIZE,
+																GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+														.addGap(361).addComponent(btnUpdateWorkShift)))
+										.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE,
+												Short.MAX_VALUE)
+										.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+												.addComponent(btnPrevious).addComponent(btnNext)
+												.addComponent(lblStatusPage))
+										.addGap(16))))
+						.addGroup(groupLayout.createSequentialGroup().addGap(77)
+								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+										.addComponent(textEmpId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblEmpId))))
+				.addContainerGap(100, Short.MAX_VALUE)));
 
 		table = new JTable();
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		
+
 		table.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -221,9 +217,11 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 		DefaultTableModel model = new DefaultTableModel() {
 			@Override
 			public boolean isCellEditable(int row, int col) {
-				switch(col) {
-				case 2:return false;
-				default: return true;
+				switch (col) {
+				case 2:
+					return false;
+				default:
+					return true;
 				}
 			}
 		};
@@ -232,7 +230,7 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 		model.addColumn("Work Date");
 		model.addColumn("Work Shift Id");
 		model.addColumn("Work Type");
-		
+
 		Work_scheduleDAO dao = new Work_scheduleDAO();
 		totalPage = Math.ceil(dao.countRow() / Double.valueOf(rowOfPage));
 		dao.selectPaginateEWS(firstPage, rowOfPage).stream().forEach(ws -> {
@@ -242,7 +240,7 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 		});
 		lblStatusPage.setText(firstPage + "/" + totalPage.intValue());
 		table.setModel(model);
-		
+
 	}
 
 	protected void do_btnPrevious_actionPerformed(ActionEvent e) {
@@ -283,60 +281,62 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 	}
 
 	protected void do_btnUpdateWorkShift_actionPerformed(ActionEvent e) {
-		if(table.getSelectedRow() == -1) {
+		if (table.getSelectedRow() == -1) {
 			JOptionPane.showMessageDialog(null, "Vui long chon dong can update");
 			return;
 		}
-//		if(!validText.isNull(textEmpId.getText())||!validText.isNull(textWorkshiftId.getText())||!validText.isNull(textWorkType.getText())||!validText.isNull(textWorkshiftId.getText())) {
-//			JOptionPane.showMessageDialog(null, "Input fields cannot be blank");
-//			return;
-//		}
+		if (textEmpId.getText().isBlank() || textWorkshiftId.getText().isBlank() || textWorkType.getText().isBlank()
+				|| textWorkshiftId.getText().isBlank()) {
+			JOptionPane.showMessageDialog(null, "Input fields cannot be blank");
+			return;
+		}
 		if (dateChooser.getDate() == null) {
 			JOptionPane.showMessageDialog(null, "Invalid Date");
 			return;
-			
+
 		}
 		int row = table.getSelectedRow();
-		int empId = Integer.parseInt(textEmpId.getText());
+		int empId = Integer.parseInt(textEmpId.getText().replaceAll("\\s", ""));
 		java.sql.Date sqlDate = new java.sql.Date(dateChooser.getDate().getTime());
-		int work_shift_id = (Integer.parseInt(textWorkshiftId.getText()));
-		String work_type = textWorkType.getText();
+		int work_shift_id = (Integer.parseInt(textWorkshiftId.getText().replaceAll("\\s", "")));
+		String work_type = textWorkType.getText().trim();
 		int work_schedule_id = (Integer.parseInt(table.getValueAt(row, 0).toString()));
 		var dao = new Work_scheduleDAO();
 		dao.update(work_schedule_id, empId, sqlDate, work_shift_id, work_type);
 		loadData();
 	}
+
 	protected void do_btnAddEWS_actionPerformed(ActionEvent e) {
-//		if(!validText.isNull(textEmpId.getText())||!validText.isNull(textWorkshiftId.getText())||!validText.isNull(textWorkType.getText())||!validText.isNull(textWorkshiftId.getText())) {
-//			JOptionPane.showMessageDialog(null, "Input fields cannot be blank");
-//			return;
-//		}
+		if (textEmpId.getText().isBlank() || textWorkshiftId.getText().isBlank() || textWorkType.getText().isBlank()
+				|| textWorkshiftId.getText().isBlank()) {
+			JOptionPane.showMessageDialog(null, "Input fields cannot be blank");
+			return;
+		}
 		if (dateChooser.getDate() == null) {
 			JOptionPane.showMessageDialog(null, "Invalid Date");
 			return;
-			
+
 		}
-		
-		int empId = Integer.parseInt(textEmpId.getText());
+
+		int empId = Integer.parseInt(textEmpId.getText().replaceAll("\\s", ""));
 		java.sql.Date sqlDate = new java.sql.Date(dateChooser.getDate().getTime());
-		int work_shift_id = (Integer.parseInt(textWorkshiftId.getText()));
-		String work_type = textWorkType.getText();
-		
-		
+		int work_shift_id = (Integer.parseInt(textWorkshiftId.getText().replaceAll("\\s", "")));
+		String work_type = textWorkType.getText().trim();
+
 		var dao = new Work_scheduleDAO();
-		dao.add( empId, sqlDate, work_shift_id, work_type);
+		dao.add(empId, sqlDate, work_shift_id, work_type);
 		loadData();
 	}
-	
+
 	protected void do_this_mouseClicked(MouseEvent e) {
-		if (e.getClickCount() == 2 && !table.contains(e.getPoint())) { 
-	        table.clearSelection();
-	        textEmpId.setText("");
-	        textField_1.setText("");
-	        textWorkshiftId.setText("");
-	        textWorkType.setText("");
-	        dateChooser.setCalendar(null);
-	    }
-	    
+		if (e.getClickCount() == 2 && !table.contains(e.getPoint())) {
+			table.clearSelection();
+			textEmpId.setText("");
+			textField_1.setText("");
+			textWorkshiftId.setText("");
+			textWorkType.setText("");
+			dateChooser.setCalendar(null);
+		}
+
 	}
 }
