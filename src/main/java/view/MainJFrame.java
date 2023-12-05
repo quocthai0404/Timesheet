@@ -85,7 +85,7 @@ public class MainJFrame extends JFrame {
 	private JButton btnNext;
 	private JLabel lblStatusPage;
 	private int firstPage = 1;
-	private int rowOfPage = 25;
+	private int rowOfPage = 10;
 	private JTextField textField_empName;
 	private JLabel lblNewLabel;
 	private JTextField textField_empID;
@@ -409,6 +409,7 @@ public class MainJFrame extends JFrame {
 		Create_Employee_Account_panel = new Create_Employee_Account();
 		panelContainer.add(Create_Employee_Account_panel, "panel_create_emp_acc");
 		
+		
 		Manage_Employee_Work_Schedule = new Manage_Employee_Work_Schedule();
 		panelContainer.add(Manage_Employee_Work_Schedule, "panel_emp_work_schedule");
 
@@ -566,6 +567,7 @@ public class MainJFrame extends JFrame {
 		cardLayout.show(panelContainer, "panel_create_emp_acc");
 		
 	}
+	
 	protected void btnUpdateEmpActionPerformed(ActionEvent e) {
 		if(textField_empName.getText().isEmpty()||textField_Position.getText().isEmpty()) {
 			JOptionPane.showMessageDialog(null, "Input fields cannot be blank");
