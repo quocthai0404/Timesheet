@@ -13,7 +13,11 @@ import javax.swing.table.DefaultTableModel;
 
 import DAO.AccountDAO;
 import DAO.EmployeeDAO;
+
+import DAO.LeaveDao;
+
 import Validation.ValidateDate;
+
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -52,8 +56,13 @@ import view.Create_Employee_Account;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+
 
 public class MainJFrame extends JFrame {
 
@@ -71,12 +80,13 @@ public class MainJFrame extends JFrame {
 
 
 	private Create_Employee_Account Create_Employee_Account_panel;
-	private JPanel panel_emp_work_schedule;
 
-	private Create_Employee_Account Create_Employee_Account;
+	private Review_Leave_Request Review_Leave_Request;
+
 	private Manage_Employee_Work_Schedule Manage_Employee_Work_Schedule;
 
-	private JPanel panel_review_leave_reqs;
+
+
 	private JPanel panel_timekeeping_info;
 	private JScrollPane scrollPane;
 	private JTable tableEmployee;
@@ -160,6 +170,12 @@ public class MainJFrame extends JFrame {
 		btnEmp_work_schedule.setMaximumSize(new Dimension(1000000, 70));
 		categoryPanel.add(btnEmp_work_schedule);
 		btnReview_leave_reqs = new JButton("<html>Review Leave Requests </html>");
+		btnReview_leave_reqs.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				btnReview_leave_reqsMouseClicked(e);
+			}
+		});
 		btnReview_leave_reqs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnClickSwitchPanel(e);
@@ -409,12 +425,14 @@ public class MainJFrame extends JFrame {
 		Create_Employee_Account_panel = new Create_Employee_Account();
 		panelContainer.add(Create_Employee_Account_panel, "panel_create_emp_acc");
 		
+
+		Review_Leave_Request = new Review_Leave_Request();
+		panelContainer.add(Review_Leave_Request, "panel_review_leave_reqs");
+		
+
 		Manage_Employee_Work_Schedule = new Manage_Employee_Work_Schedule();
 		panelContainer.add(Manage_Employee_Work_Schedule, "panel_emp_work_schedule");
 
-
-		panel_review_leave_reqs = new JPanel();
-		panelContainer.add(panel_review_leave_reqs, "panel_review_leave_reqs");
 
 		panel_timekeeping_info = new JPanel();
 		panelContainer.add(panel_timekeeping_info, "panel_timekeeping_info");
@@ -598,5 +616,10 @@ public class MainJFrame extends JFrame {
 		}else {
 			JOptionPane.showMessageDialog(null, "Invalid date");
 		}
+	}
+	
+	 
+	
+	protected void btnReview_leave_reqsMouseClicked(MouseEvent e) {
 	}
 }
