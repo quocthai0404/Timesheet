@@ -95,7 +95,7 @@ public class MainJFrame extends JFrame {
 	private JButton btnNext;
 	private JLabel lblStatusPage;
 	private int firstPage = 1;
-	private int rowOfPage = 10;
+	private int rowOfPage = 25;
 	private JTextField textField_empName;
 	private JLabel lblNewLabel;
 	private JTextField textField_empID;

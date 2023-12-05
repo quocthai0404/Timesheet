@@ -2,8 +2,11 @@ package Test;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 
@@ -81,15 +84,11 @@ public class Run {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		String s1= "strIng";
-		String s2= "string";
-		if(s1.toUpperCase().equals(s2.toUpperCase())) {
-			System.out.println(true);
-		}else {
-			System.out.println(false);
-		}
-		int i = Calendar.getInstance().get(Calendar.YEAR);
-		System.out.println(i);
+		 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
+		    Date date = new Date();  
+		    System.out.println(formatter.format(date));
+		
+		
 	}
 
 }
