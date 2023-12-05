@@ -71,9 +71,7 @@ public class MainJFrame extends JFrame {
 
 
 	private Create_Employee_Account Create_Employee_Account_panel;
-	private JPanel panel_emp_work_schedule;
 
-	private Create_Employee_Account Create_Employee_Account;
 	private Manage_Employee_Work_Schedule Manage_Employee_Work_Schedule;
 
 	private JPanel panel_review_leave_reqs;
