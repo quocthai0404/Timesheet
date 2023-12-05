@@ -11,6 +11,9 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JTextPane;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Request_Leave extends JPanel {
 
@@ -18,11 +21,12 @@ public class Request_Leave extends JPanel {
 	private JLabel lbAddNV5;
 	private JPanel panel;
 	private JLabel lblStartDate;
-	private JDateChooser dateChooser;
+	private JDateChooser dateLeave;
 	private JLabel lblNumsOfDate;
-	private JTextField textField;
+	private JTextField txtNod;
 	private JLabel lblReason;
-	private JTextField textField_1;
+	private JTextField txtReason;
+	private JButton btnSend;
 
 	public Request_Leave() {
 		
@@ -32,37 +36,47 @@ public class Request_Leave extends JPanel {
 		lblStartDate = new JLabel("Leave Start");
 		lblStartDate.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		
-		dateChooser = new JDateChooser();
+		dateLeave = new JDateChooser();
 		
 		lblNumsOfDate = new JLabel("Nums of Date");
 		lblNumsOfDate.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		
-		textField = new JTextField();
-		textField.setColumns(10);
+		txtNod = new JTextField();
+		txtNod.setColumns(10);
 		
 		lblReason = new JLabel("Reason");
 		lblReason.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
+		txtReason = new JTextField();
+		txtReason.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		txtReason.setColumns(10);
+		
+		btnSend = new JButton("Send");
+		btnSend.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnSendActionPerformed(e);
+			}
+		});
+		btnSend.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(132)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(textField_1, Alignment.LEADING)
-						.addComponent(lblReason, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
-						.addGroup(Alignment.LEADING, groupLayout.createParallelGroup(Alignment.LEADING, false)
-							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 486, Short.MAX_VALUE)
-							.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(btnSend, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE)
+						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+							.addComponent(txtReason, Alignment.LEADING)
+							.addComponent(lblReason, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
+							.addComponent(panel, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 486, Short.MAX_VALUE)
+							.addGroup(groupLayout.createSequentialGroup()
 								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 									.addComponent(lblStartDate, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 									.addComponent(lblNumsOfDate, GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE))
 								.addPreferredGap(ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
 								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-									.addComponent(textField)
-									.addComponent(dateChooser, GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)))))
+									.addComponent(txtNod)
+									.addComponent(dateLeave, GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)))))
 					.addContainerGap(392, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
@@ -72,19 +86,21 @@ public class Request_Leave extends JPanel {
 					.addGap(59)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(dateChooser, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(dateLeave, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 							.addGap(26))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(lblStartDate, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)))
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(textField)
+						.addComponent(txtNod)
 						.addComponent(lblNumsOfDate, GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
 					.addGap(29)
 					.addComponent(lblReason, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
-					.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
-					.addGap(254))
+					.addComponent(txtReason, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
+					.addGap(43)
+					.addComponent(btnSend, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
+					.addGap(169))
 		);
 		
 		lbAddNV5 = new JLabel();
@@ -111,5 +127,16 @@ public class Request_Leave extends JPanel {
 		panel.setLayout(gl_panel);
 		setLayout(groupLayout);
 
+	}
+	protected void btnSendActionPerformed(ActionEvent e) {
+	 
+	    String startDate = ""; 
+	    String numsOfDate = txtNod.getText();
+	    String reason = txtReason.getText();
+
+	   
+	    dateLeave.setDate(null);
+	    txtNod.setText("");
+	    txtReason.setText("");
 	}
 }

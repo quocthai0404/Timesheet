@@ -8,6 +8,7 @@ public class JdbcUlti {
 	public static Connection getConnection() {
 
 		Connection cn = null;
+
 		String serverName = "LAPTOP-B4B62Q9N\\SQLEXPRESS";
 		String dbName = "timesheet";
 		String username = "sa";

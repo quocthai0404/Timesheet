@@ -104,7 +104,7 @@ public class Login2 extends JFrame {
 			}
 		});
 		
-		lblForgotPassword = new JLabel("Forgot password?");
+		lblForgotPassword = new JLabel("Forget password?");
 		lblForgotPassword.addMouseListener(new MouseAdapter() {
 		    @Override
 		    public void mouseClicked(MouseEvent e) {
