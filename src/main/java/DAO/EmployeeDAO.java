@@ -1,6 +1,7 @@
 package DAO;
 
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,6 +11,7 @@ import java.util.List;
 
 import database.JdbcUlti;
 import entity.Employee;
+
 
 public class EmployeeDAO {
 	public List<Employee> selectEmployee(){
@@ -85,4 +87,52 @@ public class EmployeeDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	public int countRow() {
+		int count=0;
+		try {
+			Connection con = JdbcUlti.getConnection();
+			var statement = con.createStatement();
+			String sql = "SELECT COUNT(*) as count FROM employee";
+			ResultSet rs = statement.executeQuery(sql);
+			while(rs.next()) {
+				count = rs.getInt(1);
+			}
+			JdbcUlti.closeConnection(con);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return count;
+	}
+	
+	public List<Employee> selectPaginateEmp(int pageNumber, int rowOfPage) {
+		List<Employee> list = new ArrayList<>();
+		try {
+			Connection con = JdbcUlti.getConnection();
+			
+			String sql = "select * from employee\r\n"
+					+ "	order by employee_id\r\n"
+					+ "	offset (?-1)*? rows\r\n"
+					+ "	fetch next ? rows only";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setInt(1, pageNumber);
+			st.setInt(2, rowOfPage);
+			st.setInt(3, rowOfPage);
+			ResultSet rs = st.executeQuery();
+			while(rs.next()) {
+				list.add(new Employee(
+						rs.getInt("employee_id"),
+						rs.getString("employee_name"), 
+						rs.getString("position"),
+						rs.getDate("birthday"), 
+						rs.getBoolean("gender")	
+				));
+			}
+			JdbcUlti.closeConnection(con);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	} 
 }

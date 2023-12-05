@@ -11,6 +11,7 @@ import DAO.AccountDAO;
 import DAO.EmployeeDAO;
 import DAO.Salary_deductionDAO;
 import DAO.Work_scheduleDAO;
+import Validation.ValidateDate;
 import database.JdbcUlti;
 import entity.Employee;
 import entity.Leave;
@@ -79,11 +80,7 @@ public class Run {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		AccountDAO dao = new AccountDAO();
 		
-
-		
-		  
 
 	}
 

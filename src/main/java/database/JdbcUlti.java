@@ -8,10 +8,10 @@ public class JdbcUlti {
 	public static Connection getConnection() {
 
 		Connection cn = null;
-		String serverName = "DESKTOP-6L06R65";
+		String serverName = "LAPTOP-B4B62Q9N\\SQLEXPRESS";
 		String dbName = "timesheet";
 		String username = "sa";
-		String password = "123456";
+		String password = "123";
 		String port = "1433";
 		String url = "jdbc:sqlserver://"+serverName+":"+port+"; databaseName = "+dbName +"; user = "+username+"; password = "+password+";";
 
