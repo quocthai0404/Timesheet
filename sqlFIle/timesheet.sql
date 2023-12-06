@@ -1,11 +1,11 @@
-﻿use master
+use master
 go
 
-drop database if exists timesheet
-create database timesheet
+drop database if exists timesheet_new
+create database timesheet_new
 go
 
-use timesheet
+use timesheet_new
 go
 
 --DATE - format: yyyy-MM-dd.
@@ -72,9 +72,10 @@ go
 
 create table work_shift
 (
-	work_shift_id int primary key identity not null,
-	description varchar(50) not null
+    work_shift_id int primary key identity not null,
+    description varchar(50) not null
 )
+GO
 
 create table work_schedule
 (
@@ -188,10 +189,10 @@ go
 
 SELECT CONVERT(VARCHAR(32), HashBytes('MD5', 'http://laptrinhvb.net'), 2)
 
-insert into account(employee_id, username, password, email, account_privilege)
+insert into account(employee_id, username, password, email)
 values(1, 'admin', 'admin', 'thaiphan0804@gmail.com', 'test')
 
-select password, 
+select password
 from account
 where username='admin'
 go
@@ -205,6 +206,28 @@ values(3, 'employee', 'employee', 'thaiphan@gmail.com')
 select * from employee where employee_id=8
 
 
+select account.username, account.password, employee.position
+from account
+inner join employee on employee.employee_id=account.employee_id
+where account.username='manager'
+go
+
+--proc
+CREATE PROCEDURE InsertAccount
+    @employee_id INT,
+    @username VARCHAR(50),
+    @password VARCHAR(255),
+    @email VARCHAR(100)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO account (employee_id, username, password, email)
+    VALUES (@employee_id, @username, @password, @email);
+END;
+GO
+-------------------------
+-------------------------
 select account.username, account.password, employee.position, account.employee_id
 from account
 inner join employee on employee.employee_id=account.employee_id
@@ -216,3 +239,6 @@ DROP COLUMN work_type;
 
 ALTER TABLE work_shift
 ADD work_type varchar(50);
+
+
+
