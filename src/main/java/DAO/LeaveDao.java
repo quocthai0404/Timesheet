@@ -13,6 +13,7 @@ import java.util.List;
 
 import database.JdbcUlti;
 import entity.Employee;
+import entity.EmployeeAfterLogin;
 import entity.Leave;
 
 public class LeaveDao {
@@ -172,16 +173,17 @@ public class LeaveDao {
     public void addLeaveRequest(Date startDate, String numsOfDate, String reason) {
         try {
             Connection connection = JdbcUlti.getConnection();
-            String sql = "INSERT INTO leave (start_date, nums_of_date, reason) VALUES (?, ?, ?)";
+            String sql = "insert into leave(employee_id, leave_type, startdate, number_of_days, reason, approved)\r\n"
+            		+ "values (?, 'unpaid leave', ?, ?, ?, 0)";
             
             PreparedStatement statement = connection.prepareStatement(sql);
-            
-            statement.setDate(1, (java.sql.Date) startDate);	
-            statement.setString(2, numsOfDate);
-            statement.setString(3, reason);
+            statement.setInt(1, EmployeeAfterLogin.employeeID);
+            statement.setDate(2, new java.sql.Date(startDate.getTime()));	
+            statement.setString(3, numsOfDate);
+            statement.setString(4, reason);
             
             if (statement.executeUpdate() > 0) {
-                System.out.println("leave request updated added");
+                System.out.println("leave request added");
             }
             
             JdbcUlti.closeConnection(connection);

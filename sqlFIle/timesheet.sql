@@ -205,10 +205,10 @@ values(3, 'employee', 'employee', 'thaiphan@gmail.com')
 select * from employee where employee_id=8
 
 
-select account.username, account.password, employee.position
+select account.username, account.password, employee.position, account.employee_id
 from account
 inner join employee on employee.employee_id=account.employee_id
-where account.username='manager'
+where account.username='employee'
 go
 
 ALTER TABLE work_schedule

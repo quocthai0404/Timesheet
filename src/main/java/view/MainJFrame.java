@@ -17,7 +17,7 @@ import DAO.EmployeeDAO;
 import DAO.LeaveDao;
 
 import Validation.ValidateDate;
-
+import database.JdbcUlti;
 
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
@@ -56,8 +56,9 @@ import view.Create_Employee_Account;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
-
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
@@ -579,9 +580,25 @@ public class MainJFrame extends JFrame {
 		}
 	}
 	protected void btnCreateEmpAccActionPerformed(ActionEvent e) {
+		Connection con = null;
+		try {
+			con = JdbcUlti.getConnection();
+            String sql = "SELECT * FROM account where employee_id = ?";
+            PreparedStatement statement = con.prepareStatement(sql);
+			statement.setInt(1, Integer.parseInt(textField_empID.getText()));
+			ResultSet rs = statement.executeQuery();
+			if(rs.next()) {
+				JOptionPane.showMessageDialog(null, "This employee already has an account");
+				return;
+			}else {
+				Create_Employee_Account_panel.getValueFromPanel(textField_empID.getText(), textField_empName.getText(), textField_Position.getText());
+				cardLayout.show(panelContainer, "panel_create_emp_acc");
+			}
+			JdbcUlti.closeConnection(con);
+		} catch (Exception e2) {
+			e2.printStackTrace();
+		}
 		
-		Create_Employee_Account_panel.getValueFromPanel(textField_empID.getText(), textField_empName.getText(), textField_Position.getText());
-		cardLayout.show(panelContainer, "panel_create_emp_acc");
 		
 	}
 	

@@ -21,6 +21,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.Date;
 import java.awt.event.ActionEvent;
+import javax.swing.JTextArea;
 
 public class Request_Leave extends JPanel {
 
@@ -32,9 +33,9 @@ public class Request_Leave extends JPanel {
 	private JLabel lblNumsOfDate;
 	private JTextField txtNod;
 	private JLabel lblReason;
-	private JTextField txtReason;
 	private JButton btnSend;
 	private JTable tableRequest;
+	private JTextArea textAreaReason;
 	
 	public Request_Leave() {
 		
@@ -55,10 +56,6 @@ public class Request_Leave extends JPanel {
 		lblReason = new JLabel("Reason");
 		lblReason.setFont(new Font("Tahoma", Font.PLAIN, 22));
 		
-		txtReason = new JTextField();
-		txtReason.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		txtReason.setColumns(10);
-		
 		btnSend = new JButton("Send");
 		btnSend.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -66,15 +63,17 @@ public class Request_Leave extends JPanel {
 			}
 		});
 		btnSend.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		
+		textAreaReason = new JTextArea();
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(132)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(textAreaReason, GroupLayout.PREFERRED_SIZE, 480, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnSend, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE)
 						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-							.addComponent(txtReason, Alignment.LEADING)
 							.addComponent(lblReason, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
 							.addComponent(panel, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 486, Short.MAX_VALUE)
 							.addGroup(groupLayout.createSequentialGroup()
@@ -85,7 +84,7 @@ public class Request_Leave extends JPanel {
 								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
 									.addComponent(txtNod)
 									.addComponent(dateLeave, GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)))))
-					.addContainerGap(392, Short.MAX_VALUE))
+					.addContainerGap(204, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -100,13 +99,13 @@ public class Request_Leave extends JPanel {
 							.addComponent(lblStartDate, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
 							.addPreferredGap(ComponentPlacement.RELATED)))
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(txtNod)
+						.addComponent(txtNod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblNumsOfDate, GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
 					.addGap(29)
 					.addComponent(lblReason, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(txtReason, GroupLayout.PREFERRED_SIZE, 119, GroupLayout.PREFERRED_SIZE)
-					.addGap(43)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(textAreaReason, GroupLayout.PREFERRED_SIZE, 115, GroupLayout.PREFERRED_SIZE)
+					.addGap(59)
 					.addComponent(btnSend, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
 					.addGap(169))
 		);
@@ -155,14 +154,14 @@ public class Request_Leave extends JPanel {
 	}
 	
 	protected void btnSendActionPerformed(ActionEvent e) {
-		Date startDate = dateLeave.getDate();
-        String numsOfDate = txtNod.getText();
-        String reason = txtReason.getText();
-
-        
+//		Date startDate = dateLeave.getDate();
+//        String numsOfDate = txtNod.getText();
+//        String reason = txtReason.getText();
+//
+//        
         LeaveDao leaveDao = new LeaveDao();
-        leaveDao.addLeaveRequest(startDate, numsOfDate, reason); 
-        loadData();
+        leaveDao.addLeaveRequest(dateLeave.getDate(), txtNod.getText(), textAreaReason.getText()); 
+//        loadData();
 	    
 	}
 }
