@@ -6,8 +6,13 @@ import java.sql.SQLException;
 
 public class JdbcUlti {
 	public static Connection getConnection() {
-
+		//thai
+		// String serverName = "DESKTOP-6L06R65";
+		//	String password = "123456";
+		//String dbName = "timesheet";
+		//------
 		Connection cn = null;
+
 		String serverName = "DESKTOP-6L06R65";
 		String dbName = "timesheet";
 		String username = "sa";

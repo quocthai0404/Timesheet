@@ -1,11 +1,19 @@
 package Test;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 
 import entity.Attendance;
 import DAO.AccountDAO;
@@ -19,6 +27,7 @@ import entity.Leave;
 import entity.Salary;
 import entity.Salary_deduction;
 import entity.Work_schedule;
+
 public class Run {
 	public static void main(String[] args) {
 //		List<Salary_deduction> list = new ArrayList<>();
@@ -66,7 +75,7 @@ public class Run {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		
+
 //		EmployeeDAO dao = new EmployeeDAO();
 //		try {
 //			dao.add("thai", "manager", new SimpleDateFormat("yyyy-MM-dd").parse("2000-09-09"), true);
@@ -81,15 +90,11 @@ public class Run {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		String s1= "strIng";
-		String s2= "string";
-		if(s1.toUpperCase().equals(s2.toUpperCase())) {
-			System.out.println(true);
-		}else {
-			System.out.println(false);
-		}
-		int i = Calendar.getInstance().get(Calendar.YEAR);
-		System.out.println(i);
+		Run run = new Run();
+		System.out.println(run.checkExists("", ".com"));
+
 	}
+
+	
 
 }

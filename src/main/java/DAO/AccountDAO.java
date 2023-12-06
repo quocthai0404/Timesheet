@@ -2,6 +2,7 @@ package DAO;
 
 import database.JdbcUlti;
 import entity.Account;
+import entity.EmployeeAfterLogin;
 import view.Login2;
 
 import java.sql.Connection;
@@ -43,7 +44,7 @@ public class AccountDAO {
     	Login2 lg = new Login2();
     	try {
 			Connection con = JdbcUlti.getConnection();
-			String sql = "select account.username, account.password, employee.position\r\n"
+			String sql = "select account.username, account.password, employee.position, account.employee_id\r\n"
 					+ "from account\r\n"
 					+ "inner join employee on employee.employee_id=account.employee_id\r\n"
 					+ "where account.username=?";
@@ -53,7 +54,8 @@ public class AccountDAO {
 			
 			while(rs.next()) {
 				if(rs.getString(1).equals(username)&&rs.getString(2).equals(password)) {
-					lg.getPosition(rs.getString(3));
+					EmployeeAfterLogin.employeePosition=rs.getString(3);
+					EmployeeAfterLogin.employeeID=rs.getInt(4);
 					System.out.println("login ok");
 					return true;
 				}else {
@@ -85,4 +87,36 @@ public class AccountDAO {
         }
         return null;
     }
+    
+    public boolean checkExists(String username, String email) {
+	    Connection connection = null;
+	    boolean usernameExists = false;
+	    boolean emailExists = false;
+
+	    try {
+	        connection = JdbcUlti.getConnection();
+
+	        String sql = "SELECT * FROM account WHERE username = ?";
+	        PreparedStatement statement = connection.prepareStatement(sql);
+	        statement.setString(1, username);
+	        ResultSet rs = statement.executeQuery();
+
+	        usernameExists = rs.next();
+	        rs.close();
+
+	        String sql2 = "SELECT * FROM account WHERE email = ?";
+	        PreparedStatement statement2 = connection.prepareStatement(sql2);
+	        statement2.setString(1, email);
+	        ResultSet rs2 = statement2.executeQuery();
+
+	        emailExists = rs2.next();
+	        rs2.close();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        JdbcUlti.closeConnection(connection);
+	    }
+
+	    return usernameExists || emailExists;
+	}
 }

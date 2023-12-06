@@ -31,11 +31,4 @@
 		<nature>org.eclipse.m2e.core.maven2Nature</nature>
 		<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>sqlFIle/timesheet.sql</name>
-			<type>1</type>
-			<locationURI>PARENT-2-PROJECT_LOC/OneDrive/Desktop/timesheet.sql</locationURI>
-		</link>
-	</linkedResources>
 </projectDescription>
