@@ -134,22 +134,24 @@ public class Request_Leave extends JPanel {
 		);
 		panel.setLayout(gl_panel);
 		setLayout(groupLayout);
+		loadData();
 
 	}
 	
 	public void loadData() {
 		DefaultTableModel model = new DefaultTableModel();
-		model.addColumn("Start Date");
-		model.addColumn("Number of Days");
-		model.addColumn("Reason");
-		EmployeeDAO dao = new EmployeeDAO();
-		
-		LeaveDao dao1 = new LeaveDao();
+	    model.addColumn("Start Date");
+	    model.addColumn("Number of Days");
+	    model.addColumn("Reason");
+	    EmployeeDAO dao = new EmployeeDAO();
+
+	    LeaveDao dao1 = new LeaveDao();
 
 	    dao1.selectLeave().forEach(leave -> {
 	        model.addRow(new Object[]{leave.getStartdate(), leave.getNumber_of_days(), leave.getReason()});
 	    });
-	    tableRequest.setModel(model);
+
+	    model.getDataVector().forEach(System.out::println);
 	}
 	
 	protected void btnSendActionPerformed(ActionEvent e) {

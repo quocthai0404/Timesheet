@@ -168,7 +168,7 @@ public class LeaveDao {
         }
     }
 
-    // Phương thức thêm mới dữ liệu vào cơ sở dữ liệu
+    
     public void addLeaveRequest(Date startDate, String numsOfDate, String reason) {
         try {
             Connection connection = JdbcUlti.getConnection();
