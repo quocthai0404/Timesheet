@@ -157,9 +157,9 @@ public class Request_Leave extends JPanel {
         String numsOfDate = txtNod.getText();
         String reason = txtReason.getText();
 
-        // Gọi đến phương thức thêm mới trong LeaveDao
+        
         LeaveDao leaveDao = new LeaveDao();
-        leaveDao.addLeaveRequest(startDate, numsOfDate, reason); // Chú ý giá trị approved đặt là false
+        leaveDao.addLeaveRequest(startDate, numsOfDate, reason); 
         loadData();
 	    
 	}
