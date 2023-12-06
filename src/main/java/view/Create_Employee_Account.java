@@ -35,6 +35,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.UIManager;
 import javax.swing.JScrollPane;
@@ -266,48 +268,112 @@ public class Create_Employee_Account extends JPanel {
 		lblStatusPage.setText(firstPage + "/" + totalPage.intValue());
 		loadData();
 	}
-
+    
     // Create
     protected void btnCreateActionPerformed(ActionEvent e) {
         try {
-        	 // Lấy thông tin từ các trường dữ liệu
+            // Lấy thông tin từ các trường dữ liệu
             int empId = Integer.parseInt(textField_empID.getText());
             String username = txtUsername.getText();
             String password = txtPassword.getText();
             String email = txtEmail.getText();
-            String position = textField_Position.getText();
 
-            // Kiểm tra nếu chức vụ là "manager" thì ẩn nút "Create Account"
-            // Gọi stored procedure để thêm tài khoản
-            try (Connection connection = JdbcUlti.getConnection();
-                 CallableStatement callableStatement = connection.prepareCall("{call InsertAccount(?, ?, ?, ?)}")) {
-
-                callableStatement.setInt(1, empId);
-                callableStatement.setString(2, username);
-                callableStatement.setString(3, password);
-                callableStatement.setString(4, email);
-
-                callableStatement.execute();
+            // Kiểm tra xem username đã tồn tại trong cơ sở dữ liệu chưa
+            if (isUsernameExist(username)) {
+                JOptionPane.showMessageDialog(null, "Username đã tồn tại. Vui lòng chọn username khác.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
             }
 
-            // In thông tin ra màn hình (bạn có thể xóa hoặc thay thế bằng hành động phù hợp)
-//            System.out.println("Thông tin tài khoản đã tạo:");
-//            System.out.println("Employee ID: " + empId);
-//            System.out.println("Username: " + username);
-//            System.out.println("Password: " + password);
-//            System.out.println("Email: " + email);
-//            System.out.println("Account Privilege: " + accPrivilege);
-//
-//            // Làm sạch các trường dữ liệu sau khi tạo xong
-//            clearFields();
+            // Kiểm tra xem email đã tồn tại trong cơ sở dữ liệu chưa
+            if (isEmailExist(email)) {
+                JOptionPane.showMessageDialog(null, "Email đã tồn tại. Vui lòng chọn email khác.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return; // Người dùng nhập trùng email, không tiếp tục thực hiện thêm vào cơ sở dữ liệu
+            }
+
+            // Tiếp tục thực hiện thêm vào cơ sở dữ liệu
+            insertAccount(empId, username, password, email);
+
             JOptionPane.showMessageDialog(null, "Tạo tài khoản thành công.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Vui lòng nhập thông tin hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Lỗi khi tạo tài khoản.", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
     }
+
+    public boolean isUsernameExist(String username) {
+        Connection con = null;
+
+        try {
+            con = JdbcUlti.getConnection();
+            String sql = "SELECT COUNT(*) FROM account WHERE username = ?";
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setString(1, username);
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return count > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            JdbcUlti.closeConnection(con);
+        }
+
+        return false;
+    }
+
+    public boolean isEmailExist(String email) {
+        Connection con = null;
+
+        try {
+            con = JdbcUlti.getConnection();
+            String sql = "SELECT COUNT(*) FROM account WHERE email = ?";
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setString(1, email);
+            ResultSet rs = statement.executeQuery();
+
+            if (rs.next()) {
+                int count = rs.getInt(1);
+                return count > 0;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            JdbcUlti.closeConnection(con);
+        }
+
+        return false;
+    }
+
+    public void insertAccount(int employeeId, String username, String password, String email) {
+        try {
+            // Kiểm tra xem username hoặc email đã tồn tại hay chưa
+            boolean isUsernameExist = isUsernameExist(username);
+            boolean isEmailExist = isEmailExist(email);
+
+            if (isUsernameExist || isEmailExist) {
+                System.out.println("Username hoặc email đã tồn tại trong hệ thống.");
+                return;
+            }
+
+            Connection con = JdbcUlti.getConnection();
+            String sql = "INSERT INTO account (employee_id, username, password, email) VALUES (?, ?, ?, ?)";
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setInt(1, employeeId);
+            statement.setString(2, username);
+            statement.setString(3, password);
+            statement.setString(4, email);
+            statement.executeUpdate();
+
+            System.out.println("Account đã được thêm vào cơ sở dữ liệu.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void getValueFromPanel(String id, String name, String position) {
     	textField_empID.setText(id);
     	textField_empName.setText(name);
