@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import DAO.AccountDAO;
+import entity.EmployeeAfterLogin;
 
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
@@ -190,8 +191,9 @@ public class Login2 extends JFrame {
 	protected void btnLoginActionPerformed(ActionEvent e) {
 		AccountDAO accDAO = new AccountDAO();
 		if(accDAO.Login(jtfUsername.getText(), String.valueOf(jtfPassword.getPassword()))) {
-			System.out.println(position);
-			if(position.equals("manager")) {
+			System.out.println(EmployeeAfterLogin.employeePosition);
+			System.out.println(EmployeeAfterLogin.employeeID);
+			if(EmployeeAfterLogin.employeePosition.equals("manager")) {
 				setVisible(false);
 				new MainJFrame();
 			}else {
@@ -209,8 +211,8 @@ public class Login2 extends JFrame {
 	    forgetPasswordFrame.setVisible(true);
 	    this.dispose();
 	}
-	public void getPosition(String pos) {
-		position = pos;
-	}
+//	public void getPosition(String pos) {
+//		position = pos;
+//	}
 
 }

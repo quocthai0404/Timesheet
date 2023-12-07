@@ -44,7 +44,8 @@ public class FrameForEmp extends JFrame {
 	private JPanel panelWork_Schedule;
 	private JPanel panelAttendence;
 	private JPanel panelView_Attendence_History;
-	private JPanel panelLeaveRequest;
+//	private JPanel panelLeaveRequest;
+	private Request_Leave panelRequestLeave;
 
 	public FrameForEmp() {
 		setTitle("Manager Frame");
@@ -134,8 +135,8 @@ public class FrameForEmp extends JFrame {
 		panelContainer.add(panelView_Attendence_History, "panelView_Attendence_History");
 
 
-		panelLeaveRequest = new JPanel();
-		panelContainer.add(panelLeaveRequest, "panelLeaveRequest");
+		panelRequestLeave = new Request_Leave();
+		panelContainer.add(panelRequestLeave, "panelLeaveRequest");
 		
 
 
