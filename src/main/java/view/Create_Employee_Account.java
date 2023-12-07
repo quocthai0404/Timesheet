@@ -280,25 +280,25 @@ public class Create_Employee_Account extends JPanel {
 
             // Kiểm tra xem username đã tồn tại trong cơ sở dữ liệu chưa
             if (isUsernameExist(username)) {
-                JOptionPane.showMessageDialog(null, "Username đã tồn tại. Vui lòng chọn username khác.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Username already exists. Please choose another username.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
             // Kiểm tra xem email đã tồn tại trong cơ sở dữ liệu chưa
             if (isEmailExist(email)) {
-                JOptionPane.showMessageDialog(null, "Email đã tồn tại. Vui lòng chọn email khác.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Email already exists. Please select another email.", "Error", JOptionPane.ERROR_MESSAGE);
                 return; // Người dùng nhập trùng email, không tiếp tục thực hiện thêm vào cơ sở dữ liệu
             }
 
             // Tiếp tục thực hiện thêm vào cơ sở dữ liệu
             insertAccount(empId, username, password, email);
 
-            JOptionPane.showMessageDialog(null, "Tạo tài khoản thành công.", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Account created successfully.", "Notification", JOptionPane.INFORMATION_MESSAGE);
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Vui lòng nhập thông tin hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Please enter valid information.", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (Exception ex) {
             ex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Lỗi khi tạo tài khoản.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error creating account.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -355,7 +355,7 @@ public class Create_Employee_Account extends JPanel {
             boolean isEmailExist = isEmailExist(email);
 
             if (isUsernameExist || isEmailExist) {
-                System.out.println("Username hoặc email đã tồn tại trong hệ thống.");
+                System.out.println("Username or email already exists in the system.");
                 return;
             }
 
@@ -368,7 +368,7 @@ public class Create_Employee_Account extends JPanel {
             statement.setString(4, email);
             statement.executeUpdate();
 
-            System.out.println("Account đã được thêm vào cơ sở dữ liệu.");
+            System.out.println("Account has been added to the database.");
         } catch (Exception e) {
             e.printStackTrace();
         }

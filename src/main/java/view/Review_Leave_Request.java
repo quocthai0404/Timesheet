@@ -134,7 +134,7 @@ public class Review_Leave_Request extends JPanel {
         						.addGroup(groupLayout.createSequentialGroup()
         							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
         								.addGroup(groupLayout.createSequentialGroup()
-        									.addComponent(lblApproved, GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
+        									.addComponent(lblApproved, GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
         									.addPreferredGap(ComponentPlacement.RELATED)
         									.addComponent(rdbtnYes, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE)
         									.addGap(18)
@@ -142,11 +142,11 @@ public class Review_Leave_Request extends JPanel {
         									.addGap(21))
         								.addGroup(groupLayout.createSequentialGroup()
         									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-        										.addComponent(lblNumsDate, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        										.addComponent(lblReason, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
-        										.addComponent(lblStartDate, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
-        										.addComponent(lblLeaveType, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
-        										.addComponent(lblEmpId, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE))
+        										.addComponent(lblNumsDate, GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
+        										.addComponent(lblReason, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
+        										.addComponent(lblStartDate, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
+        										.addComponent(lblLeaveType, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
+        										.addComponent(lblEmpId, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE))
         									.addPreferredGap(ComponentPlacement.UNRELATED)
         									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
         										.addComponent(txtEmpId, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
@@ -178,6 +178,11 @@ public class Review_Leave_Request extends JPanel {
         						.addComponent(lblEmpId)
         						.addComponent(txtEmpId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
         					.addPreferredGap(ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+        					.addPreferredGap(ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+        					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+        						.addComponent(lblEmpId)
+        						.addComponent(txtEmpId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        					.addPreferredGap(ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
         					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
         						.addGroup(groupLayout.createSequentialGroup()
         							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
@@ -305,5 +310,6 @@ public class Review_Leave_Request extends JPanel {
 	    int selectedRow = tableLeave.getSelectedRow();
 	    model.setValueAt(approved ? "Yes" : "No", selectedRow, 6);
 	    loadData();
+
 	}
 }
