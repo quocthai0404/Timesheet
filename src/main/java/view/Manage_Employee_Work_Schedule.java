@@ -59,7 +59,9 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 	private JTable table_1;
 	private JLabel lblNewLabel;
 	private JTextField textWorkType;
-	private JComboBox comboBox;
+	private JComboBox comboBox = new JComboBox<WorkShift>();
+	private Work_shiftDAO wsd = new Work_shiftDAO();
+	private List<WorkShift> list = wsd.select();
 
 	/**
 	 * Create the panel.
@@ -126,24 +128,19 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 		
 		textWorkType = new JTextField();
 		textWorkType.setColumns(10);
-
-		comboBox = new JComboBox();
+		
+        for (WorkShift i : list) {
+			comboBox.addItem((WorkShift) i);
+		}
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				do_comboBox_actionPerformed(e);
 			}
 		});
-		Work_shiftDAO workShiftDao = new Work_shiftDAO();
 
-        List<String> workShiftDess = workShiftDao.selectDes();
-        DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>();
-        for (String workShiftDes : workShiftDess) {
-            comboBoxModel.addElement(String.valueOf(workShiftDes));
-        	
-        }
+		
         
-        comboBox.setModel(comboBoxModel);
-        comboBox.setSelectedIndex(-1);
+        comboBox.setSelectedIndex(0);
 		
 
 
@@ -344,7 +341,14 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
-			comboBox.setSelectedItem(table.getValueAt(row, 4).toString());;
+			String value = table.getValueAt(row, 4).toString();
+			
+	        for (WorkShift i : list) {
+				if(i.getDescription().equals(value)) {
+					comboBox.setSelectedItem(i);
+				}
+			}
+			
 			textWorkType.setText(table.getValueAt(row, 5).toString());
 
 		}
@@ -377,8 +381,7 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 	}
 
 	protected void do_btnAddEWS_actionPerformed(ActionEvent e) {
-		if (textEmpId.getText().isBlank() || comboBox.getSelectedItem().toString().isBlank() || textWorkType.getText().isBlank()
-				|| textWorkshiftId.getText().isBlank()) {
+		if (textEmpId.getText().isBlank() || comboBox.getSelectedItem().toString().isBlank() || textWorkType.getText().isBlank()) {
 			JOptionPane.showMessageDialog(null, "Input fields cannot be blank");
 			return;
 		}
@@ -390,7 +393,6 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 
 		int empId = Integer.parseInt(textEmpId.getText().replaceAll("\\s", ""));
 		java.sql.Date sqlDate = new java.sql.Date(dateChooser.getDate().getTime());
-		int work_shift_id = (Integer.parseInt(textWorkshiftId.getText().replaceAll("\\s", "")));
 		String work_type = textWorkType.getText().trim();
 
 		var dao = new Work_scheduleDAO();
@@ -410,8 +412,10 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 
 	}
 	protected void do_comboBox_actionPerformed(ActionEvent e) {
-		String selectedWorkShift = (String) comboBox.getSelectedItem();
-		Work_shiftDAO dao = new Work_shiftDAO();
-		textWorkType.setText(dao.getWorkTypeByDescription(selectedWorkShift));
+
+		WorkShift ws = (WorkShift) comboBox.getSelectedItem();
+		System.out.println("ID: "+ws.getWork_shift_id());
+		System.out.println("des: "+ws.getDescription());
+		System.out.println("work_type: "+ws.getWork_type());
 	}
 }

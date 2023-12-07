@@ -49,8 +49,7 @@ public class WorkShift {
 
 	@Override
 	public String toString() {
-		return "WorkShift [work_shift_id=" + work_shift_id + ", description=" + description + ", work_type=" + work_type
-				+ "]";
+		return getDescription();
 	}
 
 	

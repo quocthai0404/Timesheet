@@ -243,5 +243,6 @@ ADD work_type varchar(50);
 UPDATE leave SET approved=1,leave_type='paid leave'  WHERE leave_id=5
 select * from leave
 
+select * from work_shift
 
 

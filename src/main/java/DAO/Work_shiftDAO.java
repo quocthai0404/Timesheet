@@ -12,8 +12,9 @@ import entity.WorkShift;
 public class Work_shiftDAO {
 	public List<String> selectDes(){
 		List<String> list = new ArrayList<>() ;
+		Connection con=null;
 		try {
-			Connection con = JdbcUlti.getConnection();
+			con = JdbcUlti.getConnection();
 			var statement = con.createStatement();
 			String sql = "select description from work_shift ";
 			ResultSet rs = statement.executeQuery(sql);
@@ -22,25 +23,32 @@ public class Work_shiftDAO {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			JdbcUlti.closeConnection(con);
 		}
 		return list;
 	}
 	public List<WorkShift> select(){
 		List<WorkShift> list = new ArrayList<>() ;
+		Connection con=null;
 		try {
-			Connection con = JdbcUlti.getConnection();
+			con = JdbcUlti.getConnection();
 			var statement = con.createStatement();
-			String sql = "select * from work_shift ";
+			String sql = "select * from work_shift";
 			ResultSet rs = statement.executeQuery(sql);
+		
 			while(rs.next()) {
-				new WorkShift(
+				list.add(new WorkShift(
 						rs.getInt("work_shift_id"),
 						rs.getString("description"),
-						rs.getString("wwork_type")
-						);
+						rs.getString("work_type")
+						));
 			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally {
+			JdbcUlti.closeConnection(con);
 		}
 		return list;
 	}
