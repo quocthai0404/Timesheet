@@ -324,7 +324,7 @@ public class Create_Employee_Account extends JPanel {
 
         return false;
     }
-
+    //Check Username and Email Exist
     public boolean isEmailExist(String email) {
         Connection con = null;
 
