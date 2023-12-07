@@ -3,6 +3,8 @@ package view;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.SwingConstants;
@@ -162,6 +164,14 @@ public class Request_Leave extends JPanel {
         LeaveDao leaveDao = new LeaveDao();
         leaveDao.addLeaveRequest(dateLeave.getDate(), txtNod.getText(), textAreaReason.getText()); 
 //        loadData();
+        
+        JOptionPane.showMessageDialog(this, "Leave request sent successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
 	    
+        
+        dateLeave.setDate(null);
+        txtNod.setText("");
+        textAreaReason.setText("");
+        
+        loadData();
 	}
 }
