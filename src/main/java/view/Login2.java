@@ -44,7 +44,7 @@ public class Login2 extends JFrame {
 	private JLabel lblNewLabel_3;
 	private JPasswordField jtfPassword;
 	private JPanel panel_1;
-	private static String position;
+
 	
 
 	/**
