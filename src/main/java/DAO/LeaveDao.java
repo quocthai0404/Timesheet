@@ -12,6 +12,7 @@ import java.util.List;
 
 
 import database.JdbcUlti;
+import database.JdbcUtil;
 import entity.Employee;
 import entity.EmployeeAfterLogin;
 import entity.Leave;
@@ -192,6 +193,26 @@ public class LeaveDao {
         }
     }
 	
+    public static void delete(int leaveId) {
+        try {
+            Connection connection = JdbcUlti.getConnection();
+            String sql = "DELETE FROM leave WHERE leave_id = ?";
+            
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setInt(1, leaveId);
+            
+            if (statement.executeUpdate() > 0) {
+                System.out.println("Leave request deleted successfully!");
+            } else {
+                System.out.println("Failed to delete leave request.");
+            }
+            
+            JdbcUlti.closeConnection(connection);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    
 	public List<Leave> selectPaginateEmp(int pageNumber, int rowOfPage) {
 		List<Leave> list = new ArrayList<>();
 		try {
