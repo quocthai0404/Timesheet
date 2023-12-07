@@ -303,7 +303,7 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 		model.addColumn("Gender");
 		EmployeeDAO dao = new EmployeeDAO();
 		totalPage = Math.ceil(dao.countRow() / Double.valueOf(rowOfPage));
-		dao.selectPaginateEmpOnlyEmp(firstPage, rowOfPage).stream().forEach(emp -> {
+		dao.selectPaginateEmp(firstPage, rowOfPage).stream().forEach(emp -> {
 			String gender = emp.getGender() ? "Male" : "Female";
 			model.addRow(new Object[] { emp.getEmployee_id(), emp.getEmployee_name(), emp.getPosition(),
 					emp.getBirthday(), gender });

@@ -41,10 +41,11 @@ public class FrameForEmp extends JFrame {
 	private JButton btnLeaveRequest;
 	private JPanel panelContainer;
 	private CardLayout cardLayout;
-	private JPanel panelWork_Schedule;
+	
 	private JPanel panelAttendence;
 	private JPanel panelView_Attendence_History;
 //	private JPanel panelLeaveRequest;
+	private Work_Schedule panelWorkSchedule;
 	private Request_Leave panelRequestLeave;
 
 	public FrameForEmp() {
@@ -117,12 +118,8 @@ public class FrameForEmp extends JFrame {
 		
 		contentPane.add(panelContainer, BorderLayout.CENTER);
 
-		panelWork_Schedule = new JPanel();
-		panelWork_Schedule.setBackground(Color.BLUE);
-		panelContainer.add(panelWork_Schedule, "panelWork_Schedule");
-		GroupLayout gl_panelWork_Schedule = new GroupLayout(panelWork_Schedule);
 		
-		panelWork_Schedule.setLayout(gl_panelWork_Schedule);
+		
 
 		
 
@@ -130,10 +127,14 @@ public class FrameForEmp extends JFrame {
 		panelAttendence.setBackground(Color.RED);
 		panelContainer.add(panelAttendence, "panelAttendence");
 		
+		panelWorkSchedule = new Work_Schedule();
+		panelContainer.add(panelWorkSchedule, "panelWorkSchedule");
+		
 		panelView_Attendence_History = new JPanel();
 		panelView_Attendence_History.setBackground(Color.BLACK);
 		panelContainer.add(panelView_Attendence_History, "panelView_Attendence_History");
-
+		
+		
 
 		panelRequestLeave = new Request_Leave();
 		panelContainer.add(panelRequestLeave, "panelLeaveRequest");
@@ -148,8 +149,8 @@ public class FrameForEmp extends JFrame {
 	public void btnClickSwitchPanel(ActionEvent e) {
 		Object src = e.getSource();
 		if (src.equals(btnWork_Schedule)) {
-			cardLayout.show(panelContainer, "panelWork_Schedule");
-			System.out.println("BLUE + panelWork_Schedule");
+			cardLayout.show(panelContainer, "panelWorkSchedule");
+			System.out.println("workschedule");
 		} else if (src.equals(btnAttendence)) {
 			cardLayout.show(panelContainer, "panelAttendence");
 			System.out.println(" RED panelAttendence");

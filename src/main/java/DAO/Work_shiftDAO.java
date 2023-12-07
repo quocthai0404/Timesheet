@@ -36,7 +36,7 @@ public class Work_shiftDAO {
 				new WorkShift(
 						rs.getInt("work_shift_id"),
 						rs.getString("description"),
-						rs.getString("wwork_type")
+						rs.getString("work_type")
 						);
 			}
 		} catch (Exception e) {

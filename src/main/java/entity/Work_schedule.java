@@ -15,13 +15,13 @@ public class Work_schedule {
     	super();
     }
     
-	public Work_schedule(int work_schedule_id, int employee_id, Date work_date, int work_shift_id, String work_type) {
+	public Work_schedule(int work_schedule_id, int employee_id, Date work_date, int work_shift_id) {
 
 		this.work_schedule_id = work_schedule_id;
 		this.employee_id = employee_id;
 		this.work_date = work_date;
 		this.work_shift_id = work_shift_id;
-		this.work_type = work_type;
+		
 	}
 	public Work_schedule(int work_schedule_id, int employee_id, Date work_date, int work_shift_id,String work_description, String work_type ) {
         this.work_schedule_id = work_schedule_id;

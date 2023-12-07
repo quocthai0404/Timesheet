@@ -27,8 +27,8 @@ public class Work_scheduleDAO {
 						rs.getInt("work_schedule_id"),
 						rs.getInt("employee_id"),
 						rs.getDate("work_date"),
-						rs.getInt("work_shift_id"),
-						rs.getString("work_type")
+						rs.getInt("work_shift_id")
+						
 						)
 					);
 				
