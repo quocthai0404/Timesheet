@@ -62,19 +62,19 @@ public class Work_scheduleDAO {
 	}
 	
 	public void update(int work_schedule_id, int employee_id, Date work_date, 
-			int work_shift_id, String work_type) 
+			int work_shift_id) 
 	{
 		try {
 			Connection con = JdbcUlti.getConnection();
 			
-			String sql = "update work_schedule set employee_id = ?, work_date = ?, work_shift_id = ?, work_type = ? where work_schedule_id=?";
+			String sql = "update work_schedule set employee_id = ?, work_date = ?, work_shift_id = ? where work_schedule_id=?";
 			 
 			PreparedStatement statement = con.prepareStatement(sql);
 			statement.setInt(1, employee_id);
 			statement.setDate(2,new java.sql.Date(work_date.getTime()));
 			statement.setInt(3, work_shift_id);
-			statement.setString(4, work_type);
-			statement.setInt(5, work_schedule_id);
+			
+			statement.setInt(4, work_schedule_id);
 			 
 			int rowsUpdated = statement.executeUpdate();
 			if (rowsUpdated > 0) {
@@ -87,18 +87,18 @@ public class Work_scheduleDAO {
 		}
 	}
 	
-	public void add(int employee_id, Date work_date, int work_shift_id, String work_type) {
+	public void add(int employee_id, Date work_date, int work_shift_id) {
 		try {
 			Connection con = JdbcUlti.getConnection();
 			
-			String sql = "insert into work_schedule(employee_id, work_date, work_shift_id, work_type)"
-					+ "values (?, ?, ?, ?)";
+			String sql = "insert into work_schedule(employee_id, work_date, work_shift_id)"
+					+ "values (?, ?, ?)";
 			 
 			PreparedStatement statement = con.prepareStatement(sql);
 			statement.setInt(1, employee_id);
 			statement.setDate(2,new java.sql.Date(work_date.getTime()));
 			statement.setInt(3, work_shift_id);
-			statement.setString(4, work_type);
+			
 			 
 			int rowsInserted = statement.executeUpdate();
 			if (rowsInserted > 0) {
@@ -134,10 +134,13 @@ public class Work_scheduleDAO {
 		try {
 			Connection con = JdbcUlti.getConnection();
 			
-			String sql = "select * from work_schedule\r\n"
+			String sql = "SELECT work_schedule.*, work_shift.*\r\n"
+					+ "	FROM work_schedule\r\n"
+					+ "	JOIN work_shift ON work_schedule.work_shift_id = work_shift.work_shift_id\r\n"
 					+ "	order by work_schedule_id\r\n"
 					+ "	offset (?-1)*? rows\r\n"
 					+ "	fetch next ? rows only";
+			
 			PreparedStatement st = con.prepareStatement(sql);
 			st.setInt(1, pageNumber);
 			st.setInt(2, rowOfPage);
@@ -148,8 +151,10 @@ public class Work_scheduleDAO {
 						rs.getInt("work_schedule_id"),
 						rs.getInt("employee_id"), 
 						rs.getDate("work_date"),
-						rs.getInt("work_shift_id"), 
-						rs.getString("work_type")	
+						rs.getInt("work_shift_id"),
+						rs.getString("description"),
+						rs.getString("work_type")
+						
 				));
 			}
 			JdbcUlti.closeConnection(con);
