@@ -18,10 +18,10 @@ public class JdbcUlti {
 //		String password = "";
 		Connection cn = null;
 
-		String serverName = "LAPTOP-B4B62Q9N\\SQLEXPRESS";
-		String dbName = "timesheet";
+		String serverName = "DESKTOP-FICVKMH";
+		String dbName = "timesheet_new";
 		String username = "sa";
-		String password = "123";
+		String password = "NguyenAn2004";
 
 		String port = "1433";
 		String url = "jdbc:sqlserver://"+serverName+":"+port+"; databaseName = "+dbName +"; user = "+username+"; password = "+password+";";
