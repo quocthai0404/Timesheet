@@ -137,4 +137,34 @@ public class EmployeeDAO {
 		}
 		return list;
 	} 
+	public List<Employee> selectPaginateEmpOnlyEmp(int pageNumber, int rowOfPage) {
+		List<Employee> list = new ArrayList<>();
+		try {
+			Connection con = JdbcUlti.getConnection();
+			
+			String sql = "select * from employee\r\n"
+					+ "	where position = 'employee'\r\n"
+					+ "	order by employee_id\r\n"
+					+ "	offset (?-1)*? rows\r\n"
+					+ "	fetch next ? rows only";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setInt(1, pageNumber);
+			st.setInt(2, rowOfPage);
+			st.setInt(3, rowOfPage);
+			ResultSet rs = st.executeQuery();
+			while(rs.next()) {
+				list.add(new Employee(
+						rs.getInt("employee_id"),
+						rs.getString("employee_name"), 
+						rs.getString("position"),
+						rs.getDate("birthday"), 
+						rs.getBoolean("gender")	
+				));
+			}
+			JdbcUlti.closeConnection(con);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	} 
 }
