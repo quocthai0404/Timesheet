@@ -47,7 +47,6 @@ public class Create_Employee_Account extends JPanel {
     private JPanel jPanel23;
     private JLabel lbAddNV5;
     private JTextField txtUsername;
-    private JButton btnCreate;
     private JTextField txtPassword;
     private JTextField txtEmail;
     private JTextField textField_empID;
@@ -61,6 +60,7 @@ public class Create_Employee_Account extends JPanel {
 	private int firstPage = 1;
 	private int rowOfPage = 10;
 	private Double totalPage;
+	private JButton btnCreate;
     
     public Create_Employee_Account() {
     	setBackground(UIManager.getColor("Button.background"));
@@ -94,17 +94,6 @@ public class Create_Employee_Account extends JPanel {
         txtUsername.setToolTipText("");
         txtUsername.setColumns(10);
         txtUsername.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Username", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-
-        btnCreate = new JButton();
-        btnCreate.setFont(new Font("Segoe UI", Font.BOLD, 13));
-        btnCreate.setBackground(new Color(0, 0, 0));
-        btnCreate.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                btnCreateActionPerformed(e);
-            }
-        });
-        btnCreate.setText("Create Account");
-        btnCreate.setMinimumSize(new Dimension(60, 30));
 
         txtPassword = new JTextField();
         txtPassword.setToolTipText("");
@@ -152,6 +141,13 @@ public class Create_Employee_Account extends JPanel {
 
         
         lblStatusPage = new JLabel("1/1");
+        
+        btnCreate = new JButton("Create");
+        btnCreate.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		btnCreateActionPerformed(e);
+        	}
+        });
         GroupLayout groupLayout = new GroupLayout(this);
         groupLayout.setHorizontalGroup(
         	groupLayout.createParallelGroup(Alignment.TRAILING)
@@ -161,19 +157,22 @@ public class Create_Employee_Account extends JPanel {
         				.addComponent(jPanel23, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 919, Short.MAX_VALUE)
         				.addGroup(groupLayout.createSequentialGroup()
         					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        							.addComponent(txtUsername, GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
-        							.addComponent(txtPassword, GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
-        							.addComponent(txtEmail, GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE))
-        						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-        							.addComponent(textField_Position)
-        							.addGroup(groupLayout.createSequentialGroup()
+        						.addGroup(groupLayout.createSequentialGroup()
+        							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
         								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        									.addComponent(btnCreate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        									.addComponent(textField_empID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-        								.addPreferredGap(ComponentPlacement.RELATED)
-        								.addComponent(textField_empName, GroupLayout.PREFERRED_SIZE, 220, GroupLayout.PREFERRED_SIZE))))
-        					.addGap(124)
+        									.addComponent(txtUsername, GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
+        									.addComponent(txtPassword, GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
+        									.addComponent(txtEmail, GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE))
+        								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+        									.addComponent(textField_Position)
+        									.addGroup(groupLayout.createSequentialGroup()
+        										.addComponent(textField_empID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        										.addGap(39)
+        										.addComponent(textField_empName, GroupLayout.PREFERRED_SIZE, 220, GroupLayout.PREFERRED_SIZE))))
+        							.addGap(124))
+        						.addGroup(groupLayout.createSequentialGroup()
+        							.addComponent(btnCreate, GroupLayout.PREFERRED_SIZE, 106, GroupLayout.PREFERRED_SIZE)
+        							.addPreferredGap(ComponentPlacement.RELATED)))
         					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
         						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 444, GroupLayout.PREFERRED_SIZE)
         						.addGroup(groupLayout.createSequentialGroup()
@@ -189,7 +188,7 @@ public class Create_Employee_Account extends JPanel {
         		.addGroup(groupLayout.createSequentialGroup()
         			.addComponent(jPanel23, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
         			.addGap(45)
-        			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
         				.addGroup(groupLayout.createSequentialGroup()
         					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
         						.addComponent(textField_empName, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
@@ -203,7 +202,7 @@ public class Create_Employee_Account extends JPanel {
         					.addGap(18)
         					.addComponent(txtEmail, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
         					.addGap(18)
-        					.addComponent(btnCreate, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE))
+        					.addComponent(btnCreate, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         				.addGroup(groupLayout.createSequentialGroup()
         					.addPreferredGap(ComponentPlacement.RELATED)
         					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 249, GroupLayout.PREFERRED_SIZE)
@@ -268,8 +267,6 @@ public class Create_Employee_Account extends JPanel {
 		lblStatusPage.setText(firstPage + "/" + totalPage.intValue());
 		loadData();
 	}
-    
-    // Create
     protected void btnCreateActionPerformed(ActionEvent e) {
         try {
             // Lấy thông tin từ các trường dữ liệu
@@ -277,6 +274,24 @@ public class Create_Employee_Account extends JPanel {
             String username = txtUsername.getText();
             String password = txtPassword.getText();
             String email = txtEmail.getText();
+
+            // Kiểm tra xem người dùng đã nhập đủ thông tin chưa
+            String errorMessage = "";
+            if (username.isEmpty()) {
+                errorMessage += "Please enter a username.\n";
+            }
+            if (password.isEmpty()) {
+                errorMessage += "Please enter a password.\n";
+            }
+            if (email.isEmpty()) {
+                errorMessage += "Please enter an email.\n";
+            }
+
+            // Nếu có thông báo lỗi, hiển thị và dừng lại
+            if (!errorMessage.isEmpty()) {
+                JOptionPane.showMessageDialog(null, errorMessage, "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
             // Kiểm tra xem username đã tồn tại trong cơ sở dữ liệu chưa
             if (isUsernameExist(username)) {
@@ -287,7 +302,7 @@ public class Create_Employee_Account extends JPanel {
             // Kiểm tra xem email đã tồn tại trong cơ sở dữ liệu chưa
             if (isEmailExist(email)) {
                 JOptionPane.showMessageDialog(null, "Email already exists. Please select another email.", "Error", JOptionPane.ERROR_MESSAGE);
-                return; // Người dùng nhập trùng email, không tiếp tục thực hiện thêm vào cơ sở dữ liệu
+                return;
             }
 
             // Tiếp tục thực hiện thêm vào cơ sở dữ liệu
@@ -295,12 +310,13 @@ public class Create_Employee_Account extends JPanel {
 
             JOptionPane.showMessageDialog(null, "Account created successfully.", "Notification", JOptionPane.INFORMATION_MESSAGE);
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null,"Please enter valid information.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Please enter valid information.", "Error", JOptionPane.ERROR_MESSAGE);
         } catch (Exception ex) {
             ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error creating account.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
+
 
     public boolean isUsernameExist(String username) {
         Connection con = null;
@@ -403,4 +419,5 @@ public class Create_Employee_Account extends JPanel {
         }
     }
 
+	
 }
