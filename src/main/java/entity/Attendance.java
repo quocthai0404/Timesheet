@@ -1,6 +1,6 @@
 package entity;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
 public class Attendance {
