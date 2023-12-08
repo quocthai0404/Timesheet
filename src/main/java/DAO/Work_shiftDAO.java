@@ -30,6 +30,7 @@ public class Work_shiftDAO {
 		}
 		return list;
 	}
+
 	public List<WorkShift> select() {
 	    List<WorkShift> workShifts = new ArrayList<>();
 	    String sql = "SELECT * FROM work_shift";
@@ -53,29 +54,8 @@ public class Work_shiftDAO {
 	    }
 
 	    return workShifts;
+
 	}
-	public String getWorkTypeByDescription(String description) {
-	    String workType = null;
-	    
-	    try {
-	        Connection con = JdbcUlti.getConnection();
-	        String sql = "SELECT work_type FROM work_shift WHERE description = ?";
-	        
-	        try (PreparedStatement preparedStatement = con.prepareStatement(sql)) {
-	            preparedStatement.setString(1, description);
-	            
-	            
-	            try (ResultSet rs = preparedStatement.executeQuery()) {
-	                if (rs.next()) {
-	                    workType = rs.getString("work_type");
-	                }
-	            }
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    }
-	    
-	    return workType;
-	}
+	
 	
 }

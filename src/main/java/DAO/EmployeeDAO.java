@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import javax.swing.JOptionPane;
 
 import database.JdbcUlti;
 import entity.Employee;
+import entity.WorkShift;
 
 
 public class EmployeeDAO {
@@ -138,29 +140,26 @@ public class EmployeeDAO {
 		}
 		return list;
 	} 
+	
+
 	public List<Employee> selectPaginateEmpOnlyEmp(int pageNumber, int rowOfPage) {
 		List<Employee> list = new ArrayList<>();
 		try {
 			Connection con = JdbcUlti.getConnection();
+			var statement = con.createStatement();
 			
 			String sql = "select * from employee\r\n"
 					+ "	where position = 'employee'\r\n"
-					+ "	order by employee_id\r\n"
-					+ "	offset (?-1)*? rows\r\n"
-					+ "	fetch next ? rows only";
-			PreparedStatement st = con.prepareStatement(sql);
-			st.setInt(1, pageNumber);
-			st.setInt(2, rowOfPage);
-			st.setInt(3, rowOfPage);
-			ResultSet rs = st.executeQuery();
-			while(rs.next()) {
+					;
+			ResultSet rs = statement.executeQuery(sql);
+			while (rs.next()) {
 				list.add(new Employee(
 						rs.getInt("employee_id"),
 						rs.getString("employee_name"), 
 						rs.getString("position"),
-						rs.getDate("birthday"), 
-						rs.getBoolean("gender")	
+						rs.getDate("birthday"), rs.getBoolean("gender")	
 				));
+				
 			}
 			JdbcUlti.closeConnection(con);
 		} catch (Exception e) {
