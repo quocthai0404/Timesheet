@@ -176,6 +176,11 @@ public class Review_Leave_Request extends JPanel {
         					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
         						.addComponent(lblNewLabel)
         						.addComponent(txtLeaveId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        					.addPreferredGap(ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+        					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+        						.addComponent(lblEmpId)
+        						.addComponent(txtEmpId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        					.addPreferredGap(ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
         					.addPreferredGap(ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
         					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
         						.addComponent(lblEmpId)
@@ -311,6 +316,8 @@ public class Review_Leave_Request extends JPanel {
 	    DefaultTableModel model = (DefaultTableModel) tableLeave.getModel();
 	    int selectedRow = tableLeave.getSelectedRow();
 	    model.setValueAt(approved ? "Yes" : "No", selectedRow, 6);
+	    loadData();
+
 	}
 	protected void tableLeaveMousePressed(MouseEvent e) {
 		var menu= new JPopupMenu("function");

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -12,7 +13,7 @@ import java.util.List;
 
 
 import database.JdbcUlti;
-import database.JdbcUtil;
+
 import entity.Employee;
 import entity.EmployeeAfterLogin;
 import entity.Leave;
@@ -87,7 +88,7 @@ public class LeaveDao {
 	public void update(int leave_id, boolean approved) {
 	    try {
 	        Connection con = JdbcUlti.getConnection();
-	        String sql = "UPDATE leave SET approved=? WHERE leave_id=?";
+	        String sql = "UPDATE leave SET approved=?, leave_type='paid leave' WHERE leave_id=?";
 	 
 	        PreparedStatement statement = con.prepareStatement(sql);
 	        statement.setBoolean(1, approved);
@@ -243,6 +244,81 @@ public class LeaveDao {
 			e.printStackTrace();
 		}
 		return list;
-	} 
+	}
+
+
+	 public void addLeaveRequest(Date startDate, String numberOfDays, String reason, int employeeId) {
+	         String sql = "INSERT INTO leave_requests (employee_id, leave_type, startdate, number_of_days, reason, approved) " +
+	                      "VALUES (?, ?, ?, ?, ?, ?)";
+
+	         try (Connection connection = JdbcUlti.getConnection();
+	              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+
+	             // Thiết lập tham số cho câu truy vấn
+	             preparedStatement.setInt(1, employeeId);
+	             preparedStatement.setString(2, "Phép nghỉ"); // Hoặc loại nghỉ phép mà bạn đang sử dụng
+	             preparedStatement.setDate(3, new java.sql.Date(startDate.getTime()));
+	             preparedStatement.setString(4, numberOfDays);
+	             preparedStatement.setString(5, reason);
+	             preparedStatement.setBoolean(6, false); // Ban đầu, yêu cầu chưa được phê duyệt
+
+	             // Thực hiện truy vấn
+	             preparedStatement.executeUpdate();
+
+	         } catch (SQLException e) {
+	             e.printStackTrace();
+	             // Xử lý lỗi tùy theo yêu cầu
+	         }
+	     }
+	 private Connection connection;
+	    public Leave getLeaveByUsername(String username) {
+	        // Lấy employee_id từ bảng account dựa trên username
+	        int employeeId = getEmployeeIdByUsername(username);
+
+	        // Nếu không tìm thấy employee_id, trả về null hoặc xử lý theo ý bạn
+	        if (employeeId == -1) {
+	            return null;
+	        }
+
+	        // Sử dụng employee_id để lấy thông tin từ bảng leave
+	        String sql = "SELECT * FROM leave WHERE employee_id = ?";
+	        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+	            statement.setInt(1, employeeId);
+	            ResultSet resultSet = statement.executeQuery();
+
+	            if (resultSet.next()) {
+	                Leave leave = new Leave();
+	                leave.setLeave_id(resultSet.getInt("leave_id"));
+	                leave.setEmployee_id(resultSet.getInt("employee_id"));
+	                leave.setLeave_type(resultSet.getString("leave_type"));
+	                leave.setStartdate(resultSet.getDate("startdate"));
+	                leave.setNumber_of_days(resultSet.getInt("number_of_days"));
+	                leave.setReason(resultSet.getString("reason"));
+	                leave.setApproved(resultSet.getBoolean("approved"));
+	                return leave;
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+
+	        return null;
+	    }
+
+	    private int getEmployeeIdByUsername(String username) {
+	        String sql = "SELECT employee_id FROM account WHERE username = ?";
+	        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+	            statement.setString(1, username);
+	            ResultSet resultSet = statement.executeQuery();
+
+	            if (resultSet.next()) {
+	                return resultSet.getInt("employee_id");
+	            }
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+
+	        // Trả về -1 nếu không tìm thấy employee_id
+	        return -1;
+	    }
 }
 
