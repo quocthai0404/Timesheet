@@ -37,16 +37,18 @@ public class FrameForEmp extends JFrame {
 	private JPanel categoryPanel;
 	private JButton btnWork_Schedule;
 	private JButton btnAttendence;
-	private JButton btnView_Attendence_History;
+	private JButton btnView_Attendance_History;
 	private JButton btnLeaveRequest;
 	private JPanel panelContainer;
 	private CardLayout cardLayout;
 	
 	private JPanel panelAttendence;
-	private JPanel panelView_Attendence_History;
+//	private JPanel panelView_Attendence_History;
+	private Attendance_History panelAttendanceHistory;
 //	private JPanel panelLeaveRequest;
 	private Work_Schedule panelWorkSchedule;
 	private Request_Leave panelRequestLeave;
+	
 
 	public FrameForEmp() {
 		setTitle("Manager Frame");
@@ -83,16 +85,16 @@ public class FrameForEmp extends JFrame {
 
 		btnWork_Schedule.setMaximumSize(new Dimension(1000000, 70));
 		categoryPanel.add(btnWork_Schedule);
-		btnView_Attendence_History = new JButton("View Attendence History");
-		btnView_Attendence_History.addActionListener(new ActionListener() {
+		btnView_Attendance_History = new JButton("View Attendance History");
+		btnView_Attendance_History.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnClickSwitchPanel(e);
 			}
 		});
 
-		btnView_Attendence_History.setMinimumSize(new Dimension(10000, 70));
-		btnView_Attendence_History.setMaximumSize(new Dimension(1000000, 70));
-		categoryPanel.add(btnView_Attendence_History);
+		btnView_Attendance_History.setMinimumSize(new Dimension(10000, 70));
+		btnView_Attendance_History.setMaximumSize(new Dimension(1000000, 70));
+		categoryPanel.add(btnView_Attendance_History);
 		
 		btnLeaveRequest = new JButton("<html>Leave Request</html>");
 		btnLeaveRequest.addActionListener(new ActionListener() {
@@ -127,14 +129,18 @@ public class FrameForEmp extends JFrame {
 		panelAttendence.setBackground(Color.RED);
 		panelContainer.add(panelAttendence, "panelAttendence");
 		
+
 		panelWorkSchedule = new Work_Schedule();
 		panelContainer.add(panelWorkSchedule, "panelWorkSchedule");
 		
-		panelView_Attendence_History = new JPanel();
-		panelView_Attendence_History.setBackground(Color.BLACK);
-		panelContainer.add(panelView_Attendence_History, "panelView_Attendence_History");
 		
 		
+		
+
+		panelAttendanceHistory = new Attendance_History();
+		panelContainer.add(panelAttendanceHistory, "panelAttendanceHistory");
+
+
 
 		panelRequestLeave = new Request_Leave();
 		panelContainer.add(panelRequestLeave, "panelLeaveRequest");
@@ -154,9 +160,10 @@ public class FrameForEmp extends JFrame {
 		} else if (src.equals(btnAttendence)) {
 			cardLayout.show(panelContainer, "panelAttendence");
 			System.out.println(" RED panelAttendence");
-		} else if (src.equals(btnView_Attendence_History)) {
-			cardLayout.show(panelContainer, "panelView_Attendence_History");
-			System.out.println(" BLACK panelView_Attendence_History");
+		} else if (src.equals(btnView_Attendance_History)) {
+			cardLayout.show(panelContainer, "panelAttendanceHistory");
+		    panelAttendanceHistory.loadData();
+			System.out.println(" BLACK panelAttendanceHistory");
 		} else{
 			cardLayout.show(panelContainer, "panelLeaveRequest");
 			System.out.println("panelLeaveRequest");

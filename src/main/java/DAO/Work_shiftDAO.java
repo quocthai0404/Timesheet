@@ -3,6 +3,8 @@ package DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,54 +30,32 @@ public class Work_shiftDAO {
 		}
 		return list;
 	}
-	public List<WorkShift> select(){
-		List<WorkShift> list = new ArrayList<>() ;
-		Connection con=null;
-		try {
-			con = JdbcUlti.getConnection();
-			var statement = con.createStatement();
-			String sql = "select * from work_shift";
-			ResultSet rs = statement.executeQuery(sql);
-		
-			while(rs.next()) {
-				list.add(new WorkShift(
-						rs.getInt("work_shift_id"),
-						rs.getString("description"),
-						rs.getString("work_type")
 
-						));
+	public List<WorkShift> select() {
+	    List<WorkShift> workShifts = new ArrayList<>();
+	    String sql = "SELECT * FROM work_shift";
 
-			}
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			JdbcUlti.closeConnection(con);
-		}
-		return list;
-	}
-	public String getWorkTypeByDescription(String description) {
-	    String workType = null;
-	    
-	    try {
-	        Connection con = JdbcUlti.getConnection();
-	        String sql = "SELECT work_type FROM work_shift WHERE description = ?";
-	        
-	        try (PreparedStatement preparedStatement = con.prepareStatement(sql)) {
-	            preparedStatement.setString(1, description);
-	            
-	            
-	            try (ResultSet rs = preparedStatement.executeQuery()) {
-	                if (rs.next()) {
-	                    workType = rs.getString("work_type");
-	                }
-	            }
+	    try (Connection connection = JdbcUlti.getConnection();
+	         Statement statement = connection.createStatement();
+	         ResultSet resultSet = statement.executeQuery(sql)) {
+
+	        while (resultSet.next()) {
+	            int workShiftId = resultSet.getInt("work_shift_id");
+	            String description = resultSet.getString("description");
+	            String workType = resultSet.getString("work_type"); // Make sure to include this line
+
+	            WorkShift workShift = new WorkShift(workShiftId, description, workType);
+	            workShifts.add(workShift);
 	        }
-	    } catch (Exception e) {
+
+	    } catch (SQLException e) {
 	        e.printStackTrace();
+	        // Handle the exception as needed
 	    }
-	    
-	    return workType;
+
+	    return workShifts;
+
 	}
+	
 	
 }

@@ -381,6 +381,7 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 	}
 
 	protected void do_btnUpdateWorkShift_actionPerformed(ActionEvent e) {
+
 		if (table.getSelectedRow() == -1) {
 			JOptionPane.showMessageDialog(null, "Vui long chon dong can update");
 			return;
@@ -410,12 +411,13 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 		var dao = new Work_scheduleDAO();
 		dao.update(work_schedule_id, empId, sqlDate, work_shift_id);
 		loadData();
+
 	}
 
 	protected void do_btnAddEWS_actionPerformed(ActionEvent e) {
 		WorkShift ws = (WorkShift) comboBox.getSelectedItem();
 		if (textEmpId.getText().isBlank() ) {
-			JOptionPane.showMessageDialog(null, "Input fields cannot be blank");
+			JOptionPane.showMessageDialog(null, "Please choose an employee from the table");
 			return;
 		}
 		
