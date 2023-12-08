@@ -1,7 +1,7 @@
 package view;
 
 import javax.swing.JPanel;
-import javax.swing.DefaultComboBoxModel;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
@@ -13,12 +13,12 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import com.toedter.calendar.JDateChooser;
-import com.toedter.calendar.demo.DateChooserPanel;
+
 
 import DAO.EmployeeDAO;
 import DAO.Work_scheduleDAO;
 import DAO.Work_shiftDAO;
-import Validation.ValidateDate;
+
 import entity.WorkShift;
 
 import javax.swing.JTextField;
@@ -28,9 +28,9 @@ import java.awt.event.ActionEvent;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.text.ParseException;
+
 import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import java.util.List;
 
 import javax.swing.JComboBox;
@@ -52,14 +52,16 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 	private JLabel lblStatusPage;
 	private Double totalPage;
 	private int firstPage = 1;
-	private int rowOfPage = 25;
+	private int rowOfPage = 22;
 	private JDateChooser dateChooser;
 	
 	private JScrollPane scrollPane_1;
 	private JTable table_1;
 	private JLabel lblNewLabel;
 	private JTextField textWorkType;
-	private JComboBox comboBox;
+	private JComboBox<WorkShift> comboBox = new JComboBox();
+	private Work_shiftDAO wsd = new Work_shiftDAO();
+	private List<WorkShift> list = wsd.select();
 
 	/**
 	 * Create the panel.
@@ -95,6 +97,8 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 		lblDescription = new JLabel("Description");
 
 		textEmpId = new JTextField();
+		textEmpId.setEnabled(false);
+		textEmpId.setEditable(false);
 		textEmpId.setColumns(10);
 
 		textField_1 = new JTextField();
@@ -125,25 +129,24 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 		lblNewLabel = new JLabel("Work type");
 		
 		textWorkType = new JTextField();
+		textWorkType.setEnabled(false);
+		textWorkType.setEditable(false);
 		textWorkType.setColumns(10);
-
-		comboBox = new JComboBox();
+		WorkShift ws = new WorkShift();
+		comboBox.addItem(ws);
+		
+        for (WorkShift i : list) {
+			comboBox.addItem((WorkShift) i);
+		}
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				do_comboBox_actionPerformed(e);
 			}
 		});
-		Work_shiftDAO workShiftDao = new Work_shiftDAO();
 
-        List<String> workShiftDess = workShiftDao.selectDes();
-        DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>();
-        for (String workShiftDes : workShiftDess) {
-            comboBoxModel.addElement(String.valueOf(workShiftDes));
-        	
-        }
+		
         
-        comboBox.setModel(comboBoxModel);
-        comboBox.setSelectedIndex(-1);
+        comboBox.setSelectedIndex(0);
 		
 
 
@@ -151,42 +154,44 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
+					.addGap(6)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(10)
+							.addComponent(btnPrevious, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(11)
-									.addComponent(btnPrevious, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED, 234, Short.MAX_VALUE)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addGroup(groupLayout.createSequentialGroup()
+											.addPreferredGap(ComponentPlacement.RELATED, 295, Short.MAX_VALUE)
+											.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+										.addGroup(groupLayout.createSequentialGroup()
+											.addGap(20)
+											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+												.addComponent(lblNewLabel)
+												.addComponent(lblWorkDate, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
+												.addComponent(lblEmpId, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+												.addComponent(lblDescription, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE))
+											.addGap(41)
+											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+												.addComponent(textEmpId, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE)
+												.addComponent(dateChooser, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE)
+												.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
+												.addComponent(textWorkType, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE))
+											.addGap(5)))
+									.addGap(0))
+								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 									.addComponent(lblStatusPage)
-									.addGap(112))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addContainerGap(360, Short.MAX_VALUE)
-									.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(20)
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblNewLabel)
-										.addComponent(lblWorkDate, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblEmpId, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblDescription, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE))
-									.addGap(41)
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(textEmpId, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE)
-										.addComponent(dateChooser, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE)
-										.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
-										.addComponent(textWorkType, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE))
-									.addGap(5)))
-							.addGap(0)
+									.addGap(190)))
 							.addComponent(btnNext, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
 							.addGap(19))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(6)
-							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
+							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
 							.addGap(12)))
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
+							.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
 							.addGap(25))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addComponent(btnAddEWS, GroupLayout.PREFERRED_SIZE, 134, GroupLayout.PREFERRED_SIZE)
@@ -206,9 +211,6 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 334, GroupLayout.PREFERRED_SIZE)
 							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(btnPrevious)
-									.addGap(18)
 									.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 										.addComponent(lblEmpId)
 										.addComponent(textEmpId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
@@ -218,8 +220,9 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 									.addGap(10)
 									.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 										.addComponent(btnNext)
+										.addComponent(btnPrevious)
 										.addComponent(lblStatusPage, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
-									.addPreferredGap(ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+									.addPreferredGap(ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
 									.addComponent(dateChooser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
 							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
@@ -243,6 +246,12 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 		);
 		
 		table_1 = new JTable();
+		table_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				do_table_1_mouseClicked(e);
+			}
+		});
 		scrollPane_1.setViewportView(table_1);
 		loadDataEmp();
 
@@ -266,7 +275,7 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 			@Override
 			public boolean isCellEditable(int row, int col) {
 				switch (col) {
-				case 2:
+				case 0,1,2,4,5:
 					return false;
 				default:
 					return true;
@@ -283,7 +292,9 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 
 		Work_scheduleDAO dao = new Work_scheduleDAO();
 		totalPage = Math.ceil(dao.countRow() / Double.valueOf(rowOfPage));
+		System.out.println(totalPage);
 		dao.selectPaginateEWS(firstPage, rowOfPage).stream().forEach(ws -> {
+			
 
 			model.addRow(new Object[] { ws.getWork_schedule_id(), ws.getEmployee_id(), ws.getWork_date(),
 					ws.getWork_shift_id(), ws.getWork_description(), ws.getWork_type() });
@@ -295,20 +306,32 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 	
 	
 	public void loadDataEmp() {
-		DefaultTableModel model = new DefaultTableModel();
+		DefaultTableModel model = new DefaultTableModel(){
+			@Override
+			public boolean isCellEditable(int row, int col) {
+				switch (col) {
+				case 0,1,2,3,4:
+					return false;
+				default:
+					return true;
+				}
+				
+			}
+		};
+		
 		model.addColumn("ID");
 		model.addColumn("Employee Name");
 		model.addColumn("Position");
 		model.addColumn("Birthday");
 		model.addColumn("Gender");
 		EmployeeDAO dao = new EmployeeDAO();
-		totalPage = Math.ceil(dao.countRow() / Double.valueOf(rowOfPage));
-		dao.selectPaginateEmp(firstPage, rowOfPage).stream().forEach(emp -> {
+		
+		dao.selectPaginateEmpOnlyEmp(firstPage, rowOfPage).stream().forEach(emp -> {
 			String gender = emp.getGender() ? "Male" : "Female";
 			model.addRow(new Object[] { emp.getEmployee_id(), emp.getEmployee_name(), emp.getPosition(),
 					emp.getBirthday(), gender });
 		});
-		lblStatusPage.setText(firstPage + "/" + totalPage.intValue());
+		
 		table_1.setModel(model);
 
 	}
@@ -344,7 +367,14 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
-			comboBox.setSelectedItem(table.getValueAt(row, 4).toString());;
+			String value = table.getValueAt(row, 4).toString();
+			
+	        for (WorkShift i : list) {
+				if(i.getDescription().equals(value)) {
+					comboBox.setSelectedItem(i);
+				}
+			}
+			
 			textWorkType.setText(table.getValueAt(row, 5).toString());
 
 		}
@@ -355,44 +385,57 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 			JOptionPane.showMessageDialog(null, "Vui long chon dong can update");
 			return;
 		}
-		if (textEmpId.getText().isBlank() ||  textWorkType.getText().isBlank()
+		if (textEmpId.getText().isBlank() 
 				) {
 			JOptionPane.showMessageDialog(null, "Input fields cannot be blank");
 			return;
 		}
+		if (textWorkType.getText().isBlank()) {
+	        JOptionPane.showMessageDialog(null, "Vui long chon work description");
+	        return;
+	    }
 		if (dateChooser.getDate() == null) {
 			JOptionPane.showMessageDialog(null, "Invalid Date");
 			return;
 
 		}
 		int row = table.getSelectedRow();
-		int empId = Integer.parseInt(textEmpId.getText().replaceAll("\\s", ""));
+		int empId = Integer.parseInt(textEmpId.getText());
 		java.sql.Date sqlDate = new java.sql.Date(dateChooser.getDate().getTime());
-		int work_shift_id = (Integer.parseInt(textWorkshiftId.getText().replaceAll("\\s", "")));
-		String work_type = textWorkType.getText().trim();
+		WorkShift ws = (WorkShift) comboBox.getSelectedItem();
+		
+		int work_shift_id = ws.getWork_shift_id();
+		
 		int work_schedule_id = (Integer.parseInt(table.getValueAt(row, 0).toString()));
 		var dao = new Work_scheduleDAO();
-		dao.update(work_schedule_id, empId, sqlDate, work_shift_id, work_type);
+		dao.update(work_schedule_id, empId, sqlDate, work_shift_id);
 		loadData();
 	}
 
 	protected void do_btnAddEWS_actionPerformed(ActionEvent e) {
-		if (textEmpId.getText().isBlank() || comboBox.getSelectedItem().toString().isBlank() || textWorkType.getText().isBlank()
-				|| textWorkshiftId.getText().isBlank()) {
+		WorkShift ws = (WorkShift) comboBox.getSelectedItem();
+		if (textEmpId.getText().isBlank() ) {
 			JOptionPane.showMessageDialog(null, "Input fields cannot be blank");
 			return;
 		}
+		
 		if (dateChooser.getDate() == null) {
 			JOptionPane.showMessageDialog(null, "Invalid Date");
 			return;
 
 		}
+		if (ws.getWork_type() == null) {
+	        JOptionPane.showMessageDialog(null, "Vui long chon work description");
+	        return;
+	    }
 
-		int empId = Integer.parseInt(textEmpId.getText().replaceAll("\\s", ""));
+		int empId = Integer.parseInt(textEmpId.getText());
+		//thay the thanh id cua combobox
 		java.sql.Date sqlDate = new java.sql.Date(dateChooser.getDate().getTime());
-		int work_shift_id = (Integer.parseInt(textWorkshiftId.getText().replaceAll("\\s", "")));
-		String work_type = textWorkType.getText().trim();
-
+		
+		int work_shift_id = ws.getWork_shift_id();
+		
+	
 		var dao = new Work_scheduleDAO();
 		dao.add(empId, sqlDate, work_shift_id);
 		loadData();
@@ -403,15 +446,40 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 			table.clearSelection();
 			textEmpId.setText("");
 			textField_1.setText("");
-//			textWorkshiftId.setText("");
-//			textWorkType.setText("");
+			textWorkType.setText("");
+			comboBox.setSelectedIndex(-1);
+			table_1.clearSelection();
+			
+
 			dateChooser.setCalendar(null);
 		}
 
 	}
 	protected void do_comboBox_actionPerformed(ActionEvent e) {
-		String selectedWorkShift = (String) comboBox.getSelectedItem();
-		Work_shiftDAO dao = new Work_shiftDAO();
-		textWorkType.setText(dao.getWorkTypeByDescription(selectedWorkShift));
+	    
+	    if (comboBox.getSelectedItem() == null) {
+	        textWorkType.setText("");
+	        return;
+	    }
+
+	   
+	    WorkShift ws = (WorkShift) comboBox.getSelectedItem();
+
+	   
+	    if (ws != null) {
+	        textWorkType.setText(ws.getWork_type());
+	    } else {
+	        
+	        textWorkType.setText("");
+	    }
+	}
+	protected void do_table_1_mouseClicked(MouseEvent e) {
+		if (e.getButton() == MouseEvent.BUTTON1) {
+			int row = table_1.getSelectedRow();
+			
+			textEmpId.setText(table_1.getValueAt(row, 0).toString());
+			
+
+		}
 	}
 }

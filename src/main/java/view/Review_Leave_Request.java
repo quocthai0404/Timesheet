@@ -1,6 +1,7 @@
 package view;
 
 import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -8,6 +9,7 @@ import javax.swing.table.DefaultTableModel;
 import DAO.EmployeeDAO;
 import DAO.LeaveDao;
 import DAO.Work_scheduleDAO;
+
 
 import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
@@ -19,6 +21,7 @@ import java.awt.CardLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser;
@@ -173,6 +176,11 @@ public class Review_Leave_Request extends JPanel {
         					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
         						.addComponent(lblNewLabel)
         						.addComponent(txtLeaveId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        					.addPreferredGap(ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+        					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+        						.addComponent(lblEmpId)
+        						.addComponent(txtEmpId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        					.addPreferredGap(ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
         					.addPreferredGap(ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
         					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
         						.addComponent(lblEmpId)
@@ -216,6 +224,10 @@ public class Review_Leave_Request extends JPanel {
         	@Override
         	public void mouseClicked(MouseEvent e) {
         		tableLeaveMouseClicked(e);
+        	}
+        	@Override
+        	public void mousePressed(MouseEvent e) {
+        		tableLeaveMousePressed(e);
         	}
         });
         loadData();
@@ -304,5 +316,27 @@ public class Review_Leave_Request extends JPanel {
 	    DefaultTableModel model = (DefaultTableModel) tableLeave.getModel();
 	    int selectedRow = tableLeave.getSelectedRow();
 	    model.setValueAt(approved ? "Yes" : "No", selectedRow, 6);
+	    loadData();
+
 	}
+	protected void tableLeaveMousePressed(MouseEvent e) {
+		var menu= new JPopupMenu("function");
+		var menuItem=new JMenuItem("delete row",'d');
+		menuItem.addActionListener(this::deleteRow);
+		menu.add(menuItem);
+		if(e.getButton()==MouseEvent.BUTTON3) {
+			menu.show(tableLeave,e.getX(),e.getY());
+		}
+	}
+	private void deleteRow(ActionEvent actionEvent) {
+	    int selectedRow = tableLeave.getSelectedRow();
+	    if (selectedRow >= 0) {
+	        int employeeId = (int) tableLeave.getValueAt(selectedRow, 0); 
+	        LeaveDao leaveDao = new LeaveDao();
+	        LeaveDao.delete(employeeId); 
+	        DefaultTableModel model = (DefaultTableModel) tableLeave.getModel();
+	        model.removeRow(selectedRow); 
+	    }
+	}
+	
 }

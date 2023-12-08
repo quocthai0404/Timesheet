@@ -4,17 +4,9 @@ public class WorkShift {
 	private int work_shift_id;
 	private String description;
 	private String work_type;
-	
-	/**
-	 * 
-	 */
-	public WorkShift() {
-	}
 
-	public WorkShift(int work_shift_id, String description) {
-		this.work_shift_id = work_shift_id;
-		this.description = description;
-	}
+	public WorkShift() {}
+	
 
 	public WorkShift(int work_shift_id, String description, String work_type) {
 		
@@ -43,6 +35,8 @@ public class WorkShift {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+
 	
 	public String getWork_type() {
 		return work_type;
@@ -52,9 +46,14 @@ public class WorkShift {
 		this.work_type = work_type;
 	}
 
+
 	@Override
 	public String toString() {
-		return "WorkShift [work_shift_id=" + work_shift_id + ", description=" + description + "]";
+		return getDescription();
 	}
+
+	
+	
+	
 	
 }
