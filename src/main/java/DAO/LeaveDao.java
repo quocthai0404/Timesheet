@@ -87,7 +87,7 @@ public class LeaveDao {
 	public void update(int leave_id, boolean approved) {
 	    try {
 	        Connection con = JdbcUlti.getConnection();
-	        String sql = "UPDATE leave SET approved=? WHERE leave_id=?";
+	        String sql = "UPDATE leave SET approved=?, leave_type='paid leave' WHERE leave_id=?";
 	 
 	        PreparedStatement statement = con.prepareStatement(sql);
 	        statement.setBoolean(1, approved);
