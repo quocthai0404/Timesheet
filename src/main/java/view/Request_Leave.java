@@ -14,7 +14,9 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser;
+import java.time.LocalDate;
 
+import DAO.AccountDAO;
 import DAO.EmployeeDAO;
 import DAO.LeaveDao;
 
@@ -22,6 +24,8 @@ import javax.swing.JTextPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextArea;
 import java.awt.Dimension;
@@ -39,6 +43,9 @@ public class Request_Leave extends JPanel {
 	private JButton btnSend;
 	private JTable tableRequest;
 	private JTextArea textAreaReason;
+	private int numberOfRequests = 0;
+	private LocalDate lastSentDate = LocalDate.now();
+	private Map<String, AccountInfo> accountInfoMap = new HashMap<>();
 	
 	public Request_Leave() {
 		
@@ -156,23 +163,65 @@ public class Request_Leave extends JPanel {
 	    model.getDataVector().forEach(System.out::println);
 	}
 	
-	protected void btnSendActionPerformed(ActionEvent e) {
-//		Date startDate = dateLeave.getDate();
-//        String numsOfDate = txtNod.getText();
-//        String reason = txtReason.getText();
-//
-//        
-        LeaveDao leaveDao = new LeaveDao();
-        leaveDao.addLeaveRequest(dateLeave.getDate(), txtNod.getText(), textAreaReason.getText()); 
-//        loadData();
-        
-        JOptionPane.showMessageDialog(this, "Leave request sent successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-	    
-        
-        dateLeave.setDate(null);
-        txtNod.setText("");
-        textAreaReason.setText("");
-        
-        loadData();
-	}
+	 protected void btnSendActionPerformed(ActionEvent e) {
+	        String username = getName(); // Thay thế bằng cách lấy tên đăng nhập từ đối tượng tương ứng
+
+	        // Kiểm tra xem tài khoản đã tồn tại trong map hay chưa
+	        if (!accountInfoMap.containsKey(username)) {
+	            accountInfoMap.put(username, new AccountInfo());
+	        }
+
+	        AccountInfo accountInfo = accountInfoMap.get(username);
+
+	        // Kiểm tra xem ngày hiện tại có phải là ngày mới hay không
+	        LocalDate currentDate = LocalDate.now();
+	        if (!currentDate.isEqual(accountInfo.getLastSentDate())) {
+	            // Nếu là ngày mới, reset số lần và cập nhật ngày cuối cùng gửi
+	            accountInfo.setNumberOfRequests(0);
+	            accountInfo.setLastSentDate(currentDate);
+	        }
+
+	        // Kiểm tra số lần được gửi, nếu đã đạt tới giới hạn là 3, hiển thị thông báo và không thực hiện gửi yêu cầu
+	        if (accountInfo.getNumberOfRequests() >= 3) {
+	            JOptionPane.showMessageDialog(this, "Bạn đã đạt tới số lần gửi tối đa trong tuần.", "Cảnh báo", JOptionPane.WARNING_MESSAGE);
+	            return;
+	        }
+
+	        // Thực hiện gửi yêu cầu nghỉ phép
+	        LeaveDao leaveDao = new LeaveDao();
+	        leaveDao.addLeaveRequest(dateLeave.getDate(), txtNod.getText(), textAreaReason.getText());
+
+	        // Tăng số lần được gửi của tài khoản
+	        accountInfo.setNumberOfRequests(accountInfo.getNumberOfRequests() + 1);
+
+	        JOptionPane.showMessageDialog(this, "Leave request sent successfully", "Success", JOptionPane.INFORMATION_MESSAGE);
+
+	        dateLeave.setDate(null);
+	        txtNod.setText("");
+	        textAreaReason.setText("");
+
+	        loadData();
+	    }
+
+	    // Định nghĩa class để lưu trữ thông tin về số lần yêu cầu và ngày cuối cùng gửi của mỗi tài khoản
+	    private static class AccountInfo {
+	        private int numberOfRequests = 0;
+	        private LocalDate lastSentDate = LocalDate.now();
+
+	        public int getNumberOfRequests() {
+	            return numberOfRequests;
+	        }
+
+	        public void setNumberOfRequests(int numberOfRequests) {
+	            this.numberOfRequests = numberOfRequests;
+	        }
+
+	        public LocalDate getLastSentDate() {
+	            return lastSentDate;
+	        }
+
+	        public void setLastSentDate(LocalDate lastSentDate) {
+	            this.lastSentDate = lastSentDate;
+	        }
+	    }
 }
