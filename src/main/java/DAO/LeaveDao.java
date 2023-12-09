@@ -1,6 +1,6 @@
 package DAO;
 
-import java.sql.Connection;
+import java.sql.Connection;	
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,7 +18,6 @@ import database.JdbcUlti;
 import entity.Employee;
 import entity.EmployeeAfterLogin;
 import entity.Leave;
-import view.Login2;
 
 public class LeaveDao {
 	public List<Leave> selectLeave(){
