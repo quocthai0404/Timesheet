@@ -1,17 +1,17 @@
 package loginAndPasLayout;
 
-public class SignInResult {
+public class LoginResult {
     private boolean success;  // Biến để chỉ đăng nhập thành công hay không
     private String errorMessage;  // Biến để lưu trữ thông báo lỗi (nếu có)
 
     // Constructors
-    public SignInResult() {
+    public LoginResult() {
         // Mặc định là không thành công và không có thông báo lỗi
         this.success = false;
         this.errorMessage = "";
     }
 
-    public SignInResult(boolean success, String errorMessage) {
+    public LoginResult(boolean success, String errorMessage) {
         this.success = success;
         this.errorMessage = errorMessage;
     }
