@@ -1,4 +1,4 @@
-package component;
+package loginAndPasLayout;
 
 public class SignInResult {
     private boolean success;  // Biến để chỉ đăng nhập thành công hay không

@@ -1,4 +1,4 @@
-package component;
+package loginAndPasLayout;
 
 import javax.swing.*;
 import java.awt.Color;

@@ -1,4 +1,4 @@
-package component;
+package loginAndPasLayout;
 
 import java.awt.EventQueue;	
 
@@ -11,10 +11,9 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
-import component.PanelLoginAndRegister;
 import database.JdbcUlti;
 import entity.Employee;
-
+import loginAndPasLayout.LoginAndForgotPass;
 
 import javax.swing.border.EtchedBorder;
 import java.awt.Color;
@@ -43,13 +42,13 @@ public class SendPassword extends JFrame {
 	private JTextField textEmail;
 	private JLabel lblSendpassword;
 	private List<Employee> list;
-	private PanelLoginAndRegister jf2;
+	private LoginAndForgotPass jf2;
 	private JTextField textNewPassword;
 	
 	public void setList(List<Employee> list) {
 		this.list = list;
 	}
-	public void setJf1(PanelLoginAndRegister panelLoginAndRegister) {
+	public void setJf1(LoginAndForgotPass panelLoginAndRegister) {
 		this.jf2 = panelLoginAndRegister;
 	}
 

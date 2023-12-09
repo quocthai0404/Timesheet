@@ -13,17 +13,17 @@ public class JdbcUlti {
 		//------
 		//Lộc
 
-//		String serverName = "DESKTOP-FICVKMH";
-//		String dbName = "timesheet_new";
-//		String username = "sa";
-//		String password = "";
+		String serverName = "DESKTOP-FICVKMH";
+		String dbName = "timesheet_new";
+		String username = "sa";
+		String password = "NguyenAn2004";
 		Connection cn = null;
 //
 //
-		String serverName = "CPS";
-		String dbName = "timesheet";
-		String username = "sa";
-		String password = "phamtien2004";
+//		String serverName = "CPS";
+//		String dbName = "timesheet";
+//		String username = "sa";
+//		String password = "phamtien2004";
 
 
 //		String serverName = "DESKTOP-FICVKMH";

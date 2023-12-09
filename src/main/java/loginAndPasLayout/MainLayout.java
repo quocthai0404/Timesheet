@@ -1,6 +1,6 @@
-package component;
+package loginAndPasLayout;
 
-import java.awt.EventQueue;
+import java.awt.EventQueue;	
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,8 +11,7 @@ import java.util.Locale;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import component.PanelCover;
-import component.PanelLoginAndRegister;
+
 import net.miginfocom.swing.MigLayout;
 import javax.swing.GroupLayout;
 import javax.swing.JLayeredPane;
@@ -20,11 +19,15 @@ import javax.swing.JLayeredPane;
 import org.jdesktop.animation.timing.Animator;
 import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.TimingTargetAdapter;
+
+import loginAndPasLayout.LoginAndForgotPass;
+import loginAndPasLayout.PanelCover;
+
 import java.awt.Dimension;
 
 
 
-public class Mainnn extends JFrame {
+public class MainLayout extends JFrame {
 
 
 
@@ -38,12 +41,12 @@ public class Mainnn extends JFrame {
 	    private final double coverSize = 40;
 	    private final double loginSize = 60;
 	    private boolean isLogin = true;
-	    private PanelLoginAndRegister loginAndRegister;
+	    private LoginAndForgotPass loginAndForgotPass;
 
 	    public static void main(String[] args) {
 	        EventQueue.invokeLater(() -> {
 	            try {
-	                Mainnn frame = new Mainnn();
+	                MainLayout frame = new MainLayout();
 	                frame.setVisible(true);
 	            } catch (Exception e) {
 	                e.printStackTrace();
@@ -51,7 +54,7 @@ public class Mainnn extends JFrame {
 	        });
 	    } 
 
-	    public Mainnn() {
+	    public MainLayout() {
 	    	setSize(new Dimension(865, 573));
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        setBounds(100, 100, 839, 540);
@@ -112,12 +115,12 @@ public class Mainnn extends JFrame {
 	                     }
 	                 }
 	                 if (fraction >= 0.5f) {
-	                     loginAndRegister.showRegister(isLogin);
+	                	 loginAndForgotPass.showForgotPass(isLogin);
 	                 }
 	                 fractionCover = Double.valueOf(df.format(fractionCover));
 	                 fractionLogin = Double.valueOf(df.format(fractionLogin));
 	                 layout.setComponentConstraints(cover, "width " + size + "%, pos " + fractionCover + "al 0 n 100%");
-	                 layout.setComponentConstraints(loginAndRegister, "width " + loginSize + "%, pos " + fractionLogin + "al 0 n 100%");
+	                 layout.setComponentConstraints(loginAndForgotPass, "width " + loginSize + "%, pos " + fractionLogin + "al 0 n 100%");
 	                 bg.revalidate();
 	             }
 
@@ -131,9 +134,9 @@ public class Mainnn extends JFrame {
 	         animator.setDeceleration(0.5f);
 	         animator.setResolution(0);  //  for smooth animation
 	         bg.setLayout(layout);
-	         loginAndRegister = new PanelLoginAndRegister();
-	         bg.add(loginAndRegister, "pos 0al 0 null 100%,cell 0 0,width 60%"); //  1al as 100%
-	         loginAndRegister.showRegister(!isLogin);
+	         loginAndForgotPass = new LoginAndForgotPass();
+	         bg.add(loginAndForgotPass, "pos 0al 0 null 100%,cell 0 0,width 60%"); //  1al as 100%
+	         loginAndForgotPass.showForgotPass(!isLogin);
 	         bg.add(cover, "pos 1al 0 null 100%,cell 0 0,width 40%");
 	         cover.login(isLogin);
 	         cover.addEvent(new ActionListener() {

@@ -1,4 +1,4 @@
-package component;
+package loginAndPasLayout;
 
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
@@ -41,7 +41,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.border.EmptyBorder;
 
 
-public class PanelLoginAndRegister extends JLayeredPane {
+public class LoginAndForgotPass extends JLayeredPane {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel panel;
@@ -54,13 +54,12 @@ public class PanelLoginAndRegister extends JLayeredPane {
 	private JLabel lblUsername;
 	private JTextField textUsername;
 	private JPasswordField textPassword;
-	private JLabel lblNewLabel_6;
 	private JCheckBox show;
 	private JLabel lblNewLabel_3;
 	private JLabel lblNewLabel_8;
 	private JTextField textPass;
 	private List<Employee> list;
-	private Mainnn jf4;
+	private MainLayout jf4;
 	private JLabel lblNewLabel;
 	private JPanel panel_3;
 	private JLabel lblForgotPassword;
@@ -72,14 +71,14 @@ public class PanelLoginAndRegister extends JLayeredPane {
 	public void setList(List<Employee> list) {
 		this.list = list;
 	}
-	public void setJf(Mainnn logIn) {
+	public void setJf(MainLayout logIn) {
 		this.jf4 = logIn;
 	}
 
 	/**
 	 * Create the panel.
 	 */
-	public PanelLoginAndRegister() {
+	public LoginAndForgotPass() {
 		setSize(new Dimension(497, 530)); 
 		setLayout(new CardLayout(0, 0));
 		
@@ -87,13 +86,13 @@ public class PanelLoginAndRegister extends JLayeredPane {
 		 
 		login = new JPanel();
 		login.setForeground(new Color(255, 255, 255));
-		login.setBackground(new Color(0, 0, 0));
+		login.setBackground(new Color(255, 255, 255));
 		login.setSize(new Dimension(501, 528));
 		add(login, "name_409012289542800");
 		
 		panel_1 = new JPanel();
 		panel_1.setForeground(new Color(255, 255, 255));
-		panel_1.setBackground(new Color(0, 0, 0));
+		panel_1.setBackground(new Color(255, 255, 255));
 		
 		btnLogin = new JButton("Login");
 		btnLogin.setForeground(new Color(0, 0, 0));
@@ -106,11 +105,11 @@ public class PanelLoginAndRegister extends JLayeredPane {
 		});
 		
 		lblNewLabel_4 = new JLabel("Password :");
-		lblNewLabel_4.setForeground(new Color(255, 255, 255));
+		lblNewLabel_4.setForeground(new Color(0, 0, 0));
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 15));
 		
 		lblUsername = new JLabel("User Name");
-		lblUsername.setForeground(new Color(255, 255, 255));
+		lblUsername.setForeground(new Color(0, 0, 0));
 		lblUsername.setHorizontalAlignment(SwingConstants.CENTER);
 		lblUsername.setFont(new Font("Tahoma", Font.BOLD, 15));
 		
@@ -122,21 +121,9 @@ public class PanelLoginAndRegister extends JLayeredPane {
 		textPassword.setBackground(new Color(255, 255, 255));
 		textPassword.setEchoChar('*');
 		
-		lblNewLabel_6 = new JLabel("Forgot  Password?");
-		lblNewLabel_6.setBackground(new Color(0, 128, 64));
-		lblNewLabel_6.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				lblNewLabel_6MouseClicked(e);
-			}
-		});
-		lblNewLabel_6.setForeground(new Color(255, 0, 0));
-		lblNewLabel_6.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNewLabel_6.setFocusable(false);
-		
 		show = new JCheckBox("Show Password");
-		show.setBackground(new Color(0, 0, 0));
-		show.setForeground(new Color(255, 255, 255));
+		show.setBackground(new Color(255, 255, 255));
+		show.setForeground(new Color(0, 0, 0));
 		show.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				showActionPerformed(e);
@@ -149,10 +136,7 @@ public class PanelLoginAndRegister extends JLayeredPane {
 				.addGroup(gl_panel_1.createSequentialGroup()
 					.addGap(30)
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_1.createSequentialGroup()
-							.addComponent(lblNewLabel_6, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
-							.addComponent(show))
+						.addComponent(show, Alignment.TRAILING)
 						.addGroup(gl_panel_1.createSequentialGroup()
 							.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING, false)
 								.addComponent(lblUsername, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -179,9 +163,7 @@ public class PanelLoginAndRegister extends JLayeredPane {
 						.addComponent(lblNewLabel_4, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
 						.addComponent(textPassword, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_6)
-						.addComponent(show))
+					.addComponent(show)
 					.addGap(18)
 					.addComponent(btnLogin, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
 					.addGap(85))
@@ -189,7 +171,7 @@ public class PanelLoginAndRegister extends JLayeredPane {
 		panel_1.setLayout(gl_panel_1);
 		
 		lblNewLabel = new JLabel("Login");
-		lblNewLabel.setForeground(Color.WHITE);
+		lblNewLabel.setForeground(new Color(0, 0, 0));
 		lblNewLabel.setFont(new Font("Segoe UI", Font.BOLD, 21));
 		GroupLayout gl_login = new GroupLayout(login);
 		gl_login.setHorizontalGroup(
@@ -332,7 +314,7 @@ public class PanelLoginAndRegister extends JLayeredPane {
 	
 
 	
-	public void showRegister(boolean show) {
+	public void showForgotPass(boolean show) {
         if (show) {
             forgotpassword.setVisible(true);
             login.setVisible(false);
@@ -400,15 +382,6 @@ public class PanelLoginAndRegister extends JLayeredPane {
 	                return new SignInResult(false, "Wrong Email or Password. Please try again.");
 	            }
 	        }
-	    }
-
-	    protected void lblNewLabel_6MouseClicked(MouseEvent e) {
-	        List<Employee> list = new ArrayList<>();
-	        SendPassword reg = new SendPassword();
-	        reg.setList(list);
-	        reg.setVisible(true);
-	        reg.setJf1(this);
-	        this.setVisible(false); //jf1
 	    }
 
 	    protected void showActionPerformed(ActionEvent e) {

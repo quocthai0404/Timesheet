@@ -3,13 +3,14 @@ package DAO;
 import database.JdbcUlti;
 import entity.Account;
 import entity.EmployeeAfterLogin;
-import view.Login2;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+
+import Test.Login2;
 
 public class AccountDAO {
     public List<Account> selectAccounts() {

@@ -1,4 +1,4 @@
-package component;
+package loginAndPasLayout;
 
 import java.awt.Color;
 import java.awt.Cursor;
