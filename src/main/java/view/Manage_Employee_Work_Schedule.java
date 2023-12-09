@@ -30,7 +30,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import java.text.SimpleDateFormat;
-
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JComboBox;
@@ -381,6 +381,7 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 	}
 
 	protected void do_btnUpdateWorkShift_actionPerformed(ActionEvent e) {
+		Date today = new Date();
 
 		if (table.getSelectedRow() == -1) {
 			JOptionPane.showMessageDialog(null, "Vui long chon dong can update");
@@ -400,6 +401,10 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 			return;
 
 		}
+		if(today.before(dateChooser.getDate())){
+			JOptionPane.showMessageDialog(null, "vui long khong nhap ngay truoc ngay hom nay" );
+			return;
+		}
 		int row = table.getSelectedRow();
 		int empId = Integer.parseInt(textEmpId.getText());
 		java.sql.Date sqlDate = new java.sql.Date(dateChooser.getDate().getTime());
@@ -416,6 +421,7 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 
 	protected void do_btnAddEWS_actionPerformed(ActionEvent e) {
 		WorkShift ws = (WorkShift) comboBox.getSelectedItem();
+		Date today = new Date();
 		if (textEmpId.getText().isBlank() ) {
 			JOptionPane.showMessageDialog(null, "Please choose an employee from the table");
 			return;
@@ -430,6 +436,12 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 	        JOptionPane.showMessageDialog(null, "Vui long chon work description");
 	        return;
 	    }
+		if(today.before(dateChooser.getDate())){
+			JOptionPane.showMessageDialog(null, "vui long khong nhap ngay truoc ngay hom nay" );
+			return;
+		}
+			
+		
 
 		int empId = Integer.parseInt(textEmpId.getText());
 		//thay the thanh id cua combobox
