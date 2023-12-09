@@ -36,5 +36,23 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Admin/.m2/repository/net/java/dev/timingframework/timingframework/1.0/timingframework-1.0.jar" sourcepath="C:/Users/Admin/.m2/repository/net/java/dev/timingframework/timingframework/1.0/timingframework-1.0-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="net.java.dev.timingframework"/>
+			<attribute name="maven.artifactId" value="timingframework"/>
+			<attribute name="maven.version" value="1.0"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/Admin/.m2/repository/com/miglayout/miglayout-swing/11.0/miglayout-swing-11.0.jar" sourcepath="C:/Users/Admin/.m2/repository/com/miglayout/miglayout-swing/11.0/miglayout-swing-11.0-sources.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="com.miglayout"/>
+			<attribute name="maven.artifactId" value="miglayout-swing"/>
+			<attribute name="maven.version" value="11.0"/>
+			<attribute name="maven.scope" value="compile"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

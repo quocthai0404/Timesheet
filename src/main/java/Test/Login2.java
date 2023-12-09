@@ -1,4 +1,4 @@
-package view;
+package Test;
 
 import java.awt.Dimension;
 import java.awt.EventQueue;
@@ -9,6 +9,9 @@ import javax.swing.border.EmptyBorder;
 
 import DAO.AccountDAO;
 import entity.EmployeeAfterLogin;
+import view.Forget_Password;
+import view.FrameForEmp;
+import view.MainJFrame;
 
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;

@@ -3,6 +3,7 @@ package view;
 import java.awt.EventQueue;
 import DAO.AccountDAO;
 import DAO.EmployeeDAO;
+import Test.Login2;
 import database.JdbcUlti;
 import entity.Account;
 import entity.Employee;
