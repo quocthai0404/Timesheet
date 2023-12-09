@@ -178,7 +178,7 @@ public class Create_Employee_Account extends JPanel {
         						.addGroup(groupLayout.createSequentialGroup()
         							.addComponent(btnPrevious)
         							.addGap(137)
-        							.addComponent(lblStatusPage, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE)
+        							.addComponent(lblStatusPage, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
         							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         							.addComponent(btnNext)))))
         			.addGap(66))

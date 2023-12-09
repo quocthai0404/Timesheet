@@ -61,7 +61,6 @@ public class LoginAndForgotPass extends JLayeredPane {
 	private List<Employee> list;
 	private MainLayout jf4;
 	private JLabel lblNewLabel;
-	private JPanel panel_3;
 	private JLabel lblForgotPassword;
 	private JLabel lblNewLabel_1;
 	private JTextField textField;
@@ -218,29 +217,6 @@ public class LoginAndForgotPass extends JLayeredPane {
 		textPass.setColumns(10);
 		textPass.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "", TitledBorder.LEADING, TitledBorder.ABOVE_TOP, null, new Color(0, 128, 128)));
 		
-		panel_3 = new JPanel();
-		panel_3.setBackground(Color.BLACK);
-		
-		lblForgotPassword = new JLabel("Forgot Password");
-		lblForgotPassword.setForeground(Color.WHITE);
-		lblForgotPassword.setFont(new Font("Segoe UI", Font.BOLD, 21));
-		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
-		gl_panel_3.setHorizontalGroup(
-			gl_panel_3.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_3.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblForgotPassword)
-					.addContainerGap(66, Short.MAX_VALUE))
-		);
-		gl_panel_3.setVerticalGroup(
-			gl_panel_3.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, gl_panel_3.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblForgotPassword)
-					.addContainerGap(12, Short.MAX_VALUE))
-		);
-		panel_3.setLayout(gl_panel_3);
-		
 		lblNewLabel_1 = new JLabel("Employee ID");
 		lblNewLabel_1.setForeground(Color.WHITE);
 		lblNewLabel_1.setFont(new Font("Segoe UI", Font.BOLD, 18));
@@ -254,12 +230,16 @@ public class LoginAndForgotPass extends JLayeredPane {
 		btnSignIn_1.setForeground(new Color(0, 0, 0));
 		btnSignIn_1.setFont(new Font("Segoe UI", Font.BOLD, 17));
 		btnSignIn_1.setBackground(Color.WHITE);
+		
+		lblForgotPassword = new JLabel("Forgot Password");
+		lblForgotPassword.setForeground(Color.WHITE);
+		lblForgotPassword.setFont(new Font("Segoe UI", Font.BOLD, 21));
 		GroupLayout gl_forgotpassword = new GroupLayout(forgotpassword);
 		gl_forgotpassword.setHorizontalGroup(
 			gl_forgotpassword.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_forgotpassword.createSequentialGroup()
 					.addGap(41)
-					.addGroup(gl_forgotpassword.createParallelGroup(Alignment.TRAILING)
+					.addGroup(gl_forgotpassword.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_forgotpassword.createSequentialGroup()
 							.addComponent(lblNewLabel_3)
 							.addPreferredGap(ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
@@ -268,25 +248,25 @@ public class LoginAndForgotPass extends JLayeredPane {
 							.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
 							.addComponent(textField, GroupLayout.PREFERRED_SIZE, 270, GroupLayout.PREFERRED_SIZE))
-						.addGroup(Alignment.LEADING, gl_forgotpassword.createSequentialGroup()
+						.addGroup(gl_forgotpassword.createSequentialGroup()
 							.addComponent(lblNewLabel_8, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
 							.addComponent(textPass, GroupLayout.PREFERRED_SIZE, 270, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap(46, Short.MAX_VALUE))
-				.addGroup(gl_forgotpassword.createSequentialGroup()
-					.addGap(135)
-					.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(162, Short.MAX_VALUE))
 				.addGroup(gl_forgotpassword.createSequentialGroup()
 					.addGap(118)
 					.addComponent(btnSignIn_1, GroupLayout.PREFERRED_SIZE, 248, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(131, Short.MAX_VALUE))
+				.addGroup(gl_forgotpassword.createSequentialGroup()
+					.addGap(147)
+					.addComponent(lblForgotPassword)
+					.addContainerGap(185, Short.MAX_VALUE))
 		);
 		gl_forgotpassword.setVerticalGroup(
 			gl_forgotpassword.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_forgotpassword.createSequentialGroup()
-					.addContainerGap(141, Short.MAX_VALUE)
-					.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(164, Short.MAX_VALUE)
+					.addComponent(lblForgotPassword)
 					.addGap(18)
 					.addGroup(gl_forgotpassword.createParallelGroup(Alignment.TRAILING)
 						.addGroup(gl_forgotpassword.createSequentialGroup()
@@ -370,16 +350,16 @@ public class LoginAndForgotPass extends JLayeredPane {
 			// TODO Auto-generated method stub
 			
 		}
-		private SignInResult signIn(String email, String password) throws SQLException {
+		private LoginResult signIn(String email, String password) throws SQLException {
 	        try (Connection con = JdbcUlti.getConnection();
 	             CallableStatement csSignIn = con.prepareCall("{call signIn(?,?)}")) {
 	            csSignIn.setString(1, email);
 	            csSignIn.setString(2, password);
 	            ResultSet rsSignIn = csSignIn.executeQuery();
 	            if (rsSignIn.next()) {
-	                return new SignInResult(true, "");
+	                return new LoginResult(true, "");
 	            } else {
-	                return new SignInResult(false, "Wrong Email or Password. Please try again.");
+	                return new LoginResult(false, "Wrong Email or Password. Please try again.");
 	            }
 	        }
 	    }
