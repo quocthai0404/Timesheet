@@ -245,4 +245,48 @@ select * from leave
 
 select * from work_shift
 
+select * from attendance 
+where employee_id=1
 
+select * from leave
+
+SELECT SUM(number_of_days) AS total_number_of_day
+FROM leave
+WHERE employee_id = 2
+AND MONTH(startdate) = 12;
+
+SELECT SUM(number_of_days) AS total_number_of_day, SUM(number_of_days) AS total_number_of_day
+FROM leave
+WHERE employee_id = 1
+AND YEAR(startdate) = 2000;
+select * from leave
+SELECT SUM(number_of_days) AS total_number_of_day_month, SUM(number_of_days) AS total_number_of_day_year FROM leave WHERE employee_id = 3 AND MONTH(startdate) = 12 AND YEAR(startdate) = 2023;
+
+select * from leave
+select * from employee
+
+insert into leave(employee_id, leave_type, startdate, number_of_days, reason, approved)
+values (20, 'unpaid leave', '2000-09-09', 2, 'okxcasd', 0)
+
+insert into leave(employee_id, leave_type, startdate, number_of_days, reason, approved)
+values (20, 'unpaid leave', '2000-10-09', 2, 'okxcasd', 0)
+SELECT SUM(number_of_days) AS total_number_of_day_month, SUM(number_of_days) AS total_number_of_day_year 
+FROM leave 
+WHERE employee_id = 20 AND MONTH(startdate) = 09 and YEAR(startdate) = 2000;
+
+
+SELECT 
+    SUM(CASE WHEN MONTH(startdate) = 9 THEN number_of_days ELSE 0 END) AS total_days_in_month,
+    SUM(CASE WHEN YEAR(startdate) = 2000 THEN number_of_days ELSE 0 END) AS total_days_in_2000
+FROM
+    leave
+WHERE
+    employee_id = 9
+GROUP BY
+    employee_id;
+select * from employee
+insert into account(employee_id, username, password, email)
+values(104, 'test1', 'test1', 'sad')
+
+insert into leave(employee_id,leave_type,startdate,number_of_days,reason,approved)
+values(100, 'abc', '2000-12-31', 3, 'asdas', null);

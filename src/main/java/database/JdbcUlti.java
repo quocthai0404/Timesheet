@@ -20,10 +20,10 @@ public class JdbcUlti {
 		Connection cn = null;
 //
 //
-		String serverName = "CPS";
+		String serverName = "DESKTOP-6L06R65";
 		String dbName = "timesheet";
 		String username = "sa";
-		String password = "phamtien2004";
+		String password = "123456";
 
 
 //		String serverName = "DESKTOP-FICVKMH";

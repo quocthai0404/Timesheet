@@ -42,7 +42,8 @@ public class FrameForEmp extends JFrame {
 	private JPanel panelContainer;
 	private CardLayout cardLayout;
 	
-	private JPanel panelAttendence;
+//	private JPanel panelAttendence;
+	private Attendence Attendence;
 //	private JPanel panelView_Attendence_History;
 	private Attendance_History panelAttendanceHistory;
 //	private JPanel panelLeaveRequest;
@@ -125,9 +126,8 @@ public class FrameForEmp extends JFrame {
 
 		
 
-		panelAttendence = new JPanel();
-		panelAttendence.setBackground(Color.RED);
-		panelContainer.add(panelAttendence, "panelAttendence");
+		Attendence = new Attendence();
+		panelContainer.add(Attendence, "panelAttendence");
 		
 
 		panelWorkSchedule = new Work_Schedule();

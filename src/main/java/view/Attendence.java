@@ -1,11 +1,20 @@
 package view;
 
 import javax.swing.JPanel;
+
+import entity.W_scheduleJoinWShift;
+
 import java.awt.BorderLayout;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.awt.event.ActionEvent;
 
 public class Attendence extends JPanel {
 
@@ -13,10 +22,16 @@ public class Attendence extends JPanel {
 	private JButton btnCheckIn;
 	private JButton btnCheckOut;
 	private JLabel lblToday;
-
+	private W_scheduleJoinWShift wsDao = new W_scheduleJoinWShift();
+	private ArrayList<W_scheduleJoinWShift> list = new ArrayList<>();
 	public Attendence() {
 		
 		btnCheckIn = new JButton("CheckIn");
+		btnCheckIn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnCheckInActionPerformed(e);
+			}
+		});
 		
 		btnCheckOut = new JButton("Check Out");
 		
@@ -49,5 +64,15 @@ public class Attendence extends JPanel {
 		);
 		setLayout(groupLayout);
 
+	}
+	protected void btnCheckInActionPerformed(ActionEvent e) {
+		long currentTimeMillis = System.currentTimeMillis();
+		Date date = new Date(currentTimeMillis);
+		
+		list=wsDao.listJoin(date);
+		for (W_scheduleJoinWShift i : list) {
+			System.out.println(i);
+		}
+		
 	}
 }

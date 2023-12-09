@@ -4,19 +4,21 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Date;
 
 import java.util.List;
 
-
+import javax.swing.JOptionPane;
 
 import database.JdbcUlti;
 
 import entity.Employee;
 import entity.EmployeeAfterLogin;
 import entity.Leave;
+import view.Login2;
 
 public class LeaveDao {
 	public List<Leave> selectLeave(){
@@ -185,7 +187,7 @@ public class LeaveDao {
             statement.setString(4, reason);
             
             if (statement.executeUpdate() > 0) {
-                System.out.println("leave request added");
+                JOptionPane.showMessageDialog(null, "Your request has been sent");
             }
             
             JdbcUlti.closeConnection(connection);
@@ -247,78 +249,77 @@ public class LeaveDao {
 	}
 
 
-	 public void addLeaveRequest(Date startDate, String numberOfDays, String reason, int employeeId) {
-	         String sql = "INSERT INTO leave_requests (employee_id, leave_type, startdate, number_of_days, reason, approved) " +
-	                      "VALUES (?, ?, ?, ?, ?, ?)";
-
-	         try (Connection connection = JdbcUlti.getConnection();
-	              PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-
-	             // Thiết lập tham số cho câu truy vấn
-	             preparedStatement.setInt(1, employeeId);
-	             preparedStatement.setString(2, "Phép nghỉ"); // Hoặc loại nghỉ phép mà bạn đang sử dụng
-	             preparedStatement.setDate(3, new java.sql.Date(startDate.getTime()));
-	             preparedStatement.setString(4, numberOfDays);
-	             preparedStatement.setString(5, reason);
-	             preparedStatement.setBoolean(6, false); // Ban đầu, yêu cầu chưa được phê duyệt
-
-	             // Thực hiện truy vấn
-	             preparedStatement.executeUpdate();
-
-	         } catch (SQLException e) {
-	             e.printStackTrace();
-	             // Xử lý lỗi tùy theo yêu cầu
-	         }
-	     }
-	 private Connection connection;
-	    public Leave getLeaveByUsername(String username) {
-	        // Lấy employee_id từ bảng account dựa trên username
-	        int employeeId = getEmployeeIdByUsername(username);
-
-	        // Nếu không tìm thấy employee_id, trả về null hoặc xử lý theo ý bạn
-	        if (employeeId == -1) {
-	            return null;
-	        }
-
-	        // Sử dụng employee_id để lấy thông tin từ bảng leave
-	        String sql = "SELECT * FROM leave WHERE employee_id = ?";
-	        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-	            statement.setInt(1, employeeId);
-	            ResultSet resultSet = statement.executeQuery();
-
-	            if (resultSet.next()) {
-	                Leave leave = new Leave();
-	                leave.setLeave_id(resultSet.getInt("leave_id"));
-	                leave.setEmployee_id(resultSet.getInt("employee_id"));
-	                leave.setLeave_type(resultSet.getString("leave_type"));
-	                leave.setStartdate(resultSet.getDate("startdate"));
-	                leave.setNumber_of_days(resultSet.getInt("number_of_days"));
-	                leave.setReason(resultSet.getString("reason"));
-	                leave.setApproved(resultSet.getBoolean("approved"));
-	                return leave;
-	            }
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-
-	        return null;
+	
+	 
+	    public Boolean checkLeaveId(int id) {
+	    	Connection con=null;
+	    	try {
+				con = JdbcUlti.getConnection();
+				String sql = "select * from leave where employee_id=?";
+				PreparedStatement statement = con.prepareStatement(sql);
+				statement.setInt(1, EmployeeAfterLogin.employeeID);
+				ResultSet rs = statement.executeQuery();
+				if(rs.next()) {
+					return true;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				JdbcUlti.closeConnection(con);
+			}
+	    	return false;
 	    }
-
-	    private int getEmployeeIdByUsername(String username) {
-	        String sql = "SELECT employee_id FROM account WHERE username = ?";
-	        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-	            statement.setString(1, username);
-	            ResultSet resultSet = statement.executeQuery();
-
-	            if (resultSet.next()) {
-	                return resultSet.getInt("employee_id");
-	            }
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-
-	        // Trả về -1 nếu không tìm thấy employee_id
-	        return -1;
+	    
+	    public Boolean getDayOff(Date date, int numberOfDay) {
+	    	SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+	    	String[] parts = df.format(date).split("-");
+	    	Connection con=null;
+	    	int total_month = 0;
+	    	int total_year = 0;
+	    	try {
+				con = JdbcUlti.getConnection();
+				String sql = "SELECT \r\n"
+						+ "    SUM(CASE WHEN MONTH(startdate) = ? THEN number_of_days ELSE 0 END) AS total_days_in_month,\r\n"
+						+ "    SUM(CASE WHEN YEAR(startdate) = ? THEN number_of_days ELSE 0 END) AS total_days_in_2000\r\n"
+						+ "FROM\r\n"
+						+ "    leave\r\n"
+						+ "WHERE\r\n"
+						+ "    employee_id = ?\r\n"
+						+ "GROUP BY\r\n"
+						+ "    employee_id;";
+				PreparedStatement statement = con.prepareStatement(sql);
+				statement.setInt(1, Integer.parseInt(parts[1]));
+				statement.setInt(2, Integer.parseInt(parts[0]));
+				statement.setInt(3, EmployeeAfterLogin.employeeID);
+				ResultSet rs = statement.executeQuery();
+				 
+				if(checkLeaveId(EmployeeAfterLogin.employeeID)) {
+					System.out.println("ok");
+					while (rs.next()) {
+						total_month=rs.getInt(1);
+						total_year=rs.getInt(2);
+					}
+					
+				}else {
+					System.out.println("ko");
+				}
+				if(total_month+numberOfDay<=3&&total_year<12) {
+					return true;
+				}
+				JOptionPane.showMessageDialog(null, "You have asked for leave more than 3 days a month, 12 days a year\n"
+				+"total days off in year "+parts[0]+" is: " +total_year
+						+"\ntotal days off in month "+parts[1]+" is: "+total_month);
+//				System.out.println("year"+parts[0]+" month"+parts[1]);
+//				System.out.println("total month+nod = "+(total_month+numberOfDay));
+//				System.out.println("totalyear="+total_year);
+//				System.out.println("total_month ="+total_month);
+	
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				JdbcUlti.closeConnection(con);
+			}
+	    	return false;
 	    }
 }
 

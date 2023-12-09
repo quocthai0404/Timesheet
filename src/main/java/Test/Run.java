@@ -18,11 +18,13 @@ import javax.swing.JOptionPane;
 import entity.Attendance;
 import DAO.AccountDAO;
 import DAO.EmployeeDAO;
+import DAO.LeaveDao;
 import DAO.Salary_deductionDAO;
 import DAO.Work_scheduleDAO;
 import Validation.ValidateDate;
 import database.JdbcUlti;
 import entity.Employee;
+import entity.EmployeeAfterLogin;
 import entity.Leave;
 import entity.Salary;
 import entity.Salary_deduction;
@@ -90,41 +92,11 @@ public class Run {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		Run run = new Run();
-		System.out.println(run.checkExists("", ".com"));
+    	LeaveDao dao = new LeaveDao();
+
+    	
 
 	}
 
-	public boolean checkExists(String username, String email) {
-	    Connection connection = null;
-	    boolean usernameExists = false;
-	    boolean emailExists = false;
-
-	    try {
-	        connection = JdbcUlti.getConnection();
-
-	        String sql = "SELECT * FROM account WHERE username = ?";
-	        PreparedStatement statement = connection.prepareStatement(sql);
-	        statement.setString(1, username);
-	        ResultSet rs = statement.executeQuery();
-
-	        usernameExists = rs.next();
-	        rs.close();
-
-	        String sql2 = "SELECT * FROM account WHERE email = ?";
-	        PreparedStatement statement2 = connection.prepareStatement(sql2);
-	        statement2.setString(1, email);
-	        ResultSet rs2 = statement2.executeQuery();
-
-	        emailExists = rs2.next();
-	        rs2.close();
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    } finally {
-	        JdbcUlti.closeConnection(connection);
-	    }
-
-	    return usernameExists || emailExists;
-	}
 
 }
