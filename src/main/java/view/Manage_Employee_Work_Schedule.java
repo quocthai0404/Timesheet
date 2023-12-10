@@ -246,6 +246,7 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 		);
 		
 		table_1 = new JTable();
+		table_1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		table_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
