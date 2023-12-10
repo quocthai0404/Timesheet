@@ -89,9 +89,9 @@ public class W_scheduleJoinWShift {
 					+ "  from work_schedule as ws\r\n"
 					+ "  inner join work_shift\r\n"
 					+ "  on work_shift.work_shift_id=ws.work_shift_id\r\n"
-					+ "  where ws.employee_id=? and work_date=?";
+					+ "  where ws.employee_id=? and work_date=? and ws.isHide=0";
 			PreparedStatement statement = con.prepareStatement(sql);
-			statement.setInt(1, 1);
+			statement.setInt(1, EmployeeAfterLogin.employeeID);
 			statement.setDate(2, new java.sql.Date(date.getTime()));
 			ResultSet rs = statement.executeQuery();
 			while(rs.next()) {
