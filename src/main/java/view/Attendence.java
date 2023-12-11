@@ -91,12 +91,15 @@ public class Attendence extends JPanel {
 		
 		textWorkScheduleId = new JTextField();
 		textWorkScheduleId.setColumns(10);
+		textWorkScheduleId.setVisible(false);
 		
 		textWorkShiftID = new JTextField();
 		textWorkShiftID.setColumns(10);
+		textWorkShiftID.setVisible(false);
 		
 		textEmpID = new JTextField();
 		textEmpID.setColumns(10);
+		textEmpID.setVisible(false);
 		
 		btnChooseOut = new JButton("Choose");
 		btnChooseOut.addActionListener(new ActionListener() {
