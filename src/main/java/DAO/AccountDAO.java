@@ -3,13 +3,14 @@ package DAO;
 import database.JdbcUlti;
 import entity.Account;
 import entity.EmployeeAfterLogin;
-import view.Login2;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+
+import Test.Login2;
 
 public class AccountDAO {
     public List<Account> selectAccounts() {
@@ -87,36 +88,5 @@ public class AccountDAO {
         }
         return null;
     }
-    
-    public boolean checkExists(String username, String email) {
-	    Connection connection = null;
-	    boolean usernameExists = false;
-	    boolean emailExists = false;
 
-	    try {
-	        connection = JdbcUlti.getConnection();
-
-	        String sql = "SELECT * FROM account WHERE username = ?";
-	        PreparedStatement statement = connection.prepareStatement(sql);
-	        statement.setString(1, username);
-	        ResultSet rs = statement.executeQuery();
-
-	        usernameExists = rs.next();
-	        rs.close();
-
-	        String sql2 = "SELECT * FROM account WHERE email = ?";
-	        PreparedStatement statement2 = connection.prepareStatement(sql2);
-	        statement2.setString(1, email);
-	        ResultSet rs2 = statement2.executeQuery();
-
-	        emailExists = rs2.next();
-	        rs2.close();
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    } finally {
-	        JdbcUlti.closeConnection(connection);
-	    }
-
-	    return usernameExists || emailExists;
-	}
 }

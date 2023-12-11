@@ -9,19 +9,29 @@ public class Work_schedule {
     private Date work_date;
     private int work_shift_id;
     private String work_type;
+    private String work_description;
 
     public Work_schedule() {
     	super();
     }
     
-	public Work_schedule(int work_schedule_id, int employee_id, Date work_date, int work_shift_id, String work_type) {
+	public Work_schedule(int work_schedule_id, int employee_id, Date work_date, int work_shift_id) {
 
 		this.work_schedule_id = work_schedule_id;
 		this.employee_id = employee_id;
 		this.work_date = work_date;
 		this.work_shift_id = work_shift_id;
-		this.work_type = work_type;
+		
 	}
+	public Work_schedule(int work_schedule_id, int employee_id, Date work_date, int work_shift_id,String work_description, String work_type ) {
+        this.work_schedule_id = work_schedule_id;
+        this.employee_id = employee_id;
+        this.work_date = work_date;
+        this.work_shift_id = work_shift_id;
+        this.work_description = work_description;
+        this.work_type = work_type;
+        
+    }
 
 	public int getWork_schedule_id() {
 		return work_schedule_id;
@@ -61,6 +71,14 @@ public class Work_schedule {
 
 	public void setWork_type(String work_type) {
 		this.work_type = work_type;
+	}
+
+	public String getWork_description() {
+		return work_description;
+	}
+
+	public void setWork_description(String work_description) {
+		this.work_description = work_description;
 	}
 
 	@Override

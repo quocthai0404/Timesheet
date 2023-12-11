@@ -15,14 +15,17 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import entity.Account;
 import entity.Attendance;
 import DAO.AccountDAO;
 import DAO.EmployeeDAO;
+import DAO.LeaveDao;
 import DAO.Salary_deductionDAO;
 import DAO.Work_scheduleDAO;
 import Validation.ValidateDate;
 import database.JdbcUlti;
 import entity.Employee;
+import entity.EmployeeAfterLogin;
 import entity.Leave;
 import entity.Salary;
 import entity.Salary_deduction;
@@ -90,11 +93,43 @@ public class Run {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		Run run = new Run();
-		System.out.println(run.checkExists("", ".com"));
+		List<Employee> list = new ArrayList<>();
+		List<Account> list2 = new ArrayList<>();
+    	try {
+    		Connection con = JdbcUlti.getConnection();
+			var statement = con.createStatement();
+			String sql = "select * from employee";
+			ResultSet rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				list.add(new Employee(
+						rs.getInt("employee_id"),
+						rs.getString("employee_name"), 
+						rs.getString("position"),
+						rs.getDate("birthday"), rs.getBoolean("gender")	
+				));
+				
+			}
+			var statement2 = con.createStatement();
+			String sql2 = "select * from account";
+			ResultSet rs2 = statement2.executeQuery(sql2);
+			while(rs2.next()) {
+				list2.add(new Account(rs2.getInt(1), rs2.getInt(2), rs2.getString(3), rs2.getString(4), rs2.getString(5)));
+			}
+			for (Account account : list2) {
+				System.out.println(account);
+			}
+			for (Employee e : list) {
+				System.out.println(e);
+			}
+			JdbcUlti.closeConnection(con);
+    		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	
 
 	}
 
-	
+
 
 }

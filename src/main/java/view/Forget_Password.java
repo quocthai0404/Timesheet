@@ -3,6 +3,7 @@ package view;
 import java.awt.EventQueue;
 import DAO.AccountDAO;
 import DAO.EmployeeDAO;
+import Test.Login2;
 import database.JdbcUlti;
 import entity.Account;
 import entity.Employee;
@@ -170,16 +171,16 @@ public class Forget_Password extends JFrame {
 
 	        if (password != null) {
 	            sendPasswordToEmail(email, password);
-	            System.out.println("Mật khẩu đã được gửi đến email của bạn");
+	            System.out.println("Password has been sent to your email");
 	        } else {
-	            System.out.println("Không tìm thấy thông tin người dùng");
+	            System.out.println("User information not found");
 	        }
 	    } else {
-	        System.out.println("Vui lòng điền đầy đủ thông tin");
+	        System.out.println("Please complete all information");
 	    }
 	}
 	    private void sendPasswordToEmail(String email, String password) {
-	        System.out.println("Mật khẩu đã được gửi đến email: " + email);
+	        System.out.println("Password has been sent to email: " + email);
 	    }
 
 	    protected void btnBack_LoginActionPerformed(ActionEvent e) {

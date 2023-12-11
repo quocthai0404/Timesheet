@@ -1,11 +1,11 @@
-﻿use master
+use master
 go
 
-drop database if exists timesheet
-create database timesheet
+drop database if exists timesheet_new
+create database timesheet_new
 go
 
-use timesheet
+use timesheet_new
 go
 
 --DATE - format: yyyy-MM-dd.
@@ -72,9 +72,10 @@ go
 
 create table work_shift
 (
-	work_shift_id int primary key identity not null,
-	description varchar(50) not null
+    work_shift_id int primary key identity not null,
+    description varchar(50) not null
 )
+GO
 
 create table work_schedule
 (
@@ -188,10 +189,10 @@ go
 
 SELECT CONVERT(VARCHAR(32), HashBytes('MD5', 'http://laptrinhvb.net'), 2)
 
-insert into account(employee_id, username, password, email, account_privilege)
+insert into account(employee_id, username, password, email)
 values(1, 'admin', 'admin', 'thaiphan0804@gmail.com', 'test')
 
-select password, 
+select password
 from account
 where username='admin'
 go
@@ -205,6 +206,28 @@ values(3, 'employee', 'employee', 'thaiphan@gmail.com')
 select * from employee where employee_id=8
 
 
+select account.username, account.password, employee.position
+from account
+inner join employee on employee.employee_id=account.employee_id
+where account.username='manager'
+go
+
+--proc
+CREATE PROCEDURE InsertAccount
+    @employee_id INT,
+    @username VARCHAR(50),
+    @password VARCHAR(255),
+    @email VARCHAR(100)
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    INSERT INTO account (employee_id, username, password, email)
+    VALUES (@employee_id, @username, @password, @email);
+END;
+GO
+-------------------------
+-------------------------
 select account.username, account.password, employee.position, account.employee_id
 from account
 inner join employee on employee.employee_id=account.employee_id
@@ -217,9 +240,62 @@ DROP COLUMN work_type;
 ALTER TABLE work_shift
 ADD work_type varchar(50);
 
+<<<<<<< HEAD
 insert into leave(employee_id, leave_type, startdate, number_of_days, reason, approved)
 values (2, 'unpaid leave', '2000-12-31', 2, 'laksdjlkasdj', 0)
 
 SELECT * FROM account where email = 'thaiphan0804@gmail.com'
 
 select description from work_shift;
+=======
+UPDATE leave SET approved=1,leave_type='paid leave'  WHERE leave_id=5
+select * from leave
+
+select * from work_shift
+
+select * from attendance 
+where employee_id=1
+
+select * from leave
+
+SELECT SUM(number_of_days) AS total_number_of_day
+FROM leave
+WHERE employee_id = 2
+AND MONTH(startdate) = 12;
+
+SELECT SUM(number_of_days) AS total_number_of_day, SUM(number_of_days) AS total_number_of_day
+FROM leave
+WHERE employee_id = 1
+AND YEAR(startdate) = 2000;
+select * from leave
+SELECT SUM(number_of_days) AS total_number_of_day_month, SUM(number_of_days) AS total_number_of_day_year FROM leave WHERE employee_id = 3 AND MONTH(startdate) = 12 AND YEAR(startdate) = 2023;
+
+select * from leave
+select * from employee
+
+insert into leave(employee_id, leave_type, startdate, number_of_days, reason, approved)
+values (20, 'unpaid leave', '2000-09-09', 2, 'okxcasd', 0)
+
+insert into leave(employee_id, leave_type, startdate, number_of_days, reason, approved)
+values (20, 'unpaid leave', '2000-10-09', 2, 'okxcasd', 0)
+SELECT SUM(number_of_days) AS total_number_of_day_month, SUM(number_of_days) AS total_number_of_day_year 
+FROM leave 
+WHERE employee_id = 20 AND MONTH(startdate) = 09 and YEAR(startdate) = 2000;
+
+
+SELECT 
+    SUM(CASE WHEN MONTH(startdate) = 9 THEN number_of_days ELSE 0 END) AS total_days_in_month,
+    SUM(CASE WHEN YEAR(startdate) = 2000 THEN number_of_days ELSE 0 END) AS total_days_in_2000
+FROM
+    leave
+WHERE
+    employee_id = 9
+GROUP BY
+    employee_id;
+select * from employee
+insert into account(employee_id, username, password, email)
+values(104, 'test1', 'test1', 'sad')
+
+insert into leave(employee_id,leave_type,startdate,number_of_days,reason,approved)
+values(100, 'abc', '2000-12-31', 3, 'asdas', null);
+
