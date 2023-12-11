@@ -76,7 +76,6 @@ public class MainJFrame extends JFrame {
 	private JButton btnCreate_employee_account;
 	private JButton btnEmp_work_schedule;
 	private JButton btnReview_leave_reqs;
-	private JButton btnTimekeeping_info;
 	private JPanel panel_employee_management;
 
 
@@ -85,10 +84,6 @@ public class MainJFrame extends JFrame {
 	private Review_Leave_Request Review_Leave_Request;
 
 	private Manage_Employee_Work_Schedule Manage_Employee_Work_Schedule;
-
-
-
-	private JPanel panel_timekeeping_info;
 	private JScrollPane scrollPane;
 	private JTable tableEmployee;
 	private Double totalPage;
@@ -196,16 +191,6 @@ public class MainJFrame extends JFrame {
 		panelContainer.setBorder(new LineBorder(new Color(0, 0, 0)));
 
 		contentPane.add(categoryPanel, BorderLayout.WEST);
-
-		btnTimekeeping_info = new JButton("Timekeeping information");
-		btnTimekeeping_info.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				btnClickSwitchPanel(e);
-			}
-		});
-		btnTimekeeping_info.setMinimumSize(new Dimension(10000, 70));
-		btnTimekeeping_info.setMaximumSize(new Dimension(10000, 70));
-		categoryPanel.add(btnTimekeeping_info);
 		contentPane.add(panelContainer, BorderLayout.CENTER);
 
 		panel_employee_management = new JPanel();
@@ -433,10 +418,6 @@ public class MainJFrame extends JFrame {
 		
 		Manage_Employee_Work_Schedule = new Manage_Employee_Work_Schedule();
 		panelContainer.add(Manage_Employee_Work_Schedule, "panel_emp_work_schedule");
-
-
-		panel_timekeeping_info = new JPanel();
-		panelContainer.add(panel_timekeeping_info, "panel_timekeeping_info");
 
 		setPreferredSize(new Dimension(1250, 800));
 		pack();

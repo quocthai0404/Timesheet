@@ -240,6 +240,14 @@ DROP COLUMN work_type;
 ALTER TABLE work_shift
 ADD work_type varchar(50);
 
+<<<<<<< HEAD
+insert into leave(employee_id, leave_type, startdate, number_of_days, reason, approved)
+values (2, 'unpaid leave', '2000-12-31', 2, 'laksdjlkasdj', 0)
+
+SELECT * FROM account where email = 'thaiphan0804@gmail.com'
+
+select description from work_shift;
+=======
 UPDATE leave SET approved=1,leave_type='paid leave'  WHERE leave_id=5
 select * from leave
 
@@ -290,3 +298,4 @@ values(104, 'test1', 'test1', 'sad')
 
 insert into leave(employee_id,leave_type,startdate,number_of_days,reason,approved)
 values(100, 'abc', '2000-12-31', 3, 'asdas', null);
+

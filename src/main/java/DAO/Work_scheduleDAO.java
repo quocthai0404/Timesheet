@@ -20,7 +20,7 @@ public class Work_scheduleDAO {
 		try {
 			Connection con = JdbcUlti.getConnection();
 			var statement = con.createStatement();
-			String sql = "select * from work_schedule";
+			String sql = "select * from work_schedule where isHide=0";
 			ResultSet rs = statement.executeQuery(sql);
 			while (rs.next()) {
 				list.add(new Work_schedule(
