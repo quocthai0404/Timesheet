@@ -7,35 +7,20 @@ public class Attendance {
 	private int attendance_id;
 	private int employee_id;
 	private int work_schedule_id;
-	private java.sql.Timestamp time_in;
-	private java.sql.Timestamp time_out;
+	private String time_in;
+	private String time_out;
 	private double hours_works;
-	private String status;
-	/**
-	 * 
-	 */
 	public Attendance() {
 		
 	}
-	/**
-	 * @param attendance_id
-	 * @param employee_id
-	 * @param work_schedule_id
-	 * @param time_in
-	 * @param time_out
-	 * @param hours_works
-	 * @param status
-	 */
-	public Attendance(int attendance_id, int employee_id, int work_schedule_id, java.sql.Timestamp time_in, java.sql.Timestamp time_out,
-			double hours_works, String status) {
-		
+	public Attendance(int attendance_id, int employee_id, int work_schedule_id, String time_in, String time_out,
+			double hours_works) {
 		this.attendance_id = attendance_id;
 		this.employee_id = employee_id;
 		this.work_schedule_id = work_schedule_id;
 		this.time_in = time_in;
 		this.time_out = time_out;
 		this.hours_works = hours_works;
-		this.status = status;
 	}
 	public int getAttendance_id() {
 		return attendance_id;
@@ -55,16 +40,16 @@ public class Attendance {
 	public void setWork_schedule_id(int work_schedule_id) {
 		this.work_schedule_id = work_schedule_id;
 	}
-	public java.sql.Timestamp getTime_in() {
+	public String getTime_in() {
 		return time_in;
 	}
-	public void setTime_in(java.sql.Timestamp time_in) {
+	public void setTime_in(String time_in) {
 		this.time_in = time_in;
 	}
-	public java.sql.Timestamp getTime_out() {
+	public String getTime_out() {
 		return time_out;
 	}
-	public void setTime_out(java.sql.Timestamp time_out) {
+	public void setTime_out(String time_out) {
 		this.time_out = time_out;
 	}
 	public double getHours_works() {
@@ -73,19 +58,18 @@ public class Attendance {
 	public void setHours_works(double hours_works) {
 		this.hours_works = hours_works;
 	}
-	public String getStatus() {
-		return status;
-	}
-	public void setStatus(String status) {
-		this.status = status;
-	}
 	@Override
 	public String toString() {
-		  SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		return "Attendance [attendance_id=" + attendance_id + ", employee_id=" + employee_id + ", work_schedule_id="
-				+ work_schedule_id + ", time_in=" + df.format(time_in) + ", time_out=" + df.format(time_out) + ", hours_works=" + hours_works
-				+ ", status=" + status + "]";
+				+ work_schedule_id + ", time_in=" + time_in + ", time_out=" + time_out + ", hours_works=" + hours_works
+				+ "]";
 	}
+	
+	
+	
+	
+	
+	
 	
 	
 	

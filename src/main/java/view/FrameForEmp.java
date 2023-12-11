@@ -156,17 +156,12 @@ public class FrameForEmp extends JFrame {
 		Object src = e.getSource();
 		if (src.equals(btnWork_Schedule)) {
 			cardLayout.show(panelContainer, "panelWorkSchedule");
-			System.out.println("workschedule");
 		} else if (src.equals(btnAttendence)) {
 			cardLayout.show(panelContainer, "panelAttendence");
-			System.out.println(" RED panelAttendence");
 		} else if (src.equals(btnView_Attendance_History)) {
 			cardLayout.show(panelContainer, "panelAttendanceHistory");
-		    panelAttendanceHistory.loadData();
-			System.out.println(" BLACK panelAttendanceHistory");
 		} else{
 			cardLayout.show(panelContainer, "panelLeaveRequest");
-			System.out.println("panelLeaveRequest");
 		}
 	}
 

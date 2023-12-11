@@ -45,12 +45,23 @@ public class Attendence extends JPanel {
 	private ArrayList<W_scheduleJoinWShift> list = new ArrayList<>();
 	private JScrollPane scrollPane;
 	private JTable table;
-	private JButton btnChoose;
+	private JButton btnChooseIn;
 
 	private JTextField textWorkScheduleId;
 	private JTextField textWorkShiftID;
 	private JTextField textEmpID;
+	private JButton btnChooseOut;
+	Map<Integer, String> mapTimeIn = new HashMap<Integer, String>();
+	Map<Integer, String> mapTimeOut = new HashMap<Integer, String>();
 	public Attendence() {
+		mapTimeIn.put(1, "08");
+		mapTimeIn.put(2, "08");
+		mapTimeIn.put(3, "13");
+		mapTimeIn.put(4, "17");
+		mapTimeOut.put(1, "17");
+		mapTimeOut.put(2, "12");
+		mapTimeOut.put(3, "17");
+		mapTimeOut.put(4, "20");
 		btnCheckIn = new JButton("Check In");
 		btnCheckIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -59,19 +70,24 @@ public class Attendence extends JPanel {
 		});
 
 		btnCheckOut = new JButton("Check Out");
+		btnCheckOut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnCheckOutActionPerformed(e);
+			}
+		});
 
 		lblToday = new JLabel("Today");
 		lblToday.setText("Today is: "+new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis())));
 		
 		scrollPane = new JScrollPane();
 		
-		btnChoose = new JButton("Choose");
-		btnChoose.addActionListener(new ActionListener() {
+		btnChooseIn = new JButton("Choose");
+		btnChooseIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnChooseActionPerformed(e);
 			}
 		});
-		btnChoose.setVisible(false);
+		btnChooseIn.setVisible(false);
 		
 		textWorkScheduleId = new JTextField();
 		textWorkScheduleId.setColumns(10);
@@ -81,35 +97,43 @@ public class Attendence extends JPanel {
 		
 		textEmpID = new JTextField();
 		textEmpID.setColumns(10);
+		
+		btnChooseOut = new JButton("Choose");
+		btnChooseOut.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnChooseOutActionPerformed(e);
+			}
+		});
+		btnChooseOut.setVisible(false);
 
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(233)
-					.addComponent(btnCheckIn)
-					.addGap(161)
-					.addComponent(btnCheckOut)
-					.addContainerGap(325, Short.MAX_VALUE))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(323, Short.MAX_VALUE)
-					.addComponent(lblToday, GroupLayout.PREFERRED_SIZE, 242, GroupLayout.PREFERRED_SIZE)
-					.addGap(312))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(149)
-					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 525, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(203, Short.MAX_VALUE))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(363)
-					.addComponent(btnChoose)
-					.addContainerGap(445, Short.MAX_VALUE))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(21)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(textEmpID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textWorkShiftID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textWorkScheduleId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(770, Short.MAX_VALUE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(233)
+							.addComponent(btnCheckIn)
+							.addGap(161)
+							.addComponent(btnCheckOut))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(149)
+							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 525, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(21)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(textEmpID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(textWorkShiftID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(textWorkScheduleId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(286)
+							.addComponent(lblToday, GroupLayout.PREFERRED_SIZE, 242, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(324)
+							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(btnChooseOut, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnChooseIn, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE))))
+					.addContainerGap(346, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -120,17 +144,19 @@ public class Attendence extends JPanel {
 					.addComponent(textWorkShiftID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
 					.addComponent(textEmpID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(27)
+					.addGap(77)
 					.addComponent(lblToday)
-					.addGap(115)
+					.addGap(65)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnCheckOut)
 						.addComponent(btnCheckIn))
 					.addGap(36)
 					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnChooseIn)
 					.addGap(18)
-					.addComponent(btnChoose)
-					.addContainerGap(53, Short.MAX_VALUE))
+					.addComponent(btnChooseOut)
+					.addContainerGap(197, Short.MAX_VALUE))
 		);
 		
 		table = new JTable();
@@ -154,12 +180,14 @@ public class Attendence extends JPanel {
 	protected void btnCheckInActionPerformed(ActionEvent e) {
 		long currentTimeMillis = System.currentTimeMillis();
 		Date dateNow = new Date(currentTimeMillis);
-
+		if(btnChooseOut.isDisplayable()) {
+			btnChooseOut.setVisible(false);
+		}
 		list = wsDao.listJoin(dateNow);
 		if (list.size() > 0) {
 			loadData();
 			scrollPane.setVisible(true);
-			btnChoose.setVisible(true);
+			btnChooseIn.setVisible(true);
 		} else {
 			JOptionPane.showMessageDialog(null, "This employee has no work schedule today");
 			return;
@@ -201,10 +229,36 @@ public class Attendence extends JPanel {
 			textWorkScheduleId.setText(table.getValueAt(row, 0).toString());
 			textEmpID.setText(table.getValueAt(row, 1).toString());
 			textWorkShiftID.setText(table.getValueAt(row, 3).toString());
+			
 		}
 	}
 	protected void btnChooseActionPerformed(ActionEvent e) {
 		AttendanceDAO ad = new AttendanceDAO();
-		ad.checkIn(textWorkScheduleId.getText(), textEmpID.getText(), textWorkShiftID.getText());
+		ad.checkIn(textWorkScheduleId.getText(), textEmpID.getText(), textWorkShiftID.getText(), mapTimeIn);
+	}
+	protected void btnCheckOutActionPerformed(ActionEvent e) {
+		long currentTimeMillis = System.currentTimeMillis();
+		Date dateNow = new Date(currentTimeMillis);
+		if(btnChooseIn.isDisplayable()) {
+			btnChooseIn.setVisible(false);
+		}
+		list = wsDao.listJoin(dateNow);
+		if (list.size() > 0) {
+			loadData();
+			scrollPane.setVisible(true);
+			btnChooseOut.setVisible(true);
+		} else {
+			JOptionPane.showMessageDialog(null, "This employee has no work schedule today");
+			return;
+		}
+	}
+	protected void btnChooseOutActionPerformed(ActionEvent e) {
+		AttendanceDAO ad = new AttendanceDAO();
+		if(ad.checkExitsAtten(textWorkScheduleId.getText())) {
+			JOptionPane.showMessageDialog(null, "you can check out");
+			ad.checkOut(textWorkShiftID.getText(), mapTimeOut, textEmpID.getText(), textWorkScheduleId.getText(), mapTimeIn);
+		}else {
+			JOptionPane.showMessageDialog(null, "You need check in before check out!");
+		}
 	}
 }
