@@ -1,4 +1,4 @@
-package DAO;
+			package DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -164,6 +164,32 @@ public class Work_scheduleDAO {
 		}
 		return list;
 	} 
+	public int selectForCheck(int employee_id,Date work_date){
+		int workShiftIdFromDb = -1; // Initialize to a default value or handle appropriately
+
+	    try {
+	        Connection con = JdbcUlti.getConnection();
+	        java.sql.Date wd = new java.sql.Date(work_date.getTime());
+	        String sql = "SELECT work_shift_id FROM work_schedule WHERE employee_id = ? AND work_date = ?";
+	        PreparedStatement st = con.prepareStatement(sql);
+	        st.setInt(1, employee_id);
+	        st.setDate(2, wd);
+	        ResultSet rs = st.executeQuery();
+
+	        if (rs.next()) {
+	            workShiftIdFromDb = rs.getInt("work_shift_id");
+	            // Additional processing if needed
+	        }
+			JdbcUlti.closeConnection(con);
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return workShiftIdFromDb;
+		
+	}
+	
 	
 	
 	

@@ -414,9 +414,13 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 		int work_shift_id = ws.getWork_shift_id();
 		
 		int work_schedule_id = (Integer.parseInt(table.getValueAt(row, 0).toString()));
-		var dao = new Work_scheduleDAO();
-		dao.update(work_schedule_id, empId, sqlDate, work_shift_id);
-		loadData();
+		
+		
+		if(check(work_shift_id, dateChooser.getDate(), empId)) {
+			Work_scheduleDAO dao = new Work_scheduleDAO();
+			dao.update(work_schedule_id, empId, sqlDate, work_shift_id);
+			loadData();
+		}
 
 	}
 
@@ -449,6 +453,8 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 		java.sql.Date sqlDate = new java.sql.Date(dateChooser.getDate().getTime());
 		
 		int work_shift_id = ws.getWork_shift_id();
+		
+
 		
 	
 		var dao = new Work_scheduleDAO();
@@ -496,5 +502,28 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 			
 
 		}
+	}
+	public boolean check(int work_shift_id,Date work_date, int emp_id) {
+//		WorkShift ws = (WorkShift) comboBox.getSelectedItem();
+//		work_shift_id = ws.getWork_shift_id();
+//		work_date = dateChooser.getDate();
+//		emp_id = Integer.parseInt(textEmpId.getText());
+		Work_scheduleDAO dao = new Work_scheduleDAO();
+		int workShiftIdFromDB = dao.selectForCheck(emp_id,work_date);
+		if(workShiftIdFromDB == 1) {
+			if(work_shift_id == 2 || work_shift_id == 3) {
+				JOptionPane.showMessageDialog(null, "chi cho phep chuyen sang loai 4, vui long nhap lai");
+				return false;
+				
+			}else {
+				if(work_shift_id == 1 || workShiftIdFromDB == work_shift_id) {
+					JOptionPane.showMessageDialog(null, "vui long nhap 1 id khac");
+					return false;
+				}
+			}
+		}	return true;
+	
+		
+		
 	}
 }
