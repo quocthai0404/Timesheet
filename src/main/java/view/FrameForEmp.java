@@ -43,7 +43,7 @@ public class FrameForEmp extends JFrame {
 	private CardLayout cardLayout;
 	
 //	private JPanel panelAttendence;
-	private Attendence Attendence;
+	private Attendance Attendance;
 //	private JPanel panelView_Attendence_History;
 	private Attendance_History panelAttendanceHistory;
 //	private JPanel panelLeaveRequest;
@@ -66,7 +66,7 @@ public class FrameForEmp extends JFrame {
 		categoryPanel = new JPanel();
 		categoryPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		categoryPanel.setLayout(new BoxLayout(categoryPanel, BoxLayout.Y_AXIS));
-		btnAttendence = new JButton("Attendence");
+		btnAttendence = new JButton("Attendance");
 		btnAttendence.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnClickSwitchPanel(e);
@@ -126,8 +126,8 @@ public class FrameForEmp extends JFrame {
 
 		
 
-		Attendence = new Attendence();
-		panelContainer.add(Attendence, "panelAttendence");
+		Attendance = new Attendance();
+		panelContainer.add(Attendance, "panelAttendence");
 		
 
 		panelWorkSchedule = new Work_Schedule();

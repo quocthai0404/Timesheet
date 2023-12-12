@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.swing.JOptionPane;
-
+import java.sql.Timestamp;
 import database.JdbcUlti;
 import entity.Attendance;
 import entity.EmployeeAfterLogin;
@@ -34,7 +34,9 @@ public class AttendanceDAO {
 			statement.setInt(1, EmployeeAfterLogin.employeeID);
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
-				list.add(new Attendance(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getDouble(6)));
+				list.add(new Attendance(rs.getInt("attendance_id"), rs.getInt("employee_id"),
+				        rs.getInt("work_schedule_id"), rs.getTimestamp("time_in"), rs.getTimestamp("time_out"),
+				        rs.getDouble("hours_worked"), rs.getString("status")));
 
 			}
 			JdbcUlti.closeConnection(con);

@@ -35,7 +35,7 @@ import javax.swing.JTextField;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class Attendence extends JPanel {
+public class Attendance extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JButton btnCheckIn;
@@ -53,7 +53,7 @@ public class Attendence extends JPanel {
 	private JButton btnChooseOut;
 	Map<Integer, String> mapTimeIn = new HashMap<Integer, String>();
 	Map<Integer, String> mapTimeOut = new HashMap<Integer, String>();
-	public Attendence() {
+	public Attendance() {
 		mapTimeIn.put(1, "08");
 		mapTimeIn.put(2, "08");
 		mapTimeIn.put(3, "13");

@@ -18,7 +18,6 @@ import database.JdbcUlti;
 import entity.Employee;
 import entity.EmployeeAfterLogin;
 import entity.Leave;
-import view.Login2;
 
 public class LeaveDao {
 	public List<Leave> selectLeave(){
@@ -322,4 +321,3 @@ public class LeaveDao {
 	    	return false;
 	    }
 }
-

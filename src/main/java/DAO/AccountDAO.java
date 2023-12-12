@@ -29,8 +29,7 @@ public class AccountDAO {
                         rs.getInt("employee_id"),
                         rs.getString("tendangnhap"),
                         rs.getString("matkhau"),
-                        rs.getString("email"),
-                        rs.getString("capbac")
+                        rs.getString("email")
                 ));
             }
         } catch (Exception e) {
