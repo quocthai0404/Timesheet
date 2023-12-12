@@ -64,7 +64,7 @@ public class LoginAndForgotPass extends JLayeredPane {
 	private JLabel lblForgotPassword;
 	private JLabel lblNewLabel_1;
 	private JTextField textField;
-	private JButton btnSignIn_1;
+	private JButton btnSend;
 	
 	
 	public void setList(List<Employee> list) {
@@ -123,11 +123,7 @@ public class LoginAndForgotPass extends JLayeredPane {
 		show = new JCheckBox("Show Password");
 		show.setBackground(new Color(255, 255, 255));
 		show.setForeground(new Color(0, 0, 0));
-		show.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				showActionPerformed(e);
-			}
-		});
+		
 		show.setFont(new Font("Tahoma", Font.BOLD, 12));
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
@@ -226,10 +222,15 @@ public class LoginAndForgotPass extends JLayeredPane {
 		textField.setColumns(10);
 		textField.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "", TitledBorder.LEADING, TitledBorder.ABOVE_TOP, null, new Color(0, 128, 128)));
 		
-		btnSignIn_1 = new JButton("Send");
-		btnSignIn_1.setForeground(new Color(0, 0, 0));
-		btnSignIn_1.setFont(new Font("Segoe UI", Font.BOLD, 17));
-		btnSignIn_1.setBackground(Color.WHITE);
+		btnSend = new JButton("Send");
+		btnSend.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnSendActionPerformed(e);
+			}
+		});
+		btnSend.setForeground(new Color(0, 0, 0));
+		btnSend.setFont(new Font("Segoe UI", Font.BOLD, 17));
+		btnSend.setBackground(Color.WHITE);
 		
 		lblForgotPassword = new JLabel("Forgot Password");
 		lblForgotPassword.setForeground(Color.WHITE);
@@ -255,7 +256,7 @@ public class LoginAndForgotPass extends JLayeredPane {
 					.addContainerGap(46, Short.MAX_VALUE))
 				.addGroup(gl_forgotpassword.createSequentialGroup()
 					.addGap(118)
-					.addComponent(btnSignIn_1, GroupLayout.PREFERRED_SIZE, 248, GroupLayout.PREFERRED_SIZE)
+					.addComponent(btnSend, GroupLayout.PREFERRED_SIZE, 248, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(131, Short.MAX_VALUE))
 				.addGroup(gl_forgotpassword.createSequentialGroup()
 					.addGap(147)
@@ -282,7 +283,7 @@ public class LoginAndForgotPass extends JLayeredPane {
 						.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
 						.addComponent(textField, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
 					.addGap(29)
-					.addComponent(btnSignIn_1, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
+					.addComponent(btnSend, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
 					.addGap(172))
 		);
 		forgotpassword.setLayout(gl_forgotpassword);
@@ -363,23 +364,7 @@ public class LoginAndForgotPass extends JLayeredPane {
 	            }
 	        }
 	    }
-
-	    protected void showActionPerformed(ActionEvent e) {
-	        if (show.isSelected()) {
-	            textPassword.setEchoChar((char) 0);
-	        } else {
-	            textPassword.setEchoChar('*');
-	        }
-	    }
-
-//	    private void showPrisonerFrame() {
-//	        PrisonerFrame pr = new PrisonerFrame();
-//	        pr.setVisible(true);
-//	        pr.pack();
-//	        pr.setLocationRelativeTo(null);
-//	    }
-
-
+		
 	    private void showErrorDialog(String message) {
 	        JOptionPane.showMessageDialog(new JFrame(), message, "Error", JOptionPane.ERROR_MESSAGE);
 	    }
@@ -393,4 +378,7 @@ public class LoginAndForgotPass extends JLayeredPane {
 	        }
 	        return true;
 	    }
+	protected void btnSendActionPerformed(ActionEvent e) {
+		
+	}
 }

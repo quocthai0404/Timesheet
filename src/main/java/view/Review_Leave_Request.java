@@ -31,6 +31,7 @@ import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.awt.event.ActionListener;
+import java.awt.Font;
 
 public class Review_Leave_Request extends JPanel {
     private JTable dataTable;
@@ -65,31 +66,38 @@ public class Review_Leave_Request extends JPanel {
         scrollPane = new JScrollPane();
         
         btnPrevious = new JButton("Previous");
+        btnPrevious.setFont(new Font("Segoe UI", Font.BOLD, 12));
         
         lblStatusPage = new JLabel("1/1");
         
         btnNext = new JButton("Next");
+        btnNext.setFont(new Font("Segoe UI", Font.BOLD, 12));
         
         lblEmpId = new JLabel("Employee Id");
+        lblEmpId.setFont(new Font("Segoe UI", Font.BOLD, 12));
         
         txtEmpId = new JTextField();
         txtEmpId.setColumns(10);
         
         lblLeaveType = new JLabel("Leave Type");
+        lblLeaveType.setFont(new Font("Segoe UI", Font.BOLD, 12));
         
         txtLeaveType = new JTextField();
         txtLeaveType.setColumns(10);
         
         lblStartDate = new JLabel("Start Date");
+        lblStartDate.setFont(new Font("Segoe UI", Font.BOLD, 12));
         
         dateChooser = new JDateChooser();
         
         lblNumsDate = new JLabel("Nums of Date");
+        lblNumsDate.setFont(new Font("Segoe UI", Font.BOLD, 12));
         
         txtNod = new JTextField();
         txtNod.setColumns(10);
         
         lblApproved = new JLabel("Approved");
+        lblApproved.setFont(new Font("Segoe UI", Font.BOLD, 12));
         
         rdbtnYes = new JRadioButton("Yes");
         
@@ -99,6 +107,7 @@ public class Review_Leave_Request extends JPanel {
         buttonGroup.add(rdbtnNo);
         
         btnApprove = new JButton("Approve");
+        btnApprove.setFont(new Font("Segoe UI", Font.BOLD, 13));
         btnApprove.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		btnApproveActionPerformed(e);
@@ -107,12 +116,14 @@ public class Review_Leave_Request extends JPanel {
         
         
         lblNewLabel = new JLabel("Leave Id");
+        lblNewLabel.setFont(new Font("Segoe UI", Font.BOLD, 12));
         
         txtLeaveId = new JTextField();
         txtLeaveId.setEnabled(false);
         txtLeaveId.setColumns(10);
         
         lblReason = new JLabel("Reason");
+        lblReason.setFont(new Font("Segoe UI", Font.BOLD, 12));
         
         txtReason = new JTextField();
         txtReason.setColumns(10);
@@ -121,102 +132,106 @@ public class Review_Leave_Request extends JPanel {
         	groupLayout.createParallelGroup(Alignment.LEADING)
         		.addGroup(groupLayout.createSequentialGroup()
         			.addContainerGap()
-        			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-        				.addGroup(groupLayout.createSequentialGroup()
-        					.addComponent(btnPrevious, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
-        					.addGap(203)
-        					.addComponent(lblStatusPage, GroupLayout.PREFERRED_SIZE, 15, GroupLayout.PREFERRED_SIZE)
-        					.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        					.addComponent(btnNext, GroupLayout.PREFERRED_SIZE, 53, GroupLayout.PREFERRED_SIZE))
-        				.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 587, GroupLayout.PREFERRED_SIZE))
-        			.addGap(84)
         			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
         				.addGroup(groupLayout.createSequentialGroup()
-        					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        						.addComponent(btnApprove, GroupLayout.PREFERRED_SIZE, 240, GroupLayout.PREFERRED_SIZE)
-        						.addGroup(groupLayout.createSequentialGroup()
-        							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        								.addGroup(groupLayout.createSequentialGroup()
-        									.addComponent(lblApproved, GroupLayout.DEFAULT_SIZE, 74, Short.MAX_VALUE)
-        									.addPreferredGap(ComponentPlacement.RELATED)
-        									.addComponent(rdbtnYes, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE)
-        									.addGap(18)
-        									.addComponent(rdbtnNo, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE)
-        									.addGap(21))
-        								.addGroup(groupLayout.createSequentialGroup()
-        									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-        										.addComponent(lblNumsDate, GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
-        										.addComponent(lblReason, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
-        										.addComponent(lblStartDate, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
-        										.addComponent(lblLeaveType, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
-        										.addComponent(lblEmpId, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE))
-        									.addPreferredGap(ComponentPlacement.UNRELATED)
-        									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-        										.addComponent(txtEmpId, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-        										.addComponent(txtLeaveType, 155, 155, 155)
-        										.addComponent(dateChooser, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-        										.addComponent(txtNod, GroupLayout.PREFERRED_SIZE, 155, GroupLayout.PREFERRED_SIZE)
-        										.addComponent(txtReason, GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-        										.addComponent(txtLeaveId, 152, 152, 152))))
-        							.addGap(11)))
-        					.addGap(128))
+        					.addComponent(btnPrevious, GroupLayout.PREFERRED_SIZE, 91, GroupLayout.PREFERRED_SIZE)
+        					.addGap(141)
+        					.addComponent(lblStatusPage, GroupLayout.PREFERRED_SIZE, 63, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+        					.addComponent(btnNext, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE))
+        				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE))
+        			.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
         				.addGroup(groupLayout.createSequentialGroup()
-        					.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
+        					.addGap(30)
+        					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+        							.addComponent(lblStartDate, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        							.addComponent(lblEmpId, GroupLayout.PREFERRED_SIZE, 76, GroupLayout.PREFERRED_SIZE)
+        							.addComponent(lblLeaveType, GroupLayout.DEFAULT_SIZE, 84, Short.MAX_VALUE)
+        							.addComponent(lblNewLabel, GroupLayout.PREFERRED_SIZE, 65, GroupLayout.PREFERRED_SIZE))
+        						.addComponent(lblNumsDate, GroupLayout.PREFERRED_SIZE, 97, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(lblReason, GroupLayout.PREFERRED_SIZE, 103, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(lblApproved, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE))
+        					.addGap(57)
+        					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        						.addGroup(groupLayout.createSequentialGroup()
+        							.addComponent(txtLeaveId, GroupLayout.PREFERRED_SIZE, 130, GroupLayout.PREFERRED_SIZE)
+        							.addContainerGap())
+        						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        							.addGroup(groupLayout.createSequentialGroup()
+        								.addComponent(rdbtnYes, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE)
+        								.addGap(51)
+        								.addComponent(rdbtnNo, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE)
+        								.addGap(246))
+        							.addGroup(groupLayout.createSequentialGroup()
+        								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+        									.addComponent(dateChooser, GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+        									.addComponent(txtEmpId, GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+        									.addComponent(txtLeaveType, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+        									.addComponent(txtNod, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+        									.addComponent(txtReason, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE))
+        								.addGap(149)))))
+        				.addGroup(groupLayout.createSequentialGroup()
+        					.addGap(66)
+        					.addComponent(btnApprove, GroupLayout.PREFERRED_SIZE, 154, GroupLayout.PREFERRED_SIZE)
         					.addContainerGap())))
         );
         groupLayout.setVerticalGroup(
         	groupLayout.createParallelGroup(Alignment.LEADING)
         		.addGroup(groupLayout.createSequentialGroup()
+        			.addGap(63)
         			.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
         				.addGroup(groupLayout.createSequentialGroup()
-        					.addGap(63)
-        					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 395, GroupLayout.PREFERRED_SIZE))
-        				.addGroup(groupLayout.createSequentialGroup()
-        					.addGap(70)
+        					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        					.addGap(71)
         					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+        						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+        							.addComponent(lblStatusPage)
+        							.addComponent(btnNext, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE))
+        						.addComponent(btnPrevious, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)))
+        				.addGroup(groupLayout.createSequentialGroup()
+        					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
         						.addComponent(lblNewLabel)
         						.addComponent(txtLeaveId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-        					.addPreferredGap(ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
-        					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-        						.addComponent(lblEmpId)
-        						.addComponent(txtEmpId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-        					.addPreferredGap(ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-        					.addPreferredGap(ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-        					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-        						.addComponent(lblEmpId)
-        						.addComponent(txtEmpId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-        					.addPreferredGap(ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-        					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+        					.addGap(42)
+        					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+        							.addComponent(lblEmpId)
+        							.addComponent(txtEmpId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
         						.addGroup(groupLayout.createSequentialGroup()
+        							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+        								.addComponent(lblEmpId)
+        								.addComponent(txtEmpId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        							.addGap(37)))
+        					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+        						.addGroup(groupLayout.createSequentialGroup()
+        							.addGap(6)
         							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
         								.addComponent(lblLeaveType)
         								.addComponent(txtLeaveType, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-        							.addGap(34)
-        							.addComponent(lblStartDate)
-        							.addGap(34))
+        							.addGap(38)
+        							.addComponent(lblStartDate))
         						.addGroup(groupLayout.createSequentialGroup()
-        							.addComponent(dateChooser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        							.addGap(32)))
+        							.addGap(61)
+        							.addComponent(dateChooser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+        					.addGap(41)
         					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-        						.addComponent(txtNod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-        						.addComponent(lblNumsDate))
-        					.addGap(43)
-        					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+        						.addComponent(lblNumsDate)
+        						.addComponent(txtNod, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        					.addGap(20)
+        					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
         						.addComponent(lblReason)
-        						.addComponent(txtReason, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-        					.addGap(29)
-        					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-        						.addComponent(rdbtnYes)
-        						.addComponent(lblApproved)
-        						.addComponent(rdbtnNo))
-        					.addGap(22)
-        					.addComponent(btnApprove)))
-        			.addGap(29)
-        			.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-        				.addComponent(btnPrevious)
-        				.addComponent(btnNext)
-        				.addComponent(lblStatusPage))
-        			.addGap(169))
+        						.addGroup(groupLayout.createSequentialGroup()
+        							.addComponent(txtReason, GroupLayout.PREFERRED_SIZE, 99, GroupLayout.PREFERRED_SIZE)
+        							.addGap(17)
+        							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+        								.addComponent(rdbtnYes)
+        								.addComponent(rdbtnNo)
+        								.addComponent(lblApproved))))
+        					.addGap(64)
+        					.addComponent(btnApprove, GroupLayout.PREFERRED_SIZE, 44, GroupLayout.PREFERRED_SIZE)))
+        			.addGap(474))
         );
         
         tableLeave = new JTable();

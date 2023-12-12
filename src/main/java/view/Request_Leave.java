@@ -89,8 +89,8 @@ public class Request_Leave extends JPanel {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGap(132)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(textAreaReason, GroupLayout.PREFERRED_SIZE, 474, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnSend, GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textAreaReason, GroupLayout.PREFERRED_SIZE, 474, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblReason, GroupLayout.PREFERRED_SIZE, 144, GroupLayout.PREFERRED_SIZE)
 						.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
 							.addComponent(panel, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 486, Short.MAX_VALUE)
@@ -102,7 +102,7 @@ public class Request_Leave extends JPanel {
 								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
 									.addComponent(txtNod)
 									.addComponent(dateLeave, GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)))))
-					.addContainerGap(147, Short.MAX_VALUE))
+					.addContainerGap(380, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -120,8 +120,9 @@ public class Request_Leave extends JPanel {
 					.addComponent(lblReason, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(textAreaReason, GroupLayout.PREFERRED_SIZE, 196, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
-					.addComponent(btnSend, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
+					.addComponent(btnSend, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
+					.addGap(69))
 		);
 		
 		lbAddNV5 = new JLabel();

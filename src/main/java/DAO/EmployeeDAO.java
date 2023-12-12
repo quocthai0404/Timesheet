@@ -167,6 +167,49 @@ public class EmployeeDAO {
 		}
 		return list;
 	}
+	////////////////////////////
+	private void close(AutoCloseable resource) {
+        try {
+            if (resource != null) {
+                resource.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Xử lý ngoại lệ đóng resource
+        }
+    }
+	 public static String getEmployeeIDByUsername(String userName) {
+	        Connection connection = null;
+	        PreparedStatement preparedStatement = null;
+	        ResultSet resultSet = null;
+	        String employeeID = null;
 
+	        try {
+	            connection = JdbcUlti.getConnection();
+	            String query = "SELECT employee_id FROM employee WHERE username = ?";
+	            preparedStatement = connection.prepareStatement(query);
+	            preparedStatement.setString(1, userName);
+	            resultSet = preparedStatement.executeQuery();
+
+	            if (resultSet.next()) {
+	                employeeID = resultSet.getString("employee_id");
+	            }
+
+	        } catch (SQLException e) {
+	            handleDatabaseError(e, "Error retrieving Employee ID by username");
+	        } finally {
+	            // Đóng các resource
+	        	close(resultSet);
+	        	close(preparedStatement);
+	            close(connection);
+	        }
+
+	        return employeeID;
+	    }
+	 private void handleDatabaseError(SQLException ex, String message) {
+		    // Xử lý lỗi cơ sở dữ liệu ở đây
+		    ex.printStackTrace();
+		    JOptionPane.showMessageDialog(null, message, "Database Error", JOptionPane.ERROR_MESSAGE);
+		}
+	 
 	 
 }

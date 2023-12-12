@@ -34,6 +34,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.swing.JComboBox;
+import java.awt.Font;
 
 public class Manage_Employee_Work_Schedule extends JPanel {
 
@@ -75,6 +76,7 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 		});
 
 		btnPrevious = new JButton("Previous");
+		btnPrevious.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		btnPrevious.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				do_btnPrevious_actionPerformed(e);
@@ -82,6 +84,7 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 		});
 
 		btnNext = new JButton("Next");
+		btnNext.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				do_btnNext_actionPerformed(e);
@@ -91,10 +94,13 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 		scrollPane = new JScrollPane();
 
 		lblEmpId = new JLabel("Employee Id");
+		lblEmpId.setFont(new Font("Segoe UI", Font.BOLD, 12));
 
 		lblWorkDate = new JLabel("Work Date");
+		lblWorkDate.setFont(new Font("Segoe UI", Font.BOLD, 12));
 
 		lblDescription = new JLabel("Description");
+		lblDescription.setFont(new Font("Segoe UI", Font.BOLD, 12));
 
 		textEmpId = new JTextField();
 		textEmpId.setEnabled(false);
@@ -106,6 +112,7 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 		textField_1.setColumns(10);
 
 		btnAddEWS = new JButton("Add Work Schedule");
+		btnAddEWS.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		btnAddEWS.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				do_btnAddEWS_actionPerformed(e);
@@ -113,6 +120,7 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 		});
 
 		btnUpdateWorkShift = new JButton("Update Work Schedule");
+		btnUpdateWorkShift.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		btnUpdateWorkShift.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				do_btnUpdateWorkShift_actionPerformed(e);
@@ -127,6 +135,7 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 		scrollPane_1 = new JScrollPane();
 		
 		lblNewLabel = new JLabel("Work type");
+		lblNewLabel.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		
 		textWorkType = new JTextField();
 		textWorkType.setEnabled(false);
@@ -157,49 +166,48 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 					.addGap(6)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
+							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
+							.addGap(12))
+						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(10)
-							.addComponent(btnPrevious, GroupLayout.PREFERRED_SIZE, 73, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+									.addComponent(btnPrevious)
+									.addPreferredGap(ComponentPlacement.RELATED))
+								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(lblWorkDate)
+										.addComponent(lblEmpId, GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+										.addComponent(lblNewLabel)
+										.addComponent(lblDescription, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+									.addPreferredGap(ComponentPlacement.RELATED)))
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+									.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 										.addGroup(groupLayout.createSequentialGroup()
-											.addPreferredGap(ComponentPlacement.RELATED, 295, Short.MAX_VALUE)
-											.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+											.addPreferredGap(ComponentPlacement.RELATED, 292, Short.MAX_VALUE)
+											.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+											.addGap(0))
 										.addGroup(groupLayout.createSequentialGroup()
-											.addGap(20)
-											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addComponent(lblNewLabel)
-												.addComponent(lblWorkDate, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
-												.addComponent(lblEmpId, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
-												.addComponent(lblDescription, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE))
-											.addGap(41)
-											.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-												.addComponent(textEmpId, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE)
-												.addComponent(dateChooser, GroupLayout.PREFERRED_SIZE, 152, GroupLayout.PREFERRED_SIZE)
-												.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
-												.addComponent(textWorkType, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE))
-											.addGap(5)))
-									.addGap(0))
-								.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-									.addComponent(lblStatusPage)
-									.addGap(190)))
-							.addComponent(btnNext, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
-							.addGap(19))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
-							.addGap(12)))
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
-							.addGap(25))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(btnAddEWS, GroupLayout.PREFERRED_SIZE, 134, GroupLayout.PREFERRED_SIZE)
-							.addGap(140))))
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(684, Short.MAX_VALUE)
-					.addComponent(btnUpdateWorkShift)
-					.addGap(135))
+											.addComponent(lblStatusPage)
+											.addGap(190)))
+									.addComponent(btnNext, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+									.addGap(19))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(28)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+										.addComponent(dateChooser, GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+										.addComponent(textEmpId, GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+										.addComponent(textWorkType, GroupLayout.PREFERRED_SIZE, 151, GroupLayout.PREFERRED_SIZE)
+										.addComponent(comboBox, Alignment.TRAILING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+							.addComponent(btnAddEWS, GroupLayout.PREFERRED_SIZE, 155, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(btnUpdateWorkShift))
+						.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 347, GroupLayout.PREFERRED_SIZE))
+					.addGap(25))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -209,39 +217,34 @@ public class Manage_Employee_Work_Schedule extends JPanel {
 							.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addGap(5)
 							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 334, GroupLayout.PREFERRED_SIZE)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-										.addComponent(lblEmpId)
-										.addComponent(textEmpId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-									.addGap(18)
-									.addComponent(lblWorkDate))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(10)
-									.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-										.addComponent(btnNext)
-										.addComponent(btnPrevious)
-										.addComponent(lblStatusPage, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
-									.addPreferredGap(ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
-									.addComponent(dateChooser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGap(10)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(btnNext)
+								.addComponent(btnPrevious, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblStatusPage, GroupLayout.PREFERRED_SIZE, 16, GroupLayout.PREFERRED_SIZE))
+							.addGap(36)
+							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblEmpId)
+								.addComponent(textEmpId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblWorkDate)
+								.addComponent(dateChooser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 								.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblDescription)))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(26)
 							.addComponent(scrollPane_1, GroupLayout.PREFERRED_SIZE, 449, GroupLayout.PREFERRED_SIZE)
-							.addGap(16)
-							.addComponent(btnAddEWS)))
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(4)
-							.addComponent(btnUpdateWorkShift))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(18)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblNewLabel)
-								.addComponent(textWorkType, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+								.addComponent(btnAddEWS, GroupLayout.DEFAULT_SIZE, 46, Short.MAX_VALUE)
+								.addComponent(btnUpdateWorkShift, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE))))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel)
+						.addComponent(textWorkType, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGap(38))
 		);
 		
