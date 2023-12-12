@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 import DAO.AccountDAO;
+import DAO.EmployeeDAO;
 import database.JdbcUlti;
 import entity.Employee;
 import entity.EmployeeAfterLogin;
@@ -47,7 +48,7 @@ public class LoginAndForgotPass extends JLayeredPane {
 	private JPanel panel;
 	private JPanel login;
 	private JPanel forgotpassword;
-	private JTextField textName;
+	private JTextField textEmp_Username;
 	private JPanel panel_1;
 	private JButton btnLogin;
 	private JLabel lblNewLabel_4;
@@ -57,13 +58,13 @@ public class LoginAndForgotPass extends JLayeredPane {
 	private JCheckBox show;
 	private JLabel lblNewLabel_3;
 	private JLabel lblNewLabel_8;
-	private JTextField textPass;
+	private JTextField textEmail;
 	private List<Employee> list;
 	private MainLayout jf4;
 	private JLabel lblNewLabel;
 	private JLabel lblForgotPassword;
 	private JLabel lblNewLabel_1;
-	private JTextField textField;
+	private JTextField textEmp_ID;
 	private JButton btnSend;
 	
 	
@@ -78,7 +79,7 @@ public class LoginAndForgotPass extends JLayeredPane {
 	 * Create the panel.
 	 */
 	public LoginAndForgotPass() {
-		setSize(new Dimension(497, 530)); 
+		setSize(new Dimension(628, 517)); 
 		setLayout(new CardLayout(0, 0));
 		
 	
@@ -172,22 +173,23 @@ public class LoginAndForgotPass extends JLayeredPane {
 		gl_login.setHorizontalGroup(
 			gl_login.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_login.createSequentialGroup()
-					.addGap(55)
-					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(55, Short.MAX_VALUE))
-				.addGroup(gl_login.createSequentialGroup()
-					.addGap(206)
-					.addComponent(lblNewLabel)
-					.addContainerGap(235, Short.MAX_VALUE))
+					.addGroup(gl_login.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_login.createSequentialGroup()
+							.addGap(191)
+							.addComponent(lblNewLabel))
+						.addGroup(gl_login.createSequentialGroup()
+							.addGap(41)
+							.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(200, Short.MAX_VALUE))
 		);
 		gl_login.setVerticalGroup(
 			gl_login.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_login.createSequentialGroup()
-					.addGap(130)
+				.addGroup(Alignment.TRAILING, gl_login.createSequentialGroup()
+					.addContainerGap(170, Short.MAX_VALUE)
 					.addComponent(lblNewLabel)
-					.addGap(3)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 233, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(135, Short.MAX_VALUE))
+					.addGap(79))
 		);
 		login.setLayout(gl_login);
 		
@@ -195,9 +197,9 @@ public class LoginAndForgotPass extends JLayeredPane {
 		forgotpassword.setBackground(new Color(0, 0, 0));
 		add(forgotpassword, "name_409049808236600");
 		
-		textName = new JTextField();
-		textName.setColumns(10);
-		textName.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "", TitledBorder.LEADING, TitledBorder.ABOVE_TOP, null, new Color(0, 128, 128)));
+		textEmp_Username = new JTextField();
+		textEmp_Username.setColumns(10);
+		textEmp_Username.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "", TitledBorder.LEADING, TitledBorder.ABOVE_TOP, null, new Color(0, 128, 128)));
 		
 		lblNewLabel_3 = new JLabel("User name :");
 		lblNewLabel_3.setForeground(new Color(255, 255, 255));
@@ -209,18 +211,18 @@ public class LoginAndForgotPass extends JLayeredPane {
 		lblNewLabel_8.setBackground(new Color(255, 255, 255));
 		lblNewLabel_8.setFont(new Font("Segoe UI", Font.BOLD, 18));
 		
-		textPass = new JTextField();
-		textPass.setColumns(10);
-		textPass.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "", TitledBorder.LEADING, TitledBorder.ABOVE_TOP, null, new Color(0, 128, 128)));
+		textEmail = new JTextField();
+		textEmail.setColumns(10);
+		textEmail.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "", TitledBorder.LEADING, TitledBorder.ABOVE_TOP, null, new Color(0, 128, 128)));
 		
 		lblNewLabel_1 = new JLabel("Employee ID");
 		lblNewLabel_1.setForeground(Color.WHITE);
 		lblNewLabel_1.setFont(new Font("Segoe UI", Font.BOLD, 18));
 		lblNewLabel_1.setBackground(Color.WHITE);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "", TitledBorder.LEADING, TitledBorder.ABOVE_TOP, null, new Color(0, 128, 128)));
+		textEmp_ID = new JTextField();
+		textEmp_ID.setColumns(10);
+		textEmp_ID.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "", TitledBorder.LEADING, TitledBorder.ABOVE_TOP, null, new Color(0, 128, 128)));
 		
 		btnSend = new JButton("Send");
 		btnSend.addActionListener(new ActionListener() {
@@ -241,50 +243,48 @@ public class LoginAndForgotPass extends JLayeredPane {
 				.addGroup(gl_forgotpassword.createSequentialGroup()
 					.addGap(41)
 					.addGroup(gl_forgotpassword.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_forgotpassword.createSequentialGroup()
-							.addComponent(lblNewLabel_3)
-							.addPreferredGap(ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-							.addComponent(textName, GroupLayout.PREFERRED_SIZE, 270, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_forgotpassword.createSequentialGroup()
-							.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(textField, GroupLayout.PREFERRED_SIZE, 270, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_forgotpassword.createSequentialGroup()
-							.addComponent(lblNewLabel_8, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
-							.addComponent(textPass, GroupLayout.PREFERRED_SIZE, 270, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(46, Short.MAX_VALUE))
-				.addGroup(gl_forgotpassword.createSequentialGroup()
-					.addGap(118)
-					.addComponent(btnSend, GroupLayout.PREFERRED_SIZE, 248, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(131, Short.MAX_VALUE))
+						.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblNewLabel_3)
+						.addComponent(lblNewLabel_8, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(gl_forgotpassword.createParallelGroup(Alignment.LEADING)
+						.addComponent(textEmail, GroupLayout.PREFERRED_SIZE, 270, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textEmp_ID, GroupLayout.PREFERRED_SIZE, 270, GroupLayout.PREFERRED_SIZE)
+						.addComponent(textEmp_Username, GroupLayout.PREFERRED_SIZE, 270, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(177, Short.MAX_VALUE))
 				.addGroup(gl_forgotpassword.createSequentialGroup()
 					.addGap(147)
 					.addComponent(lblForgotPassword)
-					.addContainerGap(185, Short.MAX_VALUE))
+					.addContainerGap(316, Short.MAX_VALUE))
+				.addGroup(gl_forgotpassword.createSequentialGroup()
+					.addGap(117)
+					.addComponent(btnSend, GroupLayout.PREFERRED_SIZE, 248, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(263, Short.MAX_VALUE))
 		);
 		gl_forgotpassword.setVerticalGroup(
 			gl_forgotpassword.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_forgotpassword.createSequentialGroup()
-					.addContainerGap(164, Short.MAX_VALUE)
-					.addComponent(lblForgotPassword)
-					.addGap(18)
-					.addGroup(gl_forgotpassword.createParallelGroup(Alignment.TRAILING)
+					.addGroup(gl_forgotpassword.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_forgotpassword.createSequentialGroup()
-							.addComponent(lblNewLabel_3)
+							.addContainerGap(140, Short.MAX_VALUE)
+							.addComponent(lblForgotPassword)
+							.addGap(54)
+							.addComponent(textEmail, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+							.addGap(12))
+						.addGroup(gl_forgotpassword.createSequentialGroup()
+							.addGap(187)
+							.addGroup(gl_forgotpassword.createParallelGroup(Alignment.BASELINE)
+								.addComponent(textEmp_Username, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblNewLabel_3))
 							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(lblNewLabel_8, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_forgotpassword.createSequentialGroup()
-							.addComponent(textName, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(textPass, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)))
-					.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblNewLabel_8, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
+							.addGap(15)))
 					.addGroup(gl_forgotpassword.createParallelGroup(Alignment.TRAILING)
 						.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-					.addGap(29)
+						.addComponent(textEmp_ID, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+					.addGap(33)
 					.addComponent(btnSend, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
-					.addGap(172))
+					.addGap(168))
 		);
 		forgotpassword.setLayout(gl_forgotpassword);
         login.setVisible(false);
@@ -368,17 +368,52 @@ public class LoginAndForgotPass extends JLayeredPane {
 	    private void showErrorDialog(String message) {
 	        JOptionPane.showMessageDialog(new JFrame(), message, "Error", JOptionPane.ERROR_MESSAGE);
 	    }
+	    
+	    protected void btnSendActionPerformed(ActionEvent e) {
+	        // Trong phương thức btnSendActionPerformed
+	        String userName = textEmp_Username.getText();
+	        String email = textEmail.getText();
 
-
-
-	    private boolean validateSignInInput(String email, String password) {
-	        if ("".equals(email) || "".equals(password)) {
-	            showErrorDialog("Please enter Email Address and Password.");
-	            return false;
+	        // Kiểm tra thông tin nhập liệu
+	        if (userName.isEmpty() || email.isEmpty()) {
+	            JOptionPane.showMessageDialog(null, "Please fill in all fields.", "Error", JOptionPane.ERROR_MESSAGE);
+	            return;
 	        }
-	        return true;
+
+	        // Lấy thông tin người dùng từ cơ sở dữ liệu
+	        EmployeeDAO employeeDAO = new EmployeeDAO();
+	        String employeeID = employeeDAO.getEmployeeIDByUsernameAndEmail(userName, email);
+
+	        if (employeeID == null) {
+	            JOptionPane.showMessageDialog(null, "Invalid username or email.", "Error", JOptionPane.ERROR_MESSAGE);
+	            return;
+	        }
+
+	        // Lấy mật khẩu từ cơ sở dữ liệu (bạn cần thay thế "yourColumnName" bằng tên cột chứa mật khẩu)
+	        String newPassword = employeeDAO.getPasswordByEmployeeID(employeeID);
+
+	        if (newPassword == null) {
+	            JOptionPane.showMessageDialog(null, "Error retrieving password from the database.", "Error", JOptionPane.ERROR_MESSAGE);
+	            return;
+	        }
+
+	        // Gửi email mật khẩu mới
+	        sendPasswordRecoveryEmail(email, newPassword);
+
+	        JOptionPane.showMessageDialog(null, "Password recovery email sent. Check your email for the new password.", "Success", JOptionPane.INFORMATION_MESSAGE);
 	    }
-	protected void btnSendActionPerformed(ActionEvent e) {
-		
-	}
+
+	    // Phương thức gửi email mật khẩu mới
+	    private void sendPasswordRecoveryEmail(String toEmail, String newPassword) {
+	        String subject = "Password Recovery";
+	        String body = "Your new password: " + newPassword;
+
+	        // Thay thế bằng địa chỉ email và mật khẩu của bạn
+	        String fromEmail = "your-email@gmail.com";
+	        String password = "your-email-password";
+
+	        EmailSender emailSender = new EmailSender();
+	        emailSender.sendEmail(toEmail, subject, body, fromEmail, password);
+	    }
+
 }
