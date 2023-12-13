@@ -34,13 +34,13 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Font;
 
 public class Attendance extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JButton btnCheckIn;
 	private JButton btnCheckOut;
-	private JLabel lblToday;
 	private W_scheduleJoinWShift wsDao = new W_scheduleJoinWShift();
 	private ArrayList<W_scheduleJoinWShift> list = new ArrayList<>();
 	private JScrollPane scrollPane;
@@ -63,6 +63,7 @@ public class Attendance extends JPanel {
 		mapTimeOut.put(3, "17");
 		mapTimeOut.put(4, "20");
 		btnCheckIn = new JButton("Check In");
+		btnCheckIn.setFont(new Font("Segoe UI", Font.BOLD, 17));
 		btnCheckIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnCheckInActionPerformed(e);
@@ -70,18 +71,17 @@ public class Attendance extends JPanel {
 		});
 
 		btnCheckOut = new JButton("Check Out");
+		btnCheckOut.setFont(new Font("Segoe UI", Font.BOLD, 17));
 		btnCheckOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnCheckOutActionPerformed(e);
 			}
 		});
-
-		lblToday = new JLabel("Today");
-		lblToday.setText("Today is: "+new SimpleDateFormat("yyyy-MM-dd").format(new Date(System.currentTimeMillis())));
 		
 		scrollPane = new JScrollPane();
 		
 		btnChooseIn = new JButton("Choose");
+		btnChooseIn.setFont(new Font("Segoe UI", Font.BOLD, 17));
 		btnChooseIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnChooseActionPerformed(e);
@@ -102,6 +102,7 @@ public class Attendance extends JPanel {
 		textEmpID.setVisible(false);
 		
 		btnChooseOut = new JButton("Choose");
+		btnChooseOut.setFont(new Font("Segoe UI", Font.BOLD, 17));
 		btnChooseOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnChooseOutActionPerformed(e);
@@ -115,28 +116,20 @@ public class Attendance extends JPanel {
 				.addGroup(groupLayout.createSequentialGroup()
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(233)
-							.addComponent(btnCheckIn)
-							.addGap(161)
-							.addComponent(btnCheckOut))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(149)
-							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 525, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(21)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(textEmpID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textWorkShiftID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textWorkScheduleId, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(textWorkScheduleId, GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+								.addComponent(textWorkShiftID)
+								.addComponent(textEmpID)))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(286)
-							.addComponent(lblToday, GroupLayout.PREFERRED_SIZE, 242, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(324)
+							.addGap(96)
 							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
-								.addComponent(btnChooseOut, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(btnChooseIn, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE))))
-					.addContainerGap(346, Short.MAX_VALUE))
+								.addComponent(btnCheckIn, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnCheckOut, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
+								.addComponent(scrollPane, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
+								.addComponent(btnChooseIn, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
+								.addComponent(btnChooseOut, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+					.addContainerGap(305, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -147,19 +140,17 @@ public class Attendance extends JPanel {
 					.addComponent(textWorkShiftID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
 					.addComponent(textEmpID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(77)
-					.addComponent(lblToday)
-					.addGap(65)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnCheckOut)
-						.addComponent(btnCheckIn))
-					.addGap(36)
-					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
+					.addGap(79)
+					.addComponent(btnCheckIn)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(btnCheckOut)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnChooseIn)
-					.addGap(18)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(btnChooseOut)
-					.addContainerGap(197, Short.MAX_VALUE))
+					.addContainerGap(45, Short.MAX_VALUE))
 		);
 		
 		table = new JTable();
