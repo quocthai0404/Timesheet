@@ -19,6 +19,7 @@ import DAO.LeaveDao;
 import Validation.ValidateDate;
 import database.JdbcUlti;
 
+import javax.imageio.ImageIO;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.ButtonModel;
@@ -44,6 +45,7 @@ import java.util.GregorianCalendar;
 import java.awt.event.ActionEvent;
 import java.awt.CardLayout;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.LayoutStyle.ComponentPlacement;
@@ -56,6 +58,9 @@ import view.Create_Employee_Account;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -63,6 +68,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.awt.Font;
 
 
 public class MainJFrame extends JFrame {
@@ -116,15 +122,23 @@ public class MainJFrame extends JFrame {
 	private String daySelected;
 	private JButton btnUpdateEmp;
 	private JButton btnCreateEmpAcc;
+	private JPanel panel;
+	private JPanel panel_1;
+	private JPanel jPanel23;
+	private JLabel lblEmployeeManagement;
+	private JPanel panel_2;
+	private JLabel lblLogo;
 //	private JButton btnCreateEmpAcc;
 //	private JButton btnUpdateEmp;
 
 	public MainJFrame() {
+		setBackground(new Color(255, 255, 255));
 		setTitle("Manager Frame");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 1250, 743);
 
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
@@ -132,9 +146,10 @@ public class MainJFrame extends JFrame {
 
 		// Tạo thanh category bên trái
 		categoryPanel = new JPanel();
+		categoryPanel.setBackground(new Color(255, 255, 255));
 		categoryPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		categoryPanel.setLayout(new BoxLayout(categoryPanel, BoxLayout.Y_AXIS));
 		btnCreate_employee_account = new JButton("<html>Create Employee<br>&nbsp &nbsp &nbsp Account</html>");
+		btnCreate_employee_account.setBackground(new Color(255, 255, 255));
 		btnCreate_employee_account.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnClickSwitchPanel(e);
@@ -142,6 +157,7 @@ public class MainJFrame extends JFrame {
 		});
 
 		btnEmployee_management = new JButton("Employee Management");
+		btnEmployee_management.setBackground(new Color(255, 255, 255));
 		btnEmployee_management.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnClickSwitchPanel(e);
@@ -150,12 +166,11 @@ public class MainJFrame extends JFrame {
 		});
 
 		btnEmployee_management.setMaximumSize(new Dimension(10000, 70));
-		categoryPanel.add(btnEmployee_management);
 		btnCreate_employee_account.setHorizontalTextPosition(SwingConstants.CENTER);
 
 		btnCreate_employee_account.setMaximumSize(new Dimension(1000000, 70));
-		categoryPanel.add(btnCreate_employee_account);
 		btnEmp_work_schedule = new JButton("<html>Manage Employee <br>&nbsp Work Schedule</html>");
+		btnEmp_work_schedule.setBackground(new Color(255, 255, 255));
 		btnEmp_work_schedule.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnClickSwitchPanel(e);
@@ -164,8 +179,8 @@ public class MainJFrame extends JFrame {
 
 		btnEmp_work_schedule.setMinimumSize(new Dimension(10000, 70));
 		btnEmp_work_schedule.setMaximumSize(new Dimension(1000000, 70));
-		categoryPanel.add(btnEmp_work_schedule);
 		btnReview_leave_reqs = new JButton("<html>Review Leave Requests </html>");
+		btnReview_leave_reqs.setBackground(new Color(255, 255, 255));
 		btnReview_leave_reqs.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -181,7 +196,6 @@ public class MainJFrame extends JFrame {
 		btnReview_leave_reqs.setMaximumSize(new Dimension(10000, 70));
 
 		btnReview_leave_reqs.setMinimumSize(new Dimension(10000, 70));
-		categoryPanel.add(btnReview_leave_reqs);
 		categoryPanel.setPreferredSize(new Dimension(150, 0)); // Đặt chiều rộng tùy chỉnh cho thanh category
 
 		// right
@@ -191,14 +205,71 @@ public class MainJFrame extends JFrame {
 		panelContainer.setBorder(new LineBorder(new Color(0, 0, 0)));
 
 		contentPane.add(categoryPanel, BorderLayout.WEST);
+		
+		panel_2 = new JPanel();
+		GroupLayout gl_categoryPanel = new GroupLayout(categoryPanel);
+		gl_categoryPanel.setHorizontalGroup(
+			gl_categoryPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_categoryPanel.createSequentialGroup()
+					.addGroup(gl_categoryPanel.createParallelGroup(Alignment.TRAILING, false)
+						.addComponent(panel_2, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(btnReview_leave_reqs, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 148, Short.MAX_VALUE)
+						.addComponent(btnEmp_work_schedule, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 148, Short.MAX_VALUE)
+						.addComponent(btnCreate_employee_account, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+						.addComponent(btnEmployee_management, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
+		gl_categoryPanel.setVerticalGroup(
+			gl_categoryPanel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_categoryPanel.createSequentialGroup()
+					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnEmployee_management, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(btnCreate_employee_account, GroupLayout.PREFERRED_SIZE, 82, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(btnEmp_work_schedule, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(btnReview_leave_reqs, GroupLayout.PREFERRED_SIZE, 84, GroupLayout.PREFERRED_SIZE)
+					.addGap(289))
+		);
+		
+		lblLogo = new JLabel("");
+		ImageIcon logoIcon = new ImageIcon("C:\\Users\\Admin\\git\\Timesheet\\lib\\EMPLOYEE.png");
+
+		// Resize the logo to your preferred dimensions (e.g., 128x128)
+		Image img = logoIcon.getImage().getScaledInstance(128, 128, Image.SCALE_SMOOTH);
+		logoIcon = new ImageIcon(img);
+
+		lblLogo.setIcon(logoIcon);
+		lblLogo.setPreferredSize(new Dimension(128, 128));
+		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
+		gl_panel_2.setHorizontalGroup(
+			gl_panel_2.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_2.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblLogo, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap())
+		);
+		gl_panel_2.setVerticalGroup(
+			gl_panel_2.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_2.createSequentialGroup()
+					.addGap(5)
+					.addComponent(lblLogo, GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		panel_2.setLayout(gl_panel_2);
+		categoryPanel.setLayout(gl_categoryPanel);
 		contentPane.add(panelContainer, BorderLayout.CENTER);
 
 		panel_employee_management = new JPanel();
+		panel_employee_management.setBackground(new Color(0, 255, 255));
 		panelContainer.add(panel_employee_management, "panel_employee_management");
 
 		scrollPane = new JScrollPane();
 
 		btnPrevious = new JButton("Previous");
+		btnPrevious.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnPrevious.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnPreviousActionPerformed(e);
@@ -206,6 +277,7 @@ public class MainJFrame extends JFrame {
 		});
 
 		btnNext = new JButton("Next");
+		btnNext.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnNextActionPerformed(e);
@@ -213,24 +285,6 @@ public class MainJFrame extends JFrame {
 		});
 
 		lblStatusPage = new JLabel("1/?");
-
-		textField_empName = new JTextField();
-		textField_empName.setColumns(10);
-
-		lblNewLabel = new JLabel("Employee Name:");
-
-		textField_empID = new JTextField();
-		textField_empID.setVisible(false);
-		textField_empID.setColumns(10);
-
-		lblNewLabel_1 = new JLabel("Position:");
-
-		textField_Position = new JTextField();
-		textField_Position.setColumns(10);
-
-		textField_Position.setEditable(false);
-
-		lblNewLabel_2 = new JLabel("Birthday:");
 
 		comboBox_year = new JComboBox();
 		comboBox_year.addActionListener(new ActionListener() {
@@ -268,132 +322,246 @@ public class MainJFrame extends JFrame {
 
 		lblNewLabel_4 = new JLabel("-");
 
-		lblNewLabel_5 = new JLabel("Gender:");
-
-		rdbtnNewRadioButton = new JRadioButton("Male");
-
-		rdbtnNewRadioButton_1 = new JRadioButton("Female");
-
 		G = new ButtonGroup();
-		G.add(rdbtnNewRadioButton);
-		G.add(rdbtnNewRadioButton_1);
-
-		btnAddEmployee = new JButton("Add Employee");
-		btnAddEmployee.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				btnAddEmployeeActionPerformed(e);
-			}
-		});
 		
-		btnCreateEmpAcc = new JButton("Create Account");
-		btnCreateEmpAcc.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				btnCreateEmpAccActionPerformed(e);
-			}
-		});
+		panel = new JPanel();
+		panel.setBackground(new Color(255, 128, 128));
+		panel.setForeground(new Color(255, 255, 255));
 		
-		btnUpdateEmp = new JButton("Update Employee");
-		btnUpdateEmp.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				btnUpdateEmpActionPerformed(e);
-			}
-		});
+				lblNewLabel_2 = new JLabel("Birthday:");
+				lblNewLabel_2.setFont(new Font("Tahoma", Font.BOLD, 11));
+		
+		panel_1 = new JPanel();
+		panel_1.setBackground(new Color(255, 128, 128));
+		
+		jPanel23 = new JPanel();
+		jPanel23.setBackground(Color.BLACK);
+		
+		lblEmployeeManagement = new JLabel();
+		lblEmployeeManagement.setText("Employee Management");
+		lblEmployeeManagement.setHorizontalAlignment(SwingConstants.CENTER);
+		lblEmployeeManagement.setForeground(Color.WHITE);
+		lblEmployeeManagement.setFont(new Font("Tahoma", Font.BOLD, 16));
+		lblEmployeeManagement.setBackground(Color.BLACK);
+		GroupLayout gl_jPanel23 = new GroupLayout(jPanel23);
+		gl_jPanel23.setHorizontalGroup(
+			gl_jPanel23.createParallelGroup(Alignment.TRAILING)
+				.addGap(0, 919, Short.MAX_VALUE)
+				.addGroup(gl_jPanel23.createSequentialGroup()
+					.addGap(50)
+					.addComponent(lblEmployeeManagement, GroupLayout.DEFAULT_SIZE, 859, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		gl_jPanel23.setVerticalGroup(
+			gl_jPanel23.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 52, Short.MAX_VALUE)
+				.addGroup(gl_jPanel23.createSequentialGroup()
+					.addComponent(lblEmployeeManagement, GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
+					.addContainerGap())
+		);
+		jPanel23.setLayout(gl_jPanel23);
 
 		GroupLayout gl_panel_employee_management = new GroupLayout(panel_employee_management);
 		gl_panel_employee_management.setHorizontalGroup(
 			gl_panel_employee_management.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel_employee_management.createSequentialGroup()
+					.addGap(64)
 					.addGroup(gl_panel_employee_management.createParallelGroup(Alignment.TRAILING)
+						.addComponent(jPanel23, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 944, Short.MAX_VALUE)
 						.addGroup(gl_panel_employee_management.createSequentialGroup()
-							.addContainerGap()
-							.addComponent(textField_empID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel_employee_management.createSequentialGroup()
-							.addGap(64)
-							.addGroup(gl_panel_employee_management.createParallelGroup(Alignment.LEADING, false)
+							.addGroup(gl_panel_employee_management.createParallelGroup(Alignment.LEADING)
+								.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 610, Short.MAX_VALUE)
 								.addGroup(gl_panel_employee_management.createSequentialGroup()
-									.addComponent(btnPrevious)
-									.addGap(220)
-									.addComponent(lblStatusPage)
-									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(btnNext))
-								.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 610, GroupLayout.PREFERRED_SIZE))
-							.addGap(56)
+									.addComponent(btnPrevious, GroupLayout.PREFERRED_SIZE, 98, GroupLayout.PREFERRED_SIZE)
+									.addGap(180)
+									.addComponent(lblStatusPage, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+									.addGap(210)
+									.addComponent(btnNext, GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE)))
 							.addGroup(gl_panel_employee_management.createParallelGroup(Alignment.LEADING)
 								.addGroup(gl_panel_employee_management.createSequentialGroup()
+									.addGap(119)
+									.addComponent(lblNewLabel_3)
+									.addGap(50)
+									.addComponent(lblNewLabel_4, GroupLayout.PREFERRED_SIZE, 4, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_panel_employee_management.createSequentialGroup()
+									.addGap(40)
 									.addGroup(gl_panel_employee_management.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblNewLabel)
-										.addComponent(lblNewLabel_1)
-										.addComponent(lblNewLabel_2)
-										.addComponent(lblNewLabel_5))
-									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addGroup(gl_panel_employee_management.createParallelGroup(Alignment.TRAILING)
-										.addComponent(textField_Position, GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
-										.addComponent(textField_empName, GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
+										.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 294, Short.MAX_VALUE)
 										.addGroup(gl_panel_employee_management.createSequentialGroup()
-											.addGroup(gl_panel_employee_management.createParallelGroup(Alignment.LEADING)
-												.addGroup(gl_panel_employee_management.createSequentialGroup()
-													.addComponent(rdbtnNewRadioButton)
-													.addGap(18)
-													.addComponent(rdbtnNewRadioButton_1))
-												.addGroup(gl_panel_employee_management.createSequentialGroup()
-													.addComponent(comboBox_year, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
-													.addPreferredGap(ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-													.addComponent(lblNewLabel_3)
-													.addGap(12)
-													.addComponent(comboBox_Month, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)))
+											.addGap(10)
+											.addComponent(lblNewLabel_2)
+											.addGap(51)
+											.addComponent(comboBox_year, GroupLayout.PREFERRED_SIZE, 64, GroupLayout.PREFERRED_SIZE)
+											.addGap(18)
+											.addComponent(comboBox_Month, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
 											.addPreferredGap(ComponentPlacement.UNRELATED)
-											.addComponent(lblNewLabel_4, GroupLayout.PREFERRED_SIZE, 4, GroupLayout.PREFERRED_SIZE)
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(comboBox_Day, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
-								.addGroup(gl_panel_employee_management.createParallelGroup(Alignment.TRAILING, false)
-									.addComponent(btnAddEmployee, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(btnUpdateEmp, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(btnCreateEmpAcc, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)))))
-					.addGap(76))
+											.addComponent(comboBox_Day, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+										.addComponent(panel, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))))
+					.addGap(64))
 		);
 		gl_panel_employee_management.setVerticalGroup(
 			gl_panel_employee_management.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_employee_management.createSequentialGroup()
-					.addGap(37)
-					.addComponent(textField_empID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(27)
+					.addGap(20)
+					.addComponent(jPanel23, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
 					.addGroup(gl_panel_employee_management.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_employee_management.createSequentialGroup()
+							.addComponent(panel, GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
 							.addGroup(gl_panel_employee_management.createParallelGroup(Alignment.BASELINE)
-								.addComponent(textField_empName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblNewLabel))
-							.addGap(35)
-							.addGroup(gl_panel_employee_management.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblNewLabel_1)
-								.addComponent(textField_Position, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(29)
-							.addGroup(gl_panel_employee_management.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblNewLabel_2)
 								.addComponent(comboBox_year, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(comboBox_Month, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(comboBox_Day, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblNewLabel_3)
-								.addComponent(lblNewLabel_4)
-								.addComponent(comboBox_Month, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(27)
+								.addComponent(lblNewLabel_2))
+							.addGap(18)
 							.addGroup(gl_panel_employee_management.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblNewLabel_5)
-								.addComponent(rdbtnNewRadioButton)
-								.addComponent(rdbtnNewRadioButton_1))
-							.addGap(37)
-							.addComponent(btnAddEmployee)
-							.addGap(18)
-							.addComponent(btnUpdateEmp)
-							.addGap(18)
-							.addComponent(btnCreateEmpAcc))
+								.addComponent(lblNewLabel_3)
+								.addComponent(lblNewLabel_4))
+							.addGap(1)
+							.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 207, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panel_employee_management.createSequentialGroup()
 							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 							.addGap(18)
-							.addGroup(gl_panel_employee_management.createParallelGroup(Alignment.BASELINE)
-								.addComponent(btnPrevious)
-								.addComponent(btnNext)
-								.addComponent(lblStatusPage))))
-					.addContainerGap(222, Short.MAX_VALUE))
+							.addGroup(gl_panel_employee_management.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel_employee_management.createParallelGroup(Alignment.BASELINE)
+									.addComponent(btnPrevious, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+									.addComponent(lblStatusPage))
+								.addComponent(btnNext, GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE))))
+					.addGap(201))
 		);
+		
+				btnAddEmployee = new JButton("Add Employee");
+				btnAddEmployee.setBackground(new Color(255, 255, 255));
+				btnAddEmployee.setFont(new Font("Tahoma", Font.BOLD, 12));
+				btnAddEmployee.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						btnAddEmployeeActionPerformed(e);
+					}
+				});
+		
+		btnUpdateEmp = new JButton("Update Employee");
+		btnUpdateEmp.setBackground(new Color(255, 255, 255));
+		btnUpdateEmp.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnUpdateEmp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnUpdateEmpActionPerformed(e);
+			}
+		});
+		
+		btnCreateEmpAcc = new JButton("Create Account");
+		btnCreateEmpAcc.setBackground(new Color(255, 255, 255));
+		btnCreateEmpAcc.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnCreateEmpAcc.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnCreateEmpAccActionPerformed(e);
+			}
+		});
+		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
+		gl_panel_1.setHorizontalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_panel_1.createSequentialGroup()
+					.addGap(30)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING)
+						.addComponent(btnCreateEmpAcc, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+						.addComponent(btnUpdateEmp, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)
+						.addComponent(btnAddEmployee, GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE))
+					.addGap(35))
+		);
+		gl_panel_1.setVerticalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_panel_1.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(btnAddEmployee, GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
+					.addGap(4)
+					.addComponent(btnUpdateEmp, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(btnCreateEmpAcc, GroupLayout.PREFERRED_SIZE, 52, GroupLayout.PREFERRED_SIZE)
+					.addGap(21))
+		);
+		panel_1.setLayout(gl_panel_1);
+		
+				lblNewLabel = new JLabel("Employee Name:");
+				lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
+		
+				textField_empName = new JTextField();
+				textField_empName.setColumns(10);
+		
+				lblNewLabel_1 = new JLabel("Position:");
+				lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
+		
+				textField_Position = new JTextField();
+				textField_Position.setColumns(10);
+				
+						textField_Position.setEditable(false);
+		
+				lblNewLabel_5 = new JLabel("Gender:");
+				lblNewLabel_5.setFont(new Font("Tahoma", Font.BOLD, 11));
+		
+				rdbtnNewRadioButton = new JRadioButton("Male");
+				rdbtnNewRadioButton.setBackground(new Color(255, 255, 255));
+				G.add(rdbtnNewRadioButton);
+		
+				rdbtnNewRadioButton_1 = new JRadioButton("Female");
+				rdbtnNewRadioButton_1.setBackground(new Color(255, 255, 255));
+				G.add(rdbtnNewRadioButton_1);
+		
+				textField_empID = new JTextField();
+				textField_empID.setBackground(new Color(192, 192, 192));
+				textField_empID.setVisible(false);
+				textField_empID.setColumns(10);
+		GroupLayout gl_panel = new GroupLayout(panel);
+		gl_panel.setHorizontalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblNewLabel)
+								.addComponent(lblNewLabel_1)
+								.addComponent(lblNewLabel_5))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(textField_empName, GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
+									.addContainerGap())
+								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(rdbtnNewRadioButton)
+									.addPreferredGap(ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+									.addComponent(rdbtnNewRadioButton_1)
+									.addGap(41))
+								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(textField_Position, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addContainerGap(101, Short.MAX_VALUE))))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addComponent(textField_empID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(198, Short.MAX_VALUE))))
+		);
+		gl_panel.setVerticalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addGap(21)
+					.addComponent(textField_empID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblNewLabel_1)
+								.addComponent(textField_Position, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(11))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblNewLabel)
+								.addComponent(textField_empName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(42)))
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblNewLabel_5)
+						.addComponent(rdbtnNewRadioButton_1)
+						.addComponent(rdbtnNewRadioButton))
+					.addContainerGap())
+		);
+		panel.setLayout(gl_panel);
 		
 
 		tableEmployee = new JTable();
@@ -621,4 +789,5 @@ public class MainJFrame extends JFrame {
 	
 	protected void btnReview_leave_reqsMouseClicked(MouseEvent e) {
 	}
+	
 }
