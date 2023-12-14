@@ -128,10 +128,15 @@ public class LoginAndForgotPass extends JLayeredPane {
 		textPassword.setEchoChar('*');
 		
 		show = new JCheckBox("Show Password");
+		show.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				showActionPerformed(e);
+			}
+		});
 		show.setBackground(new Color(255, 255, 255));
 		show.setForeground(new Color(0, 0, 0));
-		
 		show.setFont(new Font("Tahoma", Font.BOLD, 12));
+		 
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.TRAILING)
@@ -146,12 +151,9 @@ public class LoginAndForgotPass extends JLayeredPane {
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
 								.addComponent(textUsername, GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
-								.addComponent(textPassword, GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE))))
+								.addComponent(textPassword, GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
+								.addComponent(btnLogin, GroupLayout.DEFAULT_SIZE, 206, Short.MAX_VALUE))))
 					.addContainerGap())
-				.addGroup(gl_panel_1.createSequentialGroup()
-					.addContainerGap(80, Short.MAX_VALUE)
-					.addComponent(btnLogin, GroupLayout.PREFERRED_SIZE, 248, GroupLayout.PREFERRED_SIZE)
-					.addGap(59))
 		);
 		gl_panel_1.setVerticalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
@@ -166,9 +168,9 @@ public class LoginAndForgotPass extends JLayeredPane {
 						.addComponent(textPassword, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(show)
-					.addGap(18)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(btnLogin, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
-					.addGap(85))
+					.addGap(96))
 		);
 		panel_1.setLayout(gl_panel_1);
 		
@@ -334,6 +336,7 @@ public class LoginAndForgotPass extends JLayeredPane {
 		}else {
 			JOptionPane.showMessageDialog(null, "incorrect username or password");
 		}
+		
 
 	}
 
@@ -435,4 +438,11 @@ public class LoginAndForgotPass extends JLayeredPane {
 			}
 	    }
 
+	    protected void showActionPerformed(ActionEvent e) {
+	        if (show.isSelected()) {
+	            textPassword.setEchoChar((char) 0);
+	        } else {
+	            textPassword.setEchoChar('*');
+	        }
+	    }
 }
