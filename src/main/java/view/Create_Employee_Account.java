@@ -67,6 +67,7 @@ public class Create_Employee_Account extends JPanel {
 	private JTextField textField_empName;
     
     public Create_Employee_Account() {
+    	setBackground(new Color(0, 255, 255));
     
         
         scrollPane = new JScrollPane();

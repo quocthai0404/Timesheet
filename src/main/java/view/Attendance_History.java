@@ -16,6 +16,7 @@ import DAO.AttendanceDAO;
 import DAO.LeaveDao;
 
 import javax.swing.JLabel;
+import java.awt.Color;
 
 public class Attendance_History extends JPanel {
 
@@ -30,22 +31,23 @@ public class Attendance_History extends JPanel {
 	 * Create the panel.
 	 */
 	public Attendance_History() {
+		setBackground(new Color(0, 255, 255));
 		
 		scrollPane = new JScrollPane();
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-					.addContainerGap(206, Short.MAX_VALUE)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+					.addGap(83)
 					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 592, GroupLayout.PREFERRED_SIZE)
-					.addGap(92))
+					.addContainerGap(199, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(116)
+					.addGap(30)
 					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 283, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(183, Short.MAX_VALUE))
+					.addContainerGap(173, Short.MAX_VALUE))
 		);
 		
 		tableHistory = new JTable();

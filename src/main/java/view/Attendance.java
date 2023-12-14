@@ -35,6 +35,7 @@ import javax.swing.JTextField;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Font;
+import java.awt.Color;
 
 public class Attendance extends JPanel {
 
@@ -54,6 +55,7 @@ public class Attendance extends JPanel {
 	Map<Integer, String> mapTimeIn = new HashMap<Integer, String>();
 	Map<Integer, String> mapTimeOut = new HashMap<Integer, String>();
 	public Attendance() {
+		setBackground(new Color(0, 255, 255));
 		mapTimeIn.put(1, "08");
 		mapTimeIn.put(2, "08");
 		mapTimeIn.put(3, "13");
@@ -124,12 +126,12 @@ public class Attendance extends JPanel {
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(96)
 							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(btnChooseOut, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addComponent(btnCheckIn, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 								.addComponent(btnCheckOut, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE)
 								.addComponent(scrollPane, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
-								.addComponent(btnChooseIn, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
-								.addComponent(btnChooseOut, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-					.addContainerGap(305, Short.MAX_VALUE))
+								.addComponent(btnChooseIn, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE))))
+					.addContainerGap(368, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -140,17 +142,17 @@ public class Attendance extends JPanel {
 					.addComponent(textWorkShiftID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
 					.addComponent(textEmpID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(79)
+					.addGap(18)
 					.addComponent(btnCheckIn)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnCheckOut)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGap(18)
 					.addComponent(btnChooseIn)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGap(65)
 					.addComponent(btnChooseOut)
-					.addContainerGap(45, Short.MAX_VALUE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		
 		table = new JTable();

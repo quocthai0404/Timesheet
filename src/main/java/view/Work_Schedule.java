@@ -14,6 +14,8 @@ import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.Font;
+import java.awt.Color;
 
 public class Work_Schedule extends JPanel {
 
@@ -31,12 +33,14 @@ public class Work_Schedule extends JPanel {
 	 * Create the panel.
 	 */
 	public Work_Schedule() {
+		setBackground(new Color(0, 255, 255));
 		
 		scrollPane = new JScrollPane();
 		
 		lblStatusPage = new JLabel("New label");
 		
 		btnPre = new JButton("Previous");
+		btnPre.setFont(new Font("Segoe UI", Font.BOLD, 13));
 		btnPre.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				do_btnNewButton_actionPerformed(e);
@@ -44,6 +48,7 @@ public class Work_Schedule extends JPanel {
 		});
 		
 		btnNext = new JButton("Next");
+		btnNext.setFont(new Font("Segoe UI", Font.BOLD, 13));
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				do_btnNext_actionPerformed(e);
@@ -51,30 +56,30 @@ public class Work_Schedule extends JPanel {
 		});
 		GroupLayout groupLayout = new GroupLayout(this);
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-					.addContainerGap(33, Short.MAX_VALUE)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+			groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
+					.addGap(63)
+					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 638, GroupLayout.PREFERRED_SIZE)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(btnPre)
-							.addGap(193)
+							.addComponent(btnPre, GroupLayout.PREFERRED_SIZE, 101, GroupLayout.PREFERRED_SIZE)
+							.addGap(150)
 							.addComponent(lblStatusPage)
-							.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(btnNext))
-						.addComponent(scrollPane, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 638, GroupLayout.PREFERRED_SIZE))
-					.addGap(40))
+							.addGap(270)
+							.addComponent(btnNext, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+					.addContainerGap(323, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 333, GroupLayout.PREFERRED_SIZE)
-					.addGap(34)
+					.addGap(18)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnPre, GroupLayout.PREFERRED_SIZE, 48, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblStatusPage)
-						.addComponent(btnPre)
-						.addComponent(btnNext))
-					.addContainerGap(71, Short.MAX_VALUE))
+						.addComponent(btnNext, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap(67, Short.MAX_VALUE))
 		);
 		
 		table = new JTable();
