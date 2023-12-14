@@ -169,78 +169,7 @@ public class EmployeeDAO {
 	}
 	////////////////////////////
 
-	public String getEmployeeIDByUsernameAndEmail(String username, String email) {
-        String employeeID = null;
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        try {
-            connection = JdbcUlti.getConnection();
-            String query = "SELECT EmployeeID FROM employee WHERE UserName = ? AND Email = ?";
-            preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, username);
-            preparedStatement.setString(2, email);
-
-            resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()) {
-                employeeID = resultSet.getString("EmployeeID");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error retrieving EmployeeID from the database", "Database Error", JOptionPane.ERROR_MESSAGE);
-        } finally {
-            closeResources(connection, preparedStatement, resultSet);
-        }
-
-        return employeeID;
-    }
-
-    public String getPasswordByEmployeeID(String employeeID) {
-        String password = null;
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-
-        try {
-            connection = JdbcUlti.getConnection();
-            String query = "SELECT PasswordColumn FROM YourEmployeeTable WHERE EmployeeID = ?";
-            preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, employeeID);
-
-            resultSet = preparedStatement.executeQuery();
-
-            if (resultSet.next()) {
-                password = resultSet.getString("PasswordColumn");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error retrieving password from the database", "Database Error", JOptionPane.ERROR_MESSAGE);
-        } finally {
-            closeResources(connection, preparedStatement, resultSet);
-        }
-
-        return password;
-    }
-
-    // Existing methods...
-
-    private void closeResources(Connection connection, PreparedStatement preparedStatement, ResultSet resultSet) {
-        try {
-            if (resultSet != null) {
-                resultSet.close();
-            }
-            if (preparedStatement != null) {
-                preparedStatement.close();
-            }
-            if (connection != null) {
-                connection.close();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+	
 
 	 
 }

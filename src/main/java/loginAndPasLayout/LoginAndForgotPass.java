@@ -6,6 +6,12 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JPanel;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
@@ -36,6 +42,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
+import java.util.UUID;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -63,8 +71,6 @@ public class LoginAndForgotPass extends JLayeredPane {
 	private MainLayout jf4;
 	private JLabel lblNewLabel;
 	private JLabel lblForgotPassword;
-	private JLabel lblNewLabel_1;
-	private JTextField textEmp_ID;
 	private JButton btnSend;
 	
 	
@@ -215,15 +221,6 @@ public class LoginAndForgotPass extends JLayeredPane {
 		textEmail.setColumns(10);
 		textEmail.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "", TitledBorder.LEADING, TitledBorder.ABOVE_TOP, null, new Color(0, 128, 128)));
 		
-		lblNewLabel_1 = new JLabel("Employee ID");
-		lblNewLabel_1.setForeground(Color.WHITE);
-		lblNewLabel_1.setFont(new Font("Segoe UI", Font.BOLD, 18));
-		lblNewLabel_1.setBackground(Color.WHITE);
-		
-		textEmp_ID = new JTextField();
-		textEmp_ID.setColumns(10);
-		textEmp_ID.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "", TitledBorder.LEADING, TitledBorder.ABOVE_TOP, null, new Color(0, 128, 128)));
-		
 		btnSend = new JButton("Send");
 		btnSend.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -241,25 +238,23 @@ public class LoginAndForgotPass extends JLayeredPane {
 		gl_forgotpassword.setHorizontalGroup(
 			gl_forgotpassword.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_forgotpassword.createSequentialGroup()
-					.addGap(41)
 					.addGroup(gl_forgotpassword.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 122, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel_3)
-						.addComponent(lblNewLabel_8, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(gl_forgotpassword.createParallelGroup(Alignment.LEADING)
-						.addComponent(textEmail, GroupLayout.PREFERRED_SIZE, 270, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textEmp_ID, GroupLayout.PREFERRED_SIZE, 270, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textEmp_Username, GroupLayout.PREFERRED_SIZE, 270, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_forgotpassword.createSequentialGroup()
+							.addGap(41)
+							.addGroup(gl_forgotpassword.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblNewLabel_3)
+								.addComponent(lblNewLabel_8, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE))
+							.addGap(46)
+							.addGroup(gl_forgotpassword.createParallelGroup(Alignment.LEADING)
+								.addComponent(textEmail, GroupLayout.PREFERRED_SIZE, 270, GroupLayout.PREFERRED_SIZE)
+								.addComponent(textEmp_Username, GroupLayout.PREFERRED_SIZE, 270, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(gl_forgotpassword.createSequentialGroup()
+							.addGap(147)
+							.addComponent(lblForgotPassword))
+						.addGroup(gl_forgotpassword.createSequentialGroup()
+							.addGap(117)
+							.addComponent(btnSend, GroupLayout.PREFERRED_SIZE, 248, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap(177, Short.MAX_VALUE))
-				.addGroup(gl_forgotpassword.createSequentialGroup()
-					.addGap(147)
-					.addComponent(lblForgotPassword)
-					.addContainerGap(316, Short.MAX_VALUE))
-				.addGroup(gl_forgotpassword.createSequentialGroup()
-					.addGap(117)
-					.addComponent(btnSend, GroupLayout.PREFERRED_SIZE, 248, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(263, Short.MAX_VALUE))
 		);
 		gl_forgotpassword.setVerticalGroup(
 			gl_forgotpassword.createParallelGroup(Alignment.TRAILING)
@@ -268,21 +263,17 @@ public class LoginAndForgotPass extends JLayeredPane {
 						.addGroup(gl_forgotpassword.createSequentialGroup()
 							.addContainerGap(140, Short.MAX_VALUE)
 							.addComponent(lblForgotPassword)
-							.addGap(54)
-							.addComponent(textEmail, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
-							.addGap(12))
+							.addGap(91))
 						.addGroup(gl_forgotpassword.createSequentialGroup()
 							.addGap(187)
 							.addGroup(gl_forgotpassword.createParallelGroup(Alignment.BASELINE)
 								.addComponent(textEmp_Username, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)
 								.addComponent(lblNewLabel_3))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(lblNewLabel_8, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
-							.addGap(15)))
-					.addGroup(gl_forgotpassword.createParallelGroup(Alignment.TRAILING)
-						.addComponent(lblNewLabel_1, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textEmp_ID, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-					.addGap(33)
+							.addGap(18)
+							.addGroup(gl_forgotpassword.createParallelGroup(Alignment.BASELINE)
+								.addComponent(lblNewLabel_8, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
+								.addComponent(textEmail, GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))))
+					.addGap(58)
 					.addComponent(btnSend, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
 					.addGap(168))
 		);
@@ -381,39 +372,67 @@ public class LoginAndForgotPass extends JLayeredPane {
 	        }
 
 	        // Lấy thông tin người dùng từ cơ sở dữ liệu
-	        EmployeeDAO employeeDAO = new EmployeeDAO();
-	        String employeeID = employeeDAO.getEmployeeIDByUsernameAndEmail(userName, email);
+	        AccountDAO DAO = new AccountDAO();
+	        String password = DAO.getEmployeePasswordByUsernameAndEmail(userName, email);
+	        
 
-	        if (employeeID == null) {
-	            JOptionPane.showMessageDialog(null, "Invalid username or email.", "Error", JOptionPane.ERROR_MESSAGE);
-	            return;
-	        }
+	        
 
 	        // Lấy mật khẩu từ cơ sở dữ liệu (bạn cần thay thế "yourColumnName" bằng tên cột chứa mật khẩu)
-	        String newPassword = employeeDAO.getPasswordByEmployeeID(employeeID);
+	        
 
-	        if (newPassword == null) {
+	        if (password == null) {
 	            JOptionPane.showMessageDialog(null, "Error retrieving password from the database.", "Error", JOptionPane.ERROR_MESSAGE);
 	            return;
 	        }
 
 	        // Gửi email mật khẩu mới
-	        sendPasswordRecoveryEmail(email, newPassword);
+	        sendPasswordRecoveryEmail(email, password);
 
 	        JOptionPane.showMessageDialog(null, "Password recovery email sent. Check your email for the new password.", "Success", JOptionPane.INFORMATION_MESSAGE);
 	    }
 
 	    // Phương thức gửi email mật khẩu mới
 	    private void sendPasswordRecoveryEmail(String toEmail, String newPassword) {
-	        String subject = "Password Recovery";
-	        String body = "Your new password: " + newPassword;
-
-	        // Thay thế bằng địa chỉ email và mật khẩu của bạn
-	        String fromEmail = "your-email@gmail.com";
-	        String password = "your-email-password";
-
-	        EmailSender emailSender = new EmailSender();
-	        emailSender.sendEmail(toEmail, subject, body, fromEmail, password);
+	    	final String fromEmail = "phamtienorion@gmail.com";
+			final String password = "rzyf avdc aezw qusr";
+			String userName = textEmp_Username.getText();
+	        String email = textEmail.getText();
+			AccountDAO DAO = new AccountDAO();
+	        String passwordFromDB = DAO.getEmployeePasswordByUsernameAndEmail(userName, email);
+			
+			
+			var prop = new Properties();
+			prop.put("mail.smtp.host","smtp.gmail.com" );
+			prop.put("mail.smtp.port", "587");
+			prop.put("mail.smtp.auth", "true");
+			prop.put("mail.smtp.starttls.enable","true" );
+			prop.put("mail.smtp.ssl.protocols", "TLSv1.2");
+			//khoi tao 1 giao dich section
+			Session session = Session.getInstance(prop,new Authenticator() {
+				protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
+					return new javax.mail.PasswordAuthentication(fromEmail, password);
+				}
+			});
+			try {
+				Message mes = new MimeMessage(session);
+				mes.setFrom(new InternetAddress(fromEmail));
+				mes.setRecipients(Message.RecipientType.TO, InternetAddress.parse(textEmail.getText()));
+				mes.setSubject("Dear: "+ textEmp_Username.getText());
+//				mes.setText("abc....");
+				String html = "<div>\r\n"
+						+ "        <h2>xin chao  "+ userName + "</h2>\r\n"
+						+ "        <p>  Đây là pass đăng nhập của bạn :<strong>"+passwordFromDB +"</strong></p>\r\n"
+						+ "    \r\n"
+						+ "    </div>";
+				mes.setContent(html,"text/html; charset = UTF-8");
+				Transport.send(mes);
+				
+			} catch (Exception e2) {
+				// TODO: handle exception
+				JOptionPane.showMessageDialog(null, "email chua dang ky bao mat 2 lop");
+				return;
+			}
 	    }
 
 }
