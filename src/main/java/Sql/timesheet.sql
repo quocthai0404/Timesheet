@@ -228,6 +228,14 @@ create table admin(
 	password varchar(50) not null
 )
 
+create table forgetpassword(
+	id int primary key identity,
+	username varchar(50) not null, 
+	code varchar(8) not null, 
+	time varchar(30) not null
+)
+go
+
 insert into admin(username, password)
 values('admin', 'admin')
 
