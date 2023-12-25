@@ -6,6 +6,7 @@
 package view;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
@@ -18,10 +19,16 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.JRadioButton;
+import javax.swing.JPanel;
+import javax.swing.border.LineBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  *
@@ -98,42 +105,42 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 		Employee_ID.setForeground(new Color(0, 0, 0));
 		Employee_ID.setText("Employee ID :");
 		getContentPane().add(Employee_ID);
-		Employee_ID.setBounds(80, 28, 110, 30);
+		Employee_ID.setBounds(80, 87, 110, 30);
 
 		Emp_Name.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
 		Emp_Name.setForeground(new Color(0, 0, 0));
 		Emp_Name.setText("Employee Name :");
 		getContentPane().add(Emp_Name);
-		Emp_Name.setBounds(80, 69, 110, 30);
+		Emp_Name.setBounds(495, 169, 110, 30);
 
 		Position.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
 		Position.setForeground(new Color(0, 0, 0));
 		Position.setText("Position :");
 		getContentPane().add(Position);
-		Position.setBounds(80, 110, 110, 30);
+		Position.setBounds(495, 210, 110, 30);
 
 		Username.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
 		Username.setForeground(new Color(0, 0, 0));
 		Username.setText("Username :");
 		getContentPane().add(Username);
-		Username.setBounds(80, 151, 109, 30);
+		Username.setBounds(80, 128, 109, 30);
 
 		Passwword.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
 		Passwword.setForeground(new Color(0, 0, 0));
 		Passwword.setText("Password :");
 		getContentPane().add(Passwword);
-		Passwword.setBounds(80, 192, 109, 30);
+		Passwword.setBounds(80, 169, 109, 30);
 
 		textEmp_ID.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
 		textEmp_ID.setForeground(new java.awt.Color(255, 255, 255));
 		getContentPane().add(textEmp_ID);
-		textEmp_ID.setBounds(221, 28, 180, 30);
+		textEmp_ID.setBounds(221, 87, 180, 30);
 
 		textEmp_Name.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
 	
 		getContentPane().add(textEmp_Name);
-		textEmp_Name.setBounds(221, 69, 180, 30);
-		scrollPane.setBounds(80, 276, 729, 201);
+		textEmp_Name.setBounds(635, 169, 180, 30);
+		scrollPane.setBounds(80, 308, 729, 201);
 		getContentPane().add(scrollPane);
 		
 		tableEmployee = new JTable();
@@ -147,35 +154,70 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 		
 		textPosition = new JTextField();
 		textPosition.setFont(new Font("Calibri", Font.BOLD, 14));
-		textPosition.setBounds(221, 113, 180, 30);
+		textPosition.setBounds(635, 210, 180, 30);
 		getContentPane().add(textPosition);
 		
 		textUsername = new JTextField();
 		textUsername.setFont(new Font("Calibri", Font.BOLD, 14));
-		textUsername.setBounds(221, 151, 180, 30);
+		textUsername.setBounds(221, 128, 180, 30);
 		getContentPane().add(textUsername);
 		
 		textPassword = new JTextField();
 		textPassword.setFont(new Font("Calibri", Font.BOLD, 14));
-		textPassword.setBounds(221, 192, 180, 30);
+		textPassword.setBounds(221, 169, 180, 30);
 		getContentPane().add(textPassword);
 		
 		Email = new JLabel();
 		Email.setText("Email");
 		Email.setForeground(Color.BLACK);
 		Email.setFont(new Font("Candara", Font.BOLD, 14));
-		Email.setBounds(80, 233, 109, 30);
+		Email.setBounds(80, 210, 109, 30);
 		getContentPane().add(Email);
 		
 		textEmail = new JTextField();
 		textEmail.setFont(new Font("Calibri", Font.BOLD, 14));
-		textEmail.setBounds(221, 235, 180, 30);
+		textEmail.setBounds(221, 210, 180, 30);
 		getContentPane().add(textEmail);
 		
 		btnNewButton = new JButton("");
-		btnNewButton.setIcon(new ImageIcon(Create_Employee_Account.class.getResource("/create_icon.png")));
-		btnNewButton.setBounds(533, 235, 124, 30);
-		getContentPane().add(btnNewButton);;
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnNewButtonActionPerformed(e);
+			}
+		});
+		// Assuming btnNewButton is a JButton
+		btnNewButton.setIcon(new ImageIcon(Create_Employee_Account.class.getResource("/create.jpg")));
+
+		// Resize the icon while maintaining aspect ratio
+		ImageIcon originalIcon = (ImageIcon) btnNewButton.getIcon();
+		Image img = originalIcon.getImage().getScaledInstance(124, 30, Image.SCALE_SMOOTH);
+		ImageIcon resizedIcon = new ImageIcon(img);
+		btnNewButton.setIcon(resizedIcon);
+
+		// Set preferred size for the button
+		btnNewButton.setPreferredSize(new Dimension(124, 30));
+
+		// Set bounds for the button
+		btnNewButton.setBounds(80, 265, 124, 30);
+		getContentPane().add(btnNewButton);
+
+		
+		panel = new JPanel();
+		panel.setBorder(new LineBorder(new Color(0, 0, 0), 5));
+		panel.setBackground(new Color(255, 255, 255));
+		panel.setBounds(0, 0, 974, 76);
+		getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(Create_Employee_Account.class.getResource("/aptech_logo.png")));
+		lblNewLabel.setBounds(10, 0, 154, 76);
+		panel.add(lblNewLabel);
+		
+		lblNewLabel_1 = new JLabel("Create Employee Account");
+		lblNewLabel_1.setFont(new Font("Candara", Font.BOLD, 48));
+		lblNewLabel_1.setBounds(209, 11, 755, 54);
+		panel.add(lblNewLabel_1);;
 
 		setBounds(0, 0, 990, 550);
 	}// </editor-fold>//GEN-END:initComponents
@@ -195,4 +237,9 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 	private JLabel Email;
 	private JTextField textEmail;
 	private JButton btnNewButton;
+	private JPanel panel;
+	private JLabel lblNewLabel;
+	private JLabel lblNewLabel_1;
+	protected void btnNewButtonActionPerformed(ActionEvent e) {
+	}
 }

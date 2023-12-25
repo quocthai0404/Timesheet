@@ -344,7 +344,7 @@ public class AdminFrame extends javax.swing.JFrame {
 		lblLogo.setBounds(10, 27, 160, 128);  // Adjust the bounds accordingly
 		Vertical_Panel.add(lblLogo);
 		
-		Horizontal_Panel.setBackground(new Color(108, 108, 255));
+		Horizontal_Panel.setBackground(new Color(255, 255, 255));
 		Horizontal_Panel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 5, true));
 		Horizontal_Panel.setLayout(null);
 
@@ -354,7 +354,7 @@ public class AdminFrame extends javax.swing.JFrame {
 		jLabeltime.setBounds(1080, 40, 110, 30);
 
 		jLabel1.setFont(new java.awt.Font("Candara", 1, 48)); // NOI18N
-		jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+		jLabel1.setForeground(new Color(0, 0, 0));
 		jLabel1.setText("Employee Attendance System");
 		Horizontal_Panel.add(jLabel1);
 		jLabel1.setBounds(270, 20, 700, 70);
@@ -366,7 +366,7 @@ public class AdminFrame extends javax.swing.JFrame {
 		Horizontal_Panel.add(jLabel5);
 
 		jLabel5.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
-		jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+		jLabel5.setForeground(new Color(0, 0, 0));
 		jLabel5.setText("Admin Panel");
 		jLabel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 		
@@ -375,7 +375,7 @@ public class AdminFrame extends javax.swing.JFrame {
 		Image img2 = aptechLogoIcon.getImage().getScaledInstance(140, 62, Image.SCALE_SMOOTH);
 		aptechLogoIcon = new ImageIcon(img2);
 		lblNewLabel.setIcon(aptechLogoIcon);
-		lblNewLabel.setBounds(20, 11, 140, 62);
+		lblNewLabel.setBounds(10, 11, 150, 79);
 		Horizontal_Panel.add(lblNewLabel);
 		
 		setSize(new java.awt.Dimension(1206, 689));
