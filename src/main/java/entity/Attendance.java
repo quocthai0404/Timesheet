@@ -1,27 +1,25 @@
 package entity;
 
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-
 public class Attendance {
 	private int attendance_id;
 	private int employee_id;
 	private int work_schedule_id;
 	private String time_in; // Change type to Timestamp
-    private String time_out; // Change type to Timestamp
+	private String time_out; // Change type to Timestamp
 	private double hours_works;
+
 	public Attendance() {
-		
+
 	}
-	
+
 	public Attendance(int attendance_id, int employee_id, int work_schedule_id, String time_in, String time_out,
-	            double hours_works) {
-	    this.attendance_id = attendance_id;
-	    this.employee_id = employee_id;
-	    this.work_schedule_id = work_schedule_id;
-	    this.time_in = time_in;
-	    this.time_out = time_out;
-	    this.hours_works = hours_works;
+			double hours_works) {
+		this.attendance_id = attendance_id;
+		this.employee_id = employee_id;
+		this.work_schedule_id = work_schedule_id;
+		this.time_in = time_in;
+		this.time_out = time_out;
+		this.hours_works = hours_works;
 	}
 
 	public int getAttendance_id() {
@@ -78,9 +76,5 @@ public class Attendance {
 				+ work_schedule_id + ", time_in=" + time_in + ", time_out=" + time_out + ", hours_works=" + hours_works
 				+ "]";
 	}
-
-	
-
-	
 
 }

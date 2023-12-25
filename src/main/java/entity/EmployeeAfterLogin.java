@@ -6,6 +6,5 @@ public class EmployeeAfterLogin {
 	public static String employeePosition;
 	public static String employeeBirthDay;
 	public static String employeeGender;
-	
-	
+
 }

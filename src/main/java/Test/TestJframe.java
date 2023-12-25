@@ -1,18 +1,18 @@
 package Test;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import javax.swing.BoxLayout;
-import javax.swing.SwingConstants;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.border.LineBorder;
-import java.awt.Color;
 
 public class TestJframe extends JFrame {
 
@@ -51,7 +51,7 @@ public class TestJframe extends JFrame {
 		JPanel categoryPanel = new JPanel();
 		categoryPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		categoryPanel.setLayout(new BoxLayout(categoryPanel, BoxLayout.Y_AXIS));
-		
+
 		JButton button = new JButton("Quản Lý Giảng Viên");
 		button.setMaximumSize(new Dimension(10000, 70));
 		categoryPanel.add(button);
@@ -83,6 +83,7 @@ public class TestJframe extends JFrame {
 		contentPane.add(categoryPanel, BorderLayout.WEST);
 		contentPane.add(contentPanel, BorderLayout.CENTER);
 	}
+
 	protected void do_button_3_actionPerformed(ActionEvent e) {
 	}
 }

@@ -1,37 +1,39 @@
 package entity;
 
-import java.text.SimpleDateFormat;	
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Work_schedule {
 	private int work_schedule_id;
-    private int employee_id;
-    private Date work_date;
-    private int work_shift_id;
-    private String work_type;
-    private String work_description;
+	private int employee_id;
+	private Date work_date;
+	private int work_shift_id;
+	private String work_type;
+	private String work_description;
 
-    public Work_schedule() {
-    	super();
-    }
-    
+	public Work_schedule() {
+		super();
+	}
+
 	public Work_schedule(int work_schedule_id, int employee_id, Date work_date, int work_shift_id) {
 
 		this.work_schedule_id = work_schedule_id;
 		this.employee_id = employee_id;
 		this.work_date = work_date;
 		this.work_shift_id = work_shift_id;
-		
+
 	}
-	public Work_schedule(int work_schedule_id, int employee_id, Date work_date, int work_shift_id,String work_description, String work_type ) {
-        this.work_schedule_id = work_schedule_id;
-        this.employee_id = employee_id;
-        this.work_date = work_date;
-        this.work_shift_id = work_shift_id;
-        this.work_description = work_description;
-        this.work_type = work_type;
-        
-    }
+
+	public Work_schedule(int work_schedule_id, int employee_id, Date work_date, int work_shift_id,
+			String work_description, String work_type) {
+		this.work_schedule_id = work_schedule_id;
+		this.employee_id = employee_id;
+		this.work_date = work_date;
+		this.work_shift_id = work_shift_id;
+		this.work_description = work_description;
+		this.work_type = work_type;
+
+	}
 
 	public int getWork_schedule_id() {
 		return work_schedule_id;
@@ -84,11 +86,8 @@ public class Work_schedule {
 	@Override
 	public String toString() {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		return "Work_schedule [work_schedule_id=" + work_schedule_id + ", employee_id=" + employee_id + 
-				", work_date=" + df.format(work_date) + 
-				", work_shift_id=" + work_shift_id + ", work_type=" + work_type + "]";
+		return "Work_schedule [work_schedule_id=" + work_schedule_id + ", employee_id=" + employee_id + ", work_date="
+				+ df.format(work_date) + ", work_shift_id=" + work_shift_id + ", work_type=" + work_type + "]";
 	}
 
-	
-    
 }

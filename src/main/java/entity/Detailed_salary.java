@@ -1,9 +1,5 @@
 package entity;
 
-import java.sql.*;
-import java.text.SimpleDateFormat;	
-import java.util.Date;
-
 public class Detailed_salary {
 	private int detailed_salary_id;
 	private int employee_id;
@@ -16,8 +12,8 @@ public class Detailed_salary {
 	private double unpaid_leave_deduction;
 	private double overtime_pay;
 
-	
-	public Detailed_salary() {}
+	public Detailed_salary() {
+	}
 
 	public Detailed_salary(int detailed_salary_id, int employee_id, double base_salary, double paid_leave_pay,
 			double allowance, int number_of_paid_leave_days, int number_of_unpaid_leave_days,

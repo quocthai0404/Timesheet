@@ -1,13 +1,14 @@
 package entity;
 
 public class Account {
-    private int account_id;
-    private int employee_id;
-    private String username;
-    private String password;
-    private String email;
+	private int account_id;
+	private int employee_id;
+	private String username;
+	private String password;
+	private String email;
 
-    public Account() {}
+	public Account() {
+	}
 
 	public Account(int account_id, int employee_id, String username, String password, String email) {
 		super();
@@ -64,8 +65,4 @@ public class Account {
 				+ ", password=" + password + ", email=" + email + "]";
 	}
 
-
-
-    
 }
-
