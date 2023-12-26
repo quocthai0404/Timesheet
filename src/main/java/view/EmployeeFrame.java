@@ -33,6 +33,8 @@ import com.itextpdf.text.pdf.PdfWriter;
 import attendancems_with_prepared22.ClassJInternalFrame;
 import attendancems_with_prepared22.SettingInternalFrame;
 import attendancems_with_prepared22.TeacherInternalFrame;
+import database.JdbcUlti;
+
 import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 import javax.swing.JLabel;
@@ -44,14 +46,14 @@ import javax.swing.SwingConstants;
  */
 public class EmployeeFrame extends javax.swing.JFrame {
 
-	ConnectClass c;
+	JdbcUlti cn;
 
 	/**
 	 * Creates new form EmployeeFrame
 	 */
 	public EmployeeFrame() {
 		initComponents();
-		c = new ConnectClass();
+		cn = new JdbcUlti();
 
 		// Logo
 		setIconImage(Toolkit.getDefaultToolkit()
@@ -83,8 +85,10 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		jPanel2 = new javax.swing.JPanel();
 		jPanel2.setBorder(new LineBorder(new Color(0, 0, 0), 5));
 		jPanel2.setBounds(0, 101, 200, 449);
-		jPanel2.setBackground(new Color(128, 255, 255));
+		jPanel2.setBackground(new Color(108, 108, 255));
 		jButton1 = new javax.swing.JButton();
+		jButton1.setBackground(new Color(0, 0, 0));
+		jButton1.setForeground(new Color(0, 0, 0));
 		jButton3 = new javax.swing.JButton();
 		jButton6 = new javax.swing.JButton();
 		jButton7 = new javax.swing.JButton();
@@ -111,7 +115,6 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		jButton1.setText("Infor");
 		jButton1.setBorderPainted(false);
 		jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-		jButton1.setEnabled(false);
 		jButton1.setOpaque(false);
 		jButton1.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -149,7 +152,7 @@ public class EmployeeFrame extends javax.swing.JFrame {
 			}
 		});
 		jPanel2.add(jButton6);
-		jButton6.setBounds(20, 210, 160, 50);
+		jButton6.setBounds(20, 226, 160, 50);
 
 		jButton7.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
 		jButton7.setIcon(new javax.swing.ImageIcon(

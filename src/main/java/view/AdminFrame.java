@@ -20,6 +20,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 //import com.itextpdf.text.Image;
 import attendancems_with_prepared22.NewBatchInternalFrame;
+import database.JdbcUlti;
+
 import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JRadioButton;
@@ -28,13 +30,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;	
 
-
-/**
- *
- * @author Iqbal-Asi
- */
 public class AdminFrame extends javax.swing.JFrame {
-	ConnectClass c;
+	JdbcUlti cn;
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 		private javax.swing.JPanel Horizontal_Panel;
 		private javax.swing.JPanel Vertical_Panel;
@@ -73,7 +70,7 @@ public class AdminFrame extends javax.swing.JFrame {
 	public AdminFrame() {
 		getContentPane().setBackground(new Color(0, 255, 255));
 		initComponents();
-		c = new ConnectClass();
+		cn = new JdbcUlti();
 
 		setIconImage(Toolkit.getDefaultToolkit()
 				.getImage(getClass().getResource("/attendancems_with_prepared22/Project_Images/Logo.png")));
@@ -146,7 +143,7 @@ public class AdminFrame extends javax.swing.JFrame {
 		jPanel1.add(Employee_ID);
 		
 		textEmp_ID = new JLabel();
-		textEmp_ID.setForeground(Color.WHITE);
+		textEmp_ID.setForeground(new Color(0, 0, 0));
 		textEmp_ID.setFont(new Font("Candara", Font.BOLD, 14));
 		textEmp_ID.setBounds(198, 58, 180, 30);
 		jPanel1.add(textEmp_ID);
@@ -288,7 +285,7 @@ public class AdminFrame extends javax.swing.JFrame {
 		jButton4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
 		
 		Vertical_Panel.add(jButton4);
-		jButton4.setBounds(10, 380, 160, 40);
+		jButton4.setBounds(10, 404, 160, 40);
 
 		jButton11.setBackground(new java.awt.Color(255, 255, 255));
 		jButton11.setFont(new Font("Candara", Font.BOLD, 14)); // NOI18N
@@ -296,7 +293,7 @@ public class AdminFrame extends javax.swing.JFrame {
 		jButton11.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
 		
 		Vertical_Panel.add(jButton11);
-		jButton11.setBounds(10, 160, 160, 48);
+		jButton11.setBounds(10, 168, 160, 48);
 
 		jButton12.setBackground(new java.awt.Color(255, 255, 255));
 		jButton12.setFont(new Font("Candara", Font.BOLD, 14)); // NOI18N
@@ -304,7 +301,7 @@ public class AdminFrame extends javax.swing.JFrame {
 		jButton12.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
 		
 		Vertical_Panel.add(jButton12);
-		jButton12.setBounds(10, 219, 160, 48);
+		jButton12.setBounds(10, 227, 160, 48);
 
 		jButton13.setBackground(new java.awt.Color(255, 255, 255));
 		jButton13.setFont(new Font("Candara", Font.BOLD, 14)); // NOI18N
@@ -313,7 +310,7 @@ public class AdminFrame extends javax.swing.JFrame {
 		jButton13.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 		
 		Vertical_Panel.add(jButton13);
-		jButton13.setBounds(10, 278, 160, 40);
+		jButton13.setBounds(10, 286, 160, 48);
 
 		jButton14.setBackground(new java.awt.Color(255, 255, 255));
 		jButton14.setFont(new Font("Candara", Font.BOLD, 14)); // NOI18N
@@ -321,7 +318,7 @@ public class AdminFrame extends javax.swing.JFrame {
 		jButton14.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
 		
 		Vertical_Panel.add(jButton14);
-		jButton14.setBounds(10, 329, 160, 40);
+		jButton14.setBounds(10, 345, 160, 48);
 
 		getContentPane().add(Vertical_Panel);
 		Vertical_Panel.setBounds(0, 100, 200, 550);

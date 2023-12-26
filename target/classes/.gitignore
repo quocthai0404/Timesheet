@@ -1,8 +1,5 @@
-/Sql/
 /DAO/
 /Test/
-/Validation/
-/database/
-/entity/
-/view/
 /META-INF/
+/view/
+/database/
