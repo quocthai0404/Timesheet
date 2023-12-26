@@ -81,6 +81,7 @@ public class LoginFrame extends javax.swing.JFrame {
 		jButtonEmployee.setBackground(new java.awt.Color(0, 0, 102));
 		jButtonEmployee.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
 		jButtonEmployee.setIcon(new ImageIcon(LoginFrame.class.getResource("/teachermainbutton.png"))); // NOI18N
+		jButtonEmployee.setIcon(new ImageIcon("media/employeemainbutton.png")); // NOI18N
 		jButtonEmployee.setToolTipText("");
 		jButtonEmployee.setBorder(null);
 		jButtonEmployee.setBorderPainted(false);
@@ -92,7 +93,7 @@ public class LoginFrame extends javax.swing.JFrame {
 		jPanel1buttons.add(jButtonEmployee);
 		jButtonEmployee.setBounds(80, 38, 150, 60);
 
-		jButtonAdmin.setIcon(new ImageIcon(LoginFrame.class.getResource("/adminmainbutton.png"))); // NOI18N
+		jButtonAdmin.setIcon(new ImageIcon("media/managermainbutton.png")); // NOI18N
 		jButtonAdmin.setBorder(null);
 		jButtonAdmin.setBorderPainted(false);
 		jButtonAdmin.setOpaque(false);
