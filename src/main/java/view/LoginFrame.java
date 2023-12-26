@@ -11,6 +11,7 @@ import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -60,8 +61,8 @@ public class LoginFrame extends javax.swing.JFrame {
 		jPanel2teacher = new javax.swing.JPanel();
 		jTextField1 = new javax.swing.JTextField();
 		jPasswordField1 = new javax.swing.JPasswordField();
-		TeacherLoginButton = new javax.swing.JButton();
-		TeacherClearButton = new javax.swing.JButton();
+		EmployeeLoginButton = new javax.swing.JButton();
+		EmployeeClearButton = new javax.swing.JButton();
 		TeacherPanelBG = new javax.swing.JLabel();
 		jPanel3admin = new javax.swing.JPanel();
 		jTextField2 = new javax.swing.JTextField();
@@ -127,32 +128,29 @@ public class LoginFrame extends javax.swing.JFrame {
 		jPanel2teacher.add(jPasswordField1);
 		jPasswordField1.setBounds(70, 140, 200, 30);
 
-		TeacherLoginButton.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
-		TeacherLoginButton.setIcon(new javax.swing.ImageIcon(
-				getClass().getResource("/attendancems_with_prepared22/Project_Images/loginbutton.png"))); // NOI18N
-		TeacherLoginButton.setBorder(null);
-		TeacherLoginButton.setBorderPainted(false);
-		TeacherLoginButton.setOpaque(false);
-		TeacherLoginButton.addActionListener(new java.awt.event.ActionListener() {
+		EmployeeLoginButton.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+		EmployeeLoginButton.setIcon(new ImageIcon(LoginFrame.class.getResource("/loginbutton.png"))); // NOI18N
+		EmployeeLoginButton.setBorder(null);
+		EmployeeLoginButton.setBorderPainted(false);
+		EmployeeLoginButton.setOpaque(false);
+		EmployeeLoginButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				TeacherLoginButtonActionPerformed(evt);
+				EmployeeLoginButtonActionPerformed(evt);
 			}
 		});
-		jPanel2teacher.add(TeacherLoginButton);
-		TeacherLoginButton.setBounds(80, 190, 70, 30);
+		jPanel2teacher.add(EmployeeLoginButton);
+		EmployeeLoginButton.setBounds(80, 190, 70, 30);
 
-		TeacherClearButton.setIcon(new javax.swing.ImageIcon(
-				getClass().getResource("/attendancems_with_prepared22/Project_Images/back.png"))); // NOI18N
-		TeacherClearButton.addActionListener(new java.awt.event.ActionListener() {
+		EmployeeClearButton.setIcon(new ImageIcon(LoginFrame.class.getResource("/back.png"))); // NOI18N
+		EmployeeClearButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				TeacherClearButtonActionPerformed(evt);
 			}
 		});
-		jPanel2teacher.add(TeacherClearButton);
-		TeacherClearButton.setBounds(170, 200, 50, 20);
+		jPanel2teacher.add(EmployeeClearButton);
+		EmployeeClearButton.setBounds(170, 200, 50, 20);
 
-		TeacherPanelBG.setIcon(new javax.swing.ImageIcon(
-				getClass().getResource("/attendancems_with_prepared22/Project_Images/layer.png"))); // NOI18N
+		TeacherPanelBG.setIcon(new ImageIcon(LoginFrame.class.getResource("/layer.png"))); // NOI18N
 		jPanel2teacher.add(TeacherPanelBG);
 		TeacherPanelBG.setBounds(-10, 0, 330, 240);
 
@@ -216,14 +214,13 @@ public class LoginFrame extends javax.swing.JFrame {
 		setLocationRelativeTo(null);
 	}
 
-	private void TeacherLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {
+	private void EmployeeLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {
 	    try {
 	        // Assuming 'cn' is an instance of your Connection class
 	        CallableStatement userLogin = cn.prepareCall(
-	            "select * from tbl_teacher where user_name = ? and teacher_pass = ? and teacher_status = 'true'");
+	            "select * from account where username = ? and password = ? ");
 	        userLogin.setString(1, jTextField1.getText());
-	        userLogin.setString(2, new String(jPasswordField1.getPassword())); // Use getPassword() to get char[]
-
+	        userLogin.setString(2, new String(jPasswordField1.getPassword())); 
 	        ResultSet rs = userLogin.executeQuery();
 
 	        if (rs.next()) {
@@ -250,8 +247,8 @@ public class LoginFrame extends javax.swing.JFrame {
 	}
 
 
-	private void TeacherClearButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_TeacherClearButtonActionPerformed
-		// TODO add your handling code here:
+	private void TeacherClearButtonActionPerformed(java.awt.event.ActionEvent evt) {
+		
 		jPanel1buttons.setVisible(true);
 		jPanel2teacher.setVisible(false);
 		jPanel3admin.setVisible(false);
@@ -259,48 +256,38 @@ public class LoginFrame extends javax.swing.JFrame {
 		jTextField1.setText("");
 		jPasswordField1.setText("");
 
-	}// GEN-LAST:event_TeacherClearButtonActionPerformed
+	}
 
-	private void AdminClearButtonActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_AdminClearButtonActionPerformed
-		// TODO add your handling code here:
+	private void AdminClearButtonActionPerformed(java.awt.event.ActionEvent evt) {
+		
 		jPanel1buttons.setVisible(true);
 		jPanel2teacher.setVisible(false);
 		jPanel3admin.setVisible(false);
 
-		// Clearing Admin Fields
 		jTextField2.setText("");
 		jPasswordField2.setText("");
-	}// GEN-LAST:event_AdminClearButtonActionPerformed
+	}
 
 	private void AdminloginButtonActionPerformed(java.awt.event.ActionEvent evt) {
-	    try {
-	        Connection connection = JdbcUlti.getConnection();
-	        CallableStatement adminLogin = connection.prepareCall("select * from tbl_admin where admin_name = ? and admin_pass = ?");
+	    try (Connection connection = JdbcUlti.getConnection();
+	         PreparedStatement adminLogin = connection.prepareStatement("SELECT * FROM admin WHERE username = ? AND password = ?")) {
+
 	        adminLogin.setString(1, jTextField2.getText());
 	        adminLogin.setString(2, new String(jPasswordField2.getPassword()));
 
-	        ResultSet rs = adminLogin.executeQuery();
+	        try (ResultSet rs = adminLogin.executeQuery()) {
+	            if (rs.next()) {
+	                JOptionPane.showMessageDialog(this, "Welcome");
 
-	        if (rs.next()) {
-	            // If a matching record is found, show a welcome message and open the AdminFrame
-	            JOptionPane.showMessageDialog(this, "Welcome");
-
-	            AdminFrame adminf = new AdminFrame();
-	            adminf.setVisible(true);
-	            this.dispose();
-	        } else {
-	            // If no matching record is found, show an error message
-	            JOptionPane.showMessageDialog(this, "Invalid Username or Password", "Invalid",
-	                    JOptionPane.WARNING_MESSAGE);
+	                AdminFrame adminf = new AdminFrame();
+	                adminf.setVisible(true);
+	                this.dispose();
+	            } else {
+	                JOptionPane.showMessageDialog(this, "Invalid Username or Password", "Invalid",
+	                        JOptionPane.WARNING_MESSAGE);
+	            }
 	        }
-
-	        // Close the ResultSet and CallableStatement
-	        rs.close();
-	        adminLogin.close();
-	        connection.close(); // Close the connection
-
 	    } catch (SQLException ex) {
-	        // Handle SQL exceptions
 	        ex.printStackTrace();
 	        JOptionPane.showMessageDialog(this, "Error during login", "Error", JOptionPane.ERROR_MESSAGE);
 	    }
@@ -310,7 +297,7 @@ public class LoginFrame extends javax.swing.JFrame {
 	private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {
 	    if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
 	        try {
-	            Connection connection = JdbcUlti.getConnection(); // Replace JdbcUlti with your actual utility class
+	            Connection connection = JdbcUlti.getConnection();
 	            CallableStatement userLogin = connection.prepareCall(
 	                    "select * from tbl_teacher where user_name = ? and teacher_pass = ? and teacher_status = 'true'");
 	            userLogin.setString(1, jTextField1.getText());
@@ -331,7 +318,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
 	            rs.close();
 	            userLogin.close();
-	            connection.close(); // Close the connection
+	            connection.close();
 
 	        } catch (SQLException ex) {
 	            ex.printStackTrace();
@@ -344,7 +331,7 @@ public class LoginFrame extends javax.swing.JFrame {
 	    if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
 	        // Login Match for Admin
 	        try {
-	            Connection connection = JdbcUlti.getConnection(); // Replace JdbcUlti with your actual utility class
+	            Connection connection = JdbcUlti.getConnection(); 
 
 	            CallableStatement adminLogin = connection.prepareCall(
 	                    "select * from tbl_admin where admin_name = ? and admin_pass = ?");
@@ -444,8 +431,8 @@ public class LoginFrame extends javax.swing.JFrame {
 	private javax.swing.JButton AdminloginButton;
 	private javax.swing.JLabel LoginFrame;
 	private javax.swing.JLabel MainLayerBG;
-	private javax.swing.JButton TeacherClearButton;
-	private javax.swing.JButton TeacherLoginButton;
+	private javax.swing.JButton EmployeeClearButton;
+	private javax.swing.JButton EmployeeLoginButton;
 	private javax.swing.JLabel TeacherPanelBG;
 	private javax.swing.JButton jButtonAdmin;
 	private javax.swing.JButton jButtonEmployee;
