@@ -179,27 +179,27 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 		textEmail.setBounds(221, 210, 180, 30);
 		getContentPane().add(textEmail);
 		
-		btnNewButton = new JButton("");
-		btnNewButton.addActionListener(new ActionListener() {
+		btnAdd_Account = new JButton("");
+		btnAdd_Account.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnNewButtonActionPerformed(e);
 			}
 		});
 		// Assuming btnNewButton is a JButton
-		btnNewButton.setIcon(new ImageIcon(Create_Employee_Account.class.getResource("/create.jpg")));
+		btnAdd_Account.setIcon(new ImageIcon(Create_Employee_Account.class.getResource("/add.png")));
 
 		// Resize the icon while maintaining aspect ratio
-		ImageIcon originalIcon = (ImageIcon) btnNewButton.getIcon();
+		ImageIcon originalIcon = (ImageIcon) btnAdd_Account.getIcon();
 		Image img = originalIcon.getImage().getScaledInstance(124, 30, Image.SCALE_SMOOTH);
 		ImageIcon resizedIcon = new ImageIcon(img);
-		btnNewButton.setIcon(resizedIcon);
+		btnAdd_Account.setIcon(resizedIcon);
 
 		// Set preferred size for the button
-		btnNewButton.setPreferredSize(new Dimension(124, 30));
+		btnAdd_Account.setPreferredSize(new Dimension(124, 30));
 
 		// Set bounds for the button
-		btnNewButton.setBounds(80, 265, 124, 30);
-		getContentPane().add(btnNewButton);
+		btnAdd_Account.setBounds(80, 264, 90, 30);
+		getContentPane().add(btnAdd_Account);
 
 		
 		panel = new JPanel();
@@ -236,7 +236,7 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 	private JTextField textPassword;
 	private JLabel Email;
 	private JTextField textEmail;
-	private JButton btnNewButton;
+	private JButton btnAdd_Account;
 	private JPanel panel;
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
