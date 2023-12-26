@@ -87,7 +87,7 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		jPanel2.setBounds(0, 101, 200, 449);
 		jPanel2.setBackground(new Color(108, 108, 255));
 		jButton1 = new javax.swing.JButton();
-		jButton1.setBackground(new Color(0, 0, 0));
+		jButton1.setBackground(new Color(240, 240, 240));
 		jButton1.setForeground(new Color(0, 0, 0));
 		jButton3 = new javax.swing.JButton();
 		jButton6 = new javax.swing.JButton();
@@ -110,8 +110,7 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		jPanel2.setLayout(null);
 
 		jButton1.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
-		jButton1.setIcon(new javax.swing.ImageIcon(
-				getClass().getResource("/attendancems_with_prepared22/Project_Images/Student.png"))); // NOI18N
+		jButton1.setIcon(new ImageIcon(EmployeeFrame.class.getResource("/Student.png"))); // NOI18N
 		jButton1.setText("Infor");
 		jButton1.setBorderPainted(false);
 		jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -122,11 +121,10 @@ public class EmployeeFrame extends javax.swing.JFrame {
 			}
 		});
 		jPanel2.add(jButton1);
-		jButton1.setBounds(20, 55, 132, 52);
+		jButton1.setBounds(20, 55, 160, 52);
 
 		jButton3.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
-		jButton3.setIcon(new javax.swing.ImageIcon(
-				getClass().getResource("/attendancems_with_prepared22/Project_Images/report.png"))); // NOI18N
+		jButton3.setIcon(new ImageIcon(EmployeeFrame.class.getResource("/report.png"))); // NOI18N
 		jButton3.setText("Report");
 		jButton3.setBorderPainted(false);
 		jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -140,8 +138,7 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		jButton3.setBounds(20, 136, 160, 50);
 
 		jButton6.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
-		jButton6.setIcon(new javax.swing.ImageIcon(
-				getClass().getResource("/attendancems_with_prepared22/Project_Images/Setting.png"))); // NOI18N
+		jButton6.setIcon(new ImageIcon(EmployeeFrame.class.getResource("/Setting.png"))); // NOI18N
 		jButton6.setText("Setting");
 		jButton6.setBorderPainted(false);
 		jButton6.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -155,8 +152,7 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		jButton6.setBounds(20, 226, 160, 50);
 
 		jButton7.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
-		jButton7.setIcon(new javax.swing.ImageIcon(
-				getClass().getResource("/attendancems_with_prepared22/Project_Images/exit.png"))); // NOI18N
+		jButton7.setIcon(new ImageIcon(EmployeeFrame.class.getResource("/exit.png"))); // NOI18N
 		jButton7.setText("Exit");
 		jButton7.setBorderPainted(false);
 		jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
