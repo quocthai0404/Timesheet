@@ -178,8 +178,7 @@ public class LoginFrame extends javax.swing.JFrame {
 		jPasswordField2.setBounds(80, 140, 200, 30);
 
 		AdminloginButton.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
-		AdminloginButton.setIcon(new javax.swing.ImageIcon(
-				getClass().getResource("/attendancems_with_prepared22/Project_Images/loginbutton.png"))); // NOI18N
+		AdminloginButton.setIcon(new ImageIcon(LoginFrame.class.getResource("/loginbutton.png"))); // NOI18N
 		AdminloginButton.setBorder(null);
 		AdminloginButton.setBorderPainted(false);
 		AdminloginButton.addActionListener(new java.awt.event.ActionListener() {
@@ -190,8 +189,7 @@ public class LoginFrame extends javax.swing.JFrame {
 		jPanel3admin.add(AdminloginButton);
 		AdminloginButton.setBounds(100, 190, 70, 30);
 
-		AdminClearButton.setIcon(new javax.swing.ImageIcon(
-				getClass().getResource("/attendancems_with_prepared22/Project_Images/back.png"))); // NOI18N
+		AdminClearButton.setIcon(new ImageIcon(LoginFrame.class.getResource("/back.png"))); // NOI18N
 		AdminClearButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				AdminClearButtonActionPerformed(evt);
