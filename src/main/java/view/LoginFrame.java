@@ -9,11 +9,14 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Base64;
 
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
@@ -21,6 +24,8 @@ import javax.swing.plaf.FontUIResource;
 
 import attendancems_with_prepared22.AttendFrame;
 import database.JdbcUlti;
+import helper.Helper;
+
 import javax.swing.ImageIcon;
 
 /**
@@ -56,7 +61,7 @@ public class LoginFrame extends javax.swing.JFrame {
 		jPanel1buttons = new javax.swing.JPanel();
 		jPanel1buttons.setBackground(new Color(0, 255, 255));
 		jButtonEmployee = new javax.swing.JButton();
-		jButtonAdmin = new javax.swing.JButton();
+		jButtonManager = new javax.swing.JButton();
 		MainLayerBG = new javax.swing.JLabel();
 		jPanel2teacher = new javax.swing.JPanel();
 		jTextField1 = new javax.swing.JTextField();
@@ -86,23 +91,23 @@ public class LoginFrame extends javax.swing.JFrame {
 		jButtonEmployee.setBorderPainted(false);
 		jButtonEmployee.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jButtonTeacherActionPerformed(evt);
+				jButtonEmployeeActionPerformed(evt);
 			}
 		});
 		jPanel1buttons.add(jButtonEmployee);
 		jButtonEmployee.setBounds(80, 38, 150, 60);
 
-		jButtonAdmin.setIcon(new ImageIcon("media/managermainbutton.png")); // NOI18N
-		jButtonAdmin.setBorder(null);
-		jButtonAdmin.setBorderPainted(false);
-		jButtonAdmin.setOpaque(false);
-		jButtonAdmin.addActionListener(new java.awt.event.ActionListener() {
+		jButtonManager.setIcon(new ImageIcon("media/managermainbutton.png")); // NOI18N
+		jButtonManager.setBorder(null);
+		jButtonManager.setBorderPainted(false);
+		jButtonManager.setOpaque(false);
+		jButtonManager.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jButtonAdminActionPerformed(evt);
+				jButtonManagerActionPerformed(evt);
 			}
 		});
-		jPanel1buttons.add(jButtonAdmin);
-		jButtonAdmin.setBounds(80, 120, 150, 60);
+		jPanel1buttons.add(jButtonManager);
+		jButtonManager.setBounds(80, 120, 150, 60);
 
 		MainLayerBG.setIcon(new ImageIcon(LoginFrame.class.getResource("/mainlayer.png"))); // NOI18N
 		jPanel1buttons.add(MainLayerBG);
@@ -270,10 +275,13 @@ public class LoginFrame extends javax.swing.JFrame {
 
 	private void AdminloginButtonActionPerformed(java.awt.event.ActionEvent evt) {
 	    try (Connection connection = JdbcUlti.getConnection();
-	         PreparedStatement adminLogin = connection.prepareStatement("SELECT * FROM admin WHERE username = ? AND password = ?")) {
-
+	         PreparedStatement adminLogin = connection.prepareStatement("SELECT * FROM account WHERE username = ? AND password = ?")) {
+	    	String password = Helper.changeToMD5(String.valueOf(jPasswordField2.getPassword()));
+		    
+		    System.out.println(jTextField2.getText());
+		    System.out.println(password);
 	        adminLogin.setString(1, jTextField2.getText());
-	        adminLogin.setString(2, new String(jPasswordField2.getPassword()));
+	        adminLogin.setString(2, password);
 
 	        try (ResultSet rs = adminLogin.executeQuery()) {
 	            if (rs.next()) {
@@ -360,13 +368,13 @@ public class LoginFrame extends javax.swing.JFrame {
 	        }
 	    }
 	}
-	private void jButtonTeacherActionPerformed(java.awt.event.ActionEvent evt) {
+	private void jButtonEmployeeActionPerformed(java.awt.event.ActionEvent evt) {
 		jPanel1buttons.setVisible(false);
 		jPanel2teacher.setVisible(true);
 		jPanel3admin.setVisible(false);
 	}// GEN-LAST:event_jButtonTeacherActionPerformed
 
-	private void jButtonAdminActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButtonAdminActionPerformed
+	private void jButtonManagerActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButtonAdminActionPerformed
 		// TODO add your handling code here:
 		jPanel1buttons.setVisible(false);
 		jPanel2teacher.setVisible(false);
@@ -434,7 +442,7 @@ public class LoginFrame extends javax.swing.JFrame {
 	private javax.swing.JButton EmployeeClearButton;
 	private javax.swing.JButton EmployeeLoginButton;
 	private javax.swing.JLabel TeacherPanelBG;
-	private javax.swing.JButton jButtonAdmin;
+	private javax.swing.JButton jButtonManager;
 	private javax.swing.JButton jButtonEmployee;
 	private javax.swing.JLayeredPane jLayeredPane1;
 	private javax.swing.JPanel jPanel1buttons;
