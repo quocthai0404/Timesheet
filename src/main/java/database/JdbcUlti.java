@@ -1,5 +1,6 @@
 package database;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -14,7 +15,7 @@ public class JdbcUlti {
 		// ------;
 //		Lộc
 //		String serverName = "DESKTOP-FICVKMH";
-//		String dbName = "timesheet";
+//		String dbName = "timesheet2";
 //		String username = "sa";
 //		String password = "NguyenAn2004";
 
@@ -50,5 +51,9 @@ public class JdbcUlti {
 			}
 		}
 	}
+	public static CallableStatement prepareCall(String sql) throws SQLException {
+        Connection cn = getConnection();
+        return cn.prepareCall(sql);
+    }
 
 }

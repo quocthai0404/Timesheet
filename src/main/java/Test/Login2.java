@@ -48,8 +48,6 @@ public class Login2 extends JFrame {
 	private JPasswordField jtfPassword;
 	private JPanel panel_1;
 
-	
-
 	/**
 	 * Launch the application.
 	 */
