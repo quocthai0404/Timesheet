@@ -62,7 +62,7 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		setResizable(false);
 
 		// Title
-		setTitle("Employee\\ Panel");
+		setTitle("Employee Panel");
 		jDesktopPane1.removeAll();
 	}
 
