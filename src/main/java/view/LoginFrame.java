@@ -79,7 +79,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
 		jButtonEmployee.setBackground(new java.awt.Color(0, 0, 102));
 		jButtonEmployee.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
-		jButtonEmployee.setIcon(new ImageIcon(LoginFrame.class.getResource("/attendancems_with_prepared22/Project_Images/teachermainbutton.png"))); // NOI18N
+		jButtonEmployee.setIcon(new ImageIcon(LoginFrame.class.getResource("/teachermainbutton.png"))); // NOI18N
 		jButtonEmployee.setToolTipText("");
 		jButtonEmployee.setBorder(null);
 		jButtonEmployee.setBorderPainted(false);
@@ -91,7 +91,7 @@ public class LoginFrame extends javax.swing.JFrame {
 		jPanel1buttons.add(jButtonEmployee);
 		jButtonEmployee.setBounds(80, 38, 150, 60);
 
-		jButtonAdmin.setIcon(new ImageIcon(LoginFrame.class.getResource("/attendancems_with_prepared22/Project_Images/adminmainbutton.png"))); // NOI18N
+		jButtonAdmin.setIcon(new ImageIcon(LoginFrame.class.getResource("/adminmainbutton.png"))); // NOI18N
 		jButtonAdmin.setBorder(null);
 		jButtonAdmin.setBorderPainted(false);
 		jButtonAdmin.setOpaque(false);
@@ -200,8 +200,7 @@ public class LoginFrame extends javax.swing.JFrame {
 		jPanel3admin.add(AdminClearButton);
 		AdminClearButton.setBounds(190, 196, 50, 20);
 
-		AdminPanelBG.setIcon(new javax.swing.ImageIcon(
-				getClass().getResource("/attendancems_with_prepared22/Project_Images/layer.png"))); // NOI18N
+		AdminPanelBG.setIcon(new ImageIcon(LoginFrame.class.getResource("/layer.png"))); // NOI18N
 		jPanel3admin.add(AdminPanelBG);
 		AdminPanelBG.setBounds(-10, 0, 330, 240);
 
