@@ -1,5 +1,6 @@
+/META-INF/
+/database/
+/view/
 /DAO/
 /Test/
-/META-INF/
-/view/
-/database/
+/entity/

@@ -31,7 +31,7 @@ import java.awt.event.ActionEvent;
 
 public class Create_Employee_Account extends javax.swing.JInternalFrame {
 	JdbcUlti cn;
-	Validation v;
+	
 
 	/**
 	 * Creates new form Create_Employee_Account
@@ -41,7 +41,6 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 		getContentPane().setForeground(new Color(128, 255, 255));
 		initComponents();
 		cn = new JdbcUlti();
-		v = new Validation();
 		setTitle("New Student");
 		statusCombo();
 

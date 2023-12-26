@@ -80,7 +80,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
 		jButtonEmployee.setBackground(new java.awt.Color(0, 0, 102));
 		jButtonEmployee.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
-		jButtonEmployee.setIcon(new ImageIcon(LoginFrame.class.getResource("/teachermainbutton.png"))); // NOI18N
+		jButtonEmployee.setIcon(new ImageIcon(LoginFrame.class.getResource("/Logo.png"))); // NOI18N
 		jButtonEmployee.setToolTipText("");
 		jButtonEmployee.setBorder(null);
 		jButtonEmployee.setBorderPainted(false);
