@@ -39,6 +39,7 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.JButton;
 
 /**
  *
@@ -86,9 +87,6 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		jPanel2.setBorder(new LineBorder(new Color(0, 0, 0), 5));
 		jPanel2.setBounds(0, 101, 200, 449);
 		jPanel2.setBackground(new Color(108, 108, 255));
-		jButton1 = new javax.swing.JButton();
-		jButton1.setBackground(new Color(240, 240, 240));
-		jButton1.setForeground(new Color(0, 0, 0));
 		jButton3 = new javax.swing.JButton();
 		jButton6 = new javax.swing.JButton();
 		jButton7 = new javax.swing.JButton();
@@ -108,20 +106,6 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		jPanel2.setMinimumSize(new java.awt.Dimension(190, 550));
 		jPanel2.setPreferredSize(new java.awt.Dimension(190, 550));
 		jPanel2.setLayout(null);
-
-		jButton1.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
-		jButton1.setIcon(new ImageIcon(EmployeeFrame.class.getResource("/Student.png"))); // NOI18N
-		jButton1.setText("Infor");
-		jButton1.setBorderPainted(false);
-		jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-		jButton1.setOpaque(false);
-		jButton1.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				jButton1ActionPerformed(evt);
-			}
-		});
-		jPanel2.add(jButton1);
-		jButton1.setBounds(20, 55, 160, 52);
 
 		jButton3.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
 		jButton3.setIcon(new ImageIcon(EmployeeFrame.class.getResource("/report.png"))); // NOI18N
@@ -149,7 +133,7 @@ public class EmployeeFrame extends javax.swing.JFrame {
 			}
 		});
 		jPanel2.add(jButton6);
-		jButton6.setBounds(20, 226, 160, 50);
+		jButton6.setBounds(20, 221, 160, 50);
 
 		jButton7.setFont(new java.awt.Font("Candara", 1, 18)); // NOI18N
 		jButton7.setIcon(new ImageIcon(EmployeeFrame.class.getResource("/exit.png"))); // NOI18N
@@ -163,7 +147,7 @@ public class EmployeeFrame extends javax.swing.JFrame {
 			}
 		});
 		jPanel2.add(jButton7);
-		jButton7.setBounds(20, 298, 160, 50);
+		jButton7.setBounds(20, 301, 160, 50);
 
 		jButton8.setIcon(new javax.swing.ImageIcon(
 				getClass().getResource("/attendancems_with_prepared22/Project_Images/back.png"))); // NOI18N
@@ -174,9 +158,18 @@ public class EmployeeFrame extends javax.swing.JFrame {
 			}
 		});
 		jPanel2.add(jButton8);
-		jButton8.setBounds(10, 408, 40, 30);
+		jButton8.setBounds(20, 408, 40, 30);
 
 		getContentPane().add(jPanel2);
+		
+		jButton1 = new JButton();
+		jButton1.setIcon(new ImageIcon(EmployeeFrame.class.getResource("/Student.png")));
+		jButton1.setText("Infor");
+		jButton1.setOpaque(false);
+		jButton1.setFont(new Font("Candara", Font.BOLD, 18));
+		jButton1.setBorderPainted(false);
+		jButton1.setBounds(20, 46, 160, 50);
+		jPanel2.add(jButton1);
 		
 		panel = new JPanel();
 		panel.setLayout(null);
@@ -204,23 +197,12 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		setLocationRelativeTo(null);
 	}// </editor-fold>//GEN-END:initComponents
 
-	private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
-		// TODO add your handling code here:
-		Create_Employee_Account sif = new Create_Employee_Account();
-		jDesktopPane1.add(sif);
-		sif.show();
-
-	}// GEN-LAST:event_jButton1ActionPerformed
-
 	private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton3ActionPerformed
 
 		jDesktopPane1.removeAll();
 	}
 
 	private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton7ActionPerformed
-		// TODO add your handling code here:
-
-		// Closing Frame
 		try {
 			int response = JOptionPane.showConfirmDialog(null,
 					"You have clicked Exit. \n Do you want to close the window?", "Confirm", JOptionPane.YES_NO_OPTION,
@@ -247,7 +229,7 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		jDesktopPane1.add(tif);
 		tif.show();
 
-	}// GEN-LAST:event_jButton8ActionPerformed
+	}
 
 	private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {
 		// TODO add your handling code here:
@@ -285,7 +267,6 @@ public class EmployeeFrame extends javax.swing.JFrame {
 			}
 		});
 	}
-	public static javax.swing.JButton jButton1;
 	private javax.swing.JButton jButton3;
 	private javax.swing.JButton jButton6;
 	private javax.swing.JButton jButton7;
@@ -296,4 +277,5 @@ public class EmployeeFrame extends javax.swing.JFrame {
 	private JLabel lblNewLabel;
 	private JLabel lblEmployeeFrame;
 	private JLabel lblNewLabel_1;
+	private JButton jButton1;
 }

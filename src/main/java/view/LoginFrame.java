@@ -80,7 +80,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
 		jButtonEmployee.setBackground(new java.awt.Color(0, 0, 102));
 		jButtonEmployee.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
-		jButtonEmployee.setIcon(new ImageIcon(LoginFrame.class.getResource("/Logo.png"))); // NOI18N
+		jButtonEmployee.setIcon(new ImageIcon(LoginFrame.class.getResource("/teachermainbutton.png"))); // NOI18N
 		jButtonEmployee.setToolTipText("");
 		jButtonEmployee.setBorder(null);
 		jButtonEmployee.setBorderPainted(false);
@@ -144,7 +144,7 @@ public class LoginFrame extends javax.swing.JFrame {
 		EmployeeClearButton.setIcon(new ImageIcon(LoginFrame.class.getResource("/back.png"))); // NOI18N
 		EmployeeClearButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				TeacherClearButtonActionPerformed(evt);
+				EmployeeClearButtonActionPerformed(evt);
 			}
 		});
 		jPanel2teacher.add(EmployeeClearButton);
@@ -227,7 +227,7 @@ public class LoginFrame extends javax.swing.JFrame {
 	            // If a matching record is found, show a welcome message and open the AttendFrame
 	            JOptionPane.showMessageDialog(this, "Welcome");
 
-	            AttendFrame af = new AttendFrame();
+	            EmployeeFrame af = new EmployeeFrame();
 	            af.setVisible(true); // Use setVisible instead of show
 	            this.dispose(); // Close the current frame
 	        } else {
@@ -247,7 +247,7 @@ public class LoginFrame extends javax.swing.JFrame {
 	}
 
 
-	private void TeacherClearButtonActionPerformed(java.awt.event.ActionEvent evt) {
+	private void EmployeeClearButtonActionPerformed(java.awt.event.ActionEvent evt) {
 		
 		jPanel1buttons.setVisible(true);
 		jPanel2teacher.setVisible(false);

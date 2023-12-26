@@ -41,5 +41,10 @@
 		    <version>1.6.2</version> <!-- Use the latest version available -->
 		</dependency>
 
+		<dependency>
+			<groupId>thai</groupId>
+			<artifactId>Timesheet</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
   </dependencies>
 </project>
