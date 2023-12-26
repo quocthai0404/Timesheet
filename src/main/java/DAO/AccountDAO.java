@@ -9,6 +9,8 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import org.hsqldb.jdbc.JDBCArray;
+
 import Test.Login2;
 import database.JdbcUlti;
 import entity.Account;
@@ -37,34 +39,34 @@ public class AccountDAO {
 		return list;
 	}
 
-	public Boolean Login(String username, String password) {
-		Login2 lg = new Login2();
-		try {
-			Connection con = JdbcUlti.getConnection();
-			String sql = "select account.username, account.password, employee.position, account.employee_id\r\n"
-					+ "from account\r\n" + "inner join employee on employee.employee_id=account.employee_id\r\n"
-					+ "where account.username=?";
-			PreparedStatement statement = con.prepareStatement(sql);
-			statement.setString(1, username);
-			ResultSet rs = statement.executeQuery();
-
-			while (rs.next()) {
-				if (rs.getString(1).equals(username) && rs.getString(2).equals(password)) {
-					EmployeeAfterLogin.employeePosition = rs.getString(3);
-					EmployeeAfterLogin.employeeID = rs.getInt(4);
-					System.out.println("login ok");
-					return true;
-				} else {
-					System.out.println("ko");
-				}
-			}
-
-			JdbcUlti.closeConnection(con);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
+//	public Boolean Login(String username, String password) {
+//		Login2 lg = new Login2();
+//		try {
+//			Connection con = JdbcUlti.getConnection();
+//			String sql = "select account.username, account.password, employee.position, account.employee_id\r\n"
+//					+ "from account\r\n" + "inner join employee on employee.employee_id=account.employee_id\r\n"
+//					+ "where account.username=?";
+//			PreparedStatement statement = con.prepareStatement(sql);
+//			statement.setString(1, username);
+//			ResultSet rs = statement.executeQuery();
+//
+//			while (rs.next()) {
+//				if (rs.getString(1).equals(username) && rs.getString(2).equals(password)) {
+//					EmployeeAfterLogin.employeePosition = rs.getString(3);
+//					EmployeeAfterLogin.employeeID = rs.getInt(4);
+//					System.out.println("login ok");
+//					return true;
+//				} else {
+//					System.out.println("ko");
+//				}
+//			}
+//
+//			JdbcUlti.closeConnection(con);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return false;
+//	}
 
 	public String getPasswordFromAccount(String username) {
 		try {
@@ -130,6 +132,50 @@ public class AccountDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public Boolean Login (String username, String password) {
+		Connection con = null; 
+		try {
+			con = JdbcUlti.getConnection();
+			String sql = "SELECT * FROM account WHERE username = ? AND password = ?";
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setString(1, username);
+			statement.setString(2, password);
+			ResultSet rs = statement.executeQuery();
+			if(rs.next()) {
+				return true;
+			}
+		} catch (Exception e) {
+			
+		}finally {
+			JdbcUlti.closeConnection(con);
+		}
+		return false;
+	}
+	
+	public Boolean checkRoleManager(String username) {
+		Connection con = null; 
+		
+		try {
+			con = JdbcUlti.getConnection();
+			String sql = "select employee.position from account\r\n"
+					+ "	join employee on account.employee_id = employee.employee_id\r\n"
+					+ "	where account.username=?";
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setString(1, username);
+			ResultSet rs = statement.executeQuery();
+			while(rs.next()) {
+				if(rs.getString(1).equals("manager")) {
+					return true;
+				}
+			}
+		} catch (Exception e) {
+			
+		}finally {
+			JdbcUlti.closeConnection(con);
+		}
+		return false;
 	}
 
 }
