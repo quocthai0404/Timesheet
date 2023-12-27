@@ -203,12 +203,12 @@ public class AdminFrame extends javax.swing.JFrame {
 		
 		rdbtnMale = new JRadioButton("Male");
 		rdbtnMale.setBackground(new Color(128, 255, 255));
-		rdbtnMale.setBounds(557, 101, 47, 23);
+		rdbtnMale.setBounds(557, 101, 72, 23);
 		jPanel1.add(rdbtnMale);
 		
 		rdbtnFemale = new JRadioButton("Female");
 		rdbtnFemale.setBackground(new Color(128, 255, 255));
-		rdbtnFemale.setBounds(647, 101, 59, 23);
+		rdbtnFemale.setBounds(647, 101, 90, 23);
 		jPanel1.add(rdbtnFemale);
 		
 		jScrollPane1 = new JScrollPane();
@@ -408,14 +408,9 @@ public class AdminFrame extends javax.swing.JFrame {
 	}
 	
 	protected void jButton11ActionPerformed(ActionEvent e) {
-//		AdminFrame adminFrame = new AdminFrame();
-//	    
-//	    // Xóa tất cả các thành phần hiện tại trong jDesktopPane1 (nếu cần)
-//	    jDesktopPane1.removeAll();
-//	    
-//	    // Thêm AdminFrame vào jDesktopPane1 và hiển thị nó
-//	    jDesktopPane1.add(adminFrame);
-//	    adminFrame.setVisible(true);
+		 jDesktopPane1.removeAll();
+	     jDesktopPane1.add(jPanel1);
+	     jPanel1.show();
 	}
 
 }
