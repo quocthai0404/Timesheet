@@ -357,6 +357,11 @@ GROUP BY
 	and MONTH(deduction_date)=12
 	and year(deduction_date)=2023
 
+
+	select employee.position from account
+	join employee on account.employee_id = employee.employee_id
+	where account.username='newaccount2'
+
 	
 	
 
