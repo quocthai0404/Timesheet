@@ -24,12 +24,18 @@ import attendancems_with_prepared22.NewTeacherInternalFrame;
 import database.JdbcUlti;
 
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
 import com.toedter.calendar.JDateChooser;
+
+import DAO.EmployeeDAO;
+
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;	
+import java.awt.event.ActionEvent;
+import javax.swing.JTable;	
 
 public class AdminFrame extends javax.swing.JFrame {
 	JdbcUlti cn;
@@ -65,6 +71,10 @@ public class AdminFrame extends javax.swing.JFrame {
 		private JButton jButtonUpdate;
 		private JButton jButtonClear;
 		private JButton jButtonViewAll;
+		private JTable tableEmployee;
+		private Double totalPage;
+		private int rowOfPage = 25;
+		private int firstPage = 1;
 	/**
 	 * Creates new form AdminFrame
 	 */
@@ -102,7 +112,7 @@ public class AdminFrame extends javax.swing.JFrame {
 				}
 			}
 		};
-
+		loadData();
 		t.start();
 	}
 
@@ -215,6 +225,9 @@ public class AdminFrame extends javax.swing.JFrame {
 		jScrollPane1.setOpaque(false);
 		jScrollPane1.setBounds(65, 347, 860, 170);
 		jPanel1.add(jScrollPane1);
+		
+		tableEmployee = new JTable();
+		jScrollPane1.setViewportView(tableEmployee);
 		
 		jButtonInsert = new JButton();
 		jButtonInsert.addActionListener(new ActionListener() {
@@ -412,5 +425,22 @@ public class AdminFrame extends javax.swing.JFrame {
 	     jDesktopPane1.add(jPanel1);
 	     jPanel1.show();
 	}
-
+	
+	public void loadData() {
+		DefaultTableModel model = new DefaultTableModel();
+		model.addColumn("ID");
+		model.addColumn("Employee Name");
+		model.addColumn("Position");
+		model.addColumn("Birthday");
+		model.addColumn("Gender");
+		EmployeeDAO dao = new EmployeeDAO();
+		totalPage = Math.ceil(dao.countRow() / Double.valueOf(rowOfPage));
+		dao.selectPaginateEmp(firstPage, rowOfPage).stream().forEach(emp -> {
+			String gender = emp.getGender() ? "Male" : "Female";
+			model.addRow(new Object[] { emp.getEmployee_id(), emp.getEmployee_name(), emp.getPosition(),
+					emp.getBirthday(), gender });
+		});
+//		lblStatusPage.setText(firstPage + "/" + totalPage.intValue());
+		tableEmployee.setModel(model);
+	}
 }
