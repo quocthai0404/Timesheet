@@ -342,7 +342,6 @@ public class LoginFrame extends javax.swing.JFrame {
 		    if(dao.checkRoleManager(jTextField2.getText())) {
 		    	if(dao.Login(jTextField2.getText(), password)) {
 		            JOptionPane.showMessageDialog(this, "Welcome");
-
 		            AdminFrame adminf = new AdminFrame();
 		            adminf.setVisible(true);
 		            this.dispose();
