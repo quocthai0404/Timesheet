@@ -37,6 +37,9 @@ import java.awt.event.ActionListener;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 import javax.swing.JComboBox;
@@ -70,7 +73,6 @@ public class AdminFrame extends javax.swing.JFrame {
 		private JRadioButton rdbtnFemale;
 		private JScrollPane jScrollPane1;
 		private JButton jButtonInsert;
-		private JButton jButtonDelete;
 		private JButton jButtonUpdate;
 
 		private JButton btnPrevious;
@@ -80,6 +82,9 @@ public class AdminFrame extends javax.swing.JFrame {
 		private int rowOfPage = 10;
 		private Double totalPage;
 		private JTable tableEmployee;
+		private JButton jButtonCreate;
+		private JTextField textFind;
+		private JButton jButtonFind;
 
 	/**
 	 * Creates new form AdminFrame
@@ -113,7 +118,7 @@ public class AdminFrame extends javax.swing.JFrame {
 					}
 					SimpleDateFormat time = new SimpleDateFormat("hh:mm:ss");
 					Calendar cal = Calendar.getInstance();
-					jLabeltime.setText(time.format(cal.getTime()));
+					
 
 				}
 			}
@@ -243,18 +248,6 @@ public class AdminFrame extends javax.swing.JFrame {
 		jButtonInsert.setBounds(65, 267, 110, 30);
 		jPanel1.add(jButtonInsert);
 		
-		jButtonDelete = new JButton();
-		jButtonDelete.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				jButtonDeleteActionPerformed(e);
-			}
-		});
-		jButtonDelete.setIcon(new ImageIcon(AdminFrame.class.getResource("/remove.png")));
-		jButtonDelete.setBorderPainted(false);
-		jButtonDelete.setBorder(null);
-		jButtonDelete.setBounds(256, 267, 100, 30);
-		jPanel1.add(jButtonDelete);
-		
 		jButtonUpdate = new JButton();
 		jButtonUpdate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -291,6 +284,49 @@ public class AdminFrame extends javax.swing.JFrame {
 		btnNext.setFont(new Font("Segoe UI", Font.BOLD, 12));
 		btnNext.setBounds(822, 495, 103, 33);
 		jPanel1.add(btnNext);
+		
+		ImageIcon icon = new ImageIcon(AdminFrame.class.getResource("/create.png"));
+		Image img = icon.getImage();
+		Image newImg = img.getScaledInstance(110, 30, java.awt.Image.SCALE_SMOOTH);
+		ImageIcon newIcon = new ImageIcon(newImg);
+		JButton jButtonCreate = new JButton();
+		jButtonCreate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				jButtonCreateActionPerformed(e);
+			}
+		});
+		jButtonCreate.setIcon(newIcon);
+		jButtonCreate.setFont(new Font("Candara", Font.BOLD, 12));
+		jButtonCreate.setBorderPainted(false);
+		jButtonCreate.setBorder(null);
+		jButtonCreate.setBounds(230, 267, 110, 30); // Đặt kích thước JButton tùy thuộc vào kích thước của ảnh
+
+		jPanel1.add(jButtonCreate);
+		
+		textFind = new JTextField();
+		textFind.setFont(new Font("Calibri", Font.BOLD, 14));
+		textFind.setBounds(661, 267, 180, 30);
+		jPanel1.add(textFind);
+		
+		// Load hình ảnh từ tệp tin
+		ImageIcon icon1 = new ImageIcon(AdminFrame.class.getResource("/search.png"));
+		Image img1 = icon1.getImage();
+		Image newImg1 = img1.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
+		ImageIcon newIcon1 = new ImageIcon(newImg1);
+		JButton jButtonFind = new JButton();
+		jButtonFind.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        jButtonFindActionPerformed(e);
+		    }
+		});
+		jButtonFind.setIcon(newIcon1);
+		jButtonFind.setFont(new Font("Candara", Font.BOLD, 12));
+		jButtonFind.setBorderPainted(false);
+		jButtonFind.setBorder(null);
+		jButtonFind.setBounds(868, 267, 30, 30); 
+
+		jPanel1.add(jButtonFind);
+
 		
 		
 	
@@ -354,8 +390,8 @@ public class AdminFrame extends javax.swing.JFrame {
 		lblLogo = new JLabel("");
 		ImageIcon logoIcon = new ImageIcon(AdminFrame.class.getResource("/EMPLOYEE.png"));
 		// Resize the image to fit 128x128 while maintaining aspect ratio
-		Image img = logoIcon.getImage().getScaledInstance(160, 128, Image.SCALE_SMOOTH);
-		logoIcon = new ImageIcon(img);
+		Image img1 = logoIcon.getImage().getScaledInstance(160, 128, Image.SCALE_SMOOTH);
+		logoIcon = new ImageIcon(img1);
 		lblLogo.setIcon(logoIcon);
 		lblLogo.setPreferredSize(new Dimension(160, 128));
 		lblLogo.setBounds(10, 27, 160, 128);  // Adjust the bounds accordingly
@@ -386,11 +422,7 @@ public class AdminFrame extends javax.swing.JFrame {
 		setLocationRelativeTo(null);
 	}
 
-	
 	protected void jButtonInsertActionPerformed(ActionEvent e) {
-		
-	}
-	protected void jButtonDeleteActionPerformed(ActionEvent e) {
 		
 	}
 	protected void jButtonUpdateActionPerformed(ActionEvent e) {
@@ -428,16 +460,6 @@ public class AdminFrame extends javax.swing.JFrame {
 		tableEmployee.setModel(model);
 	}
 
-	protected void comboBox_yearActionPerformed(ActionEvent e) {
-		yearSelected = comboBox_year.getSelectedItem().toString();
-	}
-	protected void comboBox_MonthActionPerformed(ActionEvent e) {
-		monthSelected = comboBox_Month.getSelectedItem().toString();
-	}
-	protected void comboBox_DayActionPerformed(ActionEvent e) {
-		daySelected = comboBox_Day.getSelectedItem().toString();
-	}
-
 	protected void btnPreviousActionPerformed(ActionEvent e) {
 		if (firstPage > 1) {
 			firstPage--;
@@ -456,5 +478,11 @@ public class AdminFrame extends javax.swing.JFrame {
 		lblStatusPage.setText(firstPage + "/" + totalPage.intValue());
 		loadData();
 
+	}
+	protected void jButtonCreateActionPerformed(ActionEvent e) {
+		
+	}
+	protected void jButtonFindActionPerformed(ActionEvent e) {
+		
 	}
 }
