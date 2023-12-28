@@ -53,8 +53,6 @@ public class AdminFrame extends javax.swing.JFrame {
 		private javax.swing.JButton jButton4;
 		private javax.swing.JDesktopPane jDesktopPane1;
 		private javax.swing.JLabel jLabel1;
-		private javax.swing.JLabel jLabel5;
-		private javax.swing.JLabel jLabeltime;
 		private javax.swing.JPanel jPanel1;
 		private JLabel lblLogo;
 		private JLabel lblNewLabel;
@@ -167,7 +165,6 @@ public class AdminFrame extends javax.swing.JFrame {
 		jButton13 = new javax.swing.JButton();
 		jButton14 = new javax.swing.JButton();
 		Horizontal_Panel = new javax.swing.JPanel();
-		jLabeltime = new javax.swing.JLabel();
 		jLabel1 = new javax.swing.JLabel();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -405,11 +402,6 @@ public class AdminFrame extends javax.swing.JFrame {
 		Horizontal_Panel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 5, true));
 		Horizontal_Panel.setLayout(null);
 
-		jLabeltime.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
-		jLabeltime.setForeground(new java.awt.Color(255, 255, 255));
-		Horizontal_Panel.add(jLabeltime);
-		jLabeltime.setBounds(1080, 40, 110, 30);
-
 		jLabel1.setFont(new java.awt.Font("Candara", 1, 48)); // NOI18N
 		jLabel1.setForeground(new Color(0, 0, 0));
 		jLabel1.setText("Employee Attendance System");
@@ -418,14 +410,6 @@ public class AdminFrame extends javax.swing.JFrame {
 
 		getContentPane().add(Horizontal_Panel);
 		Horizontal_Panel.setBounds(0, 0, 1190, 100);
-		jLabel5 = new javax.swing.JLabel();
-		jLabel5.setBounds(170, 20, 90, 30);
-		Horizontal_Panel.add(jLabel5);
-
-		jLabel5.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
-		jLabel5.setForeground(new Color(0, 0, 0));
-		jLabel5.setText("Admin Panel");
-		jLabel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 		
 		lblNewLabel = new JLabel("");
 		ImageIcon aptechLogoIcon = new ImageIcon(AdminFrame.class.getResource("/aptech_logo.png"));
