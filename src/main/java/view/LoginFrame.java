@@ -319,16 +319,21 @@ public class LoginFrame extends javax.swing.JFrame {
 	    if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
 	    	String password = Helper.changeToMD5(String.valueOf(jPasswordField2.getPassword()));
 		    AccountDAO dao = new AccountDAO();
-		    if(dao.Login(jTextField2.getText(), password)) {
-	            JOptionPane.showMessageDialog(this, "Welcome");
+		    if(dao.checkRoleManager(jTextField2.getText())) {
+		    	if(dao.Login(jTextField2.getText(), password)) {
+		            JOptionPane.showMessageDialog(this, "Welcome");
 
-	            AdminFrame adminf = new AdminFrame();
-	            adminf.setVisible(true);
-	            this.dispose();
+		            AdminFrame adminf = new AdminFrame();
+		            adminf.setVisible(true);
+		            this.dispose();
 
+			    }else {
+			    	 JOptionPane.showMessageDialog(this, "Invalid Username or Password", "Invalid",
+		                     JOptionPane.WARNING_MESSAGE);
+			    }
 		    }else {
-		    	 JOptionPane.showMessageDialog(this, "Invalid Username or Password", "Invalid",
-	                     JOptionPane.WARNING_MESSAGE);
+		    	JOptionPane.showMessageDialog(this, "Invalid Username or Password", "Invalid",
+	                    JOptionPane.WARNING_MESSAGE);
 		    }
 	    }
 	}
