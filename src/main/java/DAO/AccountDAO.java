@@ -84,6 +84,26 @@ public class AccountDAO {
 		}
 		return null;
 	}
+	public String getUserNameFromEmail(String email) {
+		try {
+			Connection con = JdbcUlti.getConnection();
+			String sql = "select username from account where email=?";
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setString(1, email);
+			ResultSet rs = statement.executeQuery();
+
+			while (rs.next()) {
+				return rs.getString("username");
+			}
+
+			JdbcUlti.closeConnection(con);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	
 
 	public String getEmployeePasswordByUsernameAndEmail(String username, String email) {
 		String password = null;
