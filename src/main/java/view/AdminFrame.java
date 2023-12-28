@@ -412,8 +412,8 @@ public class AdminFrame extends javax.swing.JFrame {
 		
 		lblNewLabel = new JLabel("");
 		ImageIcon aptechLogoIcon = new ImageIcon(AdminFrame.class.getResource("/aptech_logo.png"));
-		Image img2 = aptechLogoIcon.getImage().getScaledInstance(140, 62, Image.SCALE_SMOOTH);
-		aptechLogoIcon = new ImageIcon(img2);
+		Image img21 = aptechLogoIcon.getImage().getScaledInstance(140, 62, Image.SCALE_SMOOTH);
+		aptechLogoIcon = new ImageIcon(img21);
 		lblNewLabel.setIcon(aptechLogoIcon);
 		lblNewLabel.setBounds(10, 11, 150, 79);
 		Horizontal_Panel.add(lblNewLabel);
