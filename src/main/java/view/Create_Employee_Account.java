@@ -196,5 +196,6 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
 	protected void btnNewButtonActionPerformed(ActionEvent e) {
+		
 	}
 }
