@@ -316,7 +316,7 @@ public class AdminFrame extends javax.swing.JFrame {
 
 		jButton13.setBackground(new java.awt.Color(255, 255, 255));
 		jButton13.setFont(new Font("Candara", Font.BOLD, 14)); // NOI18N
-		jButton13.setText("<html>Manage Employee <br>&nbsp Work Schedule</html>");
+		jButton13.setText("<html>Employee Errors  <br> And Leave Days </html>");
 		jButton13.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
 		jButton13.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 		
@@ -325,7 +325,7 @@ public class AdminFrame extends javax.swing.JFrame {
 
 		jButton14.setBackground(new java.awt.Color(255, 255, 255));
 		jButton14.setFont(new Font("Candara", Font.BOLD, 14)); // NOI18N
-		jButton14.setText("<html>Review Leave Requests </html>");
+		jButton14.setText("<html>Review Employee<br>&nbsp &nbsp &nbsp&nbsp&nbsp&nbsp&nbsp Report </html>");
 		jButton14.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
 		
 		Vertical_Panel.add(jButton14);
