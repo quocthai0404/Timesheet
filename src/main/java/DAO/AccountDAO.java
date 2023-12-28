@@ -28,8 +28,8 @@ public class AccountDAO {
 			ResultSet rs = statement.executeQuery(sql);
 
 			while (rs.next()) {
-				list.add(new Account(rs.getInt("account_id"), rs.getInt("employee_id"), rs.getString("username"),
-						rs.getString("password"), rs.getString("email")));
+				list.add(new Account(rs.getInt("account_id"), rs.getInt("employee_id"), rs.getString("tendangnhap"),
+						rs.getString("matkhau"), rs.getString("email")));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -155,31 +155,27 @@ public class AccountDAO {
 	}
 	
 	public Boolean checkRoleManager(String username) {
-	    Connection con = null; 
-	    
-	    try {
-	        con = JdbcUlti.getConnection();
-	        String sql = "select employee.position from account\r\n"
-	                + "	join employee on account.employee_id = employee.employee_id\r\n"
-	                + "	where account.username=?";
-	        PreparedStatement statement = con.prepareStatement(sql);
-	        statement.setString(1, username);
-	        ResultSet rs = statement.executeQuery();
-	        while(rs.next()) {
-	            String position = rs.getString(1);
-	            System.out.println("Position for user " + username + ": " + position);
-	            
-	            if(position.equals("manager")) {
-	                return true;
-	            }
-	        }
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	    } finally {
-	        JdbcUlti.closeConnection(con);
-	    }
-	    return false;
+		Connection con = null; 
+		
+		try {
+			con = JdbcUlti.getConnection();
+			String sql = "select employee.position from account\r\n"
+					+ "	join employee on account.employee_id = employee.employee_id\r\n"
+					+ "	where account.username=?";
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setString(1, username);
+			ResultSet rs = statement.executeQuery();
+			while(rs.next()) {
+				if(rs.getString(1).equals("manager")) {
+					return true;
+				}
+			}
+		} catch (Exception e) {
+			
+		}finally {
+			JdbcUlti.closeConnection(con);
+		}
+		return false;
 	}
-
 
 }
