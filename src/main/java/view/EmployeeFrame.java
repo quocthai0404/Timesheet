@@ -40,6 +40,8 @@ import javax.swing.border.LineBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 /**
  *
@@ -163,6 +165,11 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		getContentPane().add(jPanel2);
 		
 		jButton1 = new JButton();
+		jButton1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				jButton1ActionPerformed(e);
+			}
+		});
 		jButton1.setIcon(new ImageIcon(EmployeeFrame.class.getResource("/Student.png")));
 		jButton1.setText("Infor");
 		jButton1.setOpaque(false);
@@ -195,14 +202,14 @@ public class EmployeeFrame extends javax.swing.JFrame {
 
 		setSize(new java.awt.Dimension(1016, 589));
 		setLocationRelativeTo(null);
-	}// </editor-fold>//GEN-END:initComponents
+	}
 
-	private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton3ActionPerformed
+	private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
 
 		jDesktopPane1.removeAll();
 	}
 
-	private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton7ActionPerformed
+	private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {
 		try {
 			int response = JOptionPane.showConfirmDialog(null,
 					"You have clicked Exit. \n Do you want to close the window?", "Confirm", JOptionPane.YES_NO_OPTION,
@@ -278,4 +285,6 @@ public class EmployeeFrame extends javax.swing.JFrame {
 	private JLabel lblEmployeeFrame;
 	private JLabel lblNewLabel_1;
 	private JButton jButton1;
+	protected void jButton1ActionPerformed(ActionEvent e) {
+	}
 }

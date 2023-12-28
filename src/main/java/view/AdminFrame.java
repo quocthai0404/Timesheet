@@ -20,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 //import com.itextpdf.text.Image;
 import attendancems_with_prepared22.NewBatchInternalFrame;
+import attendancems_with_prepared22.NewTeacherInternalFrame;
 import database.JdbcUlti;
 
 import javax.swing.JTextField;
@@ -115,7 +116,17 @@ public class AdminFrame extends javax.swing.JFrame {
 		Vertical_Panel = new javax.swing.JPanel();
 		jButton4 = new javax.swing.JButton();
 		jButton11 = new javax.swing.JButton();
+		jButton11.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				jButton11ActionPerformed(e);
+			}
+		});
 		jButton12 = new javax.swing.JButton();
+		jButton12.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				jButton12ActionPerformed(e);
+			}
+		});
 		jButton13 = new javax.swing.JButton();
 		jButton14 = new javax.swing.JButton();
 		Horizontal_Panel = new javax.swing.JPanel();
@@ -192,12 +203,12 @@ public class AdminFrame extends javax.swing.JFrame {
 		
 		rdbtnMale = new JRadioButton("Male");
 		rdbtnMale.setBackground(new Color(128, 255, 255));
-		rdbtnMale.setBounds(557, 101, 47, 23);
+		rdbtnMale.setBounds(557, 101, 72, 23);
 		jPanel1.add(rdbtnMale);
 		
 		rdbtnFemale = new JRadioButton("Female");
 		rdbtnFemale.setBackground(new Color(128, 255, 255));
-		rdbtnFemale.setBounds(647, 101, 59, 23);
+		rdbtnFemale.setBounds(647, 101, 90, 23);
 		jPanel1.add(rdbtnFemale);
 		
 		jScrollPane1 = new JScrollPane();
@@ -389,4 +400,17 @@ public class AdminFrame extends javax.swing.JFrame {
 	protected void jButtonViewAllActionPerformed(ActionEvent e) {
 		
 	}
+	protected void jButton12ActionPerformed(ActionEvent e) {
+		Create_Employee_Account create_employee_account = new Create_Employee_Account();
+        jDesktopPane1.removeAll();
+        jDesktopPane1.add(create_employee_account);
+        create_employee_account.show();
+	}
+	
+	protected void jButton11ActionPerformed(ActionEvent e) {
+		 jDesktopPane1.removeAll();
+	     jDesktopPane1.add(jPanel1);
+	     jPanel1.show();
+	}
+
 }
