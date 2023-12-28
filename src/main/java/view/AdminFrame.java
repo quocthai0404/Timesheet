@@ -34,8 +34,14 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
-import javax.swing.JTable;	
+import javax.swing.JTable;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;	
+
 
 public class AdminFrame extends javax.swing.JFrame {
 	JdbcUlti cn;
@@ -62,19 +68,21 @@ public class AdminFrame extends javax.swing.JFrame {
 		private JLabel Gender;
 		private JTextField textPosition;
 		private JLabel Birthday;
-		private JDateChooser jDateChooser1;
 		private JRadioButton rdbtnMale;
 		private JRadioButton rdbtnFemale;
 		private JScrollPane jScrollPane1;
 		private JButton jButtonInsert;
 		private JButton jButtonDelete;
 		private JButton jButtonUpdate;
-		private JButton jButtonClear;
-		private JButton jButtonViewAll;
-		private JTable tableEmployee;
-		private Double totalPage;
-		private int rowOfPage = 25;
+
+		private JButton btnPrevious;
+		private JLabel lblStatusPage;
+		private JButton btnNext;
 		private int firstPage = 1;
+		private int rowOfPage = 10;
+		private Double totalPage;
+		private JTable tableEmployee;
+
 	/**
 	 * Creates new form AdminFrame
 	 */
@@ -117,7 +125,7 @@ public class AdminFrame extends javax.swing.JFrame {
 	}
 
 	@SuppressWarnings("unchecked")
-
+	
 	private void initComponents() {
 
 		jDesktopPane1 = new javax.swing.JDesktopPane();
@@ -207,10 +215,6 @@ public class AdminFrame extends javax.swing.JFrame {
 		Birthday.setBounds(451, 140, 91, 30);
 		jPanel1.add(Birthday);
 		
-		jDateChooser1 = new JDateChooser();
-		jDateChooser1.setBounds(557, 140, 180, 30);
-		jPanel1.add(jDateChooser1);
-		
 		rdbtnMale = new JRadioButton("Male");
 		rdbtnMale.setBackground(new Color(128, 255, 255));
 		rdbtnMale.setBounds(557, 101, 72, 23);
@@ -223,7 +227,7 @@ public class AdminFrame extends javax.swing.JFrame {
 		
 		jScrollPane1 = new JScrollPane();
 		jScrollPane1.setOpaque(false);
-		jScrollPane1.setBounds(65, 347, 860, 170);
+		jScrollPane1.setBounds(65, 308, 860, 170);
 		jPanel1.add(jScrollPane1);
 		
 		tableEmployee = new JTable();
@@ -239,7 +243,7 @@ public class AdminFrame extends javax.swing.JFrame {
 		jButtonInsert.setFont(new Font("Candara", Font.BOLD, 12));
 		jButtonInsert.setBorderPainted(false);
 		jButtonInsert.setBorder(null);
-		jButtonInsert.setBounds(65, 306, 110, 30);
+		jButtonInsert.setBounds(65, 267, 110, 30);
 		jPanel1.add(jButtonInsert);
 		
 		jButtonDelete = new JButton();
@@ -251,7 +255,7 @@ public class AdminFrame extends javax.swing.JFrame {
 		jButtonDelete.setIcon(new ImageIcon(AdminFrame.class.getResource("/remove.png")));
 		jButtonDelete.setBorderPainted(false);
 		jButtonDelete.setBorder(null);
-		jButtonDelete.setBounds(258, 306, 100, 30);
+		jButtonDelete.setBounds(256, 267, 100, 30);
 		jPanel1.add(jButtonDelete);
 		
 		jButtonUpdate = new JButton();
@@ -264,35 +268,36 @@ public class AdminFrame extends javax.swing.JFrame {
 		jButtonUpdate.setFont(new Font("Candara", Font.BOLD, 12));
 		jButtonUpdate.setBorderPainted(false);
 		jButtonUpdate.setBorder(null);
-		jButtonUpdate.setBounds(439, 306, 110, 30);
+		jButtonUpdate.setBounds(432, 267, 110, 30);
 		jPanel1.add(jButtonUpdate);
-		
-		jButtonClear = new JButton();
-		jButtonClear.addActionListener(new ActionListener() {
+			
+		btnPrevious = new JButton("Previous");
+		btnPrevious.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				jButtonClearActionPerformed(e);
+				btnPreviousActionPerformed(e);
 			}
 		});
-		jButtonClear.setIcon(new ImageIcon(AdminFrame.class.getResource("/clear.png")));
-		jButtonClear.setFont(new Font("Candara", Font.BOLD, 12));
-		jButtonClear.setBorderPainted(false);
-		jButtonClear.setBorder(null);
-		jButtonClear.setBounds(615, 306, 110, 30);
-		jPanel1.add(jButtonClear);
+		btnPrevious.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		btnPrevious.setBounds(65, 489, 103, 33);
+		jPanel1.add(btnPrevious);
 		
-		jButtonViewAll = new JButton();
-		jButtonViewAll.addActionListener(new ActionListener() {
+		lblStatusPage = new JLabel("1/3");
+		lblStatusPage.setBounds(475, 499, 35, 14);
+		jPanel1.add(lblStatusPage);
+		
+		btnNext = new JButton("Next");
+		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				jButtonViewAllActionPerformed(e);
+				btnNextActionPerformed(e);
 			}
 		});
-		jButtonViewAll.setIcon(new ImageIcon(AdminFrame.class.getResource("/viewAll.png")));
-		jButtonViewAll.setFont(new Font("Candara", Font.BOLD, 12));
-		jButtonViewAll.setBorderPainted(false);
-		jButtonViewAll.setBorder(null);
-		jButtonViewAll.setBounds(815, 306, 110, 30);
-		jPanel1.add(jButtonViewAll);
-
+		btnNext.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		btnNext.setBounds(822, 495, 103, 33);
+		jPanel1.add(btnNext);
+		
+		
+	
+		
 		getContentPane().add(jDesktopPane1);
 		jDesktopPane1.setBounds(200, 100, 990, 550);
 
@@ -407,12 +412,6 @@ public class AdminFrame extends javax.swing.JFrame {
 	protected void jButtonUpdateActionPerformed(ActionEvent e) {
 		
 	}
-	protected void jButtonClearActionPerformed(ActionEvent e) {
-		
-	}
-	protected void jButtonViewAllActionPerformed(ActionEvent e) {
-		
-	}
 	protected void jButton12ActionPerformed(ActionEvent e) {
 		Create_Employee_Account create_employee_account = new Create_Employee_Account();
         jDesktopPane1.removeAll();
@@ -426,6 +425,7 @@ public class AdminFrame extends javax.swing.JFrame {
 	     jPanel1.show();
 	}
 	
+
 	public void loadData() {
 		DefaultTableModel model = new DefaultTableModel();
 		model.addColumn("ID");
@@ -442,5 +442,35 @@ public class AdminFrame extends javax.swing.JFrame {
 		});
 //		lblStatusPage.setText(firstPage + "/" + totalPage.intValue());
 		tableEmployee.setModel(model);
+	}
+
+	protected void comboBox_yearActionPerformed(ActionEvent e) {
+		yearSelected = comboBox_year.getSelectedItem().toString();
+	}
+	protected void comboBox_MonthActionPerformed(ActionEvent e) {
+		monthSelected = comboBox_Month.getSelectedItem().toString();
+	}
+	protected void comboBox_DayActionPerformed(ActionEvent e) {
+		daySelected = comboBox_Day.getSelectedItem().toString();
+	}
+
+	protected void btnPreviousActionPerformed(ActionEvent e) {
+		if (firstPage > 1) {
+			firstPage--;
+		}
+
+		lblStatusPage.setText(firstPage + "/" + totalPage.intValue());
+		loadData();
+	}
+	protected void btnNextActionPerformed(ActionEvent e) {
+		EmployeeDAO dao = new EmployeeDAO();
+		totalPage = Math.ceil(dao.countRow() / Double.valueOf(rowOfPage));
+		if (firstPage < totalPage) {
+			firstPage++;
+		}
+
+		lblStatusPage.setText(firstPage + "/" + totalPage.intValue());
+		loadData();
+
 	}
 }
