@@ -34,12 +34,14 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;	
+
 
 public class AdminFrame extends javax.swing.JFrame {
 	JdbcUlti cn;
@@ -70,9 +72,7 @@ public class AdminFrame extends javax.swing.JFrame {
 		private JButton jButtonInsert;
 		private JButton jButtonDelete;
 		private JButton jButtonUpdate;
-		private String yearSelected;
-		private String monthSelected;
-		private String daySelected;
+
 		private JButton btnPrevious;
 		private JLabel lblStatusPage;
 		private JButton btnNext;
@@ -80,10 +80,7 @@ public class AdminFrame extends javax.swing.JFrame {
 		private int rowOfPage = 10;
 		private Double totalPage;
 		private JTable tableEmployee;
-		private JComboBox comboBox_year;
-		private JComboBox comboBox_Month;
-		private JComboBox comboBox_Day;
-		
+
 	/**
 	 * Creates new form AdminFrame
 	 */
@@ -121,28 +118,12 @@ public class AdminFrame extends javax.swing.JFrame {
 				}
 			}
 		};
-
+		loadData();
 		t.start();
 	}
 
 	@SuppressWarnings("unchecked")
-	public void loadData() {
-		DefaultTableModel model = new DefaultTableModel();
-		model.addColumn("ID");
-		model.addColumn("Employee Name");
-		model.addColumn("Position");
-		model.addColumn("Birthday");
-		model.addColumn("Gender");
-		EmployeeDAO dao = new EmployeeDAO();
-		totalPage = Math.ceil(dao.countRow() / Double.valueOf(rowOfPage));
-		dao.selectPaginateEmp(firstPage, rowOfPage).stream().forEach(emp -> {
-			String gender = emp.getGender() ? "Male" : "Female";
-			model.addRow(new Object[] { emp.getEmployee_id(), emp.getEmployee_name(), emp.getPosition(),
-					emp.getBirthday(), gender });
-		});
-		lblStatusPage.setText(firstPage + "/" + totalPage.intValue());
-		tableEmployee.setModel(model);
-	}
+	
 	private void initComponents() {
 
 		jDesktopPane1 = new javax.swing.JDesktopPane();
@@ -247,12 +228,6 @@ public class AdminFrame extends javax.swing.JFrame {
 		jPanel1.add(jScrollPane1);
 		
 		tableEmployee = new JTable();
-		tableEmployee.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				tableEmployeeMouseClicked(e);
-			}
-		});
 		jScrollPane1.setViewportView(tableEmployee);
 		
 		jButtonInsert = new JButton();
@@ -317,20 +292,8 @@ public class AdminFrame extends javax.swing.JFrame {
 		btnNext.setBounds(822, 495, 103, 33);
 		jPanel1.add(btnNext);
 		
-		comboBox_year = new JComboBox();
-		comboBox_year.setSelectedIndex(0);
-		comboBox_year.setBounds(548, 142, 64, 28);
-		jPanel1.add(comboBox_year);
 		
-		comboBox_Month = new JComboBox();
-		comboBox_Month.setSelectedIndex(0);
-		comboBox_Month.setBounds(647, 142, 57, 28);
-		jPanel1.add(comboBox_Month);
-		
-		comboBox_Day = new JComboBox();
-		comboBox_Day.setSelectedIndex(0);
-		comboBox_Day.setBounds(734, 142, 57, 28);
-		jPanel1.add(comboBox_Day);
+	
 		
 		getContentPane().add(jDesktopPane1);
 		jDesktopPane1.setBounds(200, 100, 990, 550);
@@ -446,6 +409,25 @@ public class AdminFrame extends javax.swing.JFrame {
 	     jPanel1.show();
 	}
 	
+
+	public void loadData() {
+		DefaultTableModel model = new DefaultTableModel();
+		model.addColumn("ID");
+		model.addColumn("Employee Name");
+		model.addColumn("Position");
+		model.addColumn("Birthday");
+		model.addColumn("Gender");
+		EmployeeDAO dao = new EmployeeDAO();
+		totalPage = Math.ceil(dao.countRow() / Double.valueOf(rowOfPage));
+		dao.selectPaginateEmp(firstPage, rowOfPage).stream().forEach(emp -> {
+			String gender = emp.getGender() ? "Male" : "Female";
+			model.addRow(new Object[] { emp.getEmployee_id(), emp.getEmployee_name(), emp.getPosition(),
+					emp.getBirthday(), gender });
+		});
+//		lblStatusPage.setText(firstPage + "/" + totalPage.intValue());
+		tableEmployee.setModel(model);
+	}
+
 	protected void comboBox_yearActionPerformed(ActionEvent e) {
 		yearSelected = comboBox_year.getSelectedItem().toString();
 	}
@@ -474,32 +456,5 @@ public class AdminFrame extends javax.swing.JFrame {
 		lblStatusPage.setText(firstPage + "/" + totalPage.intValue());
 		loadData();
 
-	}
-	protected void tableEmployeeMouseClicked(MouseEvent e) {
-		if (e.getButton() == MouseEvent.BUTTON1) {
-			int row = tableEmployee.getSelectedRow();
-			textEmp_ID.setText(tableEmployee.getValueAt(row, 0).toString());
-			textEmp_Name.setText(tableEmployee.getValueAt(row, 1).toString());
-			textPosition.setText(tableEmployee.getValueAt(row, 2).toString());
-
-			String date = tableEmployee.getValueAt(row, 3).toString();
-			String[] parts = date.split("-");
-
-			comboBox_year.setSelectedIndex(Integer.parseInt(parts[0]) - 1950);
-			comboBox_Month.setSelectedIndex(Integer.parseInt(parts[1]) - 1);
-			comboBox_Day.setSelectedIndex(Integer.parseInt(parts[2]) - 1);
-
-			if (tableEmployee.getValueAt(row, 4).toString().equals("Male")) {
-				rdbtnMale.setSelected(true);
-			} else {
-				rdbtnFemale.setSelected(true);
-			}
-			
-			if(textPosition.getText().equals("manager")) {
-				jButtonInsert.setEnabled(false);
-			}else {
-				jButtonInsert.setEnabled(true);
-			}
-		}
 	}
 }
