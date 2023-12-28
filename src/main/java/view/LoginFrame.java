@@ -284,58 +284,30 @@ public class LoginFrame extends javax.swing.JFrame {
 		jPasswordField2.setText("");
 	}
 
-//	private void AdminloginButtonActionPerformed(java.awt.event.ActionEvent evt) {
-//		//manager login
-//		String password = Helper.changeToMD5(String.valueOf(jPasswordField2.getPassword()));
-//	    AccountDAO dao = new AccountDAO();
-//	    if(dao.checkRoleManager(jTextField2.getText())) {
-//	    	if(dao.Login(jTextField2.getText(), password)) {
-//	            JOptionPane.showMessageDialog(this, "Welcome");
-//
-//	            AdminFrame adminf = new AdminFrame();
-//	            adminf.setVisible(true);
-//	            this.dispose();
-//
-//		    }else {
-//		    	 JOptionPane.showMessageDialog(this, "Invalid Username or Password", "Invalid",
-//	                     JOptionPane.WARNING_MESSAGE);
-//		    	 System.out.println("Invalid username or password for admin: " + jTextField2.getText());
-//		    
-//		    }
-//	    }else {
-//	    	JOptionPane.showMessageDialog(this, "Invalid Username or Password", "Invalid",
-//                    JOptionPane.WARNING_MESSAGE);
-//	    	 System.out.println("Invalid username or password for admin: " + jTextField2.getText());
-//	    }
-//	}
-	//...
-
 	private void AdminloginButtonActionPerformed(java.awt.event.ActionEvent evt) {
-	    try {
-	        Connection connection = JdbcUlti.getConnection();
-	        String hashedPassword = Helper.changeToMD5(new String(jPasswordField2.getPassword()));
-	        CallableStatement adminLogin = connection.prepareCall("select * from admin where username = ? and password = ?");
-	        adminLogin.setString(1, jTextField2.getText());
-	        adminLogin.setString(2, hashedPassword);
-	        ResultSet rs = adminLogin.executeQuery();
+		//manager login
+		String password = Helper.changeToMD5(String.valueOf(jPasswordField2.getPassword()));
+	    AccountDAO dao = new AccountDAO();
+	    if(dao.checkRoleManager(jTextField2.getText())) {
+	    	if(dao.Login(jTextField2.getText(), password)) {
+	            JOptionPane.showMessageDialog(this, "Welcome");
 
-	        if (rs.next()) {
-	            JOptionPane.showMessageDialog(this, "Login success");
 	            AdminFrame adminf = new AdminFrame();
 	            adminf.setVisible(true);
 	            this.dispose();
-	        } else {
-	            JOptionPane.showMessageDialog(this, "Invalid Username or Password", "Invalid",
-	                    JOptionPane.WARNING_MESSAGE);
-	        }
-	        rs.close();
-	        adminLogin.close();
-	        connection.close();
-	    } catch (SQLException ex) {  
-	        ex.printStackTrace();
-	        JOptionPane.showMessageDialog(this, "Error during login", "Error", JOptionPane.ERROR_MESSAGE);
+
+		    }else {
+		    	 JOptionPane.showMessageDialog(this, "Invalid Username or Password", "Invalid",
+	                     JOptionPane.WARNING_MESSAGE);
+	
+		    
+		    }
+	    }else {
+	    	JOptionPane.showMessageDialog(this, "Invalid Username or Password", "Invalid",
+                    JOptionPane.WARNING_MESSAGE);
 	    }
 	}
+	
 
 
 	private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {
