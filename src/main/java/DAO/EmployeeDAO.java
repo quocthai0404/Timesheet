@@ -142,5 +142,25 @@ public class EmployeeDAO {
 		return list;
 	}
 	////////////////////////////
+	public List<Employee> findName(String name) {
+		List<Employee> list = new ArrayList<>();
+		try {
+			Connection con = JdbcUlti.getConnection();
 
+			String sql = "select * from employee\r\n"
+					+ "  where employee_name = ?";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setString(1, name);
+
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				list.add(new Employee(rs.getInt("employee_id"), rs.getString("employee_name"), rs.getString("position"),
+						rs.getDate("birthday"), rs.getBoolean("gender")));
+			}
+			JdbcUlti.closeConnection(con);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
 }
