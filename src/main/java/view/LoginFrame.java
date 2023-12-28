@@ -25,7 +25,7 @@ import javax.swing.plaf.FontUIResource;
 import DAO.AccountDAO;
 import attendancems_with_prepared22.AttendFrame;
 import database.JdbcUlti;
-
+import entity.EmployeeAfterLogin;
 import helper.Helper;
 
 import javax.swing.ImageIcon;
@@ -251,7 +251,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
 	            ef.setVisible(true);
                 this.dispose();
-
+               
 		    }else {
 		    	 JOptionPane.showMessageDialog(this, "Invalid Username or Password", "Invalid",
 	                     JOptionPane.WARNING_MESSAGE);
@@ -295,6 +295,7 @@ public class LoginFrame extends javax.swing.JFrame {
 	            AdminFrame adminf = new AdminFrame();
 	            adminf.setVisible(true);
 	            this.dispose();
+	            
 
 		    }else {
 		    	 JOptionPane.showMessageDialog(this, "Invalid Username or Password", "Invalid",
@@ -322,6 +323,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
 		            ef.setVisible(true);
 	                this.dispose();
+	                
 
 			    }else {
 			    	 JOptionPane.showMessageDialog(this, "Invalid Username or Password", "Invalid",
@@ -345,6 +347,7 @@ public class LoginFrame extends javax.swing.JFrame {
 		            AdminFrame adminf = new AdminFrame();
 		            adminf.setVisible(true);
 		            this.dispose();
+		            
 
 			    }else {
 			    	 JOptionPane.showMessageDialog(this, "Invalid Username or Password", "Invalid",
