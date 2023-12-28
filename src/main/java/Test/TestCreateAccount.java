@@ -15,7 +15,7 @@ public class TestCreateAccount {
 
 	public static void main(String[] args) {
 		TestCreateAccount tc = new TestCreateAccount();
-		tc.SignUp("manaaccount", "adminthaiphan");
+		tc.SignUp("manager", "manager");
 //		tc.login("newaccount2", "adminthaiphan");
 
 	}
