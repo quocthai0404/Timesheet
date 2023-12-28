@@ -390,8 +390,8 @@ public class AdminFrame extends javax.swing.JFrame {
 		lblLogo = new JLabel("");
 		ImageIcon logoIcon = new ImageIcon(AdminFrame.class.getResource("/EMPLOYEE.png"));
 		// Resize the image to fit 128x128 while maintaining aspect ratio
-		Image img1 = logoIcon.getImage().getScaledInstance(160, 128, Image.SCALE_SMOOTH);
-		logoIcon = new ImageIcon(img1);
+		Image img2 = logoIcon.getImage().getScaledInstance(160, 128, Image.SCALE_SMOOTH);
+		logoIcon = new ImageIcon(img2);
 		lblLogo.setIcon(logoIcon);
 		lblLogo.setPreferredSize(new Dimension(160, 128));
 		lblLogo.setBounds(10, 27, 160, 128);  // Adjust the bounds accordingly
