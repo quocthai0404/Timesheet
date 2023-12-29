@@ -20,15 +20,31 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 //import com.itextpdf.text.Image;
 import attendancems_with_prepared22.NewBatchInternalFrame;
+import attendancems_with_prepared22.NewTeacherInternalFrame;
 import database.JdbcUlti;
 
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
 import com.toedter.calendar.JDateChooser;
+
+import DAO.EmployeeDAO;
+
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;	
+
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.awt.event.ActionEvent;
+import javax.swing.JTable;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;	
+
 
 public class AdminFrame extends javax.swing.JFrame {
 	JdbcUlti cn;
@@ -42,8 +58,6 @@ public class AdminFrame extends javax.swing.JFrame {
 		private javax.swing.JButton jButton4;
 		private javax.swing.JDesktopPane jDesktopPane1;
 		private javax.swing.JLabel jLabel1;
-		private javax.swing.JLabel jLabel5;
-		private javax.swing.JLabel jLabeltime;
 		private javax.swing.JPanel jPanel1;
 		private JLabel lblLogo;
 		private JLabel lblNewLabel;
@@ -55,15 +69,23 @@ public class AdminFrame extends javax.swing.JFrame {
 		private JLabel Gender;
 		private JTextField textPosition;
 		private JLabel Birthday;
-		private JDateChooser jDateChooser1;
 		private JRadioButton rdbtnMale;
 		private JRadioButton rdbtnFemale;
 		private JScrollPane jScrollPane1;
 		private JButton jButtonInsert;
-		private JButton jButtonDelete;
 		private JButton jButtonUpdate;
-		private JButton jButtonClear;
-		private JButton jButtonViewAll;
+
+		private JButton btnPrevious;
+		private JLabel lblStatusPage;
+		private JButton btnNext;
+		private int firstPage = 1;
+		private int rowOfPage = 10;
+		private Double totalPage;
+		private JTable tableEmployee;
+		private JButton jButtonCreate;
+		private JTextField textFind;
+		private JButton jButtonFind;
+
 	/**
 	 * Creates new form AdminFrame
 	 */
@@ -96,17 +118,17 @@ public class AdminFrame extends javax.swing.JFrame {
 					}
 					SimpleDateFormat time = new SimpleDateFormat("hh:mm:ss");
 					Calendar cal = Calendar.getInstance();
-					jLabeltime.setText(time.format(cal.getTime()));
+					
 
 				}
 			}
 		};
-
+		loadData();
 		t.start();
 	}
 
 	@SuppressWarnings("unchecked")
-
+	
 	private void initComponents() {
 
 		jDesktopPane1 = new javax.swing.JDesktopPane();
@@ -115,11 +137,20 @@ public class AdminFrame extends javax.swing.JFrame {
 		Vertical_Panel = new javax.swing.JPanel();
 		jButton4 = new javax.swing.JButton();
 		jButton11 = new javax.swing.JButton();
+		jButton11.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				jButton11ActionPerformed(e);
+			}
+		});
 		jButton12 = new javax.swing.JButton();
+		jButton12.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				jButton12ActionPerformed(e);
+			}
+		});
 		jButton13 = new javax.swing.JButton();
 		jButton14 = new javax.swing.JButton();
 		Horizontal_Panel = new javax.swing.JPanel();
-		jLabeltime = new javax.swing.JLabel();
 		jLabel1 = new javax.swing.JLabel();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -186,24 +217,23 @@ public class AdminFrame extends javax.swing.JFrame {
 		Birthday.setBounds(451, 140, 91, 30);
 		jPanel1.add(Birthday);
 		
-		jDateChooser1 = new JDateChooser();
-		jDateChooser1.setBounds(557, 140, 180, 30);
-		jPanel1.add(jDateChooser1);
-		
 		rdbtnMale = new JRadioButton("Male");
 		rdbtnMale.setBackground(new Color(128, 255, 255));
-		rdbtnMale.setBounds(557, 101, 47, 23);
+		rdbtnMale.setBounds(557, 101, 72, 23);
 		jPanel1.add(rdbtnMale);
 		
 		rdbtnFemale = new JRadioButton("Female");
 		rdbtnFemale.setBackground(new Color(128, 255, 255));
-		rdbtnFemale.setBounds(647, 101, 59, 23);
+		rdbtnFemale.setBounds(647, 101, 90, 23);
 		jPanel1.add(rdbtnFemale);
 		
 		jScrollPane1 = new JScrollPane();
 		jScrollPane1.setOpaque(false);
-		jScrollPane1.setBounds(65, 347, 860, 170);
+		jScrollPane1.setBounds(65, 308, 860, 170);
 		jPanel1.add(jScrollPane1);
+		
+		tableEmployee = new JTable();
+		jScrollPane1.setViewportView(tableEmployee);
 		
 		jButtonInsert = new JButton();
 		jButtonInsert.addActionListener(new ActionListener() {
@@ -215,20 +245,8 @@ public class AdminFrame extends javax.swing.JFrame {
 		jButtonInsert.setFont(new Font("Candara", Font.BOLD, 12));
 		jButtonInsert.setBorderPainted(false);
 		jButtonInsert.setBorder(null);
-		jButtonInsert.setBounds(65, 306, 110, 30);
+		jButtonInsert.setBounds(65, 267, 110, 30);
 		jPanel1.add(jButtonInsert);
-		
-		jButtonDelete = new JButton();
-		jButtonDelete.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				jButtonDeleteActionPerformed(e);
-			}
-		});
-		jButtonDelete.setIcon(new ImageIcon(AdminFrame.class.getResource("/remove.png")));
-		jButtonDelete.setBorderPainted(false);
-		jButtonDelete.setBorder(null);
-		jButtonDelete.setBounds(258, 306, 100, 30);
-		jPanel1.add(jButtonDelete);
 		
 		jButtonUpdate = new JButton();
 		jButtonUpdate.addActionListener(new ActionListener() {
@@ -240,35 +258,79 @@ public class AdminFrame extends javax.swing.JFrame {
 		jButtonUpdate.setFont(new Font("Candara", Font.BOLD, 12));
 		jButtonUpdate.setBorderPainted(false);
 		jButtonUpdate.setBorder(null);
-		jButtonUpdate.setBounds(439, 306, 110, 30);
+		jButtonUpdate.setBounds(432, 267, 110, 30);
 		jPanel1.add(jButtonUpdate);
-		
-		jButtonClear = new JButton();
-		jButtonClear.addActionListener(new ActionListener() {
+			
+		btnPrevious = new JButton("Previous");
+		btnPrevious.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				jButtonClearActionPerformed(e);
+				btnPreviousActionPerformed(e);
 			}
 		});
-		jButtonClear.setIcon(new ImageIcon(AdminFrame.class.getResource("/clear.png")));
-		jButtonClear.setFont(new Font("Candara", Font.BOLD, 12));
-		jButtonClear.setBorderPainted(false);
-		jButtonClear.setBorder(null);
-		jButtonClear.setBounds(615, 306, 110, 30);
-		jPanel1.add(jButtonClear);
+		btnPrevious.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		btnPrevious.setBounds(65, 489, 103, 33);
+		jPanel1.add(btnPrevious);
 		
-		jButtonViewAll = new JButton();
-		jButtonViewAll.addActionListener(new ActionListener() {
+		lblStatusPage = new JLabel("1/3");
+		lblStatusPage.setBounds(475, 499, 35, 14);
+		jPanel1.add(lblStatusPage);
+		
+		btnNext = new JButton("Next");
+		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				jButtonViewAllActionPerformed(e);
+				btnNextActionPerformed(e);
 			}
 		});
-		jButtonViewAll.setIcon(new ImageIcon(AdminFrame.class.getResource("/viewAll.png")));
-		jButtonViewAll.setFont(new Font("Candara", Font.BOLD, 12));
-		jButtonViewAll.setBorderPainted(false);
-		jButtonViewAll.setBorder(null);
-		jButtonViewAll.setBounds(815, 306, 110, 30);
-		jPanel1.add(jButtonViewAll);
+		btnNext.setFont(new Font("Segoe UI", Font.BOLD, 12));
+		btnNext.setBounds(822, 495, 103, 33);
+		jPanel1.add(btnNext);
+		
+		ImageIcon icon = new ImageIcon(AdminFrame.class.getResource("/create.png"));
+		Image img = icon.getImage();
+		Image newImg = img.getScaledInstance(110, 30, java.awt.Image.SCALE_SMOOTH);
+		ImageIcon newIcon = new ImageIcon(newImg);
+		JButton jButtonCreate = new JButton();
+		jButtonCreate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				jButtonCreateActionPerformed(e);
+			}
+		});
+		jButtonCreate.setIcon(newIcon);
+		jButtonCreate.setFont(new Font("Candara", Font.BOLD, 12));
+		jButtonCreate.setBorderPainted(false);
+		jButtonCreate.setBorder(null);
+		jButtonCreate.setBounds(230, 267, 110, 30); // Đặt kích thước JButton tùy thuộc vào kích thước của ảnh
 
+		jPanel1.add(jButtonCreate);
+		
+		textFind = new JTextField();
+		textFind.setFont(new Font("Calibri", Font.BOLD, 14));
+		textFind.setBounds(661, 267, 180, 30);
+		jPanel1.add(textFind);
+		
+		// Load hình ảnh từ tệp tin
+		ImageIcon icon1 = new ImageIcon(AdminFrame.class.getResource("/search.png"));
+		Image img1 = icon1.getImage();
+		Image newImg1 = img1.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
+		ImageIcon newIcon1 = new ImageIcon(newImg1);
+		JButton jButtonFind = new JButton();
+		jButtonFind.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        jButtonFindActionPerformed(e);
+		    }
+		});
+		jButtonFind.setIcon(newIcon1);
+		jButtonFind.setFont(new Font("Candara", Font.BOLD, 12));
+		jButtonFind.setBorderPainted(false);
+		jButtonFind.setBorder(null);
+		jButtonFind.setBounds(868, 267, 30, 30); 
+
+		jPanel1.add(jButtonFind);
+
+		
+		
+	
+		
 		getContentPane().add(jDesktopPane1);
 		jDesktopPane1.setBounds(200, 100, 990, 550);
 
@@ -305,7 +367,7 @@ public class AdminFrame extends javax.swing.JFrame {
 
 		jButton13.setBackground(new java.awt.Color(255, 255, 255));
 		jButton13.setFont(new Font("Candara", Font.BOLD, 14)); // NOI18N
-		jButton13.setText("<html>Manage Employee <br>&nbsp Work Schedule</html>");
+		jButton13.setText("<html>Employee Errors  <br> And Leave Days </html>");
 		jButton13.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
 		jButton13.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 		
@@ -314,7 +376,7 @@ public class AdminFrame extends javax.swing.JFrame {
 
 		jButton14.setBackground(new java.awt.Color(255, 255, 255));
 		jButton14.setFont(new Font("Candara", Font.BOLD, 14)); // NOI18N
-		jButton14.setText("<html>Review Leave Requests </html>");
+		jButton14.setText("<html>Review Employee<br>&nbsp &nbsp &nbsp&nbsp&nbsp&nbsp&nbsp Request </html>");
 		jButton14.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
 		
 		Vertical_Panel.add(jButton14);
@@ -328,8 +390,8 @@ public class AdminFrame extends javax.swing.JFrame {
 		lblLogo = new JLabel("");
 		ImageIcon logoIcon = new ImageIcon(AdminFrame.class.getResource("/EMPLOYEE.png"));
 		// Resize the image to fit 128x128 while maintaining aspect ratio
-		Image img = logoIcon.getImage().getScaledInstance(160, 128, Image.SCALE_SMOOTH);
-		logoIcon = new ImageIcon(img);
+		Image img2 = logoIcon.getImage().getScaledInstance(160, 128, Image.SCALE_SMOOTH);
+		logoIcon = new ImageIcon(img2);
 		lblLogo.setIcon(logoIcon);
 		lblLogo.setPreferredSize(new Dimension(160, 128));
 		lblLogo.setBounds(10, 27, 160, 128);  // Adjust the bounds accordingly
@@ -339,11 +401,6 @@ public class AdminFrame extends javax.swing.JFrame {
 		Horizontal_Panel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 5, true));
 		Horizontal_Panel.setLayout(null);
 
-		jLabeltime.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
-		jLabeltime.setForeground(new java.awt.Color(255, 255, 255));
-		Horizontal_Panel.add(jLabeltime);
-		jLabeltime.setBounds(1080, 40, 110, 30);
-
 		jLabel1.setFont(new java.awt.Font("Candara", 1, 48)); // NOI18N
 		jLabel1.setForeground(new Color(0, 0, 0));
 		jLabel1.setText("Employee Attendance System");
@@ -352,19 +409,11 @@ public class AdminFrame extends javax.swing.JFrame {
 
 		getContentPane().add(Horizontal_Panel);
 		Horizontal_Panel.setBounds(0, 0, 1190, 100);
-		jLabel5 = new javax.swing.JLabel();
-		jLabel5.setBounds(170, 20, 90, 30);
-		Horizontal_Panel.add(jLabel5);
-
-		jLabel5.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
-		jLabel5.setForeground(new Color(0, 0, 0));
-		jLabel5.setText("Admin Panel");
-		jLabel5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 		
 		lblNewLabel = new JLabel("");
 		ImageIcon aptechLogoIcon = new ImageIcon(AdminFrame.class.getResource("/aptech_logo.png"));
-		Image img2 = aptechLogoIcon.getImage().getScaledInstance(140, 62, Image.SCALE_SMOOTH);
-		aptechLogoIcon = new ImageIcon(img2);
+		Image img21 = aptechLogoIcon.getImage().getScaledInstance(140, 62, Image.SCALE_SMOOTH);
+		aptechLogoIcon = new ImageIcon(img21);
 		lblNewLabel.setIcon(aptechLogoIcon);
 		lblNewLabel.setBounds(10, 11, 150, 79);
 		Horizontal_Panel.add(lblNewLabel);
@@ -373,20 +422,82 @@ public class AdminFrame extends javax.swing.JFrame {
 		setLocationRelativeTo(null);
 	}
 
-	
 	protected void jButtonInsertActionPerformed(ActionEvent e) {
-		
-	}
-	protected void jButtonDeleteActionPerformed(ActionEvent e) {
 		
 	}
 	protected void jButtonUpdateActionPerformed(ActionEvent e) {
 		
 	}
-	protected void jButtonClearActionPerformed(ActionEvent e) {
+	protected void jButton12ActionPerformed(ActionEvent e) {
+		Create_Employee_Account create_employee_account = new Create_Employee_Account();
+        jDesktopPane1.removeAll();
+        jDesktopPane1.add(create_employee_account);
+        create_employee_account.show();
+	}
+	
+	protected void jButton11ActionPerformed(ActionEvent e) {
+		 jDesktopPane1.removeAll();
+	     jDesktopPane1.add(jPanel1);
+	     jPanel1.show();
+	}
+	
+
+	public void loadData() {
+		DefaultTableModel model = new DefaultTableModel();
+		model.addColumn("ID");
+		model.addColumn("Employee Name");
+		model.addColumn("Position");
+		model.addColumn("Birthday");
+		model.addColumn("Gender");
+		EmployeeDAO dao = new EmployeeDAO();
+		totalPage = Math.ceil(dao.countRow() / Double.valueOf(rowOfPage));
+		dao.selectPaginateEmp(firstPage, rowOfPage).stream().forEach(emp -> {
+			String gender = emp.getGender() ? "Male" : "Female";
+			model.addRow(new Object[] { emp.getEmployee_id(), emp.getEmployee_name(), emp.getPosition(),
+					emp.getBirthday(), gender });
+		});
+//		lblStatusPage.setText(firstPage + "/" + totalPage.intValue());
+		tableEmployee.setModel(model);
+	}
+
+	protected void btnPreviousActionPerformed(ActionEvent e) {
+		if (firstPage > 1) {
+			firstPage--;
+		}
+
+		lblStatusPage.setText(firstPage + "/" + totalPage.intValue());
+		loadData();
+	}
+	protected void btnNextActionPerformed(ActionEvent e) {
+		EmployeeDAO dao = new EmployeeDAO();
+		totalPage = Math.ceil(dao.countRow() / Double.valueOf(rowOfPage));
+		if (firstPage < totalPage) {
+			firstPage++;
+		}
+
+		lblStatusPage.setText(firstPage + "/" + totalPage.intValue());
+		loadData();
+
+	}
+	protected void jButtonCreateActionPerformed(ActionEvent e) {
 		
 	}
-	protected void jButtonViewAllActionPerformed(ActionEvent e) {
+	protected void jButtonFindActionPerformed(ActionEvent e) {
+		DefaultTableModel model = new DefaultTableModel();
+		model.addColumn("ID");
+		model.addColumn("Employee Name");
+		model.addColumn("Position");
+		model.addColumn("Birthday");
+		model.addColumn("Gender");
+		EmployeeDAO dao = new EmployeeDAO();
+		totalPage = Math.ceil(dao.countRow() / Double.valueOf(rowOfPage));
+		dao.findName(textFind.getText()).stream().forEach(emp -> {
+			String gender = emp.getGender() ? "Male" : "Female";
+			model.addRow(new Object[] { emp.getEmployee_id(), emp.getEmployee_name(), emp.getPosition(),
+					emp.getBirthday(), gender });
+		});
+
 		
+		tableEmployee.setModel(model);
 	}
 }

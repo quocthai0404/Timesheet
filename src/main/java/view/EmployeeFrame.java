@@ -40,6 +40,11 @@ import javax.swing.border.LineBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JTextField;
+import com.toedter.calendar.JDateChooser;
+import javax.swing.JRadioButton;
 
 /**
  *
@@ -101,6 +106,85 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		jDesktopPane1.setPreferredSize(new java.awt.Dimension(800, 550));
 
 		getContentPane().add(jDesktopPane1);
+		
+		Employee_ID = new JLabel();
+		Employee_ID.setText("Employee ID :");
+		Employee_ID.setForeground(Color.BLACK);
+		Employee_ID.setFont(new Font("Candara", Font.BOLD, 14));
+		Employee_ID.setBounds(122, 83, 110, 30);
+		jDesktopPane1.add(Employee_ID);
+		
+		textEmp_ID = new JLabel();
+		textEmp_ID.setForeground(Color.BLACK);
+		textEmp_ID.setFont(new Font("Candara", Font.BOLD, 14));
+		textEmp_ID.setBounds(247, 83, 180, 30);
+		jDesktopPane1.add(textEmp_ID);
+		
+		Emp_Name = new JLabel();
+		Emp_Name.setText("Employee Name :");
+		Emp_Name.setForeground(Color.BLACK);
+		Emp_Name.setFont(new Font("Candara", Font.BOLD, 14));
+		Emp_Name.setBounds(122, 123, 110, 30);
+		jDesktopPane1.add(Emp_Name);
+		
+		textField = new JTextField();
+		textField.setFont(new Font("Calibri", Font.BOLD, 14));
+		textField.setBounds(247, 123, 180, 30);
+		jDesktopPane1.add(textField);
+		
+		Position = new JLabel();
+		Position.setText("Position :");
+		Position.setForeground(Color.BLACK);
+		Position.setFont(new Font("Candara", Font.BOLD, 14));
+		Position.setBounds(122, 163, 110, 30);
+		jDesktopPane1.add(Position);
+		
+		textField_1 = new JTextField();
+		textField_1.setFont(new Font("Calibri", Font.BOLD, 14));
+		textField_1.setBounds(247, 163, 180, 30);
+		jDesktopPane1.add(textField_1);
+		
+		lblBirthday = new JLabel();
+		lblBirthday.setText("Birthday :");
+		lblBirthday.setForeground(Color.BLACK);
+		lblBirthday.setFont(new Font("Candara", Font.BOLD, 14));
+		lblBirthday.setBounds(122, 203, 91, 30);
+		jDesktopPane1.add(lblBirthday);
+		
+		dateChooser = new JDateChooser();
+		dateChooser.setBounds(247, 203, 180, 30);
+		jDesktopPane1.add(dateChooser);
+		
+		lblGender = new JLabel();
+		lblGender.setText("Gender :");
+		lblGender.setForeground(Color.BLACK);
+		lblGender.setFont(new Font("Candara", Font.BOLD, 14));
+		lblGender.setBounds(122, 243, 91, 30);
+		jDesktopPane1.add(lblGender);
+		
+		rdbtnMale = new JRadioButton("Male");
+		rdbtnMale.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		rdbtnMale.setBackground(new Color(128, 255, 255));
+		rdbtnMale.setBounds(247, 244, 91, 23);
+		jDesktopPane1.add(rdbtnMale);
+		
+		rdbtnFemale = new JRadioButton("Female");
+		rdbtnFemale.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		rdbtnFemale.setBackground(new Color(128, 255, 255));
+		rdbtnFemale.setBounds(340, 244, 91, 23);
+		jDesktopPane1.add(rdbtnFemale);
+		
+		lblLeaveDays = new JLabel();
+		lblLeaveDays.setText("Leave Days :");
+		lblLeaveDays.setForeground(Color.BLACK);
+		lblLeaveDays.setFont(new Font("Candara", Font.BOLD, 14));
+		lblLeaveDays.setBounds(122, 278, 91, 30);
+		jDesktopPane1.add(lblLeaveDays);
+		
+		textField_2 = new JTextField();
+		textField_2.setFont(new Font("Calibri", Font.BOLD, 14));
+		textField_2.setBounds(247, 273, 180, 30);
+		jDesktopPane1.add(textField_2);
 
 		jPanel2.setMaximumSize(new java.awt.Dimension(190, 550));
 		jPanel2.setMinimumSize(new java.awt.Dimension(190, 550));
@@ -163,6 +247,11 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		getContentPane().add(jPanel2);
 		
 		jButton1 = new JButton();
+		jButton1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				jButton1ActionPerformed(e);
+			}
+		});
 		jButton1.setIcon(new ImageIcon(EmployeeFrame.class.getResource("/Student.png")));
 		jButton1.setText("Infor");
 		jButton1.setOpaque(false);
@@ -195,14 +284,14 @@ public class EmployeeFrame extends javax.swing.JFrame {
 
 		setSize(new java.awt.Dimension(1016, 589));
 		setLocationRelativeTo(null);
-	}// </editor-fold>//GEN-END:initComponents
+	}
 
-	private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton3ActionPerformed
+	private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
 
 		jDesktopPane1.removeAll();
 	}
 
-	private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton7ActionPerformed
+	private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {
 		try {
 			int response = JOptionPane.showConfirmDialog(null,
 					"You have clicked Exit. \n Do you want to close the window?", "Confirm", JOptionPane.YES_NO_OPTION,
@@ -278,4 +367,19 @@ public class EmployeeFrame extends javax.swing.JFrame {
 	private JLabel lblEmployeeFrame;
 	private JLabel lblNewLabel_1;
 	private JButton jButton1;
+	private JLabel Employee_ID;
+	private JLabel textEmp_ID;
+	private JLabel Emp_Name;
+	private JTextField textField;
+	private JLabel Position;
+	private JTextField textField_1;
+	private JLabel lblBirthday;
+	private JDateChooser dateChooser;
+	private JLabel lblGender;
+	private JRadioButton rdbtnMale;
+	private JRadioButton rdbtnFemale;
+	private JLabel lblLeaveDays;
+	private JTextField textField_2;
+	protected void jButton1ActionPerformed(ActionEvent e) {
+	}
 }

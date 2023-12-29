@@ -138,12 +138,16 @@ public class AccountDAO {
 		Connection con = null; 
 		try {
 			con = JdbcUlti.getConnection();
-			String sql = "SELECT * FROM account WHERE username = ? AND password = ?";
+			String sql = "SELECT * FROM account \r\n"
+					+ "  join employee as emp on emp.employee_id=account.employee_id\r\n"
+					+ "  WHERE username = ? AND password = ?";
 			PreparedStatement statement = con.prepareStatement(sql);
 			statement.setString(1, username);
 			statement.setString(2, password);
 			ResultSet rs = statement.executeQuery();
 			if(rs.next()) {
+				getInfo(rs.getInt("employee_id"), 
+						rs.getString("employee_name"), rs.getString("position"));
 				return true;
 			}
 		} catch (Exception e) {
@@ -176,6 +180,11 @@ public class AccountDAO {
 			JdbcUlti.closeConnection(con);
 		}
 		return false;
+	}
+	public static void getInfo(int id, String Name, String Position) {
+		EmployeeAfterLogin.employeeID=id;
+		EmployeeAfterLogin.employeeName=Name;
+		EmployeeAfterLogin.employeePosition=Position;
 	}
 
 }
