@@ -48,7 +48,7 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
         jLabelWorktime.setForeground(new Color(0, 0, 0));
         jLabelWorktime.setText("Work Time");
         getContentPane().add(jLabelWorktime);
-        jLabelWorktime.setBounds(63, 221, 100, 30);
+        jLabelWorktime.setBounds(71, 221, 100, 30);
         getContentPane().add(jComboBox1);
         jComboBox1.setBounds(181, 220, 108, 30);
         

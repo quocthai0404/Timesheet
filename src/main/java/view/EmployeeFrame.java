@@ -40,14 +40,12 @@ import javax.swing.border.LineBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
-<<<<<<< HEAD
-=======
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JRadioButton;
->>>>>>> 30e71a0ab8486621a8cd470510c5b7c5b439cfa0
+
 
 /**
  *
@@ -365,8 +363,6 @@ public class EmployeeFrame extends javax.swing.JFrame {
 	private JLabel lblEmployeeFrame;
 	private JLabel lblNewLabel_1;
 	private JButton jButton1;
-<<<<<<< HEAD
-=======
 	private JLabel Employee_ID;
 	private JLabel textEmp_ID;
 	private JLabel Emp_Name;
@@ -382,5 +378,4 @@ public class EmployeeFrame extends javax.swing.JFrame {
 	private JTextField textField_2;
 	protected void jButton1ActionPerformed(ActionEvent e) {
 	}
->>>>>>> 30e71a0ab8486621a8cd470510c5b7c5b439cfa0
 }

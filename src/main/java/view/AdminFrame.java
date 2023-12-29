@@ -211,20 +211,15 @@ public class AdminFrame extends javax.swing.JFrame {
 		
 		rdbtnMale = new JRadioButton("Male");
 		rdbtnMale.setBackground(new Color(128, 255, 255));
-<<<<<<< HEAD
 		rdbtnMale.setBounds(566, 101, 72, 23);
-=======
 		rdbtnMale.setBounds(557, 101, 47, 23);
->>>>>>> 216c1c82650314b3a39ba5345e51eb07eeecefac
+
 		jPanel1.add(rdbtnMale);
 		
 		rdbtnFemale = new JRadioButton("Female");
 		rdbtnFemale.setBackground(new Color(128, 255, 255));
-<<<<<<< HEAD
 		rdbtnFemale.setBounds(661, 101, 90, 23);
-=======
 		rdbtnFemale.setBounds(647, 101, 59, 23);
->>>>>>> 216c1c82650314b3a39ba5345e51eb07eeecefac
 		jPanel1.add(rdbtnFemale);
 		
 		jScrollPane1 = new JScrollPane();
@@ -442,13 +437,12 @@ public class AdminFrame extends javax.swing.JFrame {
 	protected void jButtonUpdateActionPerformed(ActionEvent e) {
 		
 	}
-<<<<<<< HEAD
+
 	protected void jButtonClearActionPerformed(ActionEvent e) {
 		
 	}
 	protected void jButtonViewAllActionPerformed(ActionEvent e) {
-		
-=======
+	}		
 	protected void jButton12ActionPerformed(ActionEvent e) {
 		Create_Employee_Account create_employee_account = new Create_Employee_Account();
         jDesktopPane1.removeAll();
@@ -520,6 +514,5 @@ public class AdminFrame extends javax.swing.JFrame {
 
 		
 		tableEmployee.setModel(model);
->>>>>>> 30e71a0ab8486621a8cd470510c5b7c5b439cfa0
 	}
 }
