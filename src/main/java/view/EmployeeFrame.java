@@ -40,7 +40,10 @@ import javax.swing.border.LineBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0d733b622f871e8c0bdfe56d192bd3fbc724e754
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
@@ -364,7 +367,10 @@ public class EmployeeFrame extends javax.swing.JFrame {
 	private JLabel lblEmployeeFrame;
 	private JLabel lblNewLabel_1;
 	private JButton jButton1;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0d733b622f871e8c0bdfe56d192bd3fbc724e754
 	private JLabel Employee_ID;
 	private JLabel textEmp_ID;
 	private JLabel Emp_Name;
@@ -380,5 +386,8 @@ public class EmployeeFrame extends javax.swing.JFrame {
 	private JTextField textField_2;
 	protected void jButton1ActionPerformed(ActionEvent e) {
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0d733b622f871e8c0bdfe56d192bd3fbc724e754
 }
