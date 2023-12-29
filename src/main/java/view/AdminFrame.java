@@ -446,7 +446,34 @@ public class AdminFrame extends javax.swing.JFrame {
 	}
 	protected void jButtonUpdateActionPerformed(ActionEvent e) {
 		
+<<<<<<< HEAD
 	}	
+=======
+	}
+
+<<<<<<< HEAD
+=======
+	protected void jButtonClearActionPerformed(ActionEvent e) {
+		
+	}
+	protected void jButtonViewAllActionPerformed(ActionEvent e) {
+	}		
+>>>>>>> 0d733b622f871e8c0bdfe56d192bd3fbc724e754
+	protected void jButton12ActionPerformed(ActionEvent e) {
+		Create_Employee_Account create_employee_account = new Create_Employee_Account();
+        jDesktopPane1.removeAll();
+        jDesktopPane1.add(create_employee_account);
+        create_employee_account.show();
+	}
+	
+	protected void jButton11ActionPerformed(ActionEvent e) {
+		 jDesktopPane1.removeAll();
+	     jDesktopPane1.add(jPanel1);
+	     jPanel1.show();
+	}
+	
+
+>>>>>>> 346469d3490cf76952364c49d030284f030d59a3
 	public void loadData() {
 		DefaultTableModel model = new DefaultTableModel();
 		model.addColumn("ID");
@@ -504,6 +531,10 @@ public class AdminFrame extends javax.swing.JFrame {
 
 		
 		tableEmployee.setModel(model);
+<<<<<<< HEAD
+
+=======
+>>>>>>> 0d733b622f871e8c0bdfe56d192bd3fbc724e754
 	}
 	protected void jButton12ActionPerformed(ActionEvent e) {
 		Create_Employee_Account create_employee_account = new Create_Employee_Account();

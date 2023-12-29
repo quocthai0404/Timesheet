@@ -134,7 +134,58 @@ public class AccountDAO {
 			e.printStackTrace();
 		}
 	}
+<<<<<<< HEAD
+	public void changePass(String password, String username) {
+		try {
+
+			Connection con = JdbcUlti.getConnection();
+
+			String sql = " update account set  password =? where username =?";
+
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setString(1, password);
+			statement.setString(2, username);
+
+			int rowsInserted = statement.executeUpdate();
+			if (rowsInserted > 0) {
+				JOptionPane.showMessageDialog(null, "Change Password succeddfully!");
+			} else {
+				JOptionPane.showMessageDialog(null, "cannot handle this action!");
+
+			}
+
+			JdbcUlti.closeConnection(con);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	
+	}
+	public Boolean checkRoleManager(String username) {
+		Connection con = null; 
+		
+		try {
+			con = JdbcUlti.getConnection();
+			String sql = "select employee.position from account\r\n"
+					+ "	join employee on account.employee_id = employee.employee_id\r\n"
+					+ "	where account.username=?";
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setString(1, username);
+			ResultSet rs = statement.executeQuery();
+			while(rs.next()) {
+				if(rs.getString(1).equals("manager")) {
+					return true;
+				}
+			}
+		} catch (Exception e) {
+			
+		}finally {
+			JdbcUlti.closeConnection(con);
+		}
+		return false;
+	}
+=======
 //	
+>>>>>>> 0d733b622f871e8c0bdfe56d192bd3fbc724e754
 	public static void getInfo(int id, String Name, String Position) {
 		EmployeeAfterLogin.employeeID=id;
 		EmployeeAfterLogin.employeeName=Name;
