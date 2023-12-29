@@ -232,7 +232,7 @@ create table forgetpassword(
 	id int primary key identity,
 	username varchar(50) not null, 
 	code varchar(8) not null, 
-	time varchar(30) not null
+	time datetime not null
 )
 go
 
@@ -356,11 +356,6 @@ GROUP BY
 	where employee_id=3
 	and MONTH(deduction_date)=12
 	and year(deduction_date)=2023
-
-
-	select employee.position from account
-	join employee on account.employee_id = employee.employee_id
-	where account.username='newaccount2'
 
 	
 	

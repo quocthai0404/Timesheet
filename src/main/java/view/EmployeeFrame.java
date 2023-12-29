@@ -40,11 +40,14 @@ import javax.swing.border.LineBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
+<<<<<<< HEAD
+=======
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JRadioButton;
+>>>>>>> 30e71a0ab8486621a8cd470510c5b7c5b439cfa0
 
 /**
  *
@@ -247,11 +250,6 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		getContentPane().add(jPanel2);
 		
 		jButton1 = new JButton();
-		jButton1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				jButton1ActionPerformed(e);
-			}
-		});
 		jButton1.setIcon(new ImageIcon(EmployeeFrame.class.getResource("/Student.png")));
 		jButton1.setText("Infor");
 		jButton1.setOpaque(false);
@@ -284,14 +282,14 @@ public class EmployeeFrame extends javax.swing.JFrame {
 
 		setSize(new java.awt.Dimension(1016, 589));
 		setLocationRelativeTo(null);
-	}
+	}// </editor-fold>//GEN-END:initComponents
 
-	private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {
+	private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton3ActionPerformed
 
 		jDesktopPane1.removeAll();
 	}
 
-	private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {
+	private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton7ActionPerformed
 		try {
 			int response = JOptionPane.showConfirmDialog(null,
 					"You have clicked Exit. \n Do you want to close the window?", "Confirm", JOptionPane.YES_NO_OPTION,
@@ -367,6 +365,8 @@ public class EmployeeFrame extends javax.swing.JFrame {
 	private JLabel lblEmployeeFrame;
 	private JLabel lblNewLabel_1;
 	private JButton jButton1;
+<<<<<<< HEAD
+=======
 	private JLabel Employee_ID;
 	private JLabel textEmp_ID;
 	private JLabel Emp_Name;
@@ -382,4 +382,5 @@ public class EmployeeFrame extends javax.swing.JFrame {
 	private JTextField textField_2;
 	protected void jButton1ActionPerformed(ActionEvent e) {
 	}
+>>>>>>> 30e71a0ab8486621a8cd470510c5b7c5b439cfa0
 }

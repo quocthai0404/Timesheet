@@ -20,7 +20,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 //import com.itextpdf.text.Image;
 import attendancems_with_prepared22.NewBatchInternalFrame;
-import attendancems_with_prepared22.NewTeacherInternalFrame;
 import database.JdbcUlti;
 
 import javax.swing.JTextField;
@@ -140,17 +139,7 @@ public class AdminFrame extends javax.swing.JFrame {
 		Vertical_Panel = new javax.swing.JPanel();
 		jButton4 = new javax.swing.JButton();
 		jButton11 = new javax.swing.JButton();
-		jButton11.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				jButton11ActionPerformed(e);
-			}
-		});
 		jButton12 = new javax.swing.JButton();
-		jButton12.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				jButton12ActionPerformed(e);
-			}
-		});
 		jButton13 = new javax.swing.JButton();
 		jButton14 = new javax.swing.JButton();
 		Horizontal_Panel = new javax.swing.JPanel();
@@ -222,12 +211,20 @@ public class AdminFrame extends javax.swing.JFrame {
 		
 		rdbtnMale = new JRadioButton("Male");
 		rdbtnMale.setBackground(new Color(128, 255, 255));
+<<<<<<< HEAD
 		rdbtnMale.setBounds(566, 101, 72, 23);
+=======
+		rdbtnMale.setBounds(557, 101, 47, 23);
+>>>>>>> 216c1c82650314b3a39ba5345e51eb07eeecefac
 		jPanel1.add(rdbtnMale);
 		
 		rdbtnFemale = new JRadioButton("Female");
 		rdbtnFemale.setBackground(new Color(128, 255, 255));
+<<<<<<< HEAD
 		rdbtnFemale.setBounds(661, 101, 90, 23);
+=======
+		rdbtnFemale.setBounds(647, 101, 59, 23);
+>>>>>>> 216c1c82650314b3a39ba5345e51eb07eeecefac
 		jPanel1.add(rdbtnFemale);
 		
 		jScrollPane1 = new JScrollPane();
@@ -445,6 +442,13 @@ public class AdminFrame extends javax.swing.JFrame {
 	protected void jButtonUpdateActionPerformed(ActionEvent e) {
 		
 	}
+<<<<<<< HEAD
+	protected void jButtonClearActionPerformed(ActionEvent e) {
+		
+	}
+	protected void jButtonViewAllActionPerformed(ActionEvent e) {
+		
+=======
 	protected void jButton12ActionPerformed(ActionEvent e) {
 		Create_Employee_Account create_employee_account = new Create_Employee_Account();
         jDesktopPane1.removeAll();
@@ -500,6 +504,22 @@ public class AdminFrame extends javax.swing.JFrame {
 		
 	}
 	protected void jButtonFindActionPerformed(ActionEvent e) {
+		DefaultTableModel model = new DefaultTableModel();
+		model.addColumn("ID");
+		model.addColumn("Employee Name");
+		model.addColumn("Position");
+		model.addColumn("Birthday");
+		model.addColumn("Gender");
+		EmployeeDAO dao = new EmployeeDAO();
+		totalPage = Math.ceil(dao.countRow() / Double.valueOf(rowOfPage));
+		dao.findName(textFind.getText()).stream().forEach(emp -> {
+			String gender = emp.getGender() ? "Male" : "Female";
+			model.addRow(new Object[] { emp.getEmployee_id(), emp.getEmployee_name(), emp.getPosition(),
+					emp.getBirthday(), gender });
+		});
+
 		
+		tableEmployee.setModel(model);
+>>>>>>> 30e71a0ab8486621a8cd470510c5b7c5b439cfa0
 	}
 }
