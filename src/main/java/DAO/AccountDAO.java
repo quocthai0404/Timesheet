@@ -163,37 +163,29 @@ public class AccountDAO {
 		}
 		return false;
 	}
-//	public void changePass(String password, String username) {
-//		try {
-//			Connection con = JdbcUlti.getConnection();
-//
-//			String sql = " update account set  password =? where username =?";
-//
-//			PreparedStatement statement = con.prepareStatement(sql);
-//			statement.setString(1, password);
-//			statement.setString(2, username);
-//
-//			int rowsInserted = statement.executeUpdate();
-//			if (rowsInserted > 0) {
-//				JOptionPane.showMessageDialog(null, "Change Password succeddfully!");
-//			} else {
-//				JOptionPane.showMessageDialog(null, "cannot handle this action!");
-//			con = JdbcUlti.getConnection();
-//			String sql = "SELECT * FROM account \r\n"
-//					+ "  join employee as emp on emp.employee_id=account.employee_id\r\n"
-//					+ "  WHERE username = ? AND password = ?";
-//			PreparedStatement statement = con.prepareStatement(sql);
-//			statement.setString(1, username);
-//			statement.setString(2, password);
-//			ResultSet rs = statement.executeQuery();
-//			if(rs.next()) {
-//				getInfo(rs.getInt("employee_id"), 
-//						rs.getString("employee_name"), rs.getString("position"));
-//				return true;
-//			}
-//
-//			JdbcUlti.closeConnection(con);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+	public void changePass(String password, String username) {
+		try {
+
+			Connection con = JdbcUlti.getConnection();
+
+			String sql = " update account set  password =? where username =?";
+
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setString(1, password);
+			statement.setString(2, username);
+
+			int rowsInserted = statement.executeUpdate();
+			if (rowsInserted > 0) {
+				JOptionPane.showMessageDialog(null, "Change Password succeddfully!");
+			} else {
+				JOptionPane.showMessageDialog(null, "cannot handle this action!");
+
+			}
+
+			JdbcUlti.closeConnection(con);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	
+	}
 }

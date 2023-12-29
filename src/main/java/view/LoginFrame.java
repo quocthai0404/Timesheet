@@ -224,7 +224,6 @@ public class LoginFrame extends javax.swing.JFrame {
 
 	private void EmployeeLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {
 	    try {
-	        // Assuming 'cn' is an instance of your Connection class
 	        CallableStatement userLogin = cn.prepareCall(
 	            "select * from account where username = ? and password = ? ");
 	        userLogin.setString(1, jTextField1.getText());
@@ -232,35 +231,27 @@ public class LoginFrame extends javax.swing.JFrame {
 	        ResultSet rs = userLogin.executeQuery();
 
 	        if (rs.next()) {
-	            // If a matching record is found, show a welcome message and open the AttendFrame
 	            JOptionPane.showMessageDialog(this, "Welcome");
 
 	            EmployeeFrame af = new EmployeeFrame();
-	            af.setVisible(true); // Use setVisible instead of show
-	            this.dispose(); // Close the current frame
+	            af.setVisible(true);
+	            this.dispose();
 	        } else {
-	            // If no matching record is found, show an error message
 	            JOptionPane.showMessageDialog(this, "Invalid Username or Password or User doesn't exist", "Invalid",
 	                    JOptionPane.WARNING_MESSAGE);
 	        }
-	        // Close the ResultSet and CallableStatement
+
 	        rs.close();
 	        userLogin.close();
 	    } catch (SQLException ex) {
-	        // Handle SQL exceptions
 	        ex.printStackTrace();
 	        JOptionPane.showMessageDialog(this, "Error during login", "Error", JOptionPane.ERROR_MESSAGE);
-	            ef.setVisible(true);
-                this.dispose();
-               
-		    }else {
-		    	 JOptionPane.showMessageDialog(this, "Invalid Username or Password", "Invalid",
-	                     JOptionPane.WARNING_MESSAGE);
-		    }
-	    }else {
-	    	JOptionPane.showMessageDialog(this, "Invalid Username or Password", "Invalid",
-                    JOptionPane.WARNING_MESSAGE);
+	        // Displaying EmployeeFrame might be an error in your code, so I commented it out
+	        // ef.setVisible(true);
+	        // this.dispose();
+	    }
 	}
+
 
 
 	private void EmployeeClearButtonActionPerformed(java.awt.event.ActionEvent evt) {
@@ -285,12 +276,15 @@ public class LoginFrame extends javax.swing.JFrame {
 	}
 
 	private void AdminloginButtonActionPerformed(java.awt.event.ActionEvent evt) {
-	    try (Connection connection = JdbcUlti.getConnection();
-	         PreparedStatement adminLogin = connection.prepareStatement("SELECT * FROM account WHERE username = ? AND password = ?")) {
-	    	String password = Helper.changeToMD5(String.valueOf(jPasswordField2.getPassword()));
-		    
-		    System.out.println(jTextField2.getText());
-		    System.out.println(password);
+	    try {
+	        Connection connection = JdbcUlti.getConnection();
+	        PreparedStatement adminLogin = connection.prepareStatement("SELECT * FROM account WHERE username = ? AND password = ?");
+	        
+	        String password = Helper.changeToMD5(String.valueOf(jPasswordField2.getPassword()));
+	        
+//	        System.out.println(jTextField2.getText());
+//	        System.out.println(password);
+	        
 	        adminLogin.setString(1, jTextField2.getText());
 	        adminLogin.setString(2, password);
 
@@ -302,37 +296,26 @@ public class LoginFrame extends javax.swing.JFrame {
 	                adminf.setVisible(true);
 	                this.dispose();
 	            } else {
-	                JOptionPane.showMessageDialog(this, "Invalid Username or Password", "Invalid",
-	                        JOptionPane.WARNING_MESSAGE);
+	                //manager login
+	                AccountDAO dao = new AccountDAO();
+	                if (dao.checkRoleManager(jTextField2.getText()) && dao.Login(jTextField2.getText(), password)) {
+	                    JOptionPane.showMessageDialog(this, "Welcome");
+
+	                    AdminFrame adminf = new AdminFrame();
+	                    adminf.setVisible(true);
+	                    this.dispose();
+	                } else {
+	                    JOptionPane.showMessageDialog(this, "Invalid Username or Password", "Invalid",
+	                            JOptionPane.WARNING_MESSAGE);
+	                }
 	            }
 	        }
 	    } catch (SQLException ex) {
 	        ex.printStackTrace();
 	        JOptionPane.showMessageDialog(this, "Error during login", "Error", JOptionPane.ERROR_MESSAGE);
-		//manager login
-		String password = Helper.changeToMD5(String.valueOf(jPasswordField2.getPassword()));
-	    AccountDAO dao = new AccountDAO();
-	    if(dao.checkRoleManager(jTextField2.getText())) {
-	    	if(dao.Login(jTextField2.getText(), password)) {
-	            JOptionPane.showMessageDialog(this, "Welcome");
-
-	            AdminFrame adminf = new AdminFrame();
-	            adminf.setVisible(true);
-	            this.dispose();
-	            
-
-		    }else {
-		    	 JOptionPane.showMessageDialog(this, "Invalid Username or Password", "Invalid",
-	                     JOptionPane.WARNING_MESSAGE);
-	
-		    
-		    }
-	    }else {
-	    	JOptionPane.showMessageDialog(this, "Invalid Username or Password", "Invalid",
-                    JOptionPane.WARNING_MESSAGE);
 	    }
 	}
-	
+
 
 
 	private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {
@@ -432,51 +415,10 @@ public class LoginFrame extends javax.swing.JFrame {
 		jPanel3admin.setVisible(true);
 	}// GEN-LAST:event_jButtonAdminActionPerformed
 
-	/**
-	 * @param args the command line arguments
-	 */
-	public static void main(String args[]) {
 
+	public static void main(String args[]) {
 		// JOption Pane Font
 		UIManager.put("OptionPane.messageFont", new FontUIResource(new Font("Candara", Font.PLAIN, 17)));
-
-		/* Set the Nimbus look and feel */
-		// <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
-		// (optional) ">
-		/*
-		 * If Nimbus (introduced in Java SE 6) is not available, stay with the default
-		 * look and feel. For details see
-		 * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-		 */
-		// Default Look and Feel
-		/*
-		 * try { for (javax.swing.UIManager.LookAndFeelInfo info :
-		 * javax.swing.UIManager.getInstalledLookAndFeels()) { if
-		 * ("Nimbus".equals(info.getName())) {
-		 * javax.swing.UIManager.setLookAndFeel(info.getClassName()); break; } } } catch
-		 * (ClassNotFoundException ex) {
-		 * java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.
-		 * logging.Level.SEVERE, null, ex); } catch (InstantiationException ex) {
-		 * java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.
-		 * logging.Level.SEVERE, null, ex); } catch (IllegalAccessException ex) {
-		 * java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.
-		 * logging.Level.SEVERE, null, ex); } catch
-		 * (javax.swing.UnsupportedLookAndFeelException ex) {
-		 * java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.
-		 * logging.Level.SEVERE, null, ex); } try {
-		 * UIManager.setLookAndFeel("com.jtattoo.plaf.texture.TextureLookAndFeel"); }
-		 * catch (javax.swing.UnsupportedLookAndFeelException ex) {
-		 * java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.
-		 * logging.Level.SEVERE, null, ex); } catch (ClassNotFoundException ex) {
-		 * Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex); }
-		 * catch (InstantiationException ex) {
-		 * Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex); }
-		 * catch (IllegalAccessException ex) {
-		 * Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex); }
-		 */
-		// </editor-fold>
-
-		/* Create and display the form */
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				new LoginFrame().setVisible(true);
