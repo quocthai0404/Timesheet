@@ -43,7 +43,8 @@ import java.sql.ResultSet;
 import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;	
+import javax.swing.DefaultComboBoxModel;
+import com.toedter.calendar.JCalendar;	
 
 
 public class AdminFrame extends javax.swing.JFrame {
@@ -85,6 +86,8 @@ public class AdminFrame extends javax.swing.JFrame {
 		private JButton jButtonCreate;
 		private JTextField textFind;
 		private JButton jButtonFind;
+		private JDateChooser dateChooser;
+		private JButton btnNewButton;
 
 	/**
 	 * Creates new form AdminFrame
@@ -202,7 +205,7 @@ public class AdminFrame extends javax.swing.JFrame {
 		Gender.setText("Gender");
 		Gender.setForeground(Color.BLACK);
 		Gender.setFont(new Font("Candara", Font.BOLD, 14));
-		Gender.setBounds(452, 99, 91, 30);
+		Gender.setBounds(451, 99, 91, 30);
 		jPanel1.add(Gender);
 		
 		textPosition = new JTextField();
@@ -219,12 +222,12 @@ public class AdminFrame extends javax.swing.JFrame {
 		
 		rdbtnMale = new JRadioButton("Male");
 		rdbtnMale.setBackground(new Color(128, 255, 255));
-		rdbtnMale.setBounds(557, 101, 72, 23);
+		rdbtnMale.setBounds(566, 101, 72, 23);
 		jPanel1.add(rdbtnMale);
 		
 		rdbtnFemale = new JRadioButton("Female");
 		rdbtnFemale.setBackground(new Color(128, 255, 255));
-		rdbtnFemale.setBounds(647, 101, 90, 23);
+		rdbtnFemale.setBounds(661, 101, 90, 23);
 		jPanel1.add(rdbtnFemale);
 		
 		jScrollPane1 = new JScrollPane();
@@ -289,19 +292,22 @@ public class AdminFrame extends javax.swing.JFrame {
 		Image img = icon.getImage();
 		Image newImg = img.getScaledInstance(110, 30, java.awt.Image.SCALE_SMOOTH);
 		ImageIcon newIcon = new ImageIcon(newImg);
+
 		JButton jButtonCreate = new JButton();
 		jButtonCreate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				jButtonCreateActionPerformed(e);
-			}
+		    public void actionPerformed(ActionEvent e) {
+		        jButtonCreateActionPerformed(e);
+		    }
 		});
-		jButtonCreate.setIcon(newIcon);
+		jButtonCreate.setIcon(newIcon);  // Sử dụng newIcon thay vì icon
 		jButtonCreate.setFont(new Font("Candara", Font.BOLD, 12));
 		jButtonCreate.setBorderPainted(false);
 		jButtonCreate.setBorder(null);
-		jButtonCreate.setBounds(230, 267, 110, 30); // Đặt kích thước JButton tùy thuộc vào kích thước của ảnh
+		jButtonCreate.setBounds(230, 267, 110, 30);
 
+		// Thêm JButton vào jPanel1 hoặc container tương ứng
 		jPanel1.add(jButtonCreate);
+
 		
 		textFind = new JTextField();
 		textFind.setFont(new Font("Calibri", Font.BOLD, 14));
@@ -326,11 +332,22 @@ public class AdminFrame extends javax.swing.JFrame {
 		jButtonFind.setBounds(868, 267, 30, 30); 
 
 		jPanel1.add(jButtonFind);
+		
+		dateChooser = new JDateChooser();
+		dateChooser.setBounds(564, 140, 180, 30);
+		jPanel1.add(dateChooser);
+		
+		ImageIcon icon12 = new ImageIcon(AdminFrame.class.getResource("/refresh-page-option.png"));
+		Image img12 = icon12.getImage();
+		Image newImg12 = img12.getScaledInstance(58, 30, java.awt.Image.SCALE_SMOOTH);
+		ImageIcon newIcon12 = new ImageIcon(newImg12);
 
-		
-		
-	
-		
+		JButton btnNewButton = new JButton("");
+		btnNewButton.setIcon(newIcon12);
+		btnNewButton.setBounds(594, 267, 58, 30);
+		jPanel1.add(btnNewButton);
+
+
 		getContentPane().add(jDesktopPane1);
 		jDesktopPane1.setBounds(200, 100, 990, 550);
 
