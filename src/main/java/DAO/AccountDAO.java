@@ -138,7 +138,7 @@ public class AccountDAO {
 	}
 	public void changePass(String password, String username) {
 		try {
-<<<<<<< HEAD
+
 			Connection con = JdbcUlti.getConnection();
 
 			String sql = " update account set  password =? where username =?";
@@ -152,20 +152,7 @@ public class AccountDAO {
 				JOptionPane.showMessageDialog(null, "Change Password succeddfully!");
 			} else {
 				JOptionPane.showMessageDialog(null, "cannot handle this action!");
-=======
-			con = JdbcUlti.getConnection();
-			String sql = "SELECT * FROM account \r\n"
-					+ "  join employee as emp on emp.employee_id=account.employee_id\r\n"
-					+ "  WHERE username = ? AND password = ?";
-			PreparedStatement statement = con.prepareStatement(sql);
-			statement.setString(1, username);
-			statement.setString(2, password);
-			ResultSet rs = statement.executeQuery();
-			if(rs.next()) {
-				getInfo(rs.getInt("employee_id"), 
-						rs.getString("employee_name"), rs.getString("position"));
-				return true;
->>>>>>> 30e71a0ab8486621a8cd470510c5b7c5b439cfa0
+
 			}
 
 			JdbcUlti.closeConnection(con);
@@ -173,6 +160,29 @@ public class AccountDAO {
 			e.printStackTrace();
 		}
 	
+	}
+	public Boolean checkRoleManager(String username) {
+		Connection con = null; 
+		
+		try {
+			con = JdbcUlti.getConnection();
+			String sql = "select employee.position from account\r\n"
+					+ "	join employee on account.employee_id = employee.employee_id\r\n"
+					+ "	where account.username=?";
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setString(1, username);
+			ResultSet rs = statement.executeQuery();
+			while(rs.next()) {
+				if(rs.getString(1).equals("manager")) {
+					return true;
+				}
+			}
+		} catch (Exception e) {
+			
+		}finally {
+			JdbcUlti.closeConnection(con);
+		}
+		return false;
 	}
 	public static void getInfo(int id, String Name, String Position) {
 		EmployeeAfterLogin.employeeID=id;

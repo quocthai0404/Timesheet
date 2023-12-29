@@ -417,13 +417,7 @@ public class AdminFrame extends javax.swing.JFrame {
 	protected void jButtonUpdateActionPerformed(ActionEvent e) {
 		
 	}
-<<<<<<< HEAD
-	protected void jButtonClearActionPerformed(ActionEvent e) {
-		
-	}
-	protected void jButtonViewAllActionPerformed(ActionEvent e) {
-		
-=======
+
 	protected void jButton12ActionPerformed(ActionEvent e) {
 		Create_Employee_Account create_employee_account = new Create_Employee_Account();
         jDesktopPane1.removeAll();
@@ -495,6 +489,6 @@ public class AdminFrame extends javax.swing.JFrame {
 
 		
 		tableEmployee.setModel(model);
->>>>>>> 30e71a0ab8486621a8cd470510c5b7c5b439cfa0
+
 	}
 }
