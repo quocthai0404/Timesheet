@@ -25,15 +25,16 @@ import javax.swing.plaf.FontUIResource;
 import DAO.AccountDAO;
 import attendancems_with_prepared22.AttendFrame;
 import database.JdbcUlti;
-<<<<<<< HEAD
-
-=======
 import entity.EmployeeAfterLogin;
->>>>>>> 0d733b622f871e8c0bdfe56d192bd3fbc724e754
 import helper.Helper;
 
 import javax.swing.ImageIcon;
 
+import javax.swing.ImageIcon;
+import helper.Helper;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 /**
  *
  * @author Iqbal-Asi
@@ -68,6 +69,7 @@ public class LoginFrame extends javax.swing.JFrame {
 		jPanel1buttons.setBackground(new Color(0, 255, 255));
 		jButtonEmployee = new javax.swing.JButton();
 		jButtonManager = new javax.swing.JButton();
+		jButtonForgetpass = new javax.swing.JButton();
 		MainLayerBG = new javax.swing.JLabel();
 		jPanel2teacher = new javax.swing.JPanel();
 		jTextField1 = new javax.swing.JTextField();
@@ -122,6 +124,17 @@ public class LoginFrame extends javax.swing.JFrame {
 
 		jLayeredPane1.add(jPanel1buttons);
 		jPanel1buttons.setBounds(0, 0, 320, 240);
+		
+		jButtonForgetpass_1 = new JButton();
+		jButtonForgetpass_1.setForeground(new Color(255, 255, 255));
+		jButtonForgetpass_1.setText("Forget Password");
+		jButtonForgetpass_1.setToolTipText("");
+		jButtonForgetpass_1.setFont(new Font("Candara", Font.BOLD, 14));
+		jButtonForgetpass_1.setBorderPainted(false);
+		jButtonForgetpass_1.setBorder(null);
+		jButtonForgetpass_1.setBackground(new Color(0, 0, 102));
+		jButtonForgetpass_1.setBounds(57, 191, 211, 37);
+		jPanel1buttons.add(jButtonForgetpass_1);
 
 		jPanel2teacher.setMaximumSize(new java.awt.Dimension(320, 240));
 		jPanel2teacher.setMinimumSize(new java.awt.Dimension(320, 240));
@@ -227,48 +240,15 @@ public class LoginFrame extends javax.swing.JFrame {
 	}
 
 	private void EmployeeLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {
-<<<<<<< HEAD
-	    try {
-	        CallableStatement userLogin = cn.prepareCall(
-	            "select * from account where username = ? and password = ? ");
-	        userLogin.setString(1, jTextField1.getText());
-	        userLogin.setString(2, new String(jPasswordField1.getPassword())); 
-	        ResultSet rs = userLogin.executeQuery();
-
-	        if (rs.next()) {
-=======
 		//login emp
 		String password = Helper.changeToMD5(String.valueOf(jPasswordField1.getPassword()));
 	    AccountDAO dao = new AccountDAO();
 	    if(!dao.checkRoleManager(jTextField1.getText())) {
 	    	if(dao.Login(jTextField1.getText(), password)) {
->>>>>>> 346469d3490cf76952364c49d030284f030d59a3
 	            JOptionPane.showMessageDialog(this, "Welcome");
 
-<<<<<<< HEAD
 	            EmployeeFrame ef = new EmployeeFrame();
 
-=======
-	            EmployeeFrame af = new EmployeeFrame();
-	            af.setVisible(true);
-	            this.dispose();
-	        } else {
-	            JOptionPane.showMessageDialog(this, "Invalid Username or Password or User doesn't exist", "Invalid",
-	                    JOptionPane.WARNING_MESSAGE);
-	        }
-
-	        rs.close();
-	        userLogin.close();
-	    } catch (SQLException ex) {
-	        ex.printStackTrace();
-	        JOptionPane.showMessageDialog(this, "Error during login", "Error", JOptionPane.ERROR_MESSAGE);
-<<<<<<< HEAD
-	        // Displaying EmployeeFrame might be an error in your code, so I commented it out
-	        // ef.setVisible(true);
-	        // this.dispose();
-	    }
-=======
->>>>>>> 0d733b622f871e8c0bdfe56d192bd3fbc724e754
 	            ef.setVisible(true);
                 this.dispose();
                
@@ -279,19 +259,10 @@ public class LoginFrame extends javax.swing.JFrame {
 	    }else {
 	    	JOptionPane.showMessageDialog(this, "Invalid Username or Password", "Invalid",
                     JOptionPane.WARNING_MESSAGE);
-<<<<<<< HEAD
 	    }
-=======
->>>>>>> 0d733b622f871e8c0bdfe56d192bd3fbc724e754
->>>>>>> 346469d3490cf76952364c49d030284f030d59a3
 	}
 
 
-
-<<<<<<< HEAD
-=======
-
->>>>>>> 346469d3490cf76952364c49d030284f030d59a3
 	private void EmployeeClearButtonActionPerformed(java.awt.event.ActionEvent evt) {
 		
 		jPanel1buttons.setVisible(true);
@@ -314,57 +285,6 @@ public class LoginFrame extends javax.swing.JFrame {
 	}
 
 	private void AdminloginButtonActionPerformed(java.awt.event.ActionEvent evt) {
-<<<<<<< HEAD
-	    try {
-	        Connection connection = JdbcUlti.getConnection();
-	        PreparedStatement adminLogin = connection.prepareStatement("SELECT * FROM account WHERE username = ? AND password = ?");
-	        
-	        String password = Helper.changeToMD5(String.valueOf(jPasswordField2.getPassword()));
-	        
-//	        System.out.println(jTextField2.getText());
-//	        System.out.println(password);
-	        
-=======
-<<<<<<< HEAD
-=======
-	    try (Connection connection = JdbcUlti.getConnection();
-	         PreparedStatement adminLogin = connection.prepareStatement("SELECT * FROM account WHERE username = ? AND password = ?")) {
-	    	String password = Helper.changeToMD5(String.valueOf(jPasswordField2.getPassword()));
-		    
-		    System.out.println(jTextField2.getText());
-		    System.out.println(password);
->>>>>>> 346469d3490cf76952364c49d030284f030d59a3
-	        adminLogin.setString(1, jTextField2.getText());
-	        adminLogin.setString(2, password);
-
-	        try (ResultSet rs = adminLogin.executeQuery()) {
-	            if (rs.next()) {
-	                JOptionPane.showMessageDialog(this, "Welcome");
-
-	                AdminFrame adminf = new AdminFrame();
-	                adminf.setVisible(true);
-	                this.dispose();
-	            } else {
-	                //manager login
-	                AccountDAO dao = new AccountDAO();
-	                if (dao.checkRoleManager(jTextField2.getText()) && dao.Login(jTextField2.getText(), password)) {
-	                    JOptionPane.showMessageDialog(this, "Welcome");
-
-	                    AdminFrame adminf = new AdminFrame();
-	                    adminf.setVisible(true);
-	                    this.dispose();
-	                } else {
-	                    JOptionPane.showMessageDialog(this, "Invalid Username or Password", "Invalid",
-	                            JOptionPane.WARNING_MESSAGE);
-	                }
-	            }
-	        }
-	    } catch (SQLException ex) {
-	        ex.printStackTrace();
-	        JOptionPane.showMessageDialog(this, "Error during login", "Error", JOptionPane.ERROR_MESSAGE);
-<<<<<<< HEAD
-=======
->>>>>>> 0d733b622f871e8c0bdfe56d192bd3fbc724e754
 		//manager login
 		String password = Helper.changeToMD5(String.valueOf(jPasswordField2.getPassword()));
 	    AccountDAO dao = new AccountDAO();
@@ -386,10 +306,9 @@ public class LoginFrame extends javax.swing.JFrame {
 	    }else {
 	    	JOptionPane.showMessageDialog(this, "Invalid Username or Password", "Invalid",
                     JOptionPane.WARNING_MESSAGE);
->>>>>>> 346469d3490cf76952364c49d030284f030d59a3
 	    }
 	}
-
+	
 
 
 	private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {
@@ -404,14 +323,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
 		            ef.setVisible(true);
 	                this.dispose();
-<<<<<<< HEAD
 	                
-=======
-	            } else {
-	                JOptionPane.showMessageDialog(this, "Invalid Username or Password or User doesn't exist", "Invalid",
-	                        JOptionPane.WARNING_MESSAGE);
-	            }
->>>>>>> 0d733b622f871e8c0bdfe56d192bd3fbc724e754
 
 			    }else {
 			    	 JOptionPane.showMessageDialog(this, "Invalid Username or Password", "Invalid",
@@ -424,42 +336,9 @@ public class LoginFrame extends javax.swing.JFrame {
 	    }
 	}
 
-
 	private void jPasswordField2KeyPressed(java.awt.event.KeyEvent evt) {
 		//manager login
 	    if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-<<<<<<< HEAD
-=======
-	        // Login Match for Admin
-	        try {
-	            Connection connection = JdbcUlti.getConnection(); 
-
-	            CallableStatement adminLogin = connection.prepareCall(
-	                    "select * from tbl_admin where admin_name = ? and admin_pass = ?");
-	            adminLogin.setString(1, jTextField2.getText());
-	            adminLogin.setString(2, new String(jPasswordField2.getPassword()));
-
-	            ResultSet rs = adminLogin.executeQuery();
-
-	            if (rs.next()) {
-	                JOptionPane.showMessageDialog(this, "Welcome");
-
-	                AdminFrame adminf = new AdminFrame();
-	                adminf.setVisible(true); // Use setVisible instead of show
-	                this.dispose();
-	            } else {
-	                JOptionPane.showMessageDialog(this, "Invalid Username or Password", "Invalid",
-	                        JOptionPane.WARNING_MESSAGE);
-	            }
-
-	            rs.close();
-	            adminLogin.close();
-	            connection.close(); // Close the connection
-	        } catch (SQLException ex) {
-	            ex.printStackTrace();
-	            JOptionPane.showMessageDialog(this, "Error during login", "Error", JOptionPane.ERROR_MESSAGE);
-	        }
->>>>>>> 0d733b622f871e8c0bdfe56d192bd3fbc724e754
 	    	String password = Helper.changeToMD5(String.valueOf(jPasswordField2.getPassword()));
 		    AccountDAO dao = new AccountDAO();
 		    if(dao.checkRoleManager(jTextField2.getText())) {
@@ -480,24 +359,22 @@ public class LoginFrame extends javax.swing.JFrame {
 		    }
 	    }
 	}
-
 	private void jButtonEmployeeActionPerformed(java.awt.event.ActionEvent evt) {
 		jPanel1buttons.setVisible(false);
 		jPanel2teacher.setVisible(true);
 		jPanel3admin.setVisible(false);
-	}// GEN-LAST:event_jButtonTeacherActionPerformed
+	}
 
-	private void jButtonManagerActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButtonAdminActionPerformed
-		// TODO add your handling code here:
+	private void jButtonManagerActionPerformed(java.awt.event.ActionEvent evt) {
 		jPanel1buttons.setVisible(false);
 		jPanel2teacher.setVisible(false);
 		jPanel3admin.setVisible(true);
-	}// GEN-LAST:event_jButtonAdminActionPerformed
-
-
+	}
 	public static void main(String args[]) {
+
 		// JOption Pane Font
 		UIManager.put("OptionPane.messageFont", new FontUIResource(new Font("Candara", Font.PLAIN, 17)));
+		/* Create and display the form */
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				new LoginFrame().setVisible(true);
@@ -524,5 +401,7 @@ public class LoginFrame extends javax.swing.JFrame {
 	private javax.swing.JPasswordField jPasswordField2;
 	public static javax.swing.JTextField jTextField1;
 	private javax.swing.JTextField jTextField2;
-	// End of variables declaration//GEN-END:variables
+	private JButton jButtonForgetpass;
+	private JButton jButtonForgetpass_1;
+	
 }

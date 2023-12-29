@@ -168,11 +168,6 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 		lblNewLabel_1 = new JLabel("Create Employee Account");
 		lblNewLabel_1.setFont(new Font("Candara", Font.BOLD, 48));
 		lblNewLabel_1.setBounds(209, 11, 755, 54);
-<<<<<<< HEAD
-
-=======
-		panel.add(lblNewLabel_1);;
->>>>>>> 0d733b622f871e8c0bdfe56d192bd3fbc724e754
 		panel.add(lblNewLabel_1);
 		
 		btnPrevious = new JButton("Previous");
@@ -218,11 +213,7 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
         getContentPane().setLayout(groupLayout);
         loadData();
 		scrollPane.setViewportView(tableEmployee);;
-<<<<<<< HEAD
 
-
-=======
->>>>>>> 0d733b622f871e8c0bdfe56d192bd3fbc724e754
 		setBounds(0, 0, 990, 550);
 	}
 

@@ -14,7 +14,6 @@ public class JdbcUlti {
 //		String dbName = "timesheet";
 		// ------;
 //		Lộc
-<<<<<<< HEAD
 		String serverName = "DESKTOP-FICVKMH";
 		String dbName = "timesheet2";
 		String username = "sa";
@@ -22,7 +21,6 @@ public class JdbcUlti {
 //		---------;
 //		String serverName = "CPS";
 //		String dbName = "timesheet";
-=======
 //		String serverName = "DESKTOP-FICVKMH";
 //		String dbName = "timesheet2";
 
@@ -31,8 +29,6 @@ public class JdbcUlti {
 //		---------;
 //		String serverName = "CPS";
 //		String dbName = "timesheet";
-
->>>>>>> 346469d3490cf76952364c49d030284f030d59a3
 //		String username = "sa";
 //		String password = "NguyenAn2004";
 
