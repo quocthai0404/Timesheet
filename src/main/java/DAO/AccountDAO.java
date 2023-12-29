@@ -66,41 +66,26 @@ public class AccountDAO {
 		return false;
 	}
 
-	public String getPasswordFromAccount(String username) {
-		try {
-			Connection con = JdbcUlti.getConnection();
-			String sql = "select password from account where username=?";
-			PreparedStatement statement = con.prepareStatement(sql);
-			statement.setString(1, username);
-			ResultSet rs = statement.executeQuery();
-
-			while (rs.next()) {
-				return rs.getString("password");
-			}
-
-			JdbcUlti.closeConnection(con);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
+	
 	public String getUserNameFromEmail(String email) {
-		try {
-			Connection con = JdbcUlti.getConnection();
-			String sql = "select username from account where email=?";
-			PreparedStatement statement = con.prepareStatement(sql);
-			statement.setString(1, email);
-			ResultSet rs = statement.executeQuery();
-
-			while (rs.next()) {
-				return rs.getString("username");
-			}
-
-			JdbcUlti.closeConnection(con);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+	    try (Connection con = JdbcUlti.getConnection()) {
+	        String sql = "SELECT username FROM account WHERE email=?";
+	        try (PreparedStatement statement = con.prepareStatement(sql)) {
+	            statement.setString(1, email);
+	            try (ResultSet rs = statement.executeQuery()) {
+	                if (rs.next()) {
+	                    return rs.getString("username");
+	                } else {
+	                    // Return null or an empty string if the email is not found
+	                    return null;
+	                }
+	            }
+	        }
+	    } catch (SQLException e) {
+	        // Log or handle the exception according to your application's needs.
+	        
+	        throw new RuntimeException("Error retrieving user information", e);
+	    }
 	}
 	
 	
@@ -150,6 +135,29 @@ public class AccountDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	public void changePass(String password, String username) {
+		try {
+			Connection con = JdbcUlti.getConnection();
+
+			String sql = " update account set  password =? where username =?";
+
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setString(1, password);
+			statement.setString(2, username);
+
+			int rowsInserted = statement.executeUpdate();
+			if (rowsInserted > 0) {
+				JOptionPane.showMessageDialog(null, "Change Password succeddfully!");
+			} else {
+				JOptionPane.showMessageDialog(null, "cannot handle this action!");
+			}
+
+			JdbcUlti.closeConnection(con);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	
 	}
 
 }
