@@ -52,10 +52,7 @@ public class AccountDAO {
 				if (rs.getString(1).equals(username) && rs.getString(2).equals(password)) {
 					EmployeeAfterLogin.employeePosition = rs.getString(3);
 					EmployeeAfterLogin.employeeID = rs.getInt(4);
-					System.out.println("login ok");
 					return true;
-				} else {
-					System.out.println("ko");
 				}
 			}
 
