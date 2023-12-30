@@ -46,7 +46,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTable;
 import javax.swing.JComboBox;
 import javax.swing.ButtonGroup;
-import javax.swing.DefaultComboBoxModel;	
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.border.LineBorder;	
 
 
 public class AdminFrame extends javax.swing.JFrame {
@@ -54,7 +55,6 @@ public class AdminFrame extends javax.swing.JFrame {
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 		private javax.swing.JPanel Horizontal_Panel;
 		private javax.swing.JPanel Vertical_Panel;
-		private javax.swing.JButton jButton11;
 		private javax.swing.JButton jButton12;
 		private javax.swing.JButton jButton13;
 		private javax.swing.JButton jButton14;
@@ -92,6 +92,7 @@ public class AdminFrame extends javax.swing.JFrame {
 		private JButton btnRefrest;
 		private ButtonGroup G;
 		private JButton btnCreateEmpAcc;
+		private JButton btnNewButton;
 
 	/**
 	 * Creates new form AdminFrame
@@ -143,13 +144,6 @@ public class AdminFrame extends javax.swing.JFrame {
 		jPanel1.setBackground(new Color(128, 255, 255));
 		Vertical_Panel = new javax.swing.JPanel();
 		jButton4 = new javax.swing.JButton();
-		jButton11 = new javax.swing.JButton();
-		jButton11.setIcon(new ImageIcon(AdminFrame.class.getResource("/refresh-page-option.png")));
-		jButton11.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				jButton11ActionPerformed(e);
-			}
-		});
 		jButton12 = new javax.swing.JButton();
 		jButton12.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -382,23 +376,15 @@ public class AdminFrame extends javax.swing.JFrame {
 		jButton4.setBackground(new java.awt.Color(255, 255, 255));
 		jButton4.setFont(new Font("Candara", Font.BOLD, 14)); // NOI18N
 		jButton4.setText("EXIT");
-		jButton4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
+		jButton4.setBorder(new LineBorder(new Color(0, 0, 0), 4, true));
 		
 		Vertical_Panel.add(jButton4);
 		jButton4.setBounds(10, 404, 160, 40);
 
-		jButton11.setBackground(new java.awt.Color(255, 255, 255));
-		jButton11.setFont(new Font("Candara", Font.BOLD, 14)); // NOI18N
-		jButton11.setText("Employee Management");
-		jButton11.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
-		
-		Vertical_Panel.add(jButton11);
-		jButton11.setBounds(10, 168, 160, 48);
-
 		jButton12.setBackground(new java.awt.Color(255, 255, 255));
 		jButton12.setFont(new Font("Candara", Font.BOLD, 14)); // NOI18N
 		jButton12.setText("<html>Create Employee<br>&nbsp &nbsp &nbsp Account</html>");
-		jButton12.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
+		jButton12.setBorder(new LineBorder(new Color(0, 0, 0), 4, true));
 		
 		Vertical_Panel.add(jButton12);
 		jButton12.setBounds(10, 227, 160, 48);
@@ -406,7 +392,7 @@ public class AdminFrame extends javax.swing.JFrame {
 		jButton13.setBackground(new java.awt.Color(255, 255, 255));
 		jButton13.setFont(new Font("Candara", Font.BOLD, 14)); // NOI18N
 		jButton13.setText("<html>Employee Errors  <br> And Leave Days </html>");
-		jButton13.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
+		jButton13.setBorder(new LineBorder(new Color(0, 0, 0), 4, true));
 		jButton13.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 		
 		Vertical_Panel.add(jButton13);
@@ -415,7 +401,7 @@ public class AdminFrame extends javax.swing.JFrame {
 		jButton14.setBackground(new java.awt.Color(255, 255, 255));
 		jButton14.setFont(new Font("Candara", Font.BOLD, 14)); // NOI18N
 		jButton14.setText("<html>Review Employee<br>&nbsp &nbsp &nbsp&nbsp&nbsp&nbsp&nbsp Request </html>");
-		jButton14.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
+		jButton14.setBorder(new LineBorder(new Color(0, 0, 0), 4, true));
 		
 		Vertical_Panel.add(jButton14);
 		jButton14.setBounds(10, 345, 160, 48);
@@ -428,12 +414,23 @@ public class AdminFrame extends javax.swing.JFrame {
 		lblLogo = new JLabel("");
 		ImageIcon logoIcon = new ImageIcon(AdminFrame.class.getResource("/EMPLOYEE.png"));
 		// Resize the image to fit 128x128 while maintaining aspect ratio
-		Image img2 = logoIcon.getImage().getScaledInstance(160, 128, Image.SCALE_SMOOTH);
+		Image img2 = logoIcon.getImage().getScaledInstance(200, 139, Image.SCALE_SMOOTH);
 		logoIcon = new ImageIcon(img2);
 		lblLogo.setIcon(logoIcon);
-		lblLogo.setPreferredSize(new Dimension(160, 128));
-		lblLogo.setBounds(10, 27, 160, 128);  // Adjust the bounds accordingly
+		lblLogo.setPreferredSize(new Dimension(200, 139));
+		lblLogo.setBounds(0, 0, 200, 139);  // Adjust the bounds accordingly
 		Vertical_Panel.add(lblLogo);
+		
+		btnNewButton = new JButton("Employee Manager");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnNewButtonActionPerformed(e);
+			}
+		});
+		btnNewButton.setBorder(new LineBorder(new Color(0, 0, 0), 4));
+		btnNewButton.setFont(new Font("Candara", Font.BOLD, 14));
+		btnNewButton.setBounds(10, 168, 160, 48);
+		Vertical_Panel.add(btnNewButton);
 		
 		Horizontal_Panel.setBackground(new Color(255, 255, 255));
 		Horizontal_Panel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 5, true));
@@ -473,11 +470,7 @@ public class AdminFrame extends javax.swing.JFrame {
         create_employee_account.show();
 	}
 	
-	protected void jButton11ActionPerformed(ActionEvent e) {
-		 jDesktopPane1.removeAll();
-	     jDesktopPane1.add(jPanel1);
-	     jPanel1.show();
-	}
+	
 	
 
 	public void loadData() {
@@ -630,5 +623,10 @@ public class AdminFrame extends javax.swing.JFrame {
 		} catch (Exception e2) {
 			e2.printStackTrace();
 		}
+	}
+	 protected void btnNewButtonActionPerformed(ActionEvent e) {
+		 jDesktopPane1.removeAll();
+	     jDesktopPane1.add(jPanel1);
+	     jPanel1.show();
 	}
 }
