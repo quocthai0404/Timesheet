@@ -250,6 +250,15 @@ inner join employee on employee.employee_id=account.employee_id
 where account.username='manager'
 go
 
+create table emprequest(
+	id int identity primary key,
+	work_schedule_id int,
+	work_date date,
+	work_shift_id int,
+	reason varchar(256),
+	isaccept int
+)	
+go
 --proc
 CREATE PROCEDURE InsertAccount
     @employee_id INT,
