@@ -8,11 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 import Test.Login2;
 import database.JdbcUlti;
 import entity.Account;
 import entity.EmployeeAfterLogin;
+import view.LoginFrame;
 
 public class AccountDAO {
 	public List<Account> selectAccounts() {
@@ -132,31 +134,24 @@ public class AccountDAO {
 		}
 	}
 
-	public void changePass(String password, String username) {
-		try {
+	public boolean changePass(String password, String username) {
+        try {
+            Connection con = JdbcUlti.getConnection();
+            String sql = "UPDATE account SET password = ? WHERE username = ?";
+            try (PreparedStatement statement = con.prepareStatement(sql)) {
+                statement.setString(1, password);
+                statement.setString(2, username);
 
-			Connection con = JdbcUlti.getConnection();
+                int rowsUpdated = statement.executeUpdate();
+                return rowsUpdated > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error updating password in the database", "Database Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+    }
 
-			String sql = " update account set  password =? where username =?";
-
-			PreparedStatement statement = con.prepareStatement(sql);
-			statement.setString(1, password);
-			statement.setString(2, username);
-
-			int rowsInserted = statement.executeUpdate();
-			if (rowsInserted > 0) {
-				JOptionPane.showMessageDialog(null, "Change Password succeddfully!");
-			} else {
-				JOptionPane.showMessageDialog(null, "cannot handle this action!");
-
-			}
-
-			JdbcUlti.closeConnection(con);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	
-	}
 
 	public Boolean checkRoleManager(String username) {
 		Connection con = null; 

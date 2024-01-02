@@ -8,10 +8,10 @@ import java.sql.SQLException;
 public class JdbcUlti {
 	public static Connection getConnection() {
 
-//		String serverName = "DESKTOP-6L06R65";
-//		String username = "sa";
-//		String password = "123456";
-//		String dbName = "timesheet";
+		String serverName = "DESKTOP-6L06R65";
+		String username = "sa";
+		String password = "123456";
+		String dbName = "timesheet";
 //		 ------;
 //		Lộc
 //		String serverName = "DESKTOP-FICVKMH";
