@@ -144,6 +144,11 @@ public class AdminFrame extends javax.swing.JFrame {
 		jPanel1.setBackground(new Color(128, 255, 255));
 		Vertical_Panel = new javax.swing.JPanel();
 		jButton4 = new javax.swing.JButton();
+		jButton4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				jButton4ActionPerformed(e);
+			}
+		});
 		jButton12 = new javax.swing.JButton();
 		jButton12.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -651,5 +656,25 @@ public class AdminFrame extends javax.swing.JFrame {
 	    jDesktopPane1.removeAll();
 	    jDesktopPane1.add(RER);
 	    RER.show();
+	}
+	protected void jButton4ActionPerformed(ActionEvent e) {
+		try {
+	        int response = JOptionPane.showConfirmDialog(null,
+	                "You have clicked Exit. \n Do you want to close the window?", "Confirm", JOptionPane.YES_NO_OPTION,
+	                JOptionPane.QUESTION_MESSAGE);
+
+	        if (response == JOptionPane.YES_OPTION) {
+
+	            LoginFrame lf = new LoginFrame();
+	            lf.show();
+	            dispose();
+	        } else if (response == JOptionPane.NO_OPTION) {
+	            // Do nothing or handle accordingly
+	        } else if (response == JOptionPane.CLOSED_OPTION) {
+	            // Do nothing or handle accordingly
+	        }
+	    } catch (Exception ex) {
+	        JOptionPane.showMessageDialog(rootPane, ex.toString());
+	    }
 	}
 }

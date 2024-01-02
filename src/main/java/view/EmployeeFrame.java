@@ -47,7 +47,8 @@ import javax.swing.JTable;
 import javax.swing.JComboBox;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.border.LineBorder;	
+import javax.swing.border.LineBorder;
+import javax.swing.JPanel;	
 
 
 public class EmployeeFrame extends javax.swing.JFrame {
@@ -55,8 +56,8 @@ public class EmployeeFrame extends javax.swing.JFrame {
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 		private javax.swing.JPanel Horizontal_Panel;
 		private javax.swing.JPanel Vertical_Panel;
-		private javax.swing.JButton jButton12;
-		private javax.swing.JButton jButton13;
+		private javax.swing.JButton jButton2;
+		private javax.swing.JButton jButton3;
 		private javax.swing.JButton jButton4;
 		private javax.swing.JDesktopPane jDesktopPane1;
 		private javax.swing.JLabel jLabel1;
@@ -81,9 +82,12 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		private JDateChooser dateChooser;
 		private JButton btnRefrest;
 		private ButtonGroup G;
-		private JButton btnNewButton;
+		private JButton jButton1;
 		private JLabel Day_work;
 		private JTextField textField_daywork;
+		private JPanel panel;
+		private JLabel lblLogo_1;
+		private JLabel lblNewLabel_1;
 
 	/**
 	 * Creates new form AdminFrame
@@ -97,7 +101,7 @@ public class EmployeeFrame extends javax.swing.JFrame {
 				.getImage(getClass().getResource("/attendancems_with_prepared22/Project_Images/Logo.png")));
 		setResizable(false);
 
-		setTitle("Admin Panel");
+		setTitle("Employee Panel");
 
 		DateFormat dateFormat = new SimpleDateFormat("EEEE',' dd MMMMMM yyyy");
 		// get current date with Date()
@@ -140,16 +144,16 @@ public class EmployeeFrame extends javax.swing.JFrame {
 				jButton4ActionPerformed(e);
 			}
 		});
-		jButton12 = new javax.swing.JButton();
-		jButton12.addActionListener(new ActionListener() {
+		jButton2 = new javax.swing.JButton();
+		jButton2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				jButton12ActionPerformed(e);
+				jButton2ActionPerformed(e);
 			}
 		});
-		jButton13 = new javax.swing.JButton();
-		jButton13.addActionListener(new ActionListener() {
+		jButton3 = new javax.swing.JButton();
+		jButton3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				jButton13ActionPerformed(e);
+				jButton3ActionPerformed(e);
 			}
 		});
 		Horizontal_Panel = new javax.swing.JPanel();
@@ -270,22 +274,22 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		Vertical_Panel.add(jButton4);
 		jButton4.setBounds(10, 400, 160, 40);
 
-		jButton12.setBackground(new java.awt.Color(255, 255, 255));
-		jButton12.setFont(new Font("Candara", Font.BOLD, 14)); // NOI18N
-		jButton12.setText("<html>Request</html>");
-		jButton12.setBorder(new LineBorder(new Color(0, 0, 0), 4, true));
+		jButton2.setBackground(new java.awt.Color(255, 255, 255));
+		jButton2.setFont(new Font("Candara", Font.BOLD, 14)); // NOI18N
+		jButton2.setText("<html>Request</html>");
+		jButton2.setBorder(new LineBorder(new Color(0, 0, 0), 4, true));
 		
-		Vertical_Panel.add(jButton12);
-		jButton12.setBounds(10, 240, 160, 48);
+		Vertical_Panel.add(jButton2);
+		jButton2.setBounds(10, 240, 160, 48);
 
-		jButton13.setBackground(new java.awt.Color(255, 255, 255));
-		jButton13.setFont(new Font("Candara", Font.BOLD, 14)); // NOI18N
-		jButton13.setText("<html>Check Errors </html>");
-		jButton13.setBorder(new LineBorder(new Color(0, 0, 0), 4, true));
-		jButton13.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+		jButton3.setBackground(new java.awt.Color(255, 255, 255));
+		jButton3.setFont(new Font("Candara", Font.BOLD, 14)); // NOI18N
+		jButton3.setText("<html>Check Errors </html>");
+		jButton3.setBorder(new LineBorder(new Color(0, 0, 0), 4, true));
+		jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 		
-		Vertical_Panel.add(jButton13);
-		jButton13.setBounds(10, 320, 160, 48);
+		Vertical_Panel.add(jButton3);
+		jButton3.setBounds(10, 320, 160, 48);
 
 		getContentPane().add(Vertical_Panel);
 		Vertical_Panel.setBounds(0, 100, 200, 550);
@@ -302,16 +306,16 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		lblLogo.setBounds(0, 0, 200, 139);  // Adjust the bounds accordingly
 		Vertical_Panel.add(lblLogo);
 		
-		btnNewButton = new JButton("Information");
-		btnNewButton.addActionListener(new ActionListener() {
+		jButton1 = new JButton("Information");
+		jButton1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnNewButtonActionPerformed(e);
 			}
 		});
-		btnNewButton.setBorder(new LineBorder(new Color(0, 0, 0), 4));
-		btnNewButton.setFont(new Font("Candara", Font.BOLD, 14));
-		btnNewButton.setBounds(10, 160, 160, 48);
-		Vertical_Panel.add(btnNewButton);
+		jButton1.setBorder(new LineBorder(new Color(0, 0, 0), 4));
+		jButton1.setFont(new Font("Candara", Font.BOLD, 14));
+		jButton1.setBounds(10, 160, 160, 48);
+		Vertical_Panel.add(jButton1);
 		
 		Horizontal_Panel.setBackground(new Color(255, 255, 255));
 		Horizontal_Panel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 5, true));
@@ -348,6 +352,22 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		textField_daywork.setFont(new Font("Calibri", Font.BOLD, 14));
 		textField_daywork.setBounds(198, 385, 180, 30);
 		jPanel1.add(textField_daywork);
+		
+		panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBorder(new LineBorder(new Color(0, 0, 0), 5));
+		panel.setBackground(Color.WHITE);
+		panel.setBounds(0, 0, 891, 76);
+		jPanel1.add(panel);
+		
+		lblLogo_1 = new JLabel("");
+		lblLogo_1.setBounds(10, 0, 154, 76);
+		panel.add(lblLogo_1);
+		
+		lblNewLabel_1 = new JLabel("Employee Information");
+		lblNewLabel_1.setFont(new Font("Candara", Font.BOLD, 48));
+		lblNewLabel_1.setBounds(174, 11, 648, 54);
+		panel.add(lblNewLabel_1);
 		setSize(new java.awt.Dimension(1206, 689));
 		setLocationRelativeTo(null);
 	}
@@ -384,19 +404,36 @@ public class EmployeeFrame extends javax.swing.JFrame {
 	     jDesktopPane1.add(jPanel1);
 	     jPanel1.show();
 	}
-	protected void jButton12ActionPerformed(ActionEvent e) {
-		Create_Employee_Account create_employee_account = new Create_Employee_Account();
+	protected void jButton2ActionPerformed(ActionEvent e) {
+		Employee_Request ER = new Employee_Request();
 	    jDesktopPane1.removeAll();
-	    jDesktopPane1.add(create_employee_account);
-	    create_employee_account.show();
+	    jDesktopPane1.add(ER);
+	    ER.show();
 	}
-	protected void jButton13ActionPerformed(ActionEvent e) {
-		Review_Employee_Errors REE = new Review_Employee_Errors();
+	protected void jButton3ActionPerformed(ActionEvent e) {
+		Employee_Errors EE = new Employee_Errors();
 	    jDesktopPane1.removeAll();
-	    jDesktopPane1.add(REE);
-	    REE.show();
+	    jDesktopPane1.add(EE);
+	    EE.show();
 	}
 	protected void jButton4ActionPerformed(ActionEvent e) {
-		
+		try {
+	        int response = JOptionPane.showConfirmDialog(null,
+	                "You have clicked Exit. \n Do you want to close the window?", "Confirm", JOptionPane.YES_NO_OPTION,
+	                JOptionPane.QUESTION_MESSAGE);
+
+	        if (response == JOptionPane.YES_OPTION) {
+
+	            LoginFrame lf = new LoginFrame();
+	            lf.show();
+	            dispose();
+	        } else if (response == JOptionPane.NO_OPTION) {
+	            // Do nothing or handle accordingly
+	        } else if (response == JOptionPane.CLOSED_OPTION) {
+	            // Do nothing or handle accordingly
+	        }
+	    } catch (Exception ex) {
+	        JOptionPane.showMessageDialog(rootPane, ex.toString());
+	    }
 	}
 }
