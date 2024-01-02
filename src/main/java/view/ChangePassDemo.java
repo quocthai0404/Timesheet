@@ -67,7 +67,7 @@ public class ChangePassDemo extends JFrame {
     private JPanel panel;
     private JLabel lblLogo;
     private JLabel lblNewLabel;
-    private JButton btnNewButton;
+    private JButton btnBackLogin;
     private JPanel panel_1;
     private JLabel lblLogo_1;
     private JLabel lblChangePassword;
@@ -76,6 +76,7 @@ public class ChangePassDemo extends JFrame {
     private JLabel lblChangePassword_2;
     private JLabel lblNewLabel_1;
     private JLabel lblNewLabel_2;
+    private JButton btnBack;
 
     /**
      * Launch the application.
@@ -116,9 +117,12 @@ public class ChangePassDemo extends JFrame {
         panelEmail = new JPanel();
         panelEmail.setBackground(new Color(128, 255, 255));
         txtEmail = new JTextField();
+        txtEmail.setBorder(new LineBorder(new Color(0, 0, 0), 3));
+        txtEmail.setFont(new Font("Candara", Font.PLAIN, 12));
         txtEmail.setBounds(140, 120, 325, 44);
         txtEmail.setText("Enter your email .....");
         btnEmailCheck_1 = new JButton("Send");
+        btnEmailCheck_1.setFont(new Font("Candara", Font.BOLD, 14));
         btnEmailCheck_1.setBounds(355, 209, 110, 44);
         btnEmailCheck_1.addMouseListener(new MouseAdapter() {
         	@Override
@@ -148,14 +152,15 @@ public class ChangePassDemo extends JFrame {
         lblNewLabel.setBounds(174, 11, 422, 54);
         panel.add(lblNewLabel);
         
-        btnNewButton = new JButton("Back Login");
-        btnNewButton.addActionListener(new ActionListener() {
+        btnBackLogin = new JButton("Back Login");
+        btnBackLogin.setFont(new Font("Candara", Font.BOLD, 14));
+        btnBackLogin.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		btnNewButtonActionPerformed(e);
+        		btnBackLoginActionPerformed(e);
         	}
         });
-        btnNewButton.setBounds(138, 209, 110, 44);
-        panelEmail.add(btnNewButton);
+        btnBackLogin.setBounds(138, 209, 110, 44);
+        panelEmail.add(btnBackLogin);
 
         // Panel 2
         panelCode = new JPanel();
@@ -165,6 +170,7 @@ public class ChangePassDemo extends JFrame {
         lblPassword.setHorizontalAlignment(SwingConstants.CENTER);
         lblPassword.setBounds(40, 112, 117, 59);
         txtCode = new JTextField();
+        txtCode.setBackground(new Color(255, 255, 255));
         txtCode.setFont(new Font("Candara", Font.PLAIN, 12));
         txtCode.setBorder(new LineBorder(new Color(0, 0, 0), 3));
         txtCode.setText("  Enter your code .....");
@@ -202,6 +208,17 @@ public class ChangePassDemo extends JFrame {
         lblChangePassword.setBounds(174, 11, 288, 54);
         panel_1.add(lblChangePassword);
         
+        btnBack = new JButton("Back ");
+        btnBack.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                cardLayout.show(cardPanel, "panelEmail");
+            }
+        });
+
+        btnBack.setFont(new Font("Candara", Font.BOLD, 14));
+        btnBack.setBounds(167, 212, 104, 36);
+        panelCode.add(btnBack);
+        
         panelNewPass = new JPanel();
         panelNewPass.setBackground(new Color(128, 255, 255));
         cardPanel.add(panelNewPass, "name_1786383825300");
@@ -223,7 +240,7 @@ public class ChangePassDemo extends JFrame {
         		do_btnChangePass_actionPerformed(e);
         	}
         });
-        btnChangePass.setBounds(277, 228, 172, 40);
+        btnChangePass.setBounds(296, 228, 153, 40);
         panelNewPass.add(btnChangePass);
         
         panel_2 = new JPanel();
@@ -398,18 +415,28 @@ public class ChangePassDemo extends JFrame {
 		}
 		return false;
 	}
-	protected void do_btnChangePass_actionPerformed(ActionEvent e) {
-		if(checkPassword()) {
-			
-			AccountDAO acc = new  AccountDAO();
-			String username = acc.getUserNameFromEmail(txtEmail.getText());
-			acc.changePass(helper.Helper.changeToMD5(String.valueOf(pwdEnterYourNewPW.getPassword())),username );
-			//sau do chuyen huong sang trang dang nhap
-		}
-		else {
-			return;
-		}
-	}
+	  private void do_btnChangePass_actionPerformed(ActionEvent e) {
+	        if (checkPassword()) {
+	            AccountDAO acc = new AccountDAO();
+	            String username = acc.getUserNameFromEmail(txtEmail.getText());
+
+	            // Check if password change is successful
+	            if (acc.changePass(helper.Helper.changeToMD5(String.valueOf(pwdEnterYourNewPW.getPassword())), username)) {
+	                JOptionPane.showMessageDialog(null, "Change Password successfully!");
+
+	                // Close the current frame
+	                dispose();
+
+	                // Create and show the login frame
+	                LoginFrame lf = new LoginFrame();
+	                lf.setVisible(true);
+	            } else {
+	                JOptionPane.showMessageDialog(null, "Cannot handle this action!");
+	            }
+	        } else {
+	            return;
+	        }
+	    }
 	public boolean checkPassword() {
 		String newPass = String.valueOf(pwdEnterYourNewPW.getPassword());
 		String comfirmPass = String.valueOf(pwdComfirmNewPass.getPassword());
@@ -421,13 +448,16 @@ public class ChangePassDemo extends JFrame {
 		if(comfirmPass.equals(newPass)) {
 			return true;
 		}else {
-			JOptionPane.showMessageDialog(null, "2 mk khong giong nhau");
+			JOptionPane.showMessageDialog(null, "Password Exist");
 			return false;
 		}
 	}
-	protected void btnNewButtonActionPerformed(ActionEvent e) {
+	protected void btnBackLoginActionPerformed(ActionEvent e) {
 	      LoginFrame lf = new LoginFrame();
 	      lf.show();
 	      dispose();
+	}
+	protected void BackActionPerformed(ActionEvent e) {
+		
 	}
 }
