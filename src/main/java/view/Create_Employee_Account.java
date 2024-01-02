@@ -2,9 +2,11 @@ package view;
 
 import java.awt.Color;	
 import java.awt.Dimension;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
+import java.util.Base64;
 import java.util.Locale;
 
 import javax.swing.JOptionPane;
@@ -13,6 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 import DAO.EmployeeDAO;
 import database.JdbcUlti;
+import helper.Helper;
 
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -26,10 +29,12 @@ import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.JRadioButton;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.border.LineBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.security.MessageDigest;
 import java.awt.event.ActionEvent;
 
 
@@ -61,8 +66,8 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 		Position = new javax.swing.JLabel();
 		Username = new javax.swing.JLabel();
 		Passwword = new javax.swing.JLabel();
-		textEmp_ID = new javax.swing.JLabel();
-		textEmp_Name = new javax.swing.JTextField();
+		textField_empID = new javax.swing.JLabel();
+		textField_empName = new javax.swing.JTextField();
 
 		setMaximumSize(new java.awt.Dimension(990, 550));
 		setMinimumSize(new java.awt.Dimension(990, 550));
@@ -99,30 +104,32 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 		getContentPane().add(Passwword);
 		Passwword.setBounds(80, 169, 109, 30);
 
-		textEmp_ID.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
-		textEmp_ID.setForeground(new java.awt.Color(255, 255, 255));
-		getContentPane().add(textEmp_ID);
-		textEmp_ID.setBounds(221, 87, 180, 30);
+		textField_empID.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
+		textField_empID.setForeground(new java.awt.Color(255, 255, 255));
+		getContentPane().add(textField_empID);
+		textField_empID.setBounds(221, 87, 180, 30);
 
-		textEmp_Name.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
+		textField_empName.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
 	
-		getContentPane().add(textEmp_Name);
-		textEmp_Name.setBounds(635, 169, 180, 30);
+		getContentPane().add(textField_empName);
+		textField_empName.setBounds(635, 169, 180, 30);
 		
-		textPosition = new JTextField();
-		textPosition.setFont(new Font("Calibri", Font.BOLD, 14));
-		textPosition.setBounds(635, 210, 180, 30);
-		getContentPane().add(textPosition);
+		textField_Position = new JTextField();
+		textField_Position.setFont(new Font("Calibri", Font.BOLD, 14));
+		textField_Position.setBounds(635, 210, 180, 30);
+		getContentPane().add(textField_Position);
 		
-		textUsername = new JTextField();
-		textUsername.setFont(new Font("Calibri", Font.BOLD, 14));
-		textUsername.setBounds(221, 128, 180, 30);
-		getContentPane().add(textUsername);
+		txtUsername = new JTextField();
+		txtUsername.setFont(new Font("Calibri", Font.BOLD, 14));
+		txtUsername.setBounds(221, 128, 180, 30);
+		getContentPane().add(txtUsername);
 		
-		textPassword = new JTextField();
-		textPassword.setFont(new Font("Calibri", Font.BOLD, 14));
-		textPassword.setBounds(221, 169, 180, 30);
-		getContentPane().add(textPassword);
+		
+		jPasswordField1 = new JPasswordField();
+//		txtPassword = new JTextField();
+//		txtPassword.setFont(new Font("Calibri", Font.BOLD, 14));
+		jPasswordField1.setBounds(221, 169, 180, 30);
+		getContentPane().add(jPasswordField1);
 		
 		Email = new JLabel();
 		Email.setText("Email");
@@ -131,26 +138,27 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 		Email.setBounds(80, 210, 109, 30);
 		getContentPane().add(Email);
 		
-		textEmail = new JTextField();
-		textEmail.setFont(new Font("Calibri", Font.BOLD, 14));
-		textEmail.setBounds(221, 210, 180, 30);
-		getContentPane().add(textEmail);
+		txtEmail = new JTextField();
+		txtEmail.setFont(new Font("Calibri", Font.BOLD, 14));
+		txtEmail.setBounds(221, 210, 180, 30);
+		getContentPane().add(txtEmail);
 		
-		btnAdd_Account = new JButton("");
-		btnAdd_Account.addActionListener(new ActionListener() {
+		btnCreate = new JButton("");
+		btnCreate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnNewButtonActionPerformed(e);
+				btnCreateActionPerformed(e);
 			}
 		});
+		
 
-		btnAdd_Account.setIcon(new ImageIcon(Create_Employee_Account.class.getResource("/add.png")));
-		ImageIcon originalIcon = (ImageIcon) btnAdd_Account.getIcon();
+		btnCreate.setIcon(new ImageIcon(Create_Employee_Account.class.getResource("/add.png")));
+		ImageIcon originalIcon = (ImageIcon) btnCreate.getIcon();
 		Image img = originalIcon.getImage().getScaledInstance(124, 30, Image.SCALE_SMOOTH);
 		ImageIcon resizedIcon = new ImageIcon(img);
-		btnAdd_Account.setIcon(resizedIcon);
-		btnAdd_Account.setPreferredSize(new Dimension(124, 30));
-		btnAdd_Account.setBounds(80, 264, 90, 30);
-		getContentPane().add(btnAdd_Account);
+		btnCreate.setIcon(resizedIcon);
+		btnCreate.setPreferredSize(new Dimension(124, 30));
+		btnCreate.setBounds(80, 264, 90, 30);
+		getContentPane().add(btnCreate);
 
 		
 		panel = new JPanel();
@@ -168,7 +176,10 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 		lblNewLabel_1 = new JLabel("Create Employee Account");
 		lblNewLabel_1.setFont(new Font("Candara", Font.BOLD, 48));
 		lblNewLabel_1.setBounds(209, 11, 755, 54);
+<<<<<<< HEAD
 
+=======
+>>>>>>> eb4ddd76e3a6a0fa0c17678405757a971aa74ad4
 		panel.add(lblNewLabel_1);
 		
 		btnPrevious = new JButton("Previous");
@@ -220,17 +231,17 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 
 	private javax.swing.JLabel Employee_ID;
 	private javax.swing.JLabel Passwword;
-	private javax.swing.JLabel textEmp_ID;
+	private javax.swing.JLabel textField_empID;
 	private javax.swing.JLabel Emp_Name;
 	private javax.swing.JLabel Position;
 	private javax.swing.JLabel Username;
-	private javax.swing.JTextField textEmp_Name;
-	private JTextField textPosition;
-	private JTextField textUsername;
-	private JTextField textPassword;
+	private javax.swing.JTextField textField_empName;
+	private JTextField textField_Position;
+	private JTextField txtUsername;
+	private JTextField txtPassword;
 	private JLabel Email;
-	private JTextField textEmail;
-	private JButton btnAdd_Account;
+	private JTextField txtEmail;
+	private JButton btnCreate;
 	private JPanel panel;
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
@@ -242,6 +253,7 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 	private JLabel lblStatusPage;
 	private JScrollPane scrollPane;
 	private JTable tableEmployee;
+	private JPasswordField jPasswordField1;
 	public void loadData() {
 		DefaultTableModel model = new DefaultTableModel();
 		model.addColumn("ID");
@@ -259,8 +271,7 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 		lblStatusPage.setText(firstPage + "/" + totalPage.intValue());
 		tableEmployee.setModel(model);
 	}
-	protected void btnNewButtonActionPerformed(ActionEvent e) {
-	}
+	
 	protected void btnPreviousActionPerformed(ActionEvent e) {
 		if (firstPage > 1) {
 			firstPage--;
@@ -280,6 +291,11 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 			loadData();
 
 		}
+	 public void getValueFromPanel(String id, String name, String position) {
+	            textField_empID.setText(id);
+	            textField_empName.setText(name);
+	            textField_Position.setText(position);
+	    }
 	   private void tableEmployeeMouseClicked(MouseEvent e) {
 	        if (e.getButton() == MouseEvent.BUTTON1) {
 	            int row = tableEmployee.getSelectedRow();
@@ -289,17 +305,125 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 
 	            // Kiểm tra nếu chức vụ là "manager" thì ẩn nút "Create"
 	            if ("manager".equalsIgnoreCase(positionValue)) {
-	            	btnAdd_Account.setEnabled(false);
+	            	btnCreate.setEnabled(false);
 	            } else {
-	            	btnAdd_Account.setEnabled(true);
+	            	btnCreate.setEnabled(true);
 	            }
 
 	            // Set các giá trị khác từ bảng vào các trường dữ liệu khác
-	            textUsername.setText(tableEmployee.getValueAt(row, 0).toString());
-	            textEmp_Name.setText(tableEmployee.getValueAt(row, 1).toString());
-	            textPosition.setText(positionValue);
+	            textField_empID.setText(tableEmployee.getValueAt(row, 0).toString());
+	            textField_empName.setText(tableEmployee.getValueAt(row, 1).toString());
+	            textField_Position.setText(positionValue);
 
 	            // Các thao tác khác có thể được thêm tùy thuộc vào yêu cầu cụ thể của bạn
 	        }
 	    }
+	   public Boolean checkAccID(int textField_empID) {
+		   Connection con = null;
+			try {
+				con = JdbcUlti.getConnection();
+	            String sql = "SELECT * FROM account where employee_id = ?";
+	            PreparedStatement statement = con.prepareStatement(sql);
+				statement.setInt(1, textField_empID);
+				ResultSet rs = statement.executeQuery();
+				if(rs.next()) {
+					JOptionPane.showMessageDialog(null, "This employee already has an account");
+					return false;
+				}
+				JdbcUlti.closeConnection(con);
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+			return true;
+	   }
+	   public Boolean checkUsernameDuplicate(String username) {
+		   Connection con = null;
+			try {
+				con = JdbcUlti.getConnection();
+	            String sql = "SELECT * FROM account where username = ?";
+	            PreparedStatement statement = con.prepareStatement(sql);
+				statement.setString(1, username);
+				ResultSet rs = statement.executeQuery();
+				if(rs.next()) {
+					return false;
+				}
+				
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			} finally {
+				JdbcUlti.closeConnection(con);
+			}
+			return true;
+	   }
+	   public Boolean checkEmailDuplicate(String email) {
+		   Connection con = null;
+			try {
+				con = JdbcUlti.getConnection();
+	            String sql = "SELECT * FROM account where email = ?";
+	            PreparedStatement statement = con.prepareStatement(sql);
+				statement.setString(1, email);
+				ResultSet rs = statement.executeQuery();
+				if(rs.next()) {
+					return false;
+				}
+				
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			} finally {
+				JdbcUlti.closeConnection(con);
+			}
+			return true;
+	   }
+	   public void SignUp(String username, String password, String email, int id) {
+			Connection con = null;
+			try {
+			    con = JdbcUlti.getConnection();
+			    String sql = "insert into account(employee_id, username, password, email)\r\n"
+			    		+ "values (?, ?, ?, ?)";
+			    PreparedStatement st = con.prepareStatement(sql);
+			    MessageDigest md5 = MessageDigest.getInstance("MD5");
+			    byte[] bytes = md5.digest(password.getBytes());
+			    String md5_password = new String(Base64.getEncoder().encode(bytes));
+			    st.setInt(1, id);
+			    st.setString(2, username);
+			    st.setString(3, md5_password);
+			    st.setString(4, email);
+			    int rowsUpdated = st.executeUpdate();
+				if (rowsUpdated > 0) {
+				    JOptionPane.showMessageDialog(null, "A new account was inserted successfully!");
+				}
+				
+				JdbcUlti.closeConnection(con);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	   public void refresh() {
+		   textField_empID.setText("");
+		   txtUsername.setText("");
+		   jPasswordField1.setText("");
+		   txtEmail.setText("");
+		   textField_empName.setText("");
+		   textField_Position.setText("");
+	   }
+	protected void btnCreateActionPerformed(ActionEvent e) {
+		int id = Integer.parseInt(textField_empID.getText());
+		if(checkAccID(id)) {
+			if(checkEmailDuplicate(txtEmail.getText())&&checkUsernameDuplicate(txtUsername.getText())){
+				SignUp(txtUsername.getText(), 
+						String.valueOf(jPasswordField1.getPassword()), txtEmail.getText(), id);
+				refresh();
+			}else {
+				JOptionPane.showMessageDialog(null, "Username or Email already exists");
+				refresh();
+				return;
+			}
+		}else {
+			refresh();
+			return;
+		}
+		
+		
+
+	}
 }

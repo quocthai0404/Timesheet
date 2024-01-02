@@ -26,10 +26,17 @@ import DAO.AccountDAO;
 import attendancems_with_prepared22.AttendFrame;
 import database.JdbcUlti;
 
+import entity.EmployeeAfterLogin;
+
 import helper.Helper;
 
 import javax.swing.ImageIcon;
 
+import javax.swing.ImageIcon;
+import helper.Helper;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 /**
  *
  * @author Iqbal-Asi
@@ -64,6 +71,7 @@ public class LoginFrame extends javax.swing.JFrame {
 		jPanel1buttons.setBackground(new Color(0, 255, 255));
 		jButtonEmployee = new javax.swing.JButton();
 		jButtonManager = new javax.swing.JButton();
+		jButtonForgetpass = new javax.swing.JButton();
 		MainLayerBG = new javax.swing.JLabel();
 		jPanel2teacher = new javax.swing.JPanel();
 		jTextField1 = new javax.swing.JTextField();
@@ -118,6 +126,17 @@ public class LoginFrame extends javax.swing.JFrame {
 
 		jLayeredPane1.add(jPanel1buttons);
 		jPanel1buttons.setBounds(0, 0, 320, 240);
+		
+		jButtonForgetpass_1 = new JButton();
+		jButtonForgetpass_1.setForeground(new Color(255, 255, 255));
+		jButtonForgetpass_1.setText("Forget Password");
+		jButtonForgetpass_1.setToolTipText("");
+		jButtonForgetpass_1.setFont(new Font("Candara", Font.BOLD, 14));
+		jButtonForgetpass_1.setBorderPainted(false);
+		jButtonForgetpass_1.setBorder(null);
+		jButtonForgetpass_1.setBackground(new Color(0, 0, 102));
+		jButtonForgetpass_1.setBounds(57, 191, 211, 37);
+		jPanel1buttons.add(jButtonForgetpass_1);
 
 		jPanel2teacher.setMaximumSize(new java.awt.Dimension(320, 240));
 		jPanel2teacher.setMinimumSize(new java.awt.Dimension(320, 240));
@@ -246,8 +265,6 @@ public class LoginFrame extends javax.swing.JFrame {
 	}
 
 
-
-
 	private void EmployeeClearButtonActionPerformed(java.awt.event.ActionEvent evt) {
 		
 		jPanel1buttons.setVisible(true);
@@ -321,8 +338,6 @@ public class LoginFrame extends javax.swing.JFrame {
 	    }
 	}
 
-
-
 	private void jPasswordField2KeyPressed(java.awt.event.KeyEvent evt) {
 		//manager login
 	    if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -346,64 +361,21 @@ public class LoginFrame extends javax.swing.JFrame {
 		    }
 	    }
 	}
-
 	private void jButtonEmployeeActionPerformed(java.awt.event.ActionEvent evt) {
 		jPanel1buttons.setVisible(false);
 		jPanel2teacher.setVisible(true);
 		jPanel3admin.setVisible(false);
-	}// GEN-LAST:event_jButtonTeacherActionPerformed
+	}
 
-	private void jButtonManagerActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButtonAdminActionPerformed
-		// TODO add your handling code here:
+	private void jButtonManagerActionPerformed(java.awt.event.ActionEvent evt) {
 		jPanel1buttons.setVisible(false);
 		jPanel2teacher.setVisible(false);
 		jPanel3admin.setVisible(true);
-	}// GEN-LAST:event_jButtonAdminActionPerformed
-
-	/**
-	 * @param args the command line arguments
-	 */
+	}
 	public static void main(String args[]) {
 
 		// JOption Pane Font
 		UIManager.put("OptionPane.messageFont", new FontUIResource(new Font("Candara", Font.PLAIN, 17)));
-
-		/* Set the Nimbus look and feel */
-		// <editor-fold defaultstate="collapsed" desc=" Look and feel setting code
-		// (optional) ">
-		/*
-		 * If Nimbus (introduced in Java SE 6) is not available, stay with the default
-		 * look and feel. For details see
-		 * http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-		 */
-		// Default Look and Feel
-		/*
-		 * try { for (javax.swing.UIManager.LookAndFeelInfo info :
-		 * javax.swing.UIManager.getInstalledLookAndFeels()) { if
-		 * ("Nimbus".equals(info.getName())) {
-		 * javax.swing.UIManager.setLookAndFeel(info.getClassName()); break; } } } catch
-		 * (ClassNotFoundException ex) {
-		 * java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.
-		 * logging.Level.SEVERE, null, ex); } catch (InstantiationException ex) {
-		 * java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.
-		 * logging.Level.SEVERE, null, ex); } catch (IllegalAccessException ex) {
-		 * java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.
-		 * logging.Level.SEVERE, null, ex); } catch
-		 * (javax.swing.UnsupportedLookAndFeelException ex) {
-		 * java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.
-		 * logging.Level.SEVERE, null, ex); } try {
-		 * UIManager.setLookAndFeel("com.jtattoo.plaf.texture.TextureLookAndFeel"); }
-		 * catch (javax.swing.UnsupportedLookAndFeelException ex) {
-		 * java.util.logging.Logger.getLogger(LoginFrame.class.getName()).log(java.util.
-		 * logging.Level.SEVERE, null, ex); } catch (ClassNotFoundException ex) {
-		 * Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex); }
-		 * catch (InstantiationException ex) {
-		 * Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex); }
-		 * catch (IllegalAccessException ex) {
-		 * Logger.getLogger(LoginFrame.class.getName()).log(Level.SEVERE, null, ex); }
-		 */
-		// </editor-fold>
-
 		/* Create and display the form */
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -431,5 +403,7 @@ public class LoginFrame extends javax.swing.JFrame {
 	private javax.swing.JPasswordField jPasswordField2;
 	public static javax.swing.JTextField jTextField1;
 	private javax.swing.JTextField jTextField2;
-	// End of variables declaration//GEN-END:variables
+	private JButton jButtonForgetpass;
+	private JButton jButtonForgetpass_1;
+	
 }

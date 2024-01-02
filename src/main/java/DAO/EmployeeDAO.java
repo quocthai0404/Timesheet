@@ -72,7 +72,7 @@ public class EmployeeDAO {
 
 			int rowsUpdated = statement.executeUpdate();
 			if (rowsUpdated > 0) {
-				JOptionPane.showMessageDialog(null, "A new employee schedule was inserted successfully!");
+				JOptionPane.showMessageDialog(null, "A new employee was added successfully!");
 			}
 
 			JdbcUlti.closeConnection(con);

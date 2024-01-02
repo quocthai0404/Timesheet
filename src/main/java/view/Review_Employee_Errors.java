@@ -20,6 +20,8 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.ImageIcon;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -28,13 +30,10 @@ import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-/**
- *
- * @author Iqbal-Asi
- */
-public class Review_Employee_Request extends javax.swing.JInternalFrame {
 
-    public Review_Employee_Request() {
+public class Review_Employee_Errors extends javax.swing.JInternalFrame {
+
+    public Review_Employee_Errors() {
     	getContentPane().setBackground(new Color(128, 255, 255));
         initComponents();
         setTitle ("Admin");
@@ -47,7 +46,7 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
 
         jLabelWorktime = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox1.setModel(new DefaultComboBoxModel(new String[] {"8h   -  12h", "13h - 17h ", "18h -  22h", "22h -  6h OT"}));
+        jComboBox1.setModel(new DefaultComboBoxModel(new String[] {""}));
 
         setMaximumSize(new java.awt.Dimension(990, 550));
         setMinimumSize(new java.awt.Dimension(990, 550));
@@ -56,65 +55,45 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
 
         jLabelWorktime.setFont(new Font("Candara", Font.BOLD, 14)); // NOI18N
         jLabelWorktime.setForeground(new Color(0, 0, 0));
-        jLabelWorktime.setText("Work Time :");
+        jLabelWorktime.setText("Error Type :");
         getContentPane().add(jLabelWorktime);
-        jLabelWorktime.setBounds(588, 235, 100, 30);
+        jLabelWorktime.setBounds(573, 244, 100, 30);
         getContentPane().add(jComboBox1);
-        jComboBox1.setBounds(711, 233, 177, 30);
+        jComboBox1.setBounds(708, 244, 180, 30);
         
         panel = new JPanel();
         panel.setLayout(null);
         panel.setBorder(new LineBorder(new Color(0, 0, 0), 5));
         panel.setBackground(Color.WHITE);
-        panel.setBounds(0, 0, 974, 76);
+        panel.setBounds(0, 0, 891, 76);
         getContentPane().add(panel);
         
         lblLogo = new JLabel("");
-        lblLogo.setIcon(new ImageIcon(Review_Employee_Request.class.getResource("/aptech_logo.png")));
+        lblLogo.setIcon(new ImageIcon(Review_Employee_Errors.class.getResource("/aptech_logo.png")));
         lblLogo.setBounds(10, 0, 154, 76);
         panel.add(lblLogo);
         
-        lblNewLabel_1 = new JLabel("Review Employee Request");
+        lblNewLabel_1 = new JLabel("Employee Error And Leave");
         lblNewLabel_1.setFont(new Font("Candara", Font.BOLD, 48));
-        lblNewLabel_1.setBounds(209, 11, 755, 54);
+        lblNewLabel_1.setBounds(174, 11, 648, 54);
         panel.add(lblNewLabel_1);
         
-        lblApproved = new JLabel("Approved :");
-        lblApproved.setFont(new Font("Candara", Font.BOLD, 14));
-        lblApproved.setBounds(588, 470, 85, 30);
-        getContentPane().add(lblApproved);
-        
-        rdbtnYes = new JRadioButton("Yes");
-        rdbtnYes.setBackground(new Color(128, 255, 255));
-        rdbtnYes.setBounds(679, 472, 58, 23);
-        getContentPane().add(rdbtnYes);
-        
-        rdbtnNo = new JRadioButton("No");
-        rdbtnNo.setBackground(new Color(128, 255, 255));
-        rdbtnNo.setBounds(769, 472, 58, 23);
-        getContentPane().add(rdbtnNo);
-        
-        textField = new JTextField();
-        textField.setColumns(10);
-        textField.setBounds(588, 306, 300, 126);
-        getContentPane().add(textField);
-        
-        lblReason_1 = new JLabel("Reason :");
+        lblReason_1 = new JLabel("Leave Days :");
         lblReason_1.setFont(new Font("Candara", Font.BOLD, 14));
-        lblReason_1.setBounds(588, 279, 103, 16);
+        lblReason_1.setBounds(573, 326, 103, 27);
         getContentPane().add(lblReason_1);
         
         Employee_ID = new JLabel();
         Employee_ID.setText("Employee ID :");
         Employee_ID.setForeground(Color.BLACK);
         Employee_ID.setFont(new Font("Candara", Font.BOLD, 14));
-        Employee_ID.setBounds(588, 160, 110, 23);
+        Employee_ID.setBounds(573, 158, 110, 30);
         getContentPane().add(Employee_ID);
         
         textField_empID = new JLabel();
         textField_empID.setForeground(Color.BLACK);
         textField_empID.setFont(new Font("Candara", Font.BOLD, 14));
-        textField_empID.setBounds(711, 153, 177, 30);
+        textField_empID.setBounds(708, 158, 118, 30);
         getContentPane().add(textField_empID);
         
         scrollPane = new JScrollPane();
@@ -135,7 +114,7 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
         getContentPane().add(btnPrevious);
         
         lblStatusPage = new JLabel("1/3");
-        lblStatusPage.setBounds(274, 476, 35, 14);
+        lblStatusPage.setBounds(269, 476, 35, 14);
         getContentPane().add(lblStatusPage);
         
         btnNext = new JButton("Next");
@@ -145,32 +124,92 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
         	}
         });
         btnNext.setFont(new Font("Segoe UI", Font.BOLD, 12));
-        btnNext.setBounds(414, 466, 103, 33);
+        btnNext.setBounds(415, 466, 103, 33);
         getContentPane().add(btnNext);
         
         Emp_Name = new JLabel();
         Emp_Name.setText("Employee Name :");
         Emp_Name.setForeground(Color.BLACK);
         Emp_Name.setFont(new Font("Candara", Font.BOLD, 14));
-        Emp_Name.setBounds(588, 194, 110, 30);
+        Emp_Name.setBounds(573, 203, 110, 30);
         getContentPane().add(Emp_Name);
         
         textField_1 = new JTextField();
         textField_1.setFont(new Font("Calibri", Font.BOLD, 14));
-        textField_1.setBounds(708, 194, 180, 30);
+        textField_1.setBounds(708, 203, 180, 30);
         getContentPane().add(textField_1);
+        
+        textField = new JTextField();
+        textField.setFont(new Font("Calibri", Font.BOLD, 14));
+        textField.setBounds(708, 324, 180, 30);
+        getContentPane().add(textField);
+        
+        lblReason = new JLabel("Count Error :");
+        lblReason.setFont(new Font("Candara", Font.BOLD, 14));
+        lblReason.setBounds(573, 285, 103, 30);
+        getContentPane().add(lblReason);
+        
+        textField_2 = new JTextField();
+        textField_2.setFont(new Font("Calibri", Font.BOLD, 14));
+        textField_2.setBounds(708, 285, 180, 30);
+        getContentPane().add(textField_2);
+        
+        btnUpdateEmp = new JButton();
+        btnUpdateEmp.setIcon(new ImageIcon(Review_Employee_Errors.class.getResource("/update.png")));
+        btnUpdateEmp.setFont(new Font("Candara", Font.BOLD, 12));
+        btnUpdateEmp.setBorderPainted(false);
+        btnUpdateEmp.setBorder(null);
+        btnUpdateEmp.setBounds(573, 466, 110, 30);
+        getContentPane().add(btnUpdateEmp);
+        
+        textField_3 = new JTextField();
+        textField_3.setFont(new Font("Calibri", Font.BOLD, 14));
+        textField_3.setBounds(121, 108, 180, 33);
+        getContentPane().add(textField_3);
+        
+        ImageIcon icon1 = new ImageIcon(AdminFrame.class.getResource("/search.png"));
+		Image img1 = icon1.getImage();
+		Image newImg1 = img1.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
+		ImageIcon newIcon1 = new ImageIcon(newImg1);
+		JButton jButtonFind = new JButton();
+		jButtonFind.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        jButtonFindActionPerformed(e);
+		    }
+		});
+		jButtonFind.setIcon(newIcon1);
+		jButtonFind.setFont(new Font("Candara", Font.BOLD, 12));
+		jButtonFind.setBorderPainted(false);
+		jButtonFind.setBorder(null);
+		jButtonFind.setBounds(311, 108, 30, 30); 
+        getContentPane().add(jButtonFind);
+        
+        ImageIcon refreshIcon = new ImageIcon(AdminFrame.class.getResource("/refresh-page-option.png"));
+		Image refreshImg = refreshIcon.getImage();
+		Image newRefreshImg = refreshImg.getScaledInstance(32, 30, java.awt.Image.SCALE_SMOOTH);
+		ImageIcon newRefreshIcon = new ImageIcon(newRefreshImg);
 
-        setBounds(0, 0, 1025, 629);
+		JButton btnRefresh = new JButton();
+		btnRefresh.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnRefreshActionPerformed(e);
+			}
+		});
+		
+		btnRefresh.setIcon(newRefreshIcon);
+		btnRefresh.setFont(new Font("Candara", Font.BOLD, 12));
+		btnRefresh.setBorderPainted(false);
+		btnRefresh.setBorder(null);
+		btnRefresh.setBounds(76, 108, 32, 30); //
+        getContentPane().add(btnRefresh);
+
+        setBounds(0, 0, 927, 589);
     }// </editor-fold>//GEN-END:initComponents
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabelWorktime;
     private JPanel panel;
     private JLabel lblLogo;
     private JLabel lblNewLabel_1;
-    private JLabel lblApproved;
-    private JRadioButton rdbtnYes;
-    private JRadioButton rdbtnNo;
-    private JTextField textField;
     private JLabel lblReason_1;
     private JLabel Employee_ID;
     private JLabel textField_empID;
@@ -184,6 +223,13 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
     private JButton btnNext;
     private JLabel Emp_Name;
     private JTextField textField_1;
+    private JTextField textField;
+    private JLabel lblReason;
+    private JTextField textField_2;
+    private JButton btnUpdateEmp;
+    private JTextField textField_3;
+    private JButton jButtonFind;
+    private JButton btnRefresh;
     public void loadData() {
 		DefaultTableModel model = new DefaultTableModel();
 		model.addColumn("ID");
@@ -220,5 +266,8 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
 		loadData();
 
 	}
-	
+	protected void jButtonFindActionPerformed(ActionEvent e) {
+	}
+	protected void btnRefreshActionPerformed(ActionEvent e) {
+	}
 }

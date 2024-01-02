@@ -52,10 +52,7 @@ public class AccountDAO {
 				if (rs.getString(1).equals(username) && rs.getString(2).equals(password)) {
 					EmployeeAfterLogin.employeePosition = rs.getString(3);
 					EmployeeAfterLogin.employeeID = rs.getInt(4);
-					System.out.println("login ok");
 					return true;
-				} else {
-					System.out.println("ko");
 				}
 			}
 
@@ -134,7 +131,10 @@ public class AccountDAO {
 			e.printStackTrace();
 		}
 	}
+<<<<<<< HEAD
 
+=======
+>>>>>>> eb4ddd76e3a6a0fa0c17678405757a971aa74ad4
 	public void changePass(String password, String username) {
 		try {
 
@@ -160,13 +160,10 @@ public class AccountDAO {
 		}
 	
 	}
+<<<<<<< HEAD
 	
 
-	public static void getInfo(int id, String Name, String Position) {
-		EmployeeAfterLogin.employeeID=id;
-		EmployeeAfterLogin.employeeName=Name;
-		EmployeeAfterLogin.employeePosition=Position;
-	}
+=======
 	public Boolean checkRoleManager(String username) {
 		Connection con = null; 
 		
@@ -190,37 +187,11 @@ public class AccountDAO {
 		}
 		return false;
 	}
-//	public void changePass(String password, String username) {
-//		try {
-//			Connection con = JdbcUlti.getConnection();
-//
-//			String sql = " update account set  password =? where username =?";
-//
-//			PreparedStatement statement = con.prepareStatement(sql);
-//			statement.setString(1, password);
-//			statement.setString(2, username);
-//
-//			int rowsInserted = statement.executeUpdate();
-//			if (rowsInserted > 0) {
-//				JOptionPane.showMessageDialog(null, "Change Password succeddfully!");
-//			} else {
-//				JOptionPane.showMessageDialog(null, "cannot handle this action!");
-//			con = JdbcUlti.getConnection();
-//			String sql = "SELECT * FROM account \r\n"
-//					+ "  join employee as emp on emp.employee_id=account.employee_id\r\n"
-//					+ "  WHERE username = ? AND password = ?";
-//			PreparedStatement statement = con.prepareStatement(sql);
-//			statement.setString(1, username);
-//			statement.setString(2, password);
-//			ResultSet rs = statement.executeQuery();
-//			if(rs.next()) {
-//				getInfo(rs.getInt("employee_id"), 
-//						rs.getString("employee_name"), rs.getString("position"));
-//				return true;
-//			}
-//
-//			JdbcUlti.closeConnection(con);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+>>>>>>> eb4ddd76e3a6a0fa0c17678405757a971aa74ad4
+	public static void getInfo(int id, String Name, String Position) {
+		EmployeeAfterLogin.employeeID=id;
+		EmployeeAfterLogin.employeeName=Name;
+		EmployeeAfterLogin.employeePosition=Position;
+	}
+	
 }
