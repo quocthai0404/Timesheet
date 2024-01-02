@@ -276,7 +276,7 @@ public class EmployeeFrame extends javax.swing.JFrame {
 
 		jButton2.setBackground(new java.awt.Color(255, 255, 255));
 		jButton2.setFont(new Font("Candara", Font.BOLD, 14)); // NOI18N
-		jButton2.setText("<html>Request</html>");
+		jButton2.setText("<html>Work Schedule</html>");
 		jButton2.setBorder(new LineBorder(new Color(0, 0, 0), 4, true));
 		
 		Vertical_Panel.add(jButton2);
@@ -284,7 +284,7 @@ public class EmployeeFrame extends javax.swing.JFrame {
 
 		jButton3.setBackground(new java.awt.Color(255, 255, 255));
 		jButton3.setFont(new Font("Candara", Font.BOLD, 14)); // NOI18N
-		jButton3.setText("<html>Check Errors </html>");
+		jButton3.setText("<html>CheckIn and CheckOut</html>");
 		jButton3.setBorder(new LineBorder(new Color(0, 0, 0), 4, true));
 		jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 		
@@ -405,16 +405,16 @@ public class EmployeeFrame extends javax.swing.JFrame {
 	     jPanel1.show();
 	}
 	protected void jButton2ActionPerformed(ActionEvent e) {
-		Employee_Request ER = new Employee_Request();
+		Work_Schedule WS = new Work_Schedule();
 	    jDesktopPane1.removeAll();
-	    jDesktopPane1.add(ER);
-	    ER.show();
+	    jDesktopPane1.add(WS);
+	    WS.show();
 	}
 	protected void jButton3ActionPerformed(ActionEvent e) {
-		Employee_Errors EE = new Employee_Errors();
+		CheckInAndCheckOut CHECK = new CheckInAndCheckOut();
 	    jDesktopPane1.removeAll();
-	    jDesktopPane1.add(EE);
-	    EE.show();
+	    jDesktopPane1.add(CHECK);
+	    CHECK.show();
 	}
 	protected void jButton4ActionPerformed(ActionEvent e) {
 		try {
