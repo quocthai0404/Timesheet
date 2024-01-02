@@ -28,6 +28,7 @@ import javax.swing.JTable;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
 /**
  *
  * @author Iqbal-Asi
@@ -46,8 +47,6 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabelWorktime = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox1.setModel(new DefaultComboBoxModel(new String[] {"8h   -  12h", "13h - 17h ", "18h -  22h", "22h -  6h OT"}));
 
         setMaximumSize(new java.awt.Dimension(990, 550));
         setMinimumSize(new java.awt.Dimension(990, 550));
@@ -59,8 +58,6 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
         jLabelWorktime.setText("Work Time :");
         getContentPane().add(jLabelWorktime);
         jLabelWorktime.setBounds(588, 235, 100, 30);
-        getContentPane().add(jComboBox1);
-        jComboBox1.setBounds(711, 233, 177, 30);
         
         panel = new JPanel();
         panel.setLayout(null);
@@ -79,25 +76,10 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
         lblNewLabel_1.setBounds(209, 11, 755, 54);
         panel.add(lblNewLabel_1);
         
-        lblApproved = new JLabel("Approved :");
-        lblApproved.setFont(new Font("Candara", Font.BOLD, 14));
-        lblApproved.setBounds(588, 470, 85, 30);
-        getContentPane().add(lblApproved);
-        
-        rdbtnYes = new JRadioButton("Yes");
-        rdbtnYes.setBackground(new Color(128, 255, 255));
-        rdbtnYes.setBounds(679, 472, 58, 23);
-        getContentPane().add(rdbtnYes);
-        
-        rdbtnNo = new JRadioButton("No");
-        rdbtnNo.setBackground(new Color(128, 255, 255));
-        rdbtnNo.setBounds(769, 472, 58, 23);
-        getContentPane().add(rdbtnNo);
-        
-        textField = new JTextField();
-        textField.setColumns(10);
-        textField.setBounds(588, 306, 300, 126);
-        getContentPane().add(textField);
+        textField_reason = new JTextField();
+        textField_reason.setColumns(10);
+        textField_reason.setBounds(588, 306, 300, 126);
+        getContentPane().add(textField_reason);
         
         lblReason_1 = new JLabel("Reason :");
         lblReason_1.setFont(new Font("Candara", Font.BOLD, 14));
@@ -121,8 +103,8 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
         scrollPane.setBounds(76, 158, 442, 274);
         getContentPane().add(scrollPane);
         
-        tableEmployee = new JTable();
-        scrollPane.setViewportView(tableEmployee);
+        table = new JTable();
+        scrollPane.setViewportView(table);
         
         btnPrevious = new JButton("Previous");
         btnPrevious.addActionListener(new ActionListener() {
@@ -155,27 +137,35 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
         Emp_Name.setBounds(588, 194, 110, 30);
         getContentPane().add(Emp_Name);
         
-        textField_1 = new JTextField();
-        textField_1.setFont(new Font("Calibri", Font.BOLD, 14));
-        textField_1.setBounds(708, 194, 180, 30);
-        getContentPane().add(textField_1);
+        textField_EmpName = new JTextField();
+        textField_EmpName.setFont(new Font("Calibri", Font.BOLD, 14));
+        textField_EmpName.setBounds(708, 194, 180, 30);
+        getContentPane().add(textField_EmpName);
+        
+        btnAccept = new JButton("Accept\r\n");
+        btnAccept.setBounds(588, 466, 76, 33);
+        getContentPane().add(btnAccept);
+        
+        btnReject = new JButton("Reject");
+        btnReject.setBounds(711, 466, 85, 33);
+        getContentPane().add(btnReject);
+        
+        comboBox = new JComboBox();
+        comboBox.setBounds(708, 235, 180, 30);
+        getContentPane().add(comboBox);
 
         setBounds(0, 0, 1025, 629);
     }// </editor-fold>//GEN-END:initComponents
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabelWorktime;
     private JPanel panel;
     private JLabel lblLogo;
     private JLabel lblNewLabel_1;
-    private JLabel lblApproved;
-    private JRadioButton rdbtnYes;
-    private JRadioButton rdbtnNo;
-    private JTextField textField;
+    private JTextField textField_reason;
     private JLabel lblReason_1;
     private JLabel Employee_ID;
     private JLabel textField_empID;
     private JScrollPane scrollPane;
-    private JTable tableEmployee;
+    private JTable table;
     private JButton btnPrevious;
     private JLabel lblStatusPage;
     private int firstPage = 1;
@@ -183,7 +173,10 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
 	private Double totalPage;
     private JButton btnNext;
     private JLabel Emp_Name;
-    private JTextField textField_1;
+    private JTextField textField_EmpName;
+    private JButton btnAccept;
+    private JButton btnReject;
+    private JComboBox comboBox;
     public void loadData() {
 		DefaultTableModel model = new DefaultTableModel();
 		model.addColumn("ID");
@@ -199,7 +192,7 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
 					emp.getBirthday(), gender });
 		});
 //		lblStatusPage.setText(firstPage + "/" + totalPage.intValue());
-		tableEmployee.setModel(model);
+		table.setModel(model);
 	}
     protected void btnPreviousActionPerformed(ActionEvent e) {
 		if (firstPage > 1) {
@@ -220,5 +213,4 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
 		loadData();
 
 	}
-	
 }
