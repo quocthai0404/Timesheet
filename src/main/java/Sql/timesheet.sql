@@ -236,6 +236,9 @@ create table forgetpassword(
 )
 go
 
+EXEC sp_RENAME 'salary_deduction.salary_deduciton_id' , 'salary_deduction_id', 'COLUMN'
+
+
 insert into admin(username, password)
 values('admin', 'admin')
 
@@ -256,7 +259,7 @@ create table emprequest(
 	work_date date,
 	work_shift_id int,
 	reason varchar(256),
-	isaccept int
+	isaccept bit
 )	
 go
 --proc

@@ -6,13 +6,16 @@
 package view;
 
 import java.sql.*;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import DAO.EmployeeDAO;
+import DAO.Salary_deductionDAO;
 
 import java.awt.Color;
 import javax.swing.DefaultComboBoxModel;
@@ -31,6 +34,8 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import com.toedter.calendar.JDateChooser;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Review_Employee_Errors extends javax.swing.JInternalFrame {
 
@@ -38,6 +43,7 @@ public class Review_Employee_Errors extends javax.swing.JInternalFrame {
     	getContentPane().setBackground(new Color(128, 255, 255));
         initComponents();
         setTitle ("Admin");
+        loadData();
     }
     
    
@@ -87,6 +93,12 @@ public class Review_Employee_Errors extends javax.swing.JInternalFrame {
         getContentPane().add(scrollPane);
         
         tableEmployee = new JTable();
+        tableEmployee.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		tableEmployeeMouseClicked(e);
+        	}
+        });
         scrollPane.setViewportView(tableEmployee);
         
         btnPrevious = new JButton("Previous");
@@ -95,6 +107,7 @@ public class Review_Employee_Errors extends javax.swing.JInternalFrame {
         		btnPreviousActionPerformed(e);
         	}
         });
+        
         btnPrevious.setFont(new Font("Segoe UI", Font.BOLD, 12));
         btnPrevious.setBounds(76, 466, 103, 33);
         getContentPane().add(btnPrevious);
@@ -109,6 +122,7 @@ public class Review_Employee_Errors extends javax.swing.JInternalFrame {
         		btnNextActionPerformed(e);
         	}
         });
+        
         btnNext.setFont(new Font("Segoe UI", Font.BOLD, 12));
         btnNext.setBounds(415, 466, 103, 33);
         getContentPane().add(btnNext);
@@ -138,6 +152,11 @@ public class Review_Employee_Errors extends javax.swing.JInternalFrame {
         getContentPane().add(textField_CountError);
         
         btnUpdateError = new JButton();
+        btnUpdateError.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		btnUpdateErrorActionPerformed(e);
+        	}
+        });
         btnUpdateError.setIcon(new ImageIcon(Review_Employee_Errors.class.getResource("/update.png")));
         btnUpdateError.setFont(new Font("Candara", Font.BOLD, 12));
         btnUpdateError.setBorderPainted(false);
@@ -156,10 +175,11 @@ public class Review_Employee_Errors extends javax.swing.JInternalFrame {
 		ImageIcon newIcon1 = new ImageIcon(newImg1);
 		JButton jButtonSearch = new JButton();
 		jButtonSearch.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        jButtonFindActionPerformed(e);
-		    }
+			public void actionPerformed(ActionEvent e) {
+				jButtonSearchActionPerformed(e);
+			}
 		});
+		
 		jButtonSearch.setIcon(newIcon1);
 		jButtonSearch.setFont(new Font("Candara", Font.BOLD, 12));
 		jButtonSearch.setBorderPainted(false);
@@ -178,6 +198,7 @@ public class Review_Employee_Errors extends javax.swing.JInternalFrame {
 				btnRefreshActionPerformed(e);
 			}
 		});
+		
 		
 		btnRefresh.setIcon(newRefreshIcon);
 		btnRefresh.setFont(new Font("Candara", Font.BOLD, 12));
@@ -220,10 +241,16 @@ public class Review_Employee_Errors extends javax.swing.JInternalFrame {
         getContentPane().add(lblDate);
         
         dateChooser = new JDateChooser();
+        dateChooser.setDateFormatString("yyyy-MM-dd");
         dateChooser.setBounds(708, 371, 183, 30);
         getContentPane().add(dateChooser);
         
         jButtonSearchLoadEmp = new JButton();
+        jButtonSearchLoadEmp.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		jButtonSearchLoadEmpActionPerformed(e);
+        	}
+        });
         jButtonSearchLoadEmp.setIcon(newIcon1);
         
         jButtonSearchLoadEmp.setFont(new Font("Candara", Font.BOLD, 12));
@@ -233,12 +260,23 @@ public class Review_Employee_Errors extends javax.swing.JInternalFrame {
         getContentPane().add(jButtonSearchLoadEmp);
         
         btnAddError = new JButton();
+        btnAddError.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		btnAddErrorActionPerformed(e);
+        	}
+        });
         btnAddError.setIcon(new ImageIcon(Review_Employee_Errors.class.getResource("/add.png")));
         btnAddError.setFont(new Font("Candara", Font.BOLD, 12));
         btnAddError.setBorderPainted(false);
         btnAddError.setBorder(null);
         btnAddError.setBounds(708, 466, 110, 30);
         getContentPane().add(btnAddError);
+        
+        SD_id = new JTextField();
+        SD_id.setVisible(false);
+        SD_id.setFont(new Font("Calibri", Font.BOLD, 14));
+        SD_id.setBounds(708, 113, 180, 30);
+        getContentPane().add(SD_id);
 
         setBounds(0, 0, 927, 589);
     }// </editor-fold>//GEN-END:initComponents
@@ -272,33 +310,28 @@ public class Review_Employee_Errors extends javax.swing.JInternalFrame {
     private JDateChooser dateChooser;
     private JButton jButtonSearchLoadEmp;
     private JButton btnAddError;
+    private JTextField SD_id;
     public void loadData() {
-		DefaultTableModel model = new DefaultTableModel();
-		model.addColumn("ID");
-		model.addColumn("Employee Name");
-		model.addColumn("Position");
-		model.addColumn("Birthday");
-		model.addColumn("Gender");
-		EmployeeDAO dao = new EmployeeDAO();
-		totalPage = Math.ceil(dao.countRow() / Double.valueOf(rowOfPage));
-		dao.selectPaginateEmp(firstPage, rowOfPage).stream().forEach(emp -> {
-			String gender = emp.getGender() ? "Male" : "Female";
-			model.addRow(new Object[] { emp.getEmployee_id(), emp.getEmployee_name(), emp.getPosition(),
-					emp.getBirthday(), gender });
-		});
-//		lblStatusPage.setText(firstPage + "/" + totalPage.intValue());
-		tableEmployee.setModel(model);
-	}
-    protected void btnPreviousActionPerformed(ActionEvent e) {
-		if (firstPage > 1) {
-			firstPage--;
-		}
+    	DefaultTableModel model = new DefaultTableModel();
+    	model.addColumn("ID");
+    	model.addColumn("Employee ID");
+    	model.addColumn("Reason");
+    	model.addColumn("Amount");
+    	model.addColumn("Date");
+    	Salary_deductionDAO dao = new Salary_deductionDAO();
+    	totalPage = Math.ceil(dao.countRow() / Double.valueOf(rowOfPage));
+    	dao.selectPaginateEmp(firstPage, rowOfPage).stream().forEach(sal -> {
+    		model.addRow(new Object[] { sal.getSalary_deduction_id(), sal.getEmployee_id(), sal.getDeduction_reason(),
+    			sal.getDeduction_amount(), sal.getDeduction_date()	});
+    	});
+    	lblStatusPage.setText(firstPage + "/" + totalPage.intValue());
+    	tableEmployee.setModel(model);
 
-		lblStatusPage.setText(firstPage + "/" + totalPage.intValue());
-		loadData();
-	}
+    }
+    
+    
 	protected void btnNextActionPerformed(ActionEvent e) {
-		EmployeeDAO dao = new EmployeeDAO();
+		Salary_deductionDAO dao = new Salary_deductionDAO();
 		totalPage = Math.ceil(dao.countRow() / Double.valueOf(rowOfPage));
 		if (firstPage < totalPage) {
 			firstPage++;
@@ -306,10 +339,121 @@ public class Review_Employee_Errors extends javax.swing.JInternalFrame {
 
 		lblStatusPage.setText(firstPage + "/" + totalPage.intValue());
 		loadData();
-
 	}
-	protected void jButtonFindActionPerformed(ActionEvent e) {
+	protected void btnPreviousActionPerformed(ActionEvent e) {
+		if (firstPage > 1) {
+			firstPage--;
+		}
+
+		lblStatusPage.setText(firstPage + "/" + totalPage.intValue());
+		loadData();
+	}
+	protected void tableEmployeeMouseClicked(MouseEvent e) {
+		if (e.getButton() == MouseEvent.BUTTON1) {
+			int row = tableEmployee.getSelectedRow();
+			SD_id.setText(tableEmployee.getValueAt(row, 0).toString());
+			textField_empID.setText(tableEmployee.getValueAt(row, 1).toString());
+			textField_reason.setText(tableEmployee.getValueAt(row, 2).toString());
+			textField_amount.setText(tableEmployee.getValueAt(row, 3).toString());
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			Date date = null;
+			try {
+				date = df.parse(tableEmployee.getValueAt(row, 4).toString());
+			} catch (ParseException e1) {
+				e1.printStackTrace();
+			}
+			Salary_deductionDAO dao = new Salary_deductionDAO();
+			dateChooser.setDate(date);
+			int id = Integer.parseInt(tableEmployee.getValueAt(row, 1).toString());
+			textFieldEmpName.setText(
+					dao.getEmpNameByID(
+							id)
+					.getEmployee_name());
+			textField_CountError.setText(String.valueOf(dao.countError(id)));
+
+		}
+	}
+	protected void jButtonSearchActionPerformed(ActionEvent e) {
+		if(textField_SearchID.getText().isBlank()) {
+			JOptionPane.showMessageDialog(null, "please input the id of employee");
+			return;
+		}
+		DefaultTableModel model = new DefaultTableModel();
+    	model.addColumn("ID");
+    	model.addColumn("Employee ID");
+    	model.addColumn("Reason");
+    	model.addColumn("Amount");
+    	model.addColumn("Date");
+		Salary_deductionDAO dao = new Salary_deductionDAO();
+    	dao.searchByid(Integer.parseInt(textField_SearchID.getText())).stream().forEach(sal -> {
+    		model.addRow(new Object[] { sal.getSalary_deduction_id(), sal.getEmployee_id(), sal.getDeduction_reason(),
+    			sal.getDeduction_amount(), sal.getDeduction_date()	});
+    	});
+    	lblStatusPage.setText("");
+    	tableEmployee.setModel(model);
+    	textFieldEmpName.setText(
+				dao.getEmpNameByID(
+						Integer.parseInt(textField_SearchID.getText()))
+				.getEmployee_name());
+		textField_CountError.setText(String.valueOf(dao.countError(Integer.parseInt(textField_SearchID.getText()))));
+	}
+	protected void jButtonSearchLoadEmpActionPerformed(ActionEvent e) {
+		if(textField_empID.getText().isBlank()) {
+			JOptionPane.showMessageDialog(null, "please input the id of employee");
+			return;
+		}
+		Salary_deductionDAO dao = new Salary_deductionDAO();
+		textFieldEmpName.setText(
+				dao.getEmpNameByID(
+						Integer.parseInt(textField_empID.getText()))
+				.getEmployee_name());
+		textField_CountError.setText(String.valueOf(dao.countError(Integer.parseInt(textField_empID.getText()))));
+		
+		DefaultTableModel model = new DefaultTableModel();
+    	model.addColumn("ID");
+    	model.addColumn("Employee ID");
+    	model.addColumn("Reason");
+    	model.addColumn("Amount");
+    	model.addColumn("Date");
+    	dao.searchByid(Integer.parseInt(textField_empID.getText())).stream().forEach(sal -> {
+    		model.addRow(new Object[] { sal.getSalary_deduction_id(), sal.getEmployee_id(), sal.getDeduction_reason(),
+    			sal.getDeduction_amount(), sal.getDeduction_date()	});
+    	});
+    	lblStatusPage.setText("");
+    	tableEmployee.setModel(model);
+	}
+	public void refresh() {
+		textField_SearchID.setText("");
+		textField_empID.setText("");
+		textFieldEmpName.setText("");
+		textField_reason.setText("");
+		textField_CountError.setText("");
+		textField_amount.setText("");
+		dateChooser.setDate(null);
+		loadData();
 	}
 	protected void btnRefreshActionPerformed(ActionEvent e) {
+		refresh();
+	}
+	
+	protected void btnUpdateErrorActionPerformed(ActionEvent e) {
+		Salary_deductionDAO dao = new Salary_deductionDAO();
+		int sd_id = Integer.parseInt(SD_id.getText());
+		int emp_id = Integer.parseInt(textField_empID.getText());
+		String reason = textField_reason.getText();
+		Double amount = Double.parseDouble(textField_amount.getText());
+		Date date = dateChooser.getDate();
+		dao.update(sd_id, emp_id, reason, amount, date);
+		refresh();
+	}
+	protected void btnAddErrorActionPerformed(ActionEvent e) {
+		Salary_deductionDAO dao = new Salary_deductionDAO();
+		int sd_id = Integer.parseInt(SD_id.getText());
+		int emp_id = Integer.parseInt(textField_empID.getText());
+		String reason = textField_reason.getText();
+		Double amount = Double.parseDouble(textField_amount.getText());
+		Date date = dateChooser.getDate();
+		dao.add(emp_id, reason, amount, date);
+		refresh();
 	}
 }
