@@ -151,7 +151,17 @@ public class AdminFrame extends javax.swing.JFrame {
 			}
 		});
 		jButton13 = new javax.swing.JButton();
+		jButton13.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				jButton13ActionPerformed(e);
+			}
+		});
 		jButton14 = new javax.swing.JButton();
+		jButton14.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				jButton14ActionPerformed(e);
+			}
+		});
 		Horizontal_Panel = new javax.swing.JPanel();
 		jLabel1 = new javax.swing.JLabel();
 
@@ -463,12 +473,7 @@ public class AdminFrame extends javax.swing.JFrame {
 	protected void jButtonUpdateActionPerformed(ActionEvent e) {
 		
 	}
-	protected void jButton12ActionPerformed(ActionEvent e) {
-		Create_Employee_Account create_employee_account = new Create_Employee_Account();
-        jDesktopPane1.removeAll();
-        jDesktopPane1.add(create_employee_account);
-        create_employee_account.show();
-	}
+	
 	
 	
 	
@@ -624,9 +629,27 @@ public class AdminFrame extends javax.swing.JFrame {
 			e2.printStackTrace();
 		}
 	}
-	 protected void btnNewButtonActionPerformed(ActionEvent e) {
+	protected void btnNewButtonActionPerformed(ActionEvent e) {
 		 jDesktopPane1.removeAll();
 	     jDesktopPane1.add(jPanel1);
 	     jPanel1.show();
+	}
+	protected void jButton12ActionPerformed(ActionEvent e) {
+		Create_Employee_Account create_employee_account = new Create_Employee_Account();
+	    jDesktopPane1.removeAll();
+	    jDesktopPane1.add(create_employee_account);
+	    create_employee_account.show();
+	}
+	protected void jButton13ActionPerformed(ActionEvent e) {
+		Review_Employee_Errors REE = new Review_Employee_Errors();
+	    jDesktopPane1.removeAll();
+	    jDesktopPane1.add(REE);
+	    REE.show();
+	}
+	protected void jButton14ActionPerformed(ActionEvent e) {
+		Review_Employee_Request RER = new Review_Employee_Request();
+	    jDesktopPane1.removeAll();
+	    jDesktopPane1.add(RER);
+	    RER.show();
 	}
 }
