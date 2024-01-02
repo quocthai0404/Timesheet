@@ -14,10 +14,10 @@ public class JdbcUlti {
 //		String dbName = "timesheet";
 //		 ------;
 //		Lộc
-		String serverName = "DESKTOP-FICVKMH";
-		String dbName = "timesheet2";
-		String username = "sa";
-		String password = "NguyenAn2004";
+//		String serverName = "DESKTOP-FICVKMH";
+//		String dbName = "timesheet2";
+//		String username = "sa";
+//		String password = "NguyenAn2004";
 //		---------;
 //		String serverName = "CPS";
 //		String dbName = "timesheet";
@@ -32,10 +32,10 @@ public class JdbcUlti {
 //		String username = "sa";
 //		String password = "NguyenAn2004";
 
-//		String serverName = "CPS";
-//		String dbName = "timesheet";
-//		String username = "sa";
-//		String password = "phamtien2004";
+		String serverName = "CPS";
+		String dbName = "timesheet";
+		String username = "sa";
+		String password = "phamtien2004";
 
 //		String serverName = "DESKTOP-6L06R65";
 //		String dbName = "timesheet";

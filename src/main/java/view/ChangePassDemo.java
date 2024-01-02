@@ -3,6 +3,7 @@ package view;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
@@ -39,6 +40,8 @@ import java.awt.event.MouseEvent;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class ChangePassDemo extends JFrame {
 
@@ -97,12 +100,37 @@ public class ChangePassDemo extends JFrame {
 
         // Panel 1
         panelEmail = new JPanel();
+        panelEmail.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mousePressed(MouseEvent e) {
+        		do_panelEmail_mousePressed(e);
+        	}
+        });
         lblEmail_1 = new JLabel("Change Password");
         lblEmail_1.setHorizontalAlignment(SwingConstants.CENTER);
         lblEmail_1.setBounds(137, 21, 142, 36);
         txtEmail = new JTextField();
+        txtEmail.addMouseListener(new MouseAdapter() {
+        	
+        	 @Override
+        	    public void mousePressed(MouseEvent e) {
+        	        txtEmail.setFocusable(true);
+        	        txtEmail.requestFocus();
+        	        removePlaceHolderStyle(txtEmail);
+        	    }
+        	
+        	
+        });
+        txtEmail.addFocusListener(new FocusAdapter() {
+        	@Override
+        	public void focusGained(FocusEvent e) {
+        		do_txtEmail_focusGained(e);
+        	}
+        });
         txtEmail.setText("Enter your email .....");
         txtEmail.setBounds(69, 91, 289, 36);
+        txtEmail.setFocusable(false);
+        addPlaceHolderStyle(txtEmail);
         btnEmailCheck_1 = new JButton("Next");
         btnEmailCheck_1.addMouseListener(new MouseAdapter() {
         	@Override
@@ -334,4 +362,42 @@ public class ChangePassDemo extends JFrame {
 			return false;
 		}
 	}
+	public void addPlaceHolderStyle(JTextField textField) {
+		Font font = textField.getFont();
+		font = font.deriveFont(Font.ITALIC);
+		textField.setFont(font);
+		textField.setForeground(Color.gray);
+		
+	}
+	public void removePlaceHolderStyle(JTextField textField) {
+		Font font = textField.getFont();
+		font = font.deriveFont(Font.PLAIN|Font.BOLD);
+		textField.setFont(font);
+		textField.setForeground(Color.gray);
+	}
+	protected void do_txtEmail_focusGained(FocusEvent e) {
+		if(txtEmail.getText().equals("Enter your email .....")) {
+			txtEmail.setText(null);
+			txtEmail.requestFocus();
+			removePlaceHolderStyle(txtEmail);
+		}
+	}
+	
+
+	protected void do_panelEmail_mousePressed(MouseEvent e) {
+		 
+		 if (e.getClickCount() == 1 && !txtEmail.contains(e.getPoint())) {
+			 if (txtEmail.getText().isBlank()) {
+				 txtEmail.setFocusable(false);
+				 txtEmail.setText("Enter your email .....");
+		            addPlaceHolderStyle(txtEmail);
+		        }else {
+		        	txtEmail.setFocusable(false);
+		        }
+			}
+
+		 
+	}
+	
+	
 }

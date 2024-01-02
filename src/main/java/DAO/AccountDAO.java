@@ -131,10 +131,7 @@ public class AccountDAO {
 			e.printStackTrace();
 		}
 	}
-<<<<<<< HEAD
 
-=======
->>>>>>> eb4ddd76e3a6a0fa0c17678405757a971aa74ad4
 	public void changePass(String password, String username) {
 		try {
 
@@ -160,10 +157,7 @@ public class AccountDAO {
 		}
 	
 	}
-<<<<<<< HEAD
-	
 
-=======
 	public Boolean checkRoleManager(String username) {
 		Connection con = null; 
 		
@@ -187,7 +181,7 @@ public class AccountDAO {
 		}
 		return false;
 	}
->>>>>>> eb4ddd76e3a6a0fa0c17678405757a971aa74ad4
+
 	public static void getInfo(int id, String Name, String Position) {
 		EmployeeAfterLogin.employeeID=id;
 		EmployeeAfterLogin.employeeName=Name;
