@@ -13,7 +13,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import DAO.EmployeeDAO;
-import DAO.EmprequestDAO;
+import DAO.emprequestDAO;
 import DAO.Work_scheduleDAO;
 import DAO.Work_shiftDAO;
 import entity.WorkShift;
@@ -217,7 +217,7 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
 		model.addColumn("Work Shift Id");
 		model.addColumn("Reason");
 		model.addColumn("Is Accepted");
-		EmprequestDAO dao = new EmprequestDAO();
+		emprequestDAO dao = new emprequestDAO();
 		totalPage = Math.ceil(dao.countRow() / Double.valueOf(rowOfPage));
 		dao.selectUnCheckedEmprequests(firstPage, rowOfPage).stream().forEach(emp -> {
 			String isaccept = emp.isIsaccept() ? "Yes" : "No";
@@ -239,7 +239,7 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
 	}
 
 	protected void btnNextActionPerformed(ActionEvent e) {
-		EmprequestDAO dao = new EmprequestDAO();
+		emprequestDAO dao = new emprequestDAO();
 		totalPage = Math.ceil(dao.countRow() / Double.valueOf(rowOfPage));
 		if (firstPage < totalPage) {
 			firstPage++;
@@ -270,7 +270,7 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
 			return;
 		}
 		int row = table.getSelectedRow();
-		EmprequestDAO dao = new EmprequestDAO();
+		emprequestDAO dao = new emprequestDAO();
 		dao.delete(Integer.parseInt(table.getValueAt(row, 0).toString()));
 		loadData();
 		
@@ -281,8 +281,14 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
 			return;
 		}
 		int row = table.getSelectedRow();
-		EmprequestDAO dao = new EmprequestDAO();
+		emprequestDAO dao = new emprequestDAO();
 		dao.updateStatus(Integer.parseInt(table.getValueAt(row, 0).toString()));
+		Work_scheduleDAO wsdao = new Work_scheduleDAO();
+		int workShiftId = Integer.parseInt(table.getValueAt(row, 3).toString());
+		int workScheduleId = Integer.parseInt(table.getValueAt(row, 1).toString());
+		Date newDate = (Date) table.getValueAt(row, 2);
+		wsdao.updateWSAfterRequest(workShiftId,newDate, workScheduleId);
+		dao.delete(Integer.parseInt(table.getValueAt(row, 0).toString()));
 		loadData();
 	}
 }

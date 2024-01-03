@@ -6,6 +6,8 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.util.Date;
 import java.util.Properties;
 import java.util.UUID;
@@ -48,6 +50,8 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.LineBorder;
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
 
@@ -122,52 +126,52 @@ public class ChangePassDemo extends JFrame {
         // Panel 1
         panelEmail = new JPanel();
 
-        panelEmail.addMouseListener(new MouseAdapter() {
-        	@Override
-        	public void mousePressed(MouseEvent e) {
-        		do_panelEmail_mousePressed(e);
-        	}
-        });
+       
         
         txtEmail = new JTextField();
-        txtEmail.addMouseListener(new MouseAdapter() {
-        	
-        	 @Override
-        	    public void mousePressed(MouseEvent e) {
-        	        txtEmail.setFocusable(true);
-        	        txtEmail.requestFocus();
-        	        removePlaceHolderStyle(txtEmail);
-        	    }
-        	
-        	
-        });
-        txtEmail.addFocusListener(new FocusAdapter() {
-        	@Override
-        	public void focusGained(FocusEvent e) {
-        		do_txtEmail_focusGained(e);
-        	}
-        });
+       
+       
         txtEmail.setText("Enter your email .....");
         txtEmail.setBounds(69, 91, 289, 36);
-        txtEmail.setFocusable(false);
-        addPlaceHolderStyle(txtEmail);
         btnEmailCheck_1 = new JButton("Next");
 
         panelEmail.setBackground(new Color(128, 255, 255));
         txtEmail = new JTextField();
-        txtEmail.setBorder(new LineBorder(new Color(0, 0, 0), 3));
+        txtEmail.setBorder(new TitledBorder(null, "Enter your email", TitledBorder.LEADING, TitledBorder.TOP, null, null));
         txtEmail.setFont(new Font("Candara", Font.PLAIN, 12));
         txtEmail.setBounds(140, 120, 325, 44);
-        txtEmail.setText("Enter your email .....");
-        btnEmailCheck_1 = new JButton("Send");
+        txtEmail.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (txtEmail.getText().equals("Enter your email .....")) {
+                    txtEmail.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (txtEmail.getText().isEmpty()) {
+                    txtEmail.setText("Enter your email .....");
+                }
+            }
+        });
+
+        btnEmailCheck_1 = new JButton("");
         btnEmailCheck_1.setFont(new Font("Candara", Font.BOLD, 14));
-        btnEmailCheck_1.setBounds(355, 209, 110, 44);
+
+        btnEmailCheck_1.setBounds(371, 209, 94, 44);
+
+        // Adjust the size of the image
+        ImageIcon sendIcon = new ImageIcon(ChangePassDemo.class.getResource("/send.png"));
+        Image sendImg = sendIcon.getImage().getScaledInstance(94, 44, Image.SCALE_SMOOTH);
+        btnEmailCheck_1.setIcon(new ImageIcon(sendImg));
+
 
         btnEmailCheck_1.addMouseListener(new MouseAdapter() {
-        	@Override
-        	public void mouseClicked(MouseEvent e) {
-        		do_btnEmailCheck_1_mouseClicked(e);
-        	}
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                do_btnEmailCheck_1_mouseClicked(e);
+            }
         });
         cardPanel.add(panelEmail, "panelEmail");
         panelEmail.setLayout(null);
@@ -191,30 +195,48 @@ public class ChangePassDemo extends JFrame {
         lblNewLabel.setBounds(174, 11, 422, 54);
         panel.add(lblNewLabel);
         
-        btnBackLogin = new JButton("Back Login");
+        btnBackLogin = new JButton("");
+        btnBackLogin.setIcon(new ImageIcon(ChangePassDemo.class.getResource("/back_login.png")));
         btnBackLogin.setFont(new Font("Candara", Font.BOLD, 14));
         btnBackLogin.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		btnBackLoginActionPerformed(e);
         	}
         });
-        btnBackLogin.setBounds(138, 209, 110, 44);
+        btnBackLogin.setBounds(140, 209, 52, 44);
         panelEmail.add(btnBackLogin);
 
         // Panel 2
         panelCode = new JPanel();
         panelCode.setBackground(new Color(128, 255, 255));
-        lblPassword = new JLabel("Enter Your Code :");
+        lblPassword = new JLabel("Your Code");
         lblPassword.setFont(new Font("Candara", Font.PLAIN, 12));
         lblPassword.setHorizontalAlignment(SwingConstants.CENTER);
         lblPassword.setBounds(40, 112, 117, 59);
         txtCode = new JTextField();
+        txtCode.setName("");
+        txtCode.setToolTipText("");
         txtCode.setBackground(new Color(255, 255, 255));
         txtCode.setFont(new Font("Candara", Font.PLAIN, 12));
-        txtCode.setBorder(new LineBorder(new Color(0, 0, 0), 3));
-        txtCode.setText("  Enter your code .....");
+        txtCode.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Enter in here", TitledBorder.LEADING, TitledBorder.TOP, null, null));
         txtCode.setOpaque(false);
         txtCode.setBounds(167, 116, 269, 50);
+        txtCode.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (txtCode.getText().equals("Enter your code.....")) {
+                    txtCode.setText("");
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (txtCode.getText().isEmpty()) {
+                    txtCode.setText("Enter your code .....");
+                }
+            }
+        });
+
         btnVerifyCode = new JButton("comfirm");
         btnVerifyCode.setFont(new Font("Candara", Font.BOLD, 14));
         btnVerifyCode.addMouseListener(new MouseAdapter() {
@@ -247,7 +269,8 @@ public class ChangePassDemo extends JFrame {
         lblChangePassword.setBounds(174, 11, 288, 54);
         panel_1.add(lblChangePassword);
         
-        btnBack = new JButton("Back ");
+        btnBack = new JButton("");
+        btnBack.setIcon(new ImageIcon(ChangePassDemo.class.getResource("/back.png")));
         btnBack.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 cardLayout.show(cardPanel, "panelEmail");
@@ -255,7 +278,7 @@ public class ChangePassDemo extends JFrame {
         });
 
         btnBack.setFont(new Font("Candara", Font.BOLD, 14));
-        btnBack.setBounds(167, 212, 104, 36);
+        btnBack.setBounds(167, 212, 52, 36);
         panelCode.add(btnBack);
         
         panelNewPass = new JPanel();
@@ -265,10 +288,12 @@ public class ChangePassDemo extends JFrame {
         cardPanel.add(panelNewPass, "panelNewPass");
         
         pwdEnterYourNewPW = new JPasswordField();
+        pwdEnterYourNewPW.setBorder(new TitledBorder(null, "Enter here", TitledBorder.LEADING, TitledBorder.TOP, null, null));
         pwdEnterYourNewPW.setBounds(258, 111, 191, 40);
         panelNewPass.add(pwdEnterYourNewPW);
         
         pwdComfirmNewPass = new JPasswordField();
+        pwdComfirmNewPass.setBorder(new TitledBorder(null, "Confirm here", TitledBorder.LEADING, TitledBorder.TOP, null, null));
         pwdComfirmNewPass.setBounds(258, 164, 191, 40);
         panelNewPass.add(pwdComfirmNewPass);
         
@@ -491,46 +516,6 @@ public class ChangePassDemo extends JFrame {
 			return false;
 		}
 	}
-
-	public void addPlaceHolderStyle(JTextField textField) {
-		Font font = textField.getFont();
-		font = font.deriveFont(Font.ITALIC);
-		textField.setFont(font);
-		textField.setForeground(Color.gray);
-		
-	}
-	public void removePlaceHolderStyle(JTextField textField) {
-		Font font = textField.getFont();
-		font = font.deriveFont(Font.PLAIN|Font.BOLD);
-		textField.setFont(font);
-		textField.setForeground(Color.gray);
-	}
-	protected void do_txtEmail_focusGained(FocusEvent e) {
-		if(txtEmail.getText().equals("Enter your email .....")) {
-			txtEmail.setText(null);
-			txtEmail.requestFocus();
-			removePlaceHolderStyle(txtEmail);
-		}
-	}
-	
-
-	protected void do_panelEmail_mousePressed(MouseEvent e) {
-		 
-		 if (e.getClickCount() == 1 && !txtEmail.contains(e.getPoint())) {
-			 if (txtEmail.getText().isBlank()) {
-				 txtEmail.setFocusable(false);
-				 txtEmail.setText("Enter your email .....");
-		            addPlaceHolderStyle(txtEmail);
-		        }else {
-		        	txtEmail.setFocusable(false);
-		        }
-			}
-
-		 
-	}
-	
-	
-
 	protected void btnBackLoginActionPerformed(ActionEvent e) {
 	      LoginFrame lf = new LoginFrame();
 	      lf.show();
