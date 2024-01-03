@@ -73,13 +73,6 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		private JLabel Gender;
 		private JTextField textField_Position;
 		private JLabel Birthday;
-		private int firstPage = 1;
-		private int rowOfPage = 10;
-		private Double totalPage;
-		private JButton jButtonCreate;
-		private JButton jButtonFind;
-		private JButton btnRefrest;
-		private ButtonGroup G;
 		private JButton jButton1;
 		private JPanel panel;
 		private JLabel lblLogo_1;
@@ -178,6 +171,7 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		jPanel1.add(Employee_ID);
 		
 		textField_empID = new JLabel();
+		textField_empID.setEnabled(false);
 		textField_empID.setForeground(new Color(0, 0, 0));
 		textField_empID.setFont(new Font("Candara", Font.BOLD, 14));
 		textField_empID.setBounds(198, 100, 180, 30);
@@ -191,6 +185,7 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		jPanel1.add(Emp_Name);
 		
 		textField_empName = new JTextField();
+		textField_empName.setEditable(false);
 		textField_empName.setFont(new Font("Calibri", Font.BOLD, 14));
 		textField_empName.setBounds(198, 155, 180, 30);
 		jPanel1.add(textField_empName);
@@ -210,6 +205,7 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		jPanel1.add(Gender);
 		
 		textField_Position = new JTextField();
+		textField_Position.setEditable(false);
 		textField_Position.setFont(new Font("Calibri", Font.BOLD, 14));
 		textField_Position.setBounds(198, 210, 180, 30);
 		jPanel1.add(textField_Position);
@@ -221,6 +217,11 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		Birthday.setBounds(65, 263, 91, 30);
 		jPanel1.add(Birthday);
 		
+
+		
+	
+		
+
 		ImageIcon icon = new ImageIcon(EmployeeFrame.class.getResource("/create.png"));
 		Image img = icon.getImage();
 		Image newImg = img.getScaledInstance(110, 30, java.awt.Image.SCALE_SMOOTH);
@@ -231,14 +232,7 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		Image img1 = icon1.getImage();
 		Image newImg1 = img1.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
 		ImageIcon newIcon1 = new ImageIcon(newImg1);
-		
-		ImageIcon refreshIcon = new ImageIcon(EmployeeFrame.class.getResource("/refresh-page-option.png"));
-		Image refreshImg = refreshIcon.getImage();
-		Image newRefreshImg = refreshImg.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
-		ImageIcon newRefreshIcon = new ImageIcon(newRefreshImg);
 
-
-		
 		getContentPane().add(jDesktopPane1);
 		jDesktopPane1.setBounds(200, 100, 990, 550);
 
@@ -320,8 +314,10 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		lblNewLabel.setIcon(aptechLogoIcon);
 		lblNewLabel.setBounds(10, 11, 150, 79);
 		Horizontal_Panel.add(lblNewLabel);
-		G = new ButtonGroup();
+
+
 		
+
 		panel = new JPanel();
 		panel.setLayout(null);
 		panel.setBorder(new LineBorder(new Color(0, 0, 0), 5));
