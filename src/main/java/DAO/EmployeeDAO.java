@@ -211,5 +211,27 @@ public class EmployeeDAO {
 		}
 		return null;
 	}
+	
+	public Employee getEmpByID(int id) {
+		Connection con = null;
+		try {
+			con = JdbcUlti.getConnection();
+			String sql = "select * from employee\r\n"
+					+ "  where employee_id = ?";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setInt(1, id);
+
+			ResultSet rs = st.executeQuery();
+			if(rs.next()) {
+				return new Employee(rs.getInt("employee_id"), rs.getString("employee_name"),
+						rs.getString("position"), rs.getDate("birthday"), rs.getBoolean("gender"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			JdbcUlti.closeConnection(con);
+		}
+		return null;
+	}
 
 }

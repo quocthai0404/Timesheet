@@ -10,6 +10,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import database.JdbcUlti;
+import entity.Employee;
 import entity.EmployeeAfterLogin;
 import entity.Work_schedule;
 import entity.wSche_join_wShift;
@@ -249,6 +250,52 @@ public class Work_scheduleDAO {
 			JdbcUlti.closeConnection(con);
 		}
 		return list;
+	}
+	
+	public List<Work_schedule> paginate(int pageNumber, int rowOfPage){
+		List<Work_schedule> list = new ArrayList<>();
+		try {
+			Connection con = JdbcUlti.getConnection();
+			String sql2 = "SELECT *\r\n"
+					+ "  FROM work_schedule\r\n"
+					+ "  where isHide=0\r\n"
+					+ "  order by work_schedule_id\r\n"
+					+ "  offset (?-1)*? rows\r\n"
+					+ "  fetch next ? rows only";
+			PreparedStatement st = con.prepareStatement(sql2);
+			st.setInt(1, pageNumber);
+			st.setInt(2, rowOfPage);
+			st.setInt(3, rowOfPage);
+			ResultSet rs = st.executeQuery();
+			while (rs.next()) {
+				list.add(new Work_schedule(rs.getInt("work_schedule_id"), rs.getInt("employee_id"),
+						rs.getDate("work_date"), rs.getInt("work_shift_id")));
+			}
+			JdbcUlti.closeConnection(con);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	public int countRow2() {
+		int count = 0;
+		try {
+			Connection con = JdbcUlti.getConnection();
+			var statement = con.createStatement();
+			String sql = "SELECT count(*)\r\n"
+					+ "  FROM work_schedule\r\n"
+					+ "  where isHide=0";
+			ResultSet rs = statement.executeQuery(sql);
+			while (rs.next()) {
+				count = rs.getInt(1);
+			}
+			JdbcUlti.closeConnection(con);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return count;
 	}
 
 }

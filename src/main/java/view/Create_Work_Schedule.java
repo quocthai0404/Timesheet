@@ -14,7 +14,9 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 import DAO.EmployeeDAO;
+import DAO.Work_scheduleDAO;
 import database.JdbcUlti;
+import entity.Employee;
 import helper.Helper;
 
 import javax.swing.JScrollPane;
@@ -36,6 +38,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.security.MessageDigest;
 import java.awt.event.ActionEvent;
+import javax.swing.JComboBox;
+import com.toedter.calendar.JDateChooser;
 
 
 public class Create_Work_Schedule extends javax.swing.JInternalFrame {
@@ -48,6 +52,7 @@ public class Create_Work_Schedule extends javax.swing.JInternalFrame {
 		cn = new JdbcUlti();
 		setTitle("Create Employee Account");
 		statusCombo();
+		loadData();
 		
 
 	}
@@ -64,9 +69,6 @@ public class Create_Work_Schedule extends javax.swing.JInternalFrame {
 		Employee_ID = new javax.swing.JLabel();
 		Emp_Name = new javax.swing.JLabel();
 		Position = new javax.swing.JLabel();
-		Username = new javax.swing.JLabel();
-		Passwword = new javax.swing.JLabel();
-		textField_empID = new javax.swing.JLabel();
 		textField_empName = new javax.swing.JTextField();
 
 		setMaximumSize(new java.awt.Dimension(990, 550));
@@ -78,87 +80,31 @@ public class Create_Work_Schedule extends javax.swing.JInternalFrame {
 		Employee_ID.setForeground(new Color(0, 0, 0));
 		Employee_ID.setText("Employee ID :");
 		getContentPane().add(Employee_ID);
-		Employee_ID.setBounds(80, 87, 110, 30);
+		Employee_ID.setBounds(73, 149, 110, 30);
 
 		Emp_Name.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
 		Emp_Name.setForeground(new Color(0, 0, 0));
 		Emp_Name.setText("Employee Name :");
 		getContentPane().add(Emp_Name);
-		Emp_Name.setBounds(495, 169, 110, 30);
+		Emp_Name.setBounds(73, 199, 110, 30);
 
 		Position.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
 		Position.setForeground(new Color(0, 0, 0));
 		Position.setText("Position :");
 		getContentPane().add(Position);
-		Position.setBounds(495, 210, 110, 30);
-
-		Username.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
-		Username.setForeground(new Color(0, 0, 0));
-		Username.setText("Username :");
-		getContentPane().add(Username);
-		Username.setBounds(80, 128, 109, 30);
-
-		Passwword.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
-		Passwword.setForeground(new Color(0, 0, 0));
-		Passwword.setText("Password :");
-		getContentPane().add(Passwword);
-		Passwword.setBounds(80, 169, 109, 30);
-
-		textField_empID.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
-		textField_empID.setForeground(new java.awt.Color(255, 255, 255));
-		getContentPane().add(textField_empID);
-		textField_empID.setBounds(221, 87, 180, 30);
+		Position.setBounds(73, 239, 110, 30);
 
 		textField_empName.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
 	
 		getContentPane().add(textField_empName);
-		textField_empName.setBounds(635, 169, 180, 30);
+		textField_empName.setBounds(221, 199, 145, 30);
 		
 		textField_Position = new JTextField();
 		textField_Position.setFont(new Font("Calibri", Font.BOLD, 14));
-		textField_Position.setBounds(635, 210, 180, 30);
+		textField_Position.setBounds(221, 239, 145, 30);
 		getContentPane().add(textField_Position);
-		
-		txtUsername = new JTextField();
-		txtUsername.setFont(new Font("Calibri", Font.BOLD, 14));
-		txtUsername.setBounds(221, 128, 180, 30);
-		getContentPane().add(txtUsername);
-		
-		
-		jPasswordField1 = new JPasswordField();
-//		txtPassword = new JTextField();
-//		txtPassword.setFont(new Font("Calibri", Font.BOLD, 14));
-		jPasswordField1.setBounds(221, 169, 180, 30);
-		getContentPane().add(jPasswordField1);
-		
-		Email = new JLabel();
-		Email.setText("Email");
-		Email.setForeground(Color.BLACK);
-		Email.setFont(new Font("Candara", Font.BOLD, 14));
-		Email.setBounds(80, 210, 109, 30);
-		getContentPane().add(Email);
-		
-		txtEmail = new JTextField();
-		txtEmail.setFont(new Font("Calibri", Font.BOLD, 14));
-		txtEmail.setBounds(221, 210, 180, 30);
-		getContentPane().add(txtEmail);
-		
-		btnCreate = new JButton("");
-		btnCreate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				btnCreateActionPerformed(e);
-			}
-		});
-		
-
-		btnCreate.setIcon(new ImageIcon(Create_Work_Schedule.class.getResource("/add.png")));
-		ImageIcon originalIcon = (ImageIcon) btnCreate.getIcon();
-		Image img = originalIcon.getImage().getScaledInstance(124, 30, Image.SCALE_SMOOTH);
-		ImageIcon resizedIcon = new ImageIcon(img);
-		btnCreate.setIcon(resizedIcon);
-		btnCreate.setPreferredSize(new Dimension(124, 30));
-		btnCreate.setBounds(80, 264, 90, 30);
-		getContentPane().add(btnCreate);
+//		Image img = originalIcon.getImage().getScaledInstance(124, 30, Image.SCALE_SMOOTH);
+//		ImageIcon resizedIcon = new ImageIcon(img);
 
 		
 		panel = new JPanel();
@@ -173,253 +119,203 @@ public class Create_Work_Schedule extends javax.swing.JInternalFrame {
 		lblNewLabel.setBounds(10, 0, 154, 76);
 		panel.add(lblNewLabel);
 		
-		lblNewLabel_1 = new JLabel("Create Employee Account");
+		lblNewLabel_1 = new JLabel("Create Employee Schedule");
 		lblNewLabel_1.setFont(new Font("Candara", Font.BOLD, 48));
 		lblNewLabel_1.setBounds(209, 11, 755, 54);
 		panel.add(lblNewLabel_1);
-		
-		btnPrevious = new JButton("Previous");
-		btnPrevious.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				btnPreviousActionPerformed(e);
-			}
-		});
-		btnPrevious.setFont(new Font("Segoe UI", Font.BOLD, 12));
-		btnPrevious.setBounds(785, 304, 103, 33);
-		getContentPane().add(btnPrevious);
-		
-		btnNext = new JButton("Next");
-		btnNext.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				btnNextActionPerformed(e);
-			}
-		});
-		btnNext.setFont(new Font("Segoe UI", Font.BOLD, 12));
-		btnNext.setBounds(785, 453, 103, 33);
-		getContentPane().add(btnNext);
-		
-		lblStatusPage = new JLabel("1/0");
-		lblStatusPage.setBounds(785, 386, 35, 14);
-		getContentPane().add(lblStatusPage);
-		
-		scrollPane = new JScrollPane();
-		scrollPane.setForeground(Color.WHITE);
-		scrollPane.setBackground(Color.WHITE);
-		scrollPane.setBounds(80, 304, 681, 182);
-		getContentPane().add(scrollPane);
-		
-		tableEmployee = new JTable();
-		tableEmployee.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                tableEmployeeMouseClicked(e);
-            }
-        });	
-
-        scrollPane.setViewportView(tableEmployee);
 
         getContentPane().setLayout(groupLayout);
-        loadData();
-		scrollPane.setViewportView(tableEmployee);;
+        
+        lblBirthday = new JLabel();
+        lblBirthday.setText("Birthday:");
+        lblBirthday.setForeground(Color.BLACK);
+        lblBirthday.setFont(new Font("Candara", Font.BOLD, 14));
+        lblBirthday.setBounds(73, 279, 110, 30);
+        getContentPane().add(lblBirthday);
+        
+        textField_birthday = new JTextField();
+        textField_birthday.setFont(new Font("Calibri", Font.BOLD, 14));
+        textField_birthday.setBounds(221, 279, 145, 30);
+        getContentPane().add(textField_birthday);
+        
+        textField_empID = new JTextField();
+        textField_empID.setFont(new Font("Calibri", Font.BOLD, 14));
+        textField_empID.setBounds(221, 149, 67, 30);
+        getContentPane().add(textField_empID);
+        
+        ImageIcon icon1 = new ImageIcon(AdminFrame.class.getResource("/search.png"));
+		Image img1 = icon1.getImage();
+		Image newImg1 = img1.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
+		ImageIcon newIcon1 = new ImageIcon(newImg1);
+        
+        jButtonFind = new JButton();
+        jButtonFind.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		jButtonFindActionPerformed(e);
+        	}
+        });
+        jButtonFind.setIcon(newIcon1);
+        jButtonFind.setFont(new Font("Candara", Font.BOLD, 12));
+        jButtonFind.setBorderPainted(false);
+        jButtonFind.setBorder(null);
+        jButtonFind.setBounds(298, 149, 30, 30);
+        getContentPane().add(jButtonFind);
+        
+        
+        ImageIcon refreshIcon = new ImageIcon(AdminFrame.class.getResource("/refresh-page-option.png"));
+		Image refreshImg = refreshIcon.getImage();
+		Image newRefreshImg = refreshImg.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
+		ImageIcon newRefreshIcon = new ImageIcon(newRefreshImg);
+
+        btnRefresh = new JButton();
+        btnRefresh.setIcon(newRefreshIcon);
+        btnRefresh.setFont(new Font("Candara", Font.BOLD, 12));
+        btnRefresh.setBorderPainted(false);
+        btnRefresh.setBorder(null);
+        btnRefresh.setBounds(336, 149, 30, 30);
+        getContentPane().add(btnRefresh);
+        
+        lblCreateScheduleNext = new JLabel();
+        lblCreateScheduleNext.setText("Number Of Day: ");
+        lblCreateScheduleNext.setForeground(Color.BLACK);
+        lblCreateScheduleNext.setFont(new Font("Candara", Font.BOLD, 14));
+        lblCreateScheduleNext.setBounds(73, 405, 135, 30);
+        getContentPane().add(lblCreateScheduleNext);
+        
+        String choice[] = {"1 day", "Next 7 days"};
+        comboBox = new JComboBox(choice);
+       
+        
+        comboBox.setBounds(221, 403, 145, 30);
+        getContentPane().add(comboBox);
+        
+        lblBeginDay = new JLabel();
+        lblBeginDay.setText("Begin Day: ");
+        lblBeginDay.setForeground(Color.BLACK);
+        lblBeginDay.setFont(new Font("Candara", Font.BOLD, 14));
+        lblBeginDay.setBounds(73, 319, 110, 30);
+        getContentPane().add(lblBeginDay);
+        
+        dateChooser = new JDateChooser();
+        dateChooser.setDateFormatString("yyyy-MM-dd");
+        dateChooser.setBounds(221, 319, 145, 30);
+        getContentPane().add(dateChooser);
+        
+        btnCreateSche = new JButton("Create Schedule");
+        btnCreateSche.setBounds(221, 456, 145, 42);
+        getContentPane().add(btnCreateSche);
+        
+        scrollPane = new JScrollPane();
+        scrollPane.setBounds(443, 149, 482, 314);
+        getContentPane().add(scrollPane);
+        
+        table = new JTable();
+        scrollPane.setViewportView(table);
+        
+        btnPrevious = new JButton("Previous");
+        btnPrevious.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		btnPreviousActionPerformed(e);
+        	}
+        });
+        btnPrevious.setBounds(443, 477, 85, 21);
+        getContentPane().add(btnPrevious);
+        
+        btnNext = new JButton("Next");
+        btnNext.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		btnNextActionPerformed(e);
+        	}
+        });
+        btnNext.setBounds(840, 477, 85, 21);
+        getContentPane().add(btnNext);
+        
+        String descr[] = { "8h-12h", "13h-17h", "18h-22h", 
+        "22h-6h"};
+        comboBox_1 = new JComboBox(descr);
+        comboBox_1.setBounds(221, 363, 145, 30);
+        getContentPane().add(comboBox_1);
+        
+        lblWorkShift = new JLabel();
+        lblWorkShift.setText("Work Shift:");
+        lblWorkShift.setForeground(Color.BLACK);
+        lblWorkShift.setFont(new Font("Candara", Font.BOLD, 14));
+        lblWorkShift.setBounds(73, 359, 110, 30);
+        getContentPane().add(lblWorkShift);
 
 		setBounds(0, 0, 990, 550);
 	}
 
 	private javax.swing.JLabel Employee_ID;
-	private javax.swing.JLabel Passwword;
-	private javax.swing.JLabel textField_empID;
 	private javax.swing.JLabel Emp_Name;
 	private javax.swing.JLabel Position;
-	private javax.swing.JLabel Username;
 	private javax.swing.JTextField textField_empName;
 	private JTextField textField_Position;
-	private JTextField txtUsername;
 	private JTextField txtPassword;
-	private JLabel Email;
-	private JTextField txtEmail;
-	private JButton btnCreate;
 	private JPanel panel;
 	private JLabel lblNewLabel;
 	private JLabel lblNewLabel_1;
-	private JButton btnPrevious;
-	private JButton btnNext;
 	private int firstPage = 1;
 	private int rowOfPage = 10;
 	private Double totalPage;
-	private JLabel lblStatusPage;
+	private JLabel lblBirthday;
+	private JTextField textField_birthday;
+	private JTextField textField_empID;
+	private JButton jButtonFind;
+	private JButton btnRefresh;
+	private JLabel lblCreateScheduleNext;
+	private JComboBox comboBox;
+	private JLabel lblBeginDay;
+	private JDateChooser dateChooser;
+	private JButton btnCreateSche;
 	private JScrollPane scrollPane;
-	private JTable tableEmployee;
-	private JPasswordField jPasswordField1;
+	private JTable table;
+	private JButton btnPrevious;
+	private JButton btnNext;
+	private JComboBox comboBox_1;
+	private JLabel lblWorkShift;
+	
+	   
+	   
+	   
+	   
+	   
+	protected void jButtonFindActionPerformed(ActionEvent e) {
+		EmployeeDAO dao = new EmployeeDAO();
+		Employee emp = new Employee();
+		emp = dao.getEmpByID(Integer.parseInt(textField_empID.getText().toString()));
+		textField_empName.setText(emp.getEmployee_name());
+		textField_Position.setText(emp.getPosition());
+		textField_birthday.setText(new SimpleDateFormat("yyyy-MM-dd").format(emp.getBirthday()));
+	
+	}
 	public void loadData() {
 		DefaultTableModel model = new DefaultTableModel();
 		model.addColumn("ID");
-		model.addColumn("Employee Name");
-		model.addColumn("Position");
-		model.addColumn("Birthday");
-		model.addColumn("Gender");
-		EmployeeDAO dao = new EmployeeDAO();
-		totalPage = Math.ceil(dao.countRow() / Double.valueOf(rowOfPage));
-		dao.selectPaginateEmp(firstPage, rowOfPage).stream().forEach(emp -> {
-			String gender = emp.getGender() ? "Male" : "Female";
-			model.addRow(new Object[] { emp.getEmployee_id(), emp.getEmployee_name(), emp.getPosition(),
-					emp.getBirthday(), gender });
+		model.addColumn("Employee ID");
+		model.addColumn("Date");
+		model.addColumn("Work Shift ID");
+		Work_scheduleDAO dao = new Work_scheduleDAO();
+		
+		dao.paginate(firstPage, rowOfPage).stream().forEach(ws -> {
+			model.addRow(new Object[] { ws.getWork_schedule_id(), ws.getEmployee_id(), ws.getWork_date(), ws.getWork_shift_id() });
 		});
-		lblStatusPage.setText(firstPage + "/" + totalPage.intValue());
-		tableEmployee.setModel(model);
+		table.setModel(model);
 	}
 	
+	
+	protected void btnNextActionPerformed(ActionEvent e) {
+		Work_scheduleDAO dao = new Work_scheduleDAO();
+		totalPage = Math.ceil(dao.countRow2() / Double.valueOf(rowOfPage));
+		if (firstPage < totalPage) {
+			firstPage++;
+		}
+		loadData();
+	}
 	protected void btnPreviousActionPerformed(ActionEvent e) {
 		if (firstPage > 1) {
 			firstPage--;
 		}
-
-		lblStatusPage.setText(firstPage + "/" + totalPage.intValue());
 		loadData();
-	}
-	 protected void btnNextActionPerformed(ActionEvent e) {
-			EmployeeDAO dao = new EmployeeDAO();
-			totalPage = Math.ceil(dao.countRow() / Double.valueOf(rowOfPage));
-			if (firstPage < totalPage) {
-				firstPage++;
-			}
-
-			lblStatusPage.setText(firstPage + "/" + totalPage.intValue());
-			loadData();
-
-		}
-	 public void getValueFromPanel(String id, String name, String position) {
-	            textField_empID.setText(id);
-	            textField_empName.setText(name);
-	            textField_Position.setText(position);
-	    }
-	   private void tableEmployeeMouseClicked(MouseEvent e) {
-	        if (e.getButton() == MouseEvent.BUTTON1) {
-	            int row = tableEmployee.getSelectedRow();
-
-	            // Lấy giá trị từ cột "Position" của dòng được chọn
-	            String positionValue = tableEmployee.getValueAt(row, 2).toString();
-
-	            // Kiểm tra nếu chức vụ là "manager" thì ẩn nút "Create"
-	            if ("manager".equalsIgnoreCase(positionValue)) {
-	            	btnCreate.setEnabled(false);
-	            } else {
-	            	btnCreate.setEnabled(true);
-	            }
-
-	            // Set các giá trị khác từ bảng vào các trường dữ liệu khác
-	            textField_empID.setText(tableEmployee.getValueAt(row, 0).toString());
-	            textField_empName.setText(tableEmployee.getValueAt(row, 1).toString());
-	            textField_Position.setText(positionValue);
-
-	            // Các thao tác khác có thể được thêm tùy thuộc vào yêu cầu cụ thể của bạn
-	        }
-	    }
-	   public Boolean checkAccID(int textField_empID) {
-		   Connection con = null;
-			try {
-				con = JdbcUlti.getConnection();
-	            String sql = "SELECT * FROM account where employee_id = ?";
-	            PreparedStatement statement = con.prepareStatement(sql);
-				statement.setInt(1, textField_empID);
-				ResultSet rs = statement.executeQuery();
-				if(rs.next()) {
-					JOptionPane.showMessageDialog(null, "This employee already has an account");
-					return false;
-				}
-				JdbcUlti.closeConnection(con);
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			}
-			return true;
-	   }
-	   public Boolean checkUsernameDuplicate(String username) {
-		   Connection con = null;
-			try {
-				con = JdbcUlti.getConnection();
-	            String sql = "SELECT * FROM account where username = ?";
-	            PreparedStatement statement = con.prepareStatement(sql);
-				statement.setString(1, username);
-				ResultSet rs = statement.executeQuery();
-				if(rs.next()) {
-					return false;
-				}
-				
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			} finally {
-				JdbcUlti.closeConnection(con);
-			}
-			return true;
-	   }
-	   public Boolean checkEmailDuplicate(String email) {
-		   Connection con = null;
-			try {
-				con = JdbcUlti.getConnection();
-	            String sql = "SELECT * FROM account where email = ?";
-	            PreparedStatement statement = con.prepareStatement(sql);
-				statement.setString(1, email);
-				ResultSet rs = statement.executeQuery();
-				if(rs.next()) {
-					return false;
-				}
-				
-			} catch (Exception e2) {
-				e2.printStackTrace();
-			} finally {
-				JdbcUlti.closeConnection(con);
-			}
-			return true;
-	   }
-	   public void SignUp(String username, String password, String email, int id) {
-			Connection con = null;
-			try {
-			    con = JdbcUlti.getConnection();
-			    String sql = "insert into account(employee_id, username, password, email)\r\n"
-			    		+ "values (?, ?, ?, ?)";
-			    PreparedStatement st = con.prepareStatement(sql);
-			    MessageDigest md5 = MessageDigest.getInstance("MD5");
-			    byte[] bytes = md5.digest(password.getBytes());
-			    String md5_password = new String(Base64.getEncoder().encode(bytes));
-			    st.setInt(1, id);
-			    st.setString(2, username);
-			    st.setString(3, md5_password);
-			    st.setString(4, email);
-			    int rowsUpdated = st.executeUpdate();
-				if (rowsUpdated > 0) {
-				    JOptionPane.showMessageDialog(null, "A new account was inserted successfully!");
-				}
-				
-				JdbcUlti.closeConnection(con);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	   public void refresh() {
-		   textField_empID.setText("");
-		   txtUsername.setText("");
-		   jPasswordField1.setText("");
-		   txtEmail.setText("");
-		   textField_empName.setText("");
-		   textField_Position.setText("");
-	   }
-	protected void btnCreateActionPerformed(ActionEvent e) {
-		int id = Integer.parseInt(textField_empID.getText());
-		if(checkAccID(id)) {
-			if(checkEmailDuplicate(txtEmail.getText())&&checkUsernameDuplicate(txtUsername.getText())){
-				SignUp(txtUsername.getText(), 
-						String.valueOf(jPasswordField1.getPassword()), txtEmail.getText(), id);
-				refresh();
-			}else {
-				JOptionPane.showMessageDialog(null, "Username or Email already exists");
-				refresh();
-				return;
-			}
-		}else {
-			refresh();
-			return;
-		}
-		
-		
-
 	}
 }

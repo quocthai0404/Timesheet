@@ -3,6 +3,7 @@ package Test;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -103,15 +104,38 @@ public class Run {
 //		} catch (Exception e) {
 //			e.printStackTrace();
 //		}
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
-	    Date date = new Date();
-	    long mili = date.getTime();
-	    Date date1 = new Date(mili);
-	    long mili1 = date1.getTime();
-	    System.out.println(formatter.format(date));  
-	    System.out.println(mili);
-	    System.out.println(formatter.format(date1));
-	    System.out.println(mili1);
+//		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
+//	    Date date = new Date();
+//	    long mili = date.getTime();
+//	    Date date1 = new Date(mili);
+//	    long mili1 = date1.getTime();
+//	    System.out.println(formatter.format(date));  
+//	    System.out.println(mili);
+//	    System.out.println(formatter.format(date1));
+//	    System.out.println(mili1);
+		
+		
+	        // Lấy ngày hiện tại
+	        LocalDate today = LocalDate.now();
+
+	        // Tạo một danh sách để lưu trữ các ngày tiếp theo
+	        List<LocalDate> nextSevenDays = new ArrayList<>();
+
+	        // Lặp lại 7 lần
+	        for (int i = 0; i < 7; i++) {
+	            // Thêm 1 ngày vào ngày hiện tại
+	            LocalDate nextDay = today.plusDays(i);
+
+	            // Lưu ngày hiện tại vào danh sách
+	            nextSevenDays.add(nextDay);
+	        }
+
+	        // In danh sách các ngày tiếp theo
+	        System.out.println("Danh sách 7 ngày tiếp theo:");
+	        for (LocalDate nextDay : nextSevenDays) {
+	            System.out.println(nextDay);
+	        }
+	    
 	}
 
 }

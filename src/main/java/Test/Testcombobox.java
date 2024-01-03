@@ -1,7 +1,10 @@
 package Test;
 
 import java.awt.EventQueue;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.swing.JFrame;
@@ -12,14 +15,20 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.awt.event.ActionEvent;
+import com.toedter.calendar.JDateChooser;
 
 public class Testcombobox extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JComboBox comboBox;
 	private JButton btnNewButton;
+	private JDateChooser dateChooser;
 
 	/**
 	 * Launch the application.
@@ -49,7 +58,6 @@ public class Testcombobox extends JFrame {
 		setContentPane(contentPane);
 		String city[] = { "Ha Noi", "Vinh Phuc", "Da Nang", 
                 "TP. Ho Chi Minh", "Nha Trang" };
-		comboBox = new JComboBox(city);
 		
 		btnNewButton = new JButton("New button");
 		btnNewButton.addActionListener(new ActionListener() {
@@ -57,6 +65,9 @@ public class Testcombobox extends JFrame {
 				btnNewButtonActionPerformed(e);
 			}
 		});
+		
+		dateChooser = new JDateChooser();
+		dateChooser.setDateFormatString("yyyy-MM-dd");
 		
 		
 		
@@ -73,18 +84,21 @@ public class Testcombobox extends JFrame {
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(183)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(btnNewButton)
-						.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, 149, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(94, Short.MAX_VALUE))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(183)
+							.addComponent(btnNewButton))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(53)
+							.addComponent(dateChooser, GroupLayout.PREFERRED_SIZE, 134, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(158, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(69)
-					.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(26)
+					.addGap(54)
+					.addComponent(dateChooser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addGap(41)
 					.addComponent(btnNewButton)
 					.addContainerGap(118, Short.MAX_VALUE))
 		);
@@ -92,6 +106,15 @@ public class Testcombobox extends JFrame {
 	}
 
 	protected void btnNewButtonActionPerformed(ActionEvent e) {
-		System.out.println(comboBox.getSelectedIndex()+1);
+		Date date = dateChooser.getDate();
+		//biến ngày của date chooser thành localdate
+		LocalDate dateLocal = date.toInstant()
+			      .atZone(ZoneId.systemDefault())
+			      .toLocalDate();
+		
+		//lấy ra ngày tiếp theo
+        LocalDate nextDay = dateLocal.plusDays(1);
+        System.out.println(nextDay);
+		
 	}
 }
