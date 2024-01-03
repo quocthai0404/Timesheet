@@ -497,7 +497,7 @@ public class AdminFrame extends javax.swing.JFrame {
 			model.addRow(new Object[] { emp.getEmployee_id(), emp.getEmployee_name(), emp.getPosition(),
 					emp.getBirthday(), gender });
 		});
-//		lblStatusPage.setText(firstPage + "/" + totalPage.intValue());
+		lblStatusPage.setText(firstPage + "/" + totalPage.intValue());
 		tableEmployee.setModel(model);
 	}
 	

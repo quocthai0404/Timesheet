@@ -12,6 +12,9 @@ public class Employee {
 
 	public Employee() {
 	}
+	public Employee(String employee_name) {
+		this.employee_name = employee_name;
+	}
 
 	public Employee(int employee_id, String employee_name, String position, Date birthday, Boolean gender) {
 		this.employee_id = employee_id;
