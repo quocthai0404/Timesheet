@@ -117,6 +117,7 @@ public class Work_Schedule extends javax.swing.JInternalFrame {
         getContentPane().add(Work_Shift);
         
         textFieldWork_Schedule_Id = new JTextField();
+        textFieldWork_Schedule_Id.setEditable(false);
         textFieldWork_Schedule_Id.setFont(new Font("Calibri", Font.BOLD, 14));
         textFieldWork_Schedule_Id.setBounds(609, 127, 180, 30);
         getContentPane().add(textFieldWork_Schedule_Id);

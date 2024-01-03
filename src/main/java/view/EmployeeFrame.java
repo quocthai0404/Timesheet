@@ -180,6 +180,7 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		jPanel1.add(Employee_ID);
 		
 		textField_empID = new JLabel();
+		textField_empID.setEnabled(false);
 		textField_empID.setForeground(new Color(0, 0, 0));
 		textField_empID.setFont(new Font("Candara", Font.BOLD, 14));
 		textField_empID.setBounds(198, 100, 180, 30);
@@ -193,6 +194,7 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		jPanel1.add(Emp_Name);
 		
 		textField_empName = new JTextField();
+		textField_empName.setEditable(false);
 		textField_empName.setFont(new Font("Calibri", Font.BOLD, 14));
 		textField_empName.setBounds(198, 155, 180, 30);
 		jPanel1.add(textField_empName);
@@ -212,6 +214,7 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		jPanel1.add(Gender);
 		
 		textField_Position = new JTextField();
+		textField_Position.setEditable(false);
 		textField_Position.setFont(new Font("Calibri", Font.BOLD, 14));
 		textField_Position.setBounds(198, 210, 180, 30);
 		jPanel1.add(textField_Position);
@@ -224,11 +227,13 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		jPanel1.add(Birthday);
 		
 		rdbtnNewRadioButton = new JRadioButton("Male");
+		rdbtnNewRadioButton.setEnabled(false);
 		rdbtnNewRadioButton.setBackground(new Color(128, 255, 255));
 		rdbtnNewRadioButton.setBounds(198, 322, 72, 23);
 		jPanel1.add(rdbtnNewRadioButton);
 		
 		rdbtnNewRadioButton_1 = new JRadioButton("Female");
+		rdbtnNewRadioButton_1.setEnabled(false);
 		rdbtnNewRadioButton_1.setBackground(new Color(128, 255, 255));
 		rdbtnNewRadioButton_1.setBounds(288, 322, 90, 23);
 		jPanel1.add(rdbtnNewRadioButton_1);
@@ -245,6 +250,7 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		ImageIcon newIcon1 = new ImageIcon(newImg1);
 		
 		dateChooser = new JDateChooser();
+		dateChooser.setEnabled(false);
 		dateChooser.setDateFormatString("yyyy-MM-dd");
 		dateChooser.setBounds(198, 263, 180, 30);
 		jPanel1.add(dateChooser);
@@ -349,6 +355,7 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		jPanel1.add(Day_work);
 		
 		textField_daywork = new JTextField();
+		textField_daywork.setEditable(false);
 		textField_daywork.setFont(new Font("Calibri", Font.BOLD, 14));
 		textField_daywork.setBounds(198, 385, 180, 30);
 		jPanel1.add(textField_daywork);
