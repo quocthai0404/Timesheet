@@ -93,6 +93,7 @@ public class AdminFrame extends javax.swing.JFrame {
 		private ButtonGroup G;
 		private JButton btnCreateEmpAcc;
 		private JButton btnNewButton;
+		private JButton btncreateWorkSchedule;
 
 	/**
 	 * Creates new form AdminFrame
@@ -395,7 +396,7 @@ public class AdminFrame extends javax.swing.JFrame {
 		jButton4.setBorder(new LineBorder(new Color(0, 0, 0), 4, true));
 		
 		Vertical_Panel.add(jButton4);
-		jButton4.setBounds(10, 404, 160, 40);
+		jButton4.setBounds(10, 463, 160, 40);
 
 		jButton12.setBackground(new java.awt.Color(255, 255, 255));
 		jButton12.setFont(new Font("Candara", Font.BOLD, 14)); // NOI18N
@@ -447,6 +448,19 @@ public class AdminFrame extends javax.swing.JFrame {
 		btnNewButton.setFont(new Font("Candara", Font.BOLD, 14));
 		btnNewButton.setBounds(10, 168, 160, 48);
 		Vertical_Panel.add(btnNewButton);
+		
+		btncreateWorkSchedule = new JButton();
+		btncreateWorkSchedule.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btncreateWorkScheduleActionPerformed(e);
+			}
+		});
+		btncreateWorkSchedule.setText("<html>Create Work <br>&nbsp &nbsp Schedule</html>");
+		btncreateWorkSchedule.setFont(new Font("Candara", Font.BOLD, 14));
+		btncreateWorkSchedule.setBorder(new LineBorder(new Color(0, 0, 0), 4, true));
+		btncreateWorkSchedule.setBackground(Color.WHITE);
+		btncreateWorkSchedule.setBounds(10, 404, 160, 48);
+		Vertical_Panel.add(btncreateWorkSchedule);
 		
 		Horizontal_Panel.setBackground(new Color(255, 255, 255));
 		Horizontal_Panel.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 5, true));
@@ -680,5 +694,11 @@ public class AdminFrame extends javax.swing.JFrame {
 	    } catch (Exception ex) {
 	        JOptionPane.showMessageDialog(rootPane, ex.toString());
 	    }
+	}
+	protected void btncreateWorkScheduleActionPerformed(ActionEvent e) {
+		Create_Work_Schedule CWS = new Create_Work_Schedule();
+	    jDesktopPane1.removeAll();
+	    jDesktopPane1.add(CWS);
+	    CWS.show();
 	}
 }
