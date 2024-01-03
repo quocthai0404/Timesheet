@@ -26,6 +26,7 @@ import attendancems_with_prepared22.NewTeacherInternalFrame;
 import database.JdbcUlti;
 import entity.Employee;
 
+
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -362,6 +363,7 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		String gender = emp.getGender()?"Male":"Female";
 		textField_Gender.setText(gender);
 	}
+
 	
 	
 	protected void btnNewButtonActionPerformed(ActionEvent e) {
@@ -402,3 +404,4 @@ public class EmployeeFrame extends javax.swing.JFrame {
 	    }
 	}
 }
+

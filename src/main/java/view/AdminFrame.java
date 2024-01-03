@@ -479,6 +479,7 @@ public class AdminFrame extends javax.swing.JFrame {
 	protected void jButtonUpdateActionPerformed(ActionEvent e) {
 		
 	}
+
 	
 	
 	
@@ -548,6 +549,8 @@ public class AdminFrame extends javax.swing.JFrame {
 
 		
 		tableEmployee.setModel(model);
+	
+
 	}
 	
 	protected void tableEmployeeMouseClicked(MouseEvent e) {

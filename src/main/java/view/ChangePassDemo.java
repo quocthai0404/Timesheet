@@ -3,6 +3,7 @@ package view;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
@@ -41,6 +42,10 @@ import java.awt.event.MouseEvent;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
+
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.LineBorder;
@@ -49,6 +54,7 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
+
 
 public class ChangePassDemo extends JFrame {
 
@@ -119,6 +125,16 @@ public class ChangePassDemo extends JFrame {
 
         // Panel 1
         panelEmail = new JPanel();
+
+       
+        
+        txtEmail = new JTextField();
+       
+       
+        txtEmail.setText("Enter your email .....");
+        txtEmail.setBounds(69, 91, 289, 36);
+        btnEmailCheck_1 = new JButton("Next");
+
         panelEmail.setBackground(new Color(128, 255, 255));
         txtEmail = new JTextField();
         txtEmail.setBorder(new TitledBorder(null, "Enter your email", TitledBorder.LEADING, TitledBorder.TOP, null, null));
@@ -142,12 +158,14 @@ public class ChangePassDemo extends JFrame {
 
         btnEmailCheck_1 = new JButton("");
         btnEmailCheck_1.setFont(new Font("Candara", Font.BOLD, 14));
+
         btnEmailCheck_1.setBounds(371, 209, 94, 44);
 
         // Adjust the size of the image
         ImageIcon sendIcon = new ImageIcon(ChangePassDemo.class.getResource("/send.png"));
         Image sendImg = sendIcon.getImage().getScaledInstance(94, 44, Image.SCALE_SMOOTH);
         btnEmailCheck_1.setIcon(new ImageIcon(sendImg));
+
 
         btnEmailCheck_1.addMouseListener(new MouseAdapter() {
             @Override
@@ -191,7 +209,7 @@ public class ChangePassDemo extends JFrame {
         // Panel 2
         panelCode = new JPanel();
         panelCode.setBackground(new Color(128, 255, 255));
-        lblPassword = new JLabel("Enter Your Code :");
+        lblPassword = new JLabel("Your Code");
         lblPassword.setFont(new Font("Candara", Font.PLAIN, 12));
         lblPassword.setHorizontalAlignment(SwingConstants.CENTER);
         lblPassword.setBounds(40, 112, 117, 59);
@@ -506,4 +524,5 @@ public class ChangePassDemo extends JFrame {
 	protected void BackActionPerformed(ActionEvent e) {
 		
 	}
+
 }
