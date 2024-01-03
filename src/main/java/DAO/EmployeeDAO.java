@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 
 import database.JdbcUlti;
 import entity.Employee;
+import entity.EmployeeAfterLogin;
 
 public class EmployeeDAO {
 	public List<Employee> selectEmployee() {
@@ -162,5 +163,27 @@ public class EmployeeDAO {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+	public Employee getProfileEmp() {
+		Connection con = null;
+		try {
+			con = JdbcUlti.getConnection();
+			String sql = "select * from employee\r\n"
+					+ "  where employee_id = ?";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setInt(1, EmployeeAfterLogin.employeeID);
+
+			ResultSet rs = st.executeQuery();
+			if(rs.next()) {
+				return new Employee(rs.getInt("employee_id"), rs.getString("employee_name"),
+						rs.getString("position"), rs.getDate("birthday"), rs.getBoolean("gender"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			JdbcUlti.closeConnection(con);
+		}
+		return null;
 	}
 }

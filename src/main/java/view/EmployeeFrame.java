@@ -24,6 +24,7 @@ import javax.swing.JOptionPane;
 import attendancems_with_prepared22.NewBatchInternalFrame;
 import attendancems_with_prepared22.NewTeacherInternalFrame;
 import database.JdbcUlti;
+import entity.Employee;
 
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -72,22 +73,19 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		private JLabel Gender;
 		private JTextField textField_Position;
 		private JLabel Birthday;
-		private JRadioButton rdbtnNewRadioButton;
-		private JRadioButton rdbtnNewRadioButton_1;
 		private int firstPage = 1;
 		private int rowOfPage = 10;
 		private Double totalPage;
 		private JButton jButtonCreate;
 		private JButton jButtonFind;
-		private JDateChooser dateChooser;
 		private JButton btnRefrest;
 		private ButtonGroup G;
 		private JButton jButton1;
-		private JLabel Day_work;
-		private JTextField textField_daywork;
 		private JPanel panel;
 		private JLabel lblLogo_1;
 		private JLabel lblNewLabel_1;
+		private JTextField textField_Gender;
+		private JTextField textField_birthDay;
 
 	/**
 	 * Creates new form AdminFrame
@@ -223,16 +221,6 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		Birthday.setBounds(65, 263, 91, 30);
 		jPanel1.add(Birthday);
 		
-		rdbtnNewRadioButton = new JRadioButton("Male");
-		rdbtnNewRadioButton.setBackground(new Color(128, 255, 255));
-		rdbtnNewRadioButton.setBounds(198, 322, 72, 23);
-		jPanel1.add(rdbtnNewRadioButton);
-		
-		rdbtnNewRadioButton_1 = new JRadioButton("Female");
-		rdbtnNewRadioButton_1.setBackground(new Color(128, 255, 255));
-		rdbtnNewRadioButton_1.setBounds(288, 322, 90, 23);
-		jPanel1.add(rdbtnNewRadioButton_1);
-		
 		ImageIcon icon = new ImageIcon(EmployeeFrame.class.getResource("/create.png"));
 		Image img = icon.getImage();
 		Image newImg = img.getScaledInstance(110, 30, java.awt.Image.SCALE_SMOOTH);
@@ -243,11 +231,6 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		Image img1 = icon1.getImage();
 		Image newImg1 = img1.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
 		ImageIcon newIcon1 = new ImageIcon(newImg1);
-		
-		dateChooser = new JDateChooser();
-		dateChooser.setDateFormatString("yyyy-MM-dd");
-		dateChooser.setBounds(198, 263, 180, 30);
-		jPanel1.add(dateChooser);
 		
 		ImageIcon refreshIcon = new ImageIcon(EmployeeFrame.class.getResource("/refresh-page-option.png"));
 		Image refreshImg = refreshIcon.getImage();
@@ -306,7 +289,7 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		lblLogo.setBounds(0, 0, 200, 139);  // Adjust the bounds accordingly
 		Vertical_Panel.add(lblLogo);
 		
-		jButton1 = new JButton("Information");
+		jButton1 = new JButton("Profile");
 		jButton1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnNewButtonActionPerformed(e);
@@ -338,20 +321,6 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		lblNewLabel.setBounds(10, 11, 150, 79);
 		Horizontal_Panel.add(lblNewLabel);
 		G = new ButtonGroup();
-		G.add(rdbtnNewRadioButton);
-		G.add(rdbtnNewRadioButton_1);
-		
-		Day_work = new JLabel();
-		Day_work.setText("Day work :");
-		Day_work.setForeground(Color.BLACK);
-		Day_work.setFont(new Font("Candara", Font.BOLD, 14));
-		Day_work.setBounds(65, 385, 110, 30);
-		jPanel1.add(Day_work);
-		
-		textField_daywork = new JTextField();
-		textField_daywork.setFont(new Font("Calibri", Font.BOLD, 14));
-		textField_daywork.setBounds(198, 385, 180, 30);
-		jPanel1.add(textField_daywork);
 		
 		panel = new JPanel();
 		panel.setLayout(null);
@@ -368,6 +337,16 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		lblNewLabel_1.setFont(new Font("Candara", Font.BOLD, 48));
 		lblNewLabel_1.setBounds(174, 11, 648, 54);
 		panel.add(lblNewLabel_1);
+		
+		textField_Gender = new JTextField();
+		textField_Gender.setFont(new Font("Calibri", Font.BOLD, 14));
+		textField_Gender.setBounds(198, 320, 180, 30);
+		jPanel1.add(textField_Gender);
+		
+		textField_birthDay = new JTextField();
+		textField_birthDay.setFont(new Font("Calibri", Font.BOLD, 14));
+		textField_birthDay.setBounds(198, 267, 180, 30);
+		jPanel1.add(textField_birthDay);
 		setSize(new java.awt.Dimension(1206, 689));
 		setLocationRelativeTo(null);
 	}
@@ -377,28 +356,18 @@ public class EmployeeFrame extends javax.swing.JFrame {
 	
 
 	public void loadData() {
-		DefaultTableModel model = new DefaultTableModel();
-		model.addColumn("ID");
-		model.addColumn("Employee Name");
-		model.addColumn("Position");
-		model.addColumn("Birthday");
-		model.addColumn("Gender");
 		EmployeeDAO dao = new EmployeeDAO();
-		totalPage = Math.ceil(dao.countRow() / Double.valueOf(rowOfPage));
-		dao.selectPaginateEmp(firstPage, rowOfPage).stream().forEach(emp -> {
-			String gender = emp.getGender() ? "Male" : "Female";
-			model.addRow(new Object[] { emp.getEmployee_id(), emp.getEmployee_name(), emp.getPosition(),
-					emp.getBirthday(), gender });
-		});
+		Employee emp = dao.getProfileEmp();
+		textField_empID.setText(emp.getEmployee_id()+"");
+		textField_empName.setText(emp.getEmployee_name());
+		textField_Position.setText(emp.getPosition());
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		textField_birthDay.setText(df.format(emp.getBirthday()));
+		String gender = emp.getGender()?"Male":"Female";
+		textField_Gender.setText(gender);
 	}
 	
-	public void refreshAll() {
-		textField_empID.setText("");
-		textField_empName.setText("");
-		textField_Position.setText("");
-		dateChooser.setDate(null);
-		G.clearSelection();
-	}
+	
 	protected void btnNewButtonActionPerformed(ActionEvent e) {
 		 jDesktopPane1.removeAll();
 	     jDesktopPane1.add(jPanel1);

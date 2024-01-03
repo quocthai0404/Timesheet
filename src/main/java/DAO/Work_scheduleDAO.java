@@ -10,6 +10,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import database.JdbcUlti;
+import entity.EmployeeAfterLogin;
 import entity.Work_schedule;
 
 public class Work_scheduleDAO {
@@ -106,13 +107,16 @@ public class Work_scheduleDAO {
 		int count = 0;
 		try {
 			Connection con = JdbcUlti.getConnection();
-			var statement = con.createStatement();
-			String sql = "SELECT COUNT(*) as count FROM work_schedule";
-			ResultSet rs = statement.executeQuery(sql);
+			String sql = "select count(*) as count\r\n"
+					+ "  from work_schedule\r\n"
+					+ "  where work_schedule.employee_id=? and isHide=0";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setInt(1, EmployeeAfterLogin.employeeID);
+			ResultSet rs = st.executeQuery();
 			while (rs.next()) {
 				count = rs.getInt(1);
 			}
-			JdbcUlti.closeConnection(con);
+			return count;
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -121,32 +125,31 @@ public class Work_scheduleDAO {
 
 	}
 
-	public List<Work_schedule> selectPaginateEWS(int pageNumber, int rowOfPage) {
-		List<Work_schedule> list = new ArrayList<>();
+	public ResultSet selectPaginateEWS(int pageNumber, int rowOfPage) {
+		
 		try {
 			Connection con = JdbcUlti.getConnection();
 
-			String sql = "SELECT work_schedule.*, work_shift.*\r\n" + "	FROM work_schedule\r\n"
-					+ "	JOIN work_shift ON work_schedule.work_shift_id = work_shift.work_shift_id\r\n"
-					+ "	order by work_schedule_id\r\n" + "	offset (?-1)*? rows\r\n" + "	fetch next ? rows only";
 
+			String sql = "select w_sche.work_schedule_id, w_sche.employee_id, w_sche.work_date, w_sche.work_shift_id,\r\n"
+					+ "  ws.description, ws.work_type\r\n"
+					+ "  from work_schedule as w_sche\r\n"
+					+ "  join work_shift as ws on ws.work_shift_id=w_sche.work_shift_id\r\n"
+					+ "  where w_sche.employee_id=? and w_sche.isHide=0\r\n"
+					+ "  order by w_sche.work_schedule_id\r\n"
+					+ "  offset (?-1)*? rows \r\n"
+					+ "  fetch next ? rows only";
 			PreparedStatement st = con.prepareStatement(sql);
-			st.setInt(1, pageNumber);
-			st.setInt(2, rowOfPage);
+			st.setInt(1, EmployeeAfterLogin.employeeID);
+			st.setInt(2, pageNumber);
 			st.setInt(3, rowOfPage);
+			st.setInt(4, rowOfPage);
 			ResultSet rs = st.executeQuery();
-			while (rs.next()) {
-				list.add(new Work_schedule(rs.getInt("work_schedule_id"), rs.getInt("employee_id"),
-						rs.getDate("work_date"), rs.getInt("work_shift_id"), rs.getString("description"),
-						rs.getString("work_type")
-
-				));
-			}
-			JdbcUlti.closeConnection(con);
+			return rs;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return list;
+		return null;
 	}
 
 	public int selectForCheck(int employee_id, Date work_date) {
