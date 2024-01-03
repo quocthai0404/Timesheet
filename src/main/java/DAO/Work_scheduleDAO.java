@@ -173,5 +173,24 @@ public class Work_scheduleDAO {
 		return workShiftIdFromDb;
 
 	}
+	public Work_schedule selectFromId(int work_schedule_id) {
+	    Work_schedule ws = null;
+	    try {
+	        Connection con = JdbcUlti.getConnection();
+	        String sql = "SELECT * FROM work_schedule WHERE work_schedule_id = ? ";
+	        PreparedStatement st = con.prepareStatement(sql);
+	        st.setInt(1, work_schedule_id);
+	        ResultSet rs = st.executeQuery();
+
+	        if (rs.next()) {
+	            ws = new Work_schedule(rs.getInt("work_schedule_id"), rs.getInt("employee_id"),
+	                    rs.getDate("work_date"), rs.getInt("work_shift_id"));
+	        }
+	        JdbcUlti.closeConnection(con);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return ws;
+	}
 
 }

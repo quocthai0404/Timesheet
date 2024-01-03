@@ -163,4 +163,27 @@ public class EmployeeDAO {
 		}
 		return list;
 	}
+	public String findNameFromId(int id) {
+		String name = null;
+		try {
+			Connection con = JdbcUlti.getConnection();
+
+			String sql = "select employee_name  from employee\r\n"
+					+ "  where employee_id = ?";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setInt(1, id);
+
+			ResultSet rs = st.executeQuery();
+			if(rs.next()) {
+				name = rs.getString("employee_name");
+			}
+			
+			JdbcUlti.closeConnection(con);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return name;
+		
+	}
+	
 }

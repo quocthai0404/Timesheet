@@ -40,17 +40,17 @@ import java.awt.event.MouseEvent;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Timestamp;
-<<<<<<< HEAD
+
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-=======
+
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.LineBorder;
 import java.awt.Font;
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
->>>>>>> 59601fc119708f72b15dfb59e3393e929cd29bfd
+
 
 public class ChangePassDemo extends JFrame {
 
@@ -121,16 +121,14 @@ public class ChangePassDemo extends JFrame {
 
         // Panel 1
         panelEmail = new JPanel();
-<<<<<<< HEAD
+
         panelEmail.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mousePressed(MouseEvent e) {
         		do_panelEmail_mousePressed(e);
         	}
         });
-        lblEmail_1 = new JLabel("Change Password");
-        lblEmail_1.setHorizontalAlignment(SwingConstants.CENTER);
-        lblEmail_1.setBounds(137, 21, 142, 36);
+        
         txtEmail = new JTextField();
         txtEmail.addMouseListener(new MouseAdapter() {
         	
@@ -154,7 +152,7 @@ public class ChangePassDemo extends JFrame {
         txtEmail.setFocusable(false);
         addPlaceHolderStyle(txtEmail);
         btnEmailCheck_1 = new JButton("Next");
-=======
+
         panelEmail.setBackground(new Color(128, 255, 255));
         txtEmail = new JTextField();
         txtEmail.setBorder(new LineBorder(new Color(0, 0, 0), 3));
@@ -164,7 +162,7 @@ public class ChangePassDemo extends JFrame {
         btnEmailCheck_1 = new JButton("Send");
         btnEmailCheck_1.setFont(new Font("Candara", Font.BOLD, 14));
         btnEmailCheck_1.setBounds(355, 209, 110, 44);
->>>>>>> 59601fc119708f72b15dfb59e3393e929cd29bfd
+
         btnEmailCheck_1.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent e) {
@@ -493,7 +491,7 @@ public class ChangePassDemo extends JFrame {
 			return false;
 		}
 	}
-<<<<<<< HEAD
+
 	public void addPlaceHolderStyle(JTextField textField) {
 		Font font = textField.getFont();
 		font = font.deriveFont(Font.ITALIC);
@@ -532,7 +530,7 @@ public class ChangePassDemo extends JFrame {
 	}
 	
 	
-=======
+
 	protected void btnBackLoginActionPerformed(ActionEvent e) {
 	      LoginFrame lf = new LoginFrame();
 	      lf.show();
@@ -541,5 +539,5 @@ public class ChangePassDemo extends JFrame {
 	protected void BackActionPerformed(ActionEvent e) {
 		
 	}
->>>>>>> 59601fc119708f72b15dfb59e3393e929cd29bfd
+
 }

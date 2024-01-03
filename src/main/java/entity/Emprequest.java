@@ -8,11 +8,11 @@ public class Emprequest {
 	private Date work_date;
 	private int work_shift_id;
 	private String reason;
-	private int isaccept;
+	private boolean isaccept;
 
 	public Emprequest() {
 	}
-	public Emprequest(int id, int work_schedule_id, Date work_date, int work_shift_id, String reason, int isaccept) {
+	public Emprequest(int id, int work_schedule_id, Date work_date, int work_shift_id, String reason, boolean isaccept) {
 		this.id = id;
 		this.work_schedule_id = work_schedule_id;
 		this.work_date = work_date;
@@ -51,10 +51,11 @@ public class Emprequest {
 	public void setReason(String reason) {
 		this.reason = reason;
 	}
-	public int getIsaccept() {
+	
+	public boolean isIsaccept() {
 		return isaccept;
 	}
-	public void setIsaccept(int isaccept) {
+	public void setIsaccept(boolean isaccept) {
 		this.isaccept = isaccept;
 	}
 	@Override
