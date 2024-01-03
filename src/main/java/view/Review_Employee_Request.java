@@ -104,6 +104,7 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
         getContentPane().add(scrollPane);
         
         table = new JTable();
+        table.setRowHeight(30);
         scrollPane.setViewportView(table);
         
         btnPrevious = new JButton("Previous");

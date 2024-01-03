@@ -251,6 +251,7 @@ public class AdminFrame extends javax.swing.JFrame {
 		jPanel1.add(jScrollPane1);
 		
 		tableEmployee = new JTable();
+		tableEmployee.setRowHeight(30);
 		tableEmployee.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

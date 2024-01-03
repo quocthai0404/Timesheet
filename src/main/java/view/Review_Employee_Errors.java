@@ -93,6 +93,7 @@ public class Review_Employee_Errors extends javax.swing.JInternalFrame {
         getContentPane().add(scrollPane);
         
         tableEmployee = new JTable();
+        tableEmployee.setRowHeight(30);
         tableEmployee.addMouseListener(new MouseAdapter() {
         	@Override
         	public void mouseClicked(MouseEvent e) {

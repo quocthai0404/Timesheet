@@ -176,5 +176,10 @@ public class Work_scheduleDAO {
 		return workShiftIdFromDb;
 
 	}
+	
+	
+	public ResultSet checkIn() {
+		
+	}
 
 }
