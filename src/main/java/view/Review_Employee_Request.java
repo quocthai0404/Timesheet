@@ -109,7 +109,13 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
         scrollPane.setBounds(76, 158, 442, 274);
         getContentPane().add(scrollPane);
         
-        table = new JTable();
+        table = new JTable(); //table marked
+        table.addMouseListener(new MouseAdapter() {
+        	@Override
+        	public void mouseClicked(MouseEvent e) {
+        		tableMouseClicked(e);
+        	}
+        });
         table.setRowHeight(30);
         scrollPane.setViewportView(table);
         
@@ -221,14 +227,8 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
 		scrollPane.setBounds(76, 158, 442, 274);
 		getContentPane().add(scrollPane);
 
-		table = new JTable();
-		scrollPane.setViewportView(table);
-		table.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				do_table_mouseClicked(e);
-			}
-		});
+
+		
 		loadData();
 
 		btnPrevious = new JButton("Previous");
@@ -354,19 +354,7 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
 
 	}
 
-	protected void do_table_mouseClicked(MouseEvent e) {
-		if (e.getButton() == MouseEvent.BUTTON1) {
-			int row = table.getSelectedRow();
-			Work_scheduleDAO dao = new Work_scheduleDAO();
-			Work_schedule ws = dao.selectFromId(Integer.parseInt(table.getValueAt(row, 1).toString()));
-			textField_empID.setText(String.valueOf(ws.getEmployee_id()));
-			EmployeeDAO empDao = new EmployeeDAO();
-			textEmpName.setText(String.valueOf(empDao.findNameFromId(ws.getEmployee_id())));
-			Work_shiftDAO shiftDao = new Work_shiftDAO();
-			textWorkTime.setText(shiftDao.selectDesFromId(Integer.parseInt(table.getValueAt(row, 3).toString())));
-			textReason.setText(table.getValueAt(row, 4).toString());
-		}
-	}
+	
 	
 	protected void do_btnReject_actionPerformed(ActionEvent e) {
 		if (table.getSelectedRow() == -1) {
@@ -394,5 +382,19 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
 		wsdao.updateWSAfterRequest(workShiftId,newDate, workScheduleId);
 		dao.delete(Integer.parseInt(table.getValueAt(row, 0).toString()));
 		loadData();
+	}
+	
+	protected void tableMouseClicked(MouseEvent e) {
+		if (e.getButton() == MouseEvent.BUTTON1) {
+			int row = table.getSelectedRow();
+			Work_scheduleDAO dao = new Work_scheduleDAO();
+			Work_schedule ws = dao.selectFromId(Integer.parseInt(table.getValueAt(row, 1).toString()));
+			textField_empID.setText(String.valueOf(ws.getEmployee_id()));
+			EmployeeDAO empDao = new EmployeeDAO();
+			textEmpName.setText(String.valueOf(empDao.findNameFromId(ws.getEmployee_id())));
+			Work_shiftDAO shiftDao = new Work_shiftDAO();
+			textWorkTime.setText(shiftDao.selectDesFromId(Integer.parseInt(table.getValueAt(row, 3).toString())));
+			textReason.setText(table.getValueAt(row, 4).toString());
+		}
 	}
 }
