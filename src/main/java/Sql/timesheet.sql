@@ -238,6 +238,18 @@ go
 
 EXEC sp_RENAME 'salary_deduction.salary_deduciton_id' , 'salary_deduction_id', 'COLUMN'
 
+update work_shift
+set description='8h-12h'
+where work_shift_id=1
+update work_shift
+set description='13h-17h'
+where work_shift_id=2
+update work_shift
+set description='18h-22h'
+where work_shift_id=3
+update work_shift
+set description='22h-6h'
+where work_shift_id=4
 
 insert into admin(username, password)
 values('admin', 'admin')

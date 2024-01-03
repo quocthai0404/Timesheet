@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 
 import database.JdbcUlti;
 import entity.Employee;
+import entity.EmployeeAfterLogin;
 
 public class EmployeeDAO {
 	public List<Employee> selectEmployee() {
@@ -163,4 +164,52 @@ public class EmployeeDAO {
 		}
 		return list;
 	}
+
+	public String findNameFromId(int id) {
+		String name = null;
+		try {
+			Connection con = JdbcUlti.getConnection();
+
+			String sql = "select employee_name  from employee\r\n"
+					+ "  where employee_id = ?";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setInt(1, id);
+
+			ResultSet rs = st.executeQuery();
+			if(rs.next()) {
+				name = rs.getString("employee_name");
+			}
+			
+			JdbcUlti.closeConnection(con);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return name;
+		
+	}
+	
+
+	
+	public Employee getProfileEmp() {
+		Connection con = null;
+		try {
+			con = JdbcUlti.getConnection();
+			String sql = "select * from employee\r\n"
+					+ "  where employee_id = ?";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setInt(1, EmployeeAfterLogin.employeeID);
+
+			ResultSet rs = st.executeQuery();
+			if(rs.next()) {
+				return new Employee(rs.getInt("employee_id"), rs.getString("employee_name"),
+						rs.getString("position"), rs.getDate("birthday"), rs.getBoolean("gender"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			JdbcUlti.closeConnection(con);
+		}
+		return null;
+	}
+
 }

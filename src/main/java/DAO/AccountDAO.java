@@ -133,23 +133,25 @@ public class AccountDAO {
 			e.printStackTrace();
 		}
 	}
-	 public boolean changePass(String password, String username) {
-         try {
-             Connection con = JdbcUlti.getConnection();
-             String sql = "UPDATE account SET password = ? WHERE username = ?";
-             try (PreparedStatement statement = con.prepareStatement(sql)) {
-                 statement.setString(1, password);
-                 statement.setString(2, username);
 
-                 int rowsUpdated = statement.executeUpdate();
-                 return rowsUpdated > 0;
-             }
-         } catch (SQLException e) {
-             e.printStackTrace();
-             JOptionPane.showMessageDialog(null, "Error updating password in the database", "Database Error", JOptionPane.ERROR_MESSAGE);
-             return false;
-         }
-     }
+	public boolean changePass(String password, String username) {
+        try {
+            Connection con = JdbcUlti.getConnection();
+            String sql = "UPDATE account SET password = ? WHERE username = ?";
+            try (PreparedStatement statement = con.prepareStatement(sql)) {
+                statement.setString(1, password);
+                statement.setString(2, username);
+
+                int rowsUpdated = statement.executeUpdate();
+                return rowsUpdated > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error updating password in the database", "Database Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+    }
+
 
 	public Boolean checkRoleManager(String username) {
 		Connection con = null; 
@@ -174,6 +176,7 @@ public class AccountDAO {
 		}
 		return false;
 	}
+
 	public static void getInfo(int id, String Name, String Position) {
 		EmployeeAfterLogin.employeeID=id;
 		EmployeeAfterLogin.employeeName=Name;
