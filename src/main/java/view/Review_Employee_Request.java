@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package view;
 
 import java.sql.*;
@@ -58,114 +54,10 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
 
 		jLabelWorktime = new javax.swing.JLabel();
 
-
-        jLabelWorktime.setFont(new Font("Candara", Font.BOLD, 14)); // NOI18N
-        jLabelWorktime.setForeground(new Color(0, 0, 0));
-        jLabelWorktime.setText("Work Time :");
-        getContentPane().add(jLabelWorktime);
-        jLabelWorktime.setBounds(588, 235, 100, 30);
-        
-        panel = new JPanel();
-        panel.setLayout(null);
-        panel.setBorder(new LineBorder(new Color(0, 0, 0), 5));
-        panel.setBackground(Color.WHITE);
-        panel.setBounds(0, 0, 974, 76);
-        getContentPane().add(panel);
-        
-        lblLogo = new JLabel("");
-        lblLogo.setIcon(new ImageIcon(Review_Employee_Request.class.getResource("/aptech_logo.png")));
-        lblLogo.setBounds(10, 0, 154, 76);
-        panel.add(lblLogo);
-        
-        lblNewLabel_1 = new JLabel("Review Employee Request");
-        lblNewLabel_1.setFont(new Font("Candara", Font.BOLD, 48));
-        lblNewLabel_1.setBounds(209, 11, 755, 54);
-        panel.add(lblNewLabel_1);
-        
-//        textField_reason = new JTextField();
-//        textField_reason.setColumns(10);
-//        textField_reason.setBounds(588, 306, 300, 126);
-//        getContentPane().add(textField_reason);
-        
-        lblReason_1 = new JLabel("Reason :");
-        lblReason_1.setFont(new Font("Candara", Font.BOLD, 14));
-        lblReason_1.setBounds(588, 279, 103, 16);
-        getContentPane().add(lblReason_1);
-        
-        Employee_ID = new JLabel();
-        Employee_ID.setText("Employee ID :");
-        Employee_ID.setForeground(Color.BLACK);
-        Employee_ID.setFont(new Font("Candara", Font.BOLD, 14));
-        Employee_ID.setBounds(588, 160, 110, 23);
-        getContentPane().add(Employee_ID);
-        
-        textField_empID = new JLabel();
-        textField_empID.setForeground(Color.BLACK);
-        textField_empID.setFont(new Font("Candara", Font.BOLD, 14));
-        textField_empID.setBounds(711, 153, 177, 30);
-        getContentPane().add(textField_empID);
-        
-        scrollPane = new JScrollPane();
-        scrollPane.setBounds(76, 158, 442, 274);
-        getContentPane().add(scrollPane);
-        
-        table = new JTable();
-        table.setRowHeight(30);
-        scrollPane.setViewportView(table);
-        
-        btnPrevious = new JButton("Previous");
-        btnPrevious.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		btnPreviousActionPerformed(e);
-        	}
-        });
-        btnPrevious.setFont(new Font("Segoe UI", Font.BOLD, 12));
-        btnPrevious.setBounds(76, 466, 103, 33);
-        getContentPane().add(btnPrevious);
-        
-        lblStatusPage = new JLabel("1/3");
-        lblStatusPage.setBounds(274, 476, 35, 14);
-        getContentPane().add(lblStatusPage);
-        
-        btnNext = new JButton("Next");
-        btnNext.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		btnNextActionPerformed(e);
-        	}
-        });
-        btnNext.setFont(new Font("Segoe UI", Font.BOLD, 12));
-        btnNext.setBounds(414, 466, 103, 33);
-        getContentPane().add(btnNext);
-        
-        Emp_Name = new JLabel();
-        Emp_Name.setText("Employee Name :");
-        Emp_Name.setForeground(Color.BLACK);
-        Emp_Name.setFont(new Font("Candara", Font.BOLD, 14));
-        Emp_Name.setBounds(588, 194, 110, 30);
-        getContentPane().add(Emp_Name);
-        
-//        textField_EmpName = new JTextField();
-//        textField_EmpName.setFont(new Font("Calibri", Font.BOLD, 14));
-//        textField_EmpName.setBounds(708, 194, 180, 30);
-//        getContentPane().add(textField_EmpName);
-        
-        btnAccept = new JButton("Accept\r\n");
-        btnAccept.setBounds(588, 466, 76, 33);
-        getContentPane().add(btnAccept);
-        
-        btnReject = new JButton("Reject");
-        btnReject.setBounds(711, 466, 85, 33);
-        getContentPane().add(btnReject);
-        
-//        comboBox = new JComboBox();
-//        comboBox.setBounds(708, 235, 180, 30);
-//        getContentPane().add(comboBox);
-
 		setMaximumSize(new java.awt.Dimension(990, 550));
 		setMinimumSize(new java.awt.Dimension(990, 550));
 		setPreferredSize(new java.awt.Dimension(990, 550));
 		getContentPane().setLayout(null);
-
 
 		jLabelWorktime.setFont(new Font("Candara", Font.BOLD, 14)); // NOI18N
 		jLabelWorktime.setForeground(new Color(0, 0, 0));
