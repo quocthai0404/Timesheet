@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import database.JdbcUlti;
 import entity.EmployeeAfterLogin;
 import entity.Work_schedule;
+import entity.wSche_join_wShift;
 
 public class Work_scheduleDAO {
 	public List<Work_schedule> selectWorkSchedule() {
@@ -221,6 +222,33 @@ public class Work_scheduleDAO {
 			e.printStackTrace();
 		}
 
+	}
+	
+	public List<wSche_join_wShift> getListSchedule(Date date){
+		Connection con = null;
+		List<wSche_join_wShift> list = new ArrayList<>();
+		
+		try {
+			con = JdbcUlti.getConnection();
+			String sql = "select * from work_schedule as w_sche\r\n"
+					+ "  join work_shift as ws on ws.work_shift_id = w_sche.work_shift_id\r\n"
+					+ "  where w_sche.isHide=0 and w_sche.employee_id=? and w_sche.work_date=?";
+
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setInt(1, EmployeeAfterLogin.employeeID);
+			statement.setDate(2, new java.sql.Date(date.getTime()));
+			ResultSet rs = statement.executeQuery();
+			while(rs.next()) {
+				list.add(new wSche_join_wShift(rs.getInt(1), rs.getInt(2), rs.getDate(3), 
+						rs.getInt(4), rs.getString(7), rs.getString(8)));
+			}
+			return list; 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			JdbcUlti.closeConnection(con);
+		}
+		return list;
 	}
 
 }

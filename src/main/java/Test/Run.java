@@ -2,7 +2,9 @@ package Test;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import database.JdbcUlti;
@@ -71,37 +73,45 @@ public class Run {
 //			// TODO Auto-generated catch block
 //			e.printStackTrace();
 //		}
-		List<Employee> list = new ArrayList<>();
-		List<Account> list2 = new ArrayList<>();
-		try {
-			Connection con = JdbcUlti.getConnection();
-			var statement = con.createStatement();
-			String sql = "select * from employee";
-			ResultSet rs = statement.executeQuery(sql);
-			while (rs.next()) {
-				list.add(new Employee(rs.getInt("employee_id"), rs.getString("employee_name"), rs.getString("position"),
-						rs.getDate("birthday"), rs.getBoolean("gender")));
-
-			}
-			var statement2 = con.createStatement();
-			String sql2 = "select * from account";
-			ResultSet rs2 = statement2.executeQuery(sql2);
-			while (rs2.next()) {
-				list2.add(new Account(rs2.getInt(1), rs2.getInt(2), rs2.getString(3), rs2.getString(4),
-						rs2.getString(5)));
-			}
-			for (Account account : list2) {
-				System.out.println(account);
-			}
-			for (Employee e : list) {
-				System.out.println(e);
-			}
-			JdbcUlti.closeConnection(con);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
+//		List<Employee> list = new ArrayList<>();
+//		List<Account> list2 = new ArrayList<>();
+//		try {
+//			Connection con = JdbcUlti.getConnection();
+//			var statement = con.createStatement();
+//			String sql = "select * from employee";
+//			ResultSet rs = statement.executeQuery(sql);
+//			while (rs.next()) {
+//				list.add(new Employee(rs.getInt("employee_id"), rs.getString("employee_name"), rs.getString("position"),
+//						rs.getDate("birthday"), rs.getBoolean("gender")));
+//
+//			}
+//			var statement2 = con.createStatement();
+//			String sql2 = "select * from account";
+//			ResultSet rs2 = statement2.executeQuery(sql2);
+//			while (rs2.next()) {
+//				list2.add(new Account(rs2.getInt(1), rs2.getInt(2), rs2.getString(3), rs2.getString(4),
+//						rs2.getString(5)));
+//			}
+//			for (Account account : list2) {
+//				System.out.println(account);
+//			}
+//			for (Employee e : list) {
+//				System.out.println(e);
+//			}
+//			JdbcUlti.closeConnection(con);
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+		SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");  
+	    Date date = new Date();
+	    long mili = date.getTime();
+	    Date date1 = new Date(mili);
+	    long mili1 = date1.getTime();
+	    System.out.println(formatter.format(date));  
+	    System.out.println(mili);
+	    System.out.println(formatter.format(date1));
+	    System.out.println(mili1);
 	}
 
 }

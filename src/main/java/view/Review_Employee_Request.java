@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package view;
 
 import java.sql.*;
@@ -57,7 +53,6 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
 	private void initComponents() {
 
 		jLabelWorktime = new javax.swing.JLabel();
-
 
         jLabelWorktime.setFont(new Font("Candara", Font.BOLD, 14)); // NOI18N
         jLabelWorktime.setForeground(new Color(0, 0, 0));
@@ -155,13 +150,7 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
 //        textField_EmpName.setBounds(708, 194, 180, 30);
 //        getContentPane().add(textField_EmpName);
         
-        btnAccept = new JButton("Accept\r\n");
-        btnAccept.setBounds(588, 466, 76, 33);
-        getContentPane().add(btnAccept);
-        
-        btnReject = new JButton("Reject");
-        btnReject.setBounds(711, 466, 85, 33);
-        getContentPane().add(btnReject);
+      
         
 //        comboBox = new JComboBox();
 //        comboBox.setBounds(708, 235, 180, 30);
@@ -171,7 +160,6 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
 		setMinimumSize(new java.awt.Dimension(990, 550));
 		setPreferredSize(new java.awt.Dimension(990, 550));
 		getContentPane().setLayout(null);
-
 
 		jLabelWorktime.setFont(new Font("Candara", Font.BOLD, 14)); // NOI18N
 		jLabelWorktime.setForeground(new Color(0, 0, 0));
@@ -383,6 +371,7 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
 		dao.delete(Integer.parseInt(table.getValueAt(row, 0).toString()));
 		loadData();
 	}
+
 	
 	protected void tableMouseClicked(MouseEvent e) {
 		if (e.getButton() == MouseEvent.BUTTON1) {
@@ -398,3 +387,4 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
 		}
 	}
 }
+
