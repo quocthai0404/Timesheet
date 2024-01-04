@@ -47,7 +47,9 @@ import javax.swing.JTable;
 import javax.swing.JComboBox;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.border.LineBorder;	
+import javax.swing.border.LineBorder;
+import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;	
 
 
 public class AdminFrame extends javax.swing.JFrame {
@@ -94,6 +96,9 @@ public class AdminFrame extends javax.swing.JFrame {
 		private JButton btnCreateEmpAcc;
 		private JButton btnNewButton;
 		private JButton btncreateWorkSchedule;
+		private JPanel panel;
+		private JLabel lblNewLabel_1;
+		private JLabel lblNewLabel_2;
 
 	/**
 	 * Creates new form AdminFrame
@@ -188,62 +193,62 @@ public class AdminFrame extends javax.swing.JFrame {
 		Employee_ID.setText("Employee ID :");
 		Employee_ID.setForeground(Color.BLACK);
 		Employee_ID.setFont(new Font("Candara", Font.BOLD, 14));
-		Employee_ID.setBounds(65, 58, 110, 30);
+		Employee_ID.setBounds(65, 125, 110, 30);
 		jPanel1.add(Employee_ID);
 		
 		textField_empID = new JLabel();
 		textField_empID.setForeground(new Color(0, 0, 0));
 		textField_empID.setFont(new Font("Candara", Font.BOLD, 14));
-		textField_empID.setBounds(198, 58, 180, 30);
+		textField_empID.setBounds(198, 125, 180, 30);
 		jPanel1.add(textField_empID);
 		
 		Emp_Name = new JLabel();
 		Emp_Name.setText("Employee Name :");
 		Emp_Name.setForeground(Color.BLACK);
 		Emp_Name.setFont(new Font("Candara", Font.BOLD, 14));
-		Emp_Name.setBounds(65, 99, 110, 30);
+		Emp_Name.setBounds(65, 166, 110, 30);
 		jPanel1.add(Emp_Name);
 		
 		textField_empName = new JTextField();
 		textField_empName.setFont(new Font("Calibri", Font.BOLD, 14));
-		textField_empName.setBounds(198, 99, 180, 30);
+		textField_empName.setBounds(198, 166, 180, 30);
 		jPanel1.add(textField_empName);
 		
 		Position = new JLabel();
 		Position.setText("Position :");
 		Position.setForeground(Color.BLACK);
 		Position.setFont(new Font("Candara", Font.BOLD, 14));
-		Position.setBounds(65, 140, 110, 30);
+		Position.setBounds(65, 207, 110, 30);
 		jPanel1.add(Position);
 		
 		Gender = new JLabel();
 		Gender.setText("Gender");
 		Gender.setForeground(Color.BLACK);
 		Gender.setFont(new Font("Candara", Font.BOLD, 14));
-		Gender.setBounds(452, 99, 91, 30);
+		Gender.setBounds(452, 166, 91, 30);
 		jPanel1.add(Gender);
 		
 		textField_Position = new JTextField();
 		textField_Position.setEditable(false);
 		textField_Position.setFont(new Font("Calibri", Font.BOLD, 14));
-		textField_Position.setBounds(198, 140, 180, 30);
+		textField_Position.setBounds(198, 207, 180, 30);
 		jPanel1.add(textField_Position);
 		
 		Birthday = new JLabel();
 		Birthday.setText("Birthday");
 		Birthday.setForeground(Color.BLACK);
 		Birthday.setFont(new Font("Candara", Font.BOLD, 14));
-		Birthday.setBounds(451, 140, 91, 30);
+		Birthday.setBounds(452, 207, 91, 30);
 		jPanel1.add(Birthday);
 		
 		rdbtnNewRadioButton = new JRadioButton("Male");
 		rdbtnNewRadioButton.setBackground(new Color(128, 255, 255));
-		rdbtnNewRadioButton.setBounds(557, 101, 72, 23);
+		rdbtnNewRadioButton.setBounds(537, 168, 72, 23);
 		jPanel1.add(rdbtnNewRadioButton);
 		
 		rdbtnNewRadioButton_1 = new JRadioButton("Female");
 		rdbtnNewRadioButton_1.setBackground(new Color(128, 255, 255));
-		rdbtnNewRadioButton_1.setBounds(647, 101, 90, 23);
+		rdbtnNewRadioButton_1.setBounds(627, 168, 90, 23);
 		jPanel1.add(rdbtnNewRadioButton_1);
 		
 		jScrollPane1 = new JScrollPane();
@@ -347,7 +352,7 @@ public class AdminFrame extends javax.swing.JFrame {
 		        jButtonFindActionPerformed(e);
 		    }
 		});
-		jButtonFind.setIcon(newIcon1);
+		jButtonFind.setIcon(new ImageIcon(AdminFrame.class.getResource("/view.png")));
 		jButtonFind.setFont(new Font("Candara", Font.BOLD, 12));
 		jButtonFind.setBorderPainted(false);
 		jButtonFind.setBorder(null);
@@ -357,7 +362,7 @@ public class AdminFrame extends javax.swing.JFrame {
 		
 		dateChooser = new JDateChooser();
 		dateChooser.setDateFormatString("yyyy-MM-dd");
-		dateChooser.setBounds(539, 140, 180, 30);
+		dateChooser.setBounds(537, 207, 180, 30);
 		jPanel1.add(dateChooser);
 		
 		ImageIcon refreshIcon = new ImageIcon(AdminFrame.class.getResource("/refresh-page-option.png"));
@@ -485,6 +490,23 @@ public class AdminFrame extends javax.swing.JFrame {
 		G = new ButtonGroup();
 		G.add(rdbtnNewRadioButton);
 		G.add(rdbtnNewRadioButton_1);
+		
+		panel = new JPanel();
+		panel.setLayout(null);
+		panel.setBorder(new LineBorder(new Color(0, 0, 0), 5));
+		panel.setBackground(Color.WHITE);
+		panel.setBounds(0, 0, 990, 76);
+		jPanel1.add(panel);
+		
+		lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setIcon(new ImageIcon(AdminFrame.class.getResource("/aptech_logo.png")));
+		lblNewLabel_1.setBounds(10, 0, 154, 76);
+		panel.add(lblNewLabel_1);
+		
+		lblNewLabel_2 = new JLabel("Employee Manager");
+		lblNewLabel_2.setFont(new Font("Candara", Font.BOLD, 48));
+		lblNewLabel_2.setBounds(271, 22, 755, 54);
+		panel.add(lblNewLabel_2);
 		setSize(new java.awt.Dimension(1206, 689));
 		setLocationRelativeTo(null);
 	}

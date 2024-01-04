@@ -83,7 +83,7 @@ public class CheckInAndCheckOut extends javax.swing.JInternalFrame {
 
         lblNewLabel_1 = new JLabel("CheckIn And CheckOut");
         lblNewLabel_1.setFont(new Font("Candara", Font.BOLD, 48));
-        lblNewLabel_1.setBounds(270, 11, 648, 54);
+        lblNewLabel_1.setBounds(271, 22, 648, 54);
         panel.add(lblNewLabel_1);
 
        
