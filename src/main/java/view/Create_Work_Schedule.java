@@ -7,6 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 import javax.swing.JOptionPane;
@@ -183,11 +185,11 @@ public class Create_Work_Schedule extends javax.swing.JInternalFrame {
         getContentPane().add(lblCreateScheduleNext);
         
         String choice[] = {"1 day", "Next 7 days"};
-        comboBox = new JComboBox(choice);
+        comboBoxNod = new JComboBox(choice);
        
         
-        comboBox.setBounds(221, 403, 145, 30);
-        getContentPane().add(comboBox);
+        comboBoxNod.setBounds(221, 403, 145, 30);
+        getContentPane().add(comboBoxNod);
         
         lblBeginDay = new JLabel();
         lblBeginDay.setText("Begin Day: ");
@@ -202,11 +204,16 @@ public class Create_Work_Schedule extends javax.swing.JInternalFrame {
         getContentPane().add(dateChooser);
         
         btnCreateSche = new JButton("Create Schedule");
+        btnCreateSche.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		btnCreateScheActionPerformed(e);
+        	}
+        });
         btnCreateSche.setBounds(221, 456, 145, 42);
         getContentPane().add(btnCreateSche);
         
         scrollPane = new JScrollPane();
-        scrollPane.setBounds(443, 149, 482, 314);
+        scrollPane.setBounds(443, 149, 482, 187);
         getContentPane().add(scrollPane);
         
         table = new JTable();
@@ -218,7 +225,7 @@ public class Create_Work_Schedule extends javax.swing.JInternalFrame {
         		btnPreviousActionPerformed(e);
         	}
         });
-        btnPrevious.setBounds(443, 477, 85, 21);
+        btnPrevious.setBounds(443, 360, 85, 33);
         getContentPane().add(btnPrevious);
         
         btnNext = new JButton("Next");
@@ -227,14 +234,14 @@ public class Create_Work_Schedule extends javax.swing.JInternalFrame {
         		btnNextActionPerformed(e);
         	}
         });
-        btnNext.setBounds(840, 477, 85, 21);
+        btnNext.setBounds(840, 360, 85, 33);
         getContentPane().add(btnNext);
         
         String descr[] = { "8h-12h", "13h-17h", "18h-22h", 
         "22h-6h"};
-        comboBox_1 = new JComboBox(descr);
-        comboBox_1.setBounds(221, 363, 145, 30);
-        getContentPane().add(comboBox_1);
+        comboBoxWork_Shift = new JComboBox(descr);
+        comboBoxWork_Shift.setBounds(221, 363, 145, 30);
+        getContentPane().add(comboBoxWork_Shift);
         
         lblWorkShift = new JLabel();
         lblWorkShift.setText("Work Shift:");
@@ -264,7 +271,7 @@ public class Create_Work_Schedule extends javax.swing.JInternalFrame {
 	private JButton jButtonFind;
 	private JButton btnRefresh;
 	private JLabel lblCreateScheduleNext;
-	private JComboBox comboBox;
+	private JComboBox comboBoxNod;
 	private JLabel lblBeginDay;
 	private JDateChooser dateChooser;
 	private JButton btnCreateSche;
@@ -272,7 +279,7 @@ public class Create_Work_Schedule extends javax.swing.JInternalFrame {
 	private JTable table;
 	private JButton btnPrevious;
 	private JButton btnNext;
-	private JComboBox comboBox_1;
+	private JComboBox comboBoxWork_Shift;
 	private JLabel lblWorkShift;
 	
 	   
@@ -318,4 +325,74 @@ public class Create_Work_Schedule extends javax.swing.JInternalFrame {
 		}
 		loadData();
 	}
+	protected void btnCreateScheActionPerformed(ActionEvent e) {
+	    try {
+	        // Lấy ID nhân viên từ JTextField
+	        int employeeId = Integer.parseInt(textField_empID.getText());
+
+	        // Lấy ngày bắt đầu từ JDateChooser
+	        java.util.Date startDate = dateChooser.getDate();
+
+	        // Lấy chỉ mục đã chọn từ combo box "Number of Day"
+	        int numberOfDayIndex = comboBoxNod.getSelectedIndex();
+
+	        // Lấy chỉ mục đã chọn từ combo box "Work Shift"
+	        int workShiftIndex = comboBoxWork_Shift.getSelectedIndex() + 1;
+
+	        // Thực hiện logic tạo lịch làm việc dựa trên các giá trị đã lấy được
+	        Work_scheduleDAO dao = new Work_scheduleDAO();
+	        boolean success = false;
+
+	        // Tính toán ngày cho mỗi ngày cần tạo lịch
+	        for (int i = 0; i < 7; i++) {
+	            // Chỉ thêm ca làm vào tất cả 7 ngày khi chọn "Next 7 days"
+	            if (numberOfDayIndex == 1) {
+	                java.util.Date currentDate = addDays(startDate, i);
+
+	                // Kiểm tra xem đã tồn tại lịch làm việc cho ngày này chưa
+	                int existingWorkShiftId = dao.selectForCheck(employeeId, currentDate);
+
+	                if (existingWorkShiftId != -1) {
+	                    // Nếu đã tồn tại, hãy cập nhật lại ca làm việc
+	                    dao.updateWSAfterRequest(workShiftIndex, currentDate, existingWorkShiftId);
+	                } else {
+	                    // Nếu chưa tồn tại, thêm mới
+	                    dao.add(employeeId, currentDate, workShiftIndex);
+	                }
+	            }
+	        }
+
+	        // Kiểm tra xem có ít nhất một ngày làm việc đã được thêm thành công hay không
+	        for (int i = 0; i < 7; i++) {
+	            java.util.Date currentDate = addDays(startDate, i);
+	            int existingWorkShiftId = dao.selectForCheck(employeeId, currentDate);
+	            if (existingWorkShiftId != -1) {
+	                success = true;
+	                break; // Đã thêm thành công ít nhất một ngày, thoát vòng lặp
+	            }
+	        }
+
+	        if (success) {
+	            // Tải lại dữ liệu sau khi thêm
+	            loadData();
+	            JOptionPane.showMessageDialog(this, "Lịch làm việc đã được tạo thành công!");
+	        } else {
+	            JOptionPane.showMessageDialog(this, "Không có ngày làm việc nào được thêm.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+	        }
+
+	    } catch (Exception ex) {
+	        JOptionPane.showMessageDialog(this, "Lỗi khi tạo lịch làm việc: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+	    }
+	}
+
+
+	// Phương thức giúp thêm ngày vào một ngày cụ thể
+	public static Date addDays(Date date, int days) {
+	    Calendar calendar = Calendar.getInstance();
+	    calendar.setTime(date);
+	    calendar.add(Calendar.DAY_OF_YEAR, days);
+	    return calendar.getTime();
+	}
+
+
 }
