@@ -156,7 +156,7 @@ public class Create_Work_Schedule extends javax.swing.JInternalFrame {
         		jButtonFindActionPerformed(e);
         	}
         });
-        jButtonFind.setIcon(newIcon1);
+        jButtonFind.setIcon(new ImageIcon(Create_Work_Schedule.class.getResource("/view.png")));
         jButtonFind.setFont(new Font("Candara", Font.BOLD, 12));
         jButtonFind.setBorderPainted(false);
         jButtonFind.setBorder(null);
@@ -249,6 +249,10 @@ public class Create_Work_Schedule extends javax.swing.JInternalFrame {
         lblWorkShift.setFont(new Font("Candara", Font.BOLD, 14));
         lblWorkShift.setBounds(73, 359, 110, 30);
         getContentPane().add(lblWorkShift);
+        
+        lblStatusPage = new JLabel("1/0");
+        lblStatusPage.setBounds(661, 369, 35, 14);
+        getContentPane().add(lblStatusPage);
 
 		setBounds(0, 0, 990, 550);
 	}
@@ -281,6 +285,8 @@ public class Create_Work_Schedule extends javax.swing.JInternalFrame {
 	private JButton btnNext;
 	private JComboBox comboBoxWork_Shift;
 	private JLabel lblWorkShift;
+	private JLabel lblStatusPage;
+	
 	
 	   
 	   
@@ -393,6 +399,4 @@ public class Create_Work_Schedule extends javax.swing.JInternalFrame {
 	    calendar.add(Calendar.DAY_OF_YEAR, days);
 	    return calendar.getTime();
 	}
-
-
 }
