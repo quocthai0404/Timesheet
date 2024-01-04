@@ -145,7 +145,7 @@ public class Salary_deductionDAO {
 					+ "      ,[deduction_reason]\r\n"
 					+ "      ,[deduction_amount]\r\n"
 					+ "      ,[deduction_date]\r\n"
-					+ "  FROM [dbo].[salary_deduction]\r\n"//[timesheet].
+					+ "  FROM [timesheet].[dbo].[salary_deduction]\r\n"
 					+ "  where employee_id=?";
 			
 			PreparedStatement st = con.prepareStatement(sql);
