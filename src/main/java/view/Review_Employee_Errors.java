@@ -78,7 +78,7 @@ public class Review_Employee_Errors extends javax.swing.JInternalFrame {
         
         lblNewLabel_1 = new JLabel("Employee Error ");
         lblNewLabel_1.setFont(new Font("Candara", Font.BOLD, 48));
-        lblNewLabel_1.setBounds(174, 10, 648, 54);
+        lblNewLabel_1.setBounds(271, 22, 425, 54);
         panel.add(lblNewLabel_1);
         
         Employee_ID = new JLabel();
@@ -181,7 +181,7 @@ public class Review_Employee_Errors extends javax.swing.JInternalFrame {
 			}
 		});
 		
-		jButtonSearch.setIcon(newIcon1);
+		jButtonSearch.setIcon(new ImageIcon(Review_Employee_Errors.class.getResource("/view.png")));
 		jButtonSearch.setFont(new Font("Candara", Font.BOLD, 12));
 		jButtonSearch.setBorderPainted(false);
 		jButtonSearch.setBorder(null);

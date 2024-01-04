@@ -74,7 +74,7 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
         
         lblNewLabel_1 = new JLabel("Review Employee Request");
         lblNewLabel_1.setFont(new Font("Candara", Font.BOLD, 48));
-        lblNewLabel_1.setBounds(209, 11, 755, 54);
+        lblNewLabel_1.setBounds(271, 22, 567, 54);
         panel.add(lblNewLabel_1);
         
 //        textField_reason = new JTextField();

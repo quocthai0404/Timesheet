@@ -48,7 +48,8 @@ import javax.swing.JComboBox;
 import javax.swing.ButtonGroup;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.border.LineBorder;
-import javax.swing.JPanel;	
+import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;	
 
 
 public class AdminFrame extends javax.swing.JFrame {
@@ -504,7 +505,7 @@ public class AdminFrame extends javax.swing.JFrame {
 		
 		lblNewLabel_2 = new JLabel("Employee Manager");
 		lblNewLabel_2.setFont(new Font("Candara", Font.BOLD, 48));
-		lblNewLabel_2.setBounds(209, 11, 755, 54);
+		lblNewLabel_2.setBounds(271, 22, 755, 54);
 		panel.add(lblNewLabel_2);
 		setSize(new java.awt.Dimension(1206, 689));
 		setLocationRelativeTo(null);

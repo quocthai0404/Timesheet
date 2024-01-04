@@ -63,7 +63,7 @@ public class Work_Schedule extends javax.swing.JInternalFrame {
         panel.setLayout(null);
         panel.setBorder(new LineBorder(new Color(0, 0, 0), 5));
         panel.setBackground(Color.WHITE);
-        panel.setBounds(0, 0, 891, 76);
+        panel.setBounds(0, 0, 974, 76);
         getContentPane().add(panel);
         
         lblLogo = new JLabel("");
@@ -73,7 +73,7 @@ public class Work_Schedule extends javax.swing.JInternalFrame {
         
         lblNewLabel_1 = new JLabel("Work Schedule");
         lblNewLabel_1.setFont(new Font("Candara", Font.BOLD, 48));
-        lblNewLabel_1.setBounds(243, 11, 356, 54);
+        lblNewLabel_1.setBounds(271, 22, 356, 54);
         panel.add(lblNewLabel_1);
         
         scrollPane = new JScrollPane();
@@ -137,12 +137,12 @@ public class Work_Schedule extends javax.swing.JInternalFrame {
         textFieldWork_Schedule_Id = new JTextField();
         textFieldWork_Schedule_Id.setEditable(false);
         textFieldWork_Schedule_Id.setFont(new Font("Calibri", Font.BOLD, 14));
-        textFieldWork_Schedule_Id.setBounds(609, 127, 180, 30);
+        textFieldWork_Schedule_Id.setBounds(609, 127, 249, 30);
         getContentPane().add(textFieldWork_Schedule_Id);
         
         dateChooserWork_Date = new JDateChooser();
         dateChooserWork_Date.setDateFormatString("yyyy-MM-dd");
-        dateChooserWork_Date.setBounds(609, 182, 180, 33);
+        dateChooserWork_Date.setBounds(609, 182, 249, 33);
         getContentPane().add(dateChooserWork_Date);
         
         TextBoxReason = new JTextField();
@@ -163,7 +163,7 @@ public class Work_Schedule extends javax.swing.JInternalFrame {
         		btnNewButtonActionPerformed(e);
         	}
         });
-        btnNewButton.setBounds(756, 420, 103, 33);
+        btnNewButton.setBounds(738, 420, 121, 33);
         getContentPane().add(btnNewButton);
         
         btnRequest = new JButton("Request Change Schedule");
@@ -172,13 +172,13 @@ public class Work_Schedule extends javax.swing.JInternalFrame {
         		btnRequestActionPerformed(e);
         	}
         });
-        btnRequest.setBounds(478, 420, 166, 33);
+        btnRequest.setBounds(478, 420, 187, 33);
         getContentPane().add(btnRequest);
         
         String descr[] = { "8h-12h", "13h-17h", "18h-22h", 
                 "22h-6h"};
         comboBoxWorkShift = new JComboBox(descr);
-        comboBoxWorkShift.setBounds(609, 232, 180, 30);
+        comboBoxWorkShift.setBounds(609, 232, 252, 30);
         getContentPane().add(comboBoxWorkShift);
         
         ImageIcon icon1 = new ImageIcon(AdminFrame.class.getResource("/search.png"));

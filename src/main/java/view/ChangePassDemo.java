@@ -192,7 +192,7 @@ public class ChangePassDemo extends JFrame {
         
         lblNewLabel = new JLabel("Forget Password");
         lblNewLabel.setFont(new Font("Candara", Font.BOLD, 48));
-        lblNewLabel.setBounds(174, 11, 422, 54);
+        lblNewLabel.setBounds(174, 22, 422, 54);
         panel.add(lblNewLabel);
         
         btnBackLogin = new JButton("");
@@ -266,7 +266,7 @@ public class ChangePassDemo extends JFrame {
         
         lblChangePassword = new JLabel("Enter Code");
         lblChangePassword.setFont(new Font("Candara", Font.BOLD, 48));
-        lblChangePassword.setBounds(174, 11, 288, 54);
+        lblChangePassword.setBounds(174, 22, 288, 54);
         panel_1.add(lblChangePassword);
         
         btnBack = new JButton("");

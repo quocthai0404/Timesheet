@@ -303,7 +303,7 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		jLabel1.setForeground(new Color(0, 0, 0));
 		jLabel1.setText("Employee Attendance System");
 		Horizontal_Panel.add(jLabel1);
-		jLabel1.setBounds(270, 20, 700, 70);
+		jLabel1.setBounds(271, 20, 700, 70);
 
 		getContentPane().add(Horizontal_Panel);
 		Horizontal_Panel.setBounds(0, 0, 1190, 100);
@@ -323,16 +323,17 @@ public class EmployeeFrame extends javax.swing.JFrame {
 		panel.setLayout(null);
 		panel.setBorder(new LineBorder(new Color(0, 0, 0), 5));
 		panel.setBackground(Color.WHITE);
-		panel.setBounds(0, 0, 891, 76);
+		panel.setBounds(0, 0, 980, 76);
 		jPanel1.add(panel);
 		
 		lblLogo_1 = new JLabel("");
+		lblLogo_1.setIcon(new ImageIcon(EmployeeFrame.class.getResource("/aptech_logo.png")));
 		lblLogo_1.setBounds(10, 0, 154, 76);
 		panel.add(lblLogo_1);
 		
 		lblNewLabel_1 = new JLabel("Employee Information");
 		lblNewLabel_1.setFont(new Font("Candara", Font.BOLD, 48));
-		lblNewLabel_1.setBounds(174, 11, 648, 54);
+		lblNewLabel_1.setBounds(233, 22, 648, 54);
 		panel.add(lblNewLabel_1);
 		
 		textField_Gender = new JTextField();
