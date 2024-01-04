@@ -9,6 +9,8 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.healthmarketscience.jackcess.impl.query.QueryImpl.Row;
+
 import DAO.Work_scheduleDAO;
 import entity.EmployeeAfterLogin;
 import entity.RowClicked;
@@ -19,9 +21,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class CheckInAndCheckOut extends javax.swing.JInternalFrame {
 
@@ -35,12 +42,23 @@ public class CheckInAndCheckOut extends javax.swing.JInternalFrame {
     private JScrollPane scrollPane;
     private JTable table;
     private JLabel lblNewLabel;
-
+    private Map<Integer, String> mapIn;
+    private Map<Integer, String> mapOut;
     public CheckInAndCheckOut() {
         getContentPane().setBackground(new Color(128, 255, 255));
         initComponents();
         setTitle("Employee");
         loadData();
+        mapIn = new HashMap<>();
+        mapOut = new HashMap<>();
+        mapIn.put(1, "08:00:00");
+        mapIn.put(2, "13:00:00");
+        mapIn.put(3, "18:00:00");
+        mapIn.put(4, "22:00:00");
+        mapOut.put(1, "12:00:00");
+        mapOut.put(2, "17:00:00");
+        mapOut.put(3, "22:00:00");
+        mapOut.put(4, "06:00:00");
     }
 
     @SuppressWarnings("unchecked")
@@ -73,10 +91,20 @@ public class CheckInAndCheckOut extends javax.swing.JInternalFrame {
         setBounds(0, 0, 927, 589);
 
         btnCheckIn = new JButton("");
+        btnCheckIn.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		btnCheckInActionPerformed(e);
+        	}
+        });
         btnCheckIn.setBounds(106, 369, 200, 132);  // Adjust width and height accordingly
         getContentPane().add(btnCheckIn);
 
         btnCheckOut = new JButton("");
+        btnCheckOut.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		btnCheckOutActionPerformed(e);
+        	}
+        });
         btnCheckOut.setBounds(670, 369, 200, 132); // Adjust width and height accordingly
         getContentPane().add(btnCheckOut);
 
@@ -159,7 +187,93 @@ public class CheckInAndCheckOut extends javax.swing.JInternalFrame {
 			RowClicked.work_shift_id= Integer.parseInt(table.getValueAt(row, 2).toString());
 			RowClicked.description = table.getValueAt(row, 3).toString();
 			RowClicked.work_type = table.getValueAt(row, 4).toString();
+			SimpleDateFormat newdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			if(RowClicked.work_shift_id==4) {
+				String work_date = df.format(RowClicked.work_date);
+				String sMustIn = work_date + " " + mapIn.get(4);
+				Date nextDate = new java.util.Date(RowClicked.work_date.getTime() + 86400000);
+				String work_date_out = df.format(nextDate);
+				String sMustOut = work_date_out+ " "+ mapOut.get(4);
+				
+				try {
+					RowClicked.dateWorkIn = newdf.parse(sMustIn);
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+				try {
+					RowClicked.dateWorkOut = newdf.parse(sMustOut);
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+				RowClicked.dateCanCheckIn = new java.util.Date(RowClicked.dateWorkIn.getTime() - 3600000);
+				RowClicked.dateMaxOut = new java.util.Date(RowClicked.dateWorkOut.getTime() + 3600000);
+				System.out.println("gio vao ca: "+ newdf.format(RowClicked.dateWorkIn));
+				System.out.println("gio ra ca: "+ newdf.format(RowClicked.dateWorkOut));
+				System.out.println("gio duoc check in : "+ newdf.format(RowClicked.dateCanCheckIn));
+				System.out.println("gio duoc check out : "+ newdf.format(RowClicked.dateMaxOut));
+			}else {
+				String work_date = df.format(RowClicked.work_date);
+				String sMustIn = work_date + " " + mapIn.get(RowClicked.work_shift_id);
+				String sMustOut = work_date + " " + mapOut.get(RowClicked.work_shift_id);
+				try {
+					RowClicked.dateWorkIn = newdf.parse(sMustIn);
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+				try {
+					RowClicked.dateWorkOut = newdf.parse(sMustOut);
+				} catch (ParseException e1) {
+					e1.printStackTrace();
+				}
+				RowClicked.dateCanCheckIn = new java.util.Date(RowClicked.dateWorkIn.getTime() - 3600000);
+				RowClicked.dateMaxOut = new java.util.Date(RowClicked.dateWorkOut.getTime() + 3600000);
+				System.out.println("gio vao ca: "+ newdf.format(RowClicked.dateWorkIn));
+				System.out.println("gio ra ca: "+ newdf.format(RowClicked.dateWorkOut));
+				System.out.println("gio duoc check in : "+ newdf.format(RowClicked.dateCanCheckIn));
+				System.out.println("gio duoc check out : "+ newdf.format(RowClicked.dateMaxOut));
+			}
+		}
+	}
+	protected void btnCheckInActionPerformed(ActionEvent e) {
+		Work_scheduleDAO dao = new Work_scheduleDAO();
+		if(dao.checkExistsAttendance(RowClicked.work_schedule_id)) {
+			System.out.println(RowClicked.work_shift_id);
+			long now = System.currentTimeMillis();
+			if(now<RowClicked.dateWorkIn.getTime() && now >RowClicked.dateCanCheckIn.getTime()) {
+//				System.out.println("check in chuan gio");
+				dao.checkIn();
 			
+			}else if(now< RowClicked.dateCanCheckIn.getTime()){
+				System.out.println("check in som hon gio quy dinh");
+				JOptionPane.showMessageDialog(null, "You can't check in before work in time");
+			}else {
+//				System.out.println("di tre");
+				dao.lateForWork();
+				dao.checkIn();
+				
+				
+			}
+		}else {
+			JOptionPane.showMessageDialog(null, "You Can't Check In!");
+		}
+		
+	}
+	protected void btnCheckOutActionPerformed(ActionEvent e) {
+		Work_scheduleDAO dao = new Work_scheduleDAO();
+		long now = System.currentTimeMillis();
+		if(dao.checkExistsAttendance(RowClicked.work_schedule_id)) {
+			JOptionPane.showMessageDialog(null, "You Can't Check Out!");
+		}else {
+			if(now<RowClicked.dateWorkOut.getTime()) {
+				JOptionPane.showMessageDialog(null, "You check out before the work out time");
+				dao.checkOutBefore();
+			}else if(now<RowClicked.dateMaxOut.getTime()&& now > RowClicked.dateWorkOut.getTime()) {
+				//JOptionPane.showMessageDialog(null, "Check out dung gio");
+				dao.checkOutRightTime();
+			}else {
+				JOptionPane.showMessageDialog(null, "Check Out Wrong Time ");
+				dao.checkOutWrongTime();
+			}
 		}
 	}
 }
