@@ -9,4 +9,10 @@ public class RowClicked {
 	public static int work_shift_id;
 	public static String description;
 	public static String work_type;
+	//---------------------------
+	public static Date dateWorkIn;
+	public static Date dateWorkOut;
+	
+	public static Date dateCanCheckIn;
+	public static Date dateMaxOut;
 }

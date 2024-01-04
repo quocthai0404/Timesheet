@@ -3,6 +3,8 @@ package DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -12,10 +14,12 @@ import javax.swing.JOptionPane;
 import database.JdbcUlti;
 import entity.Employee;
 import entity.EmployeeAfterLogin;
+import entity.RowClicked;
 import entity.Work_schedule;
 import entity.wSche_join_wShift;
 
 public class Work_scheduleDAO {
+	public Double lateforwork = 200000.0;
 	public List<Work_schedule> selectWorkSchedule() {
 		List<Work_schedule> list = new ArrayList<>();
 		try {
@@ -231,13 +235,26 @@ public class Work_scheduleDAO {
 		
 		try {
 			con = JdbcUlti.getConnection();
-			String sql = "select * from work_schedule as w_sche\r\n"
-					+ "  join work_shift as ws on ws.work_shift_id = w_sche.work_shift_id\r\n"
-					+ "  where w_sche.isHide=0 and w_sche.employee_id=? and w_sche.work_date=?";
-
+			String sql = "SELECT *\r\n"
+					+ "\r\n"
+					+ "FROM work_schedule AS w_sche\r\n"
+					+ "\r\n"
+					+ "JOIN work_shift AS ws ON ws.work_shift_id = w_sche.work_shift_id\r\n"
+					+ "\r\n"
+					+ "WHERE w_sche.isHide = 0\r\n"
+					+ "\r\n"
+					+ "AND w_sche.employee_id = ?\r\n"
+					+ "\r\n"
+					+ "AND (w_sche.work_date = ?\r\n"
+					+ "\r\n"
+					+ "OR (w_sche.work_shift_id = 4\r\n"
+					+ "\r\n"
+					+ "AND w_sche.work_date = ?))";
+			java.util.Date nextDate = new java.util.Date(date.getTime() - 86400000);
 			PreparedStatement statement = con.prepareStatement(sql);
 			statement.setInt(1, EmployeeAfterLogin.employeeID);
 			statement.setDate(2, new java.sql.Date(date.getTime()));
+			statement.setDate(3, new java.sql.Date(nextDate.getTime()));
 			ResultSet rs = statement.executeQuery();
 			while(rs.next()) {
 				list.add(new wSche_join_wShift(rs.getInt(1), rs.getInt(2), rs.getDate(3), 
@@ -297,5 +314,171 @@ public class Work_scheduleDAO {
 		}
 		return count;
 	}
+	
+	public Boolean checkExistsAttendance(int WscheID) {
+		try {
+			Connection con = JdbcUlti.getConnection();
+			
+			String sql = "SELECT *\r\n"
+					+ "  FROM attendance\r\n"
+					+ "  where work_schedule_id=?";
+			PreparedStatement statement = con.prepareStatement(sql);
+			statement.setInt(1, WscheID);
+			
+			ResultSet rs = statement.executeQuery();
+			if(rs.next()) {
+				return false;
+			}
+			JdbcUlti.closeConnection(con);
 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
+	public void checkIn ()  {
+		
+		
+		try {
+			Connection con = JdbcUlti.getConnection();
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			long miliNow = System.currentTimeMillis();
+			Date date = new Date(miliNow);
+			String sql = "insert into attendance(employee_id, work_schedule_id, time_in, time_out, hours_worked)\r\n"
+					+ "  values (?, ?, ?, 0, 0)";
+
+			PreparedStatement statement = con.prepareStatement(sql);
+			
+			statement.setInt(1, EmployeeAfterLogin.employeeID);
+			statement.setInt(2, RowClicked.work_schedule_id);
+			statement.setString(3, df.format(date));
+
+
+			int rowsUpdated = statement.executeUpdate();
+			if (rowsUpdated > 0) {
+				JOptionPane.showMessageDialog(null, "Check In Successfully");
+			}
+
+			JdbcUlti.closeConnection(con);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void lateForWork() {
+		try {
+			Connection con = JdbcUlti.getConnection();
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			long miliNow = System.currentTimeMillis();
+			Date date = new Date(miliNow);
+			String sql = "insert into salary_deduction(employee_id, deduction_reason, deduction_amount, deduction_date)\r\n"
+					+ "  values(?,?,?,?)";
+
+			PreparedStatement statement = con.prepareStatement(sql);
+			
+			statement.setInt(1, EmployeeAfterLogin.employeeID);
+			statement.setString(2, "late for work");
+			statement.setDouble(3, lateforwork);
+			statement.setDate(4, new java.sql.Date(date.getTime()));
+
+			int rowsUpdated = statement.executeUpdate();
+			if (rowsUpdated > 0) {
+				JOptionPane.showMessageDialog(null, "Late For Work!");
+			}
+
+			JdbcUlti.closeConnection(con);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public void checkOutRightTime() {
+		try {
+			Connection con = JdbcUlti.getConnection();
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			long miliNow = System.currentTimeMillis();
+			Date date = new Date(miliNow);
+			
+			Double hour = (RowClicked.dateWorkOut.getTime() - RowClicked.dateWorkIn.getTime())/3600000.0;
+			
+			String sql = "update attendance\r\n"
+					+ "  set time_out = ?, hours_worked= ?\r\n"
+					+ "  where work_schedule_id = ?";
+
+			PreparedStatement statement = con.prepareStatement(sql);
+			
+			statement.setString(1, df.format(date));
+			statement.setDouble(2, hour);
+			statement.setInt(3, RowClicked.work_schedule_id);
+
+			int rowsUpdated = statement.executeUpdate();
+			if (rowsUpdated > 0) {
+				JOptionPane.showMessageDialog(null, "Check Out Successfully");
+			}
+
+			JdbcUlti.closeConnection(con);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void checkOutWrongTime() {
+		try {
+			Connection con = JdbcUlti.getConnection();
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			long miliNow = System.currentTimeMillis();
+			Date date = new Date(miliNow);
+			
+			Double hour = (RowClicked.dateWorkOut.getTime() - RowClicked.dateWorkIn.getTime())/3600000.0;
+			
+			String sql = "update attendance\r\n"
+					+ "  set time_out = ?, hours_worked= ?\r\n"
+					+ "  where work_schedule_id = ?";
+
+			PreparedStatement statement = con.prepareStatement(sql);
+			
+			statement.setString(1, df.format(date));
+			statement.setDouble(2, hour/2.0);
+			statement.setInt(3, RowClicked.work_schedule_id);
+
+			int rowsUpdated = statement.executeUpdate();
+			if (rowsUpdated > 0) {
+				JOptionPane.showMessageDialog(null, "Check Out Successfully");
+			}
+
+			JdbcUlti.closeConnection(con);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	public void checkOutBefore() {
+		try {
+			Connection con = JdbcUlti.getConnection();
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			long miliNow = System.currentTimeMillis();
+			Date date = new Date(miliNow);
+			
+			Double hour = (date.getTime() - RowClicked.dateWorkIn.getTime())/3600000.0;
+			
+			String sql = "update attendance\r\n"
+					+ "  set time_out = ?, hours_worked= ?\r\n"
+					+ "  where work_schedule_id = ?";
+
+			PreparedStatement statement = con.prepareStatement(sql);
+			
+			statement.setString(1, df.format(date));
+			statement.setDouble(2, hour);
+			statement.setInt(3, RowClicked.work_schedule_id);
+
+			int rowsUpdated = statement.executeUpdate();
+			if (rowsUpdated > 0) {
+				JOptionPane.showMessageDialog(null, "Check Out Successfully");
+			}
+
+			JdbcUlti.closeConnection(con);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
 }
