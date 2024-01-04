@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Base64;
 import java.util.Locale;
+import java.util.Properties;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -26,6 +27,12 @@ import java.awt.LayoutManager;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.swing.ImageIcon;
 import javax.swing.JRadioButton;
 import javax.swing.JPanel;
@@ -410,6 +417,7 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 			if(checkEmailDuplicate(txtEmail.getText())&&checkUsernameDuplicate(txtUsername.getText())){
 				SignUp(txtUsername.getText(), 
 						String.valueOf(jPasswordField1.getPassword()), txtEmail.getText(), id);
+				sendMail(String.valueOf(jPasswordField1.getPassword()),txtUsername.getText());
 				refresh();
 			}else {
 				JOptionPane.showMessageDialog(null, "Username or Email already exists");
@@ -423,5 +431,44 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 		
 		
 
+	}
+	public void sendMail(String pass,String username) {
+		final String fromEmail = "employeemanager25@gmail.com";
+		final String password = "pvhq uixx stql luqj";
+		
+		
+		
+		var prop = new Properties();
+		prop.put("mail.smtp.host","smtp.gmail.com" );
+		prop.put("mail.smtp.port", "587");
+		prop.put("mail.smtp.auth", "true");
+		prop.put("mail.smtp.starttls.enable","true" );
+		prop.put("mail.smtp.ssl.protocols", "TLSv1.2");
+		//khoi tao 1 giao dich section
+		Session session = Session.getInstance(prop,new Authenticator() {
+			protected javax.mail.PasswordAuthentication getPasswordAuthentication() {
+				return new javax.mail.PasswordAuthentication(fromEmail, password);
+			}
+		});
+		try {
+			Message mes = new MimeMessage(session);
+			mes.setFrom(new InternetAddress(fromEmail));
+			mes.setRecipients(Message.RecipientType.TO, InternetAddress.parse(txtEmail.getText()));
+			mes.setSubject("Dear: "+ username);
+//			mes.setText("abc....");
+			String html = "<div>\r\n"
+					
+					+ "        <h2>Hi "+username+"</h2>\r\n"
+					+ "        <p>This is your password to log into the system: <strong>"+ pass+"</strong></p>\r\n"
+					+ "    \r\n"
+					+ "    </div>";
+			mes.setContent(html,"text/html; charset = UTF-8");
+			Transport.send(mes);
+			JOptionPane.showMessageDialog(null, "send successfully");
+		} catch (Exception e2) {
+			// TODO: handle exception
+			JOptionPane.showMessageDialog(null, "Have error in sending mail process");
+			e2.printStackTrace();
+		}
 	}
 }
