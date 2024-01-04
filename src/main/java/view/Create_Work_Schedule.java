@@ -349,10 +349,27 @@ public class Create_Work_Schedule extends javax.swing.JInternalFrame {
 	        Work_scheduleDAO dao = new Work_scheduleDAO();
 	        boolean success = false;
 
-	        // Tính toán ngày cho mỗi ngày cần tạo lịch
-	        for (int i = 0; i < 7; i++) {
+	        // Chỉ thêm ca làm vào 1 ngày khi chọn "1 day"
+	        if (numberOfDayIndex == 0) {
+	            // Kiểm tra xem đã tồn tại lịch làm việc cho ngày này chưa
+	            int existingWorkShiftId = dao.selectForCheck(employeeId, startDate);
+
+	            if (existingWorkShiftId != -1) {
+	                // Nếu đã tồn tại, hãy cập nhật lại ca làm việc
+	                dao.updateWSAfterRequest(workShiftIndex, startDate, existingWorkShiftId);
+	            } else {
+	                // Nếu chưa tồn tại, thêm mới
+	                dao.add(employeeId, startDate, workShiftIndex);
+	            }
+
+	            // Kiểm tra xem có ít nhất một ngày làm việc đã được thêm thành công hay không
+	            int updatedWorkShiftId = dao.selectForCheck(employeeId, startDate);
+	            if (updatedWorkShiftId != -1) {
+	                success = true;
+	            }
+	        } else if (numberOfDayIndex == 1) {
 	            // Chỉ thêm ca làm vào tất cả 7 ngày khi chọn "Next 7 days"
-	            if (numberOfDayIndex == 1) {
+	            for (int i = 0; i < 7; i++) {
 	                java.util.Date currentDate = addDays(startDate, i);
 
 	                // Kiểm tra xem đã tồn tại lịch làm việc cho ngày này chưa
@@ -366,15 +383,15 @@ public class Create_Work_Schedule extends javax.swing.JInternalFrame {
 	                    dao.add(employeeId, currentDate, workShiftIndex);
 	                }
 	            }
-	        }
 
-	        // Kiểm tra xem có ít nhất một ngày làm việc đã được thêm thành công hay không
-	        for (int i = 0; i < 7; i++) {
-	            java.util.Date currentDate = addDays(startDate, i);
-	            int existingWorkShiftId = dao.selectForCheck(employeeId, currentDate);
-	            if (existingWorkShiftId != -1) {
-	                success = true;
-	                break; // Đã thêm thành công ít nhất một ngày, thoát vòng lặp
+	            // Kiểm tra xem có ít nhất một ngày làm việc đã được thêm thành công hay không
+	            for (int i = 0; i < 7; i++) {
+	                java.util.Date currentDate = addDays(startDate, i);
+	                int existingWorkShiftId = dao.selectForCheck(employeeId, currentDate);
+	                if (existingWorkShiftId != -1) {
+	                    success = true;
+	                    break; // Đã thêm thành công ít nhất một ngày, thoát vòng lặp
+	                }
 	            }
 	        }
 
@@ -390,6 +407,7 @@ public class Create_Work_Schedule extends javax.swing.JInternalFrame {
 	        JOptionPane.showMessageDialog(this, "Lỗi khi tạo lịch làm việc: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
 	    }
 	}
+
 
 
 	// Phương thức giúp thêm ngày vào một ngày cụ thể

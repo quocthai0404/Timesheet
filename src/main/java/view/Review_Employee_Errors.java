@@ -252,7 +252,7 @@ public class Review_Employee_Errors extends javax.swing.JInternalFrame {
         		jButtonSearchLoadEmpActionPerformed(e);
         	}
         });
-        jButtonSearchLoadEmp.setIcon(newIcon1);
+        jButtonSearchLoadEmp.setIcon(new ImageIcon(Review_Employee_Errors.class.getResource("/view.png")));
         
         jButtonSearchLoadEmp.setFont(new Font("Candara", Font.BOLD, 12));
         jButtonSearchLoadEmp.setBorderPainted(false);
