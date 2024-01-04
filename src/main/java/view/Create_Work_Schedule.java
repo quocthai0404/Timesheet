@@ -213,7 +213,7 @@ public class Create_Work_Schedule extends javax.swing.JInternalFrame {
         getContentPane().add(btnCreateSche);
         
         scrollPane = new JScrollPane();
-        scrollPane.setBounds(443, 149, 482, 187);
+        scrollPane.setBounds(443, 149, 482, 179);
         getContentPane().add(scrollPane);
         
         table = new JTable();

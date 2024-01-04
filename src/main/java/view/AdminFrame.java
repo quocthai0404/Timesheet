@@ -347,7 +347,7 @@ public class AdminFrame extends javax.swing.JFrame {
 		        jButtonFindActionPerformed(e);
 		    }
 		});
-		jButtonFind.setIcon(newIcon1);
+		jButtonFind.setIcon(new ImageIcon(AdminFrame.class.getResource("/view.png")));
 		jButtonFind.setFont(new Font("Candara", Font.BOLD, 12));
 		jButtonFind.setBorderPainted(false);
 		jButtonFind.setBorder(null);
