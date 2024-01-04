@@ -329,7 +329,6 @@ public class Create_Work_Schedule extends javax.swing.JInternalFrame {
 	        Work_scheduleDAO dao = new Work_scheduleDAO();
 	        boolean success = false;
 
-	       
 	        if (numberOfDayIndex == 0) {
 	            int existingWorkShiftId = dao.selectForCheck(employeeId, startDate);
 	            if (existingWorkShiftId != -1) {
