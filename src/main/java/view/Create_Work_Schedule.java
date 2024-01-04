@@ -249,10 +249,6 @@ public class Create_Work_Schedule extends javax.swing.JInternalFrame {
         lblWorkShift.setFont(new Font("Candara", Font.BOLD, 14));
         lblWorkShift.setBounds(73, 359, 110, 30);
         getContentPane().add(lblWorkShift);
-        
-        lblStatusPage = new JLabel("1/0");
-        lblStatusPage.setBounds(661, 369, 35, 14);
-        getContentPane().add(lblStatusPage);
 
 		setBounds(0, 0, 990, 550);
 	}
@@ -285,14 +281,7 @@ public class Create_Work_Schedule extends javax.swing.JInternalFrame {
 	private JButton btnNext;
 	private JComboBox comboBoxWork_Shift;
 	private JLabel lblWorkShift;
-	private JLabel lblStatusPage;
 	
-	
-	   
-	   
-	   
-	   
-	   
 	protected void jButtonFindActionPerformed(ActionEvent e) {
 		EmployeeDAO dao = new EmployeeDAO();
 		Employee emp = new Employee();
@@ -332,79 +321,58 @@ public class Create_Work_Schedule extends javax.swing.JInternalFrame {
 		loadData();
 	}
 	protected void btnCreateScheActionPerformed(ActionEvent e) {
-	    try {
-	        // Lấy ID nhân viên từ JTextField
+	    try {	     
 	        int employeeId = Integer.parseInt(textField_empID.getText());
-
-	        // Lấy ngày bắt đầu từ JDateChooser
 	        java.util.Date startDate = dateChooser.getDate();
-
-	        // Lấy chỉ mục đã chọn từ combo box "Number of Day"
 	        int numberOfDayIndex = comboBoxNod.getSelectedIndex();
-
-	        // Lấy chỉ mục đã chọn từ combo box "Work Shift"
 	        int workShiftIndex = comboBoxWork_Shift.getSelectedIndex() + 1;
-
-	        // Thực hiện logic tạo lịch làm việc dựa trên các giá trị đã lấy được
 	        Work_scheduleDAO dao = new Work_scheduleDAO();
 	        boolean success = false;
 
-	        // Chỉ thêm ca làm vào 1 ngày khi chọn "1 day"
+	       
 	        if (numberOfDayIndex == 0) {
-	            // Kiểm tra xem đã tồn tại lịch làm việc cho ngày này chưa
 	            int existingWorkShiftId = dao.selectForCheck(employeeId, startDate);
-
 	            if (existingWorkShiftId != -1) {
-	                // Nếu đã tồn tại, hãy cập nhật lại ca làm việc
 	                dao.updateWSAfterRequest(workShiftIndex, startDate, existingWorkShiftId);
 	            } else {
-	                // Nếu chưa tồn tại, thêm mới
 	                dao.add(employeeId, startDate, workShiftIndex);
 	            }
-
-	            // Kiểm tra xem có ít nhất một ngày làm việc đã được thêm thành công hay không
+	          
 	            int updatedWorkShiftId = dao.selectForCheck(employeeId, startDate);
 	            if (updatedWorkShiftId != -1) {
 	                success = true;
 	            }
 	        } else if (numberOfDayIndex == 1) {
-	            // Chỉ thêm ca làm vào tất cả 7 ngày khi chọn "Next 7 days"
 	            for (int i = 0; i < 7; i++) {
 	                java.util.Date currentDate = addDays(startDate, i);
-
-	                // Kiểm tra xem đã tồn tại lịch làm việc cho ngày này chưa
 	                int existingWorkShiftId = dao.selectForCheck(employeeId, currentDate);
-
 	                if (existingWorkShiftId != -1) {
-	                    // Nếu đã tồn tại, hãy cập nhật lại ca làm việc
 	                    dao.updateWSAfterRequest(workShiftIndex, currentDate, existingWorkShiftId);
 	                } else {
-	                    // Nếu chưa tồn tại, thêm mới
+	                   
 	                    dao.add(employeeId, currentDate, workShiftIndex);
 	                }
 	            }
 
-	            // Kiểm tra xem có ít nhất một ngày làm việc đã được thêm thành công hay không
 	            for (int i = 0; i < 7; i++) {
 	                java.util.Date currentDate = addDays(startDate, i);
 	                int existingWorkShiftId = dao.selectForCheck(employeeId, currentDate);
 	                if (existingWorkShiftId != -1) {
 	                    success = true;
-	                    break; // Đã thêm thành công ít nhất một ngày, thoát vòng lặp
+	                    break; 
 	                }
 	            }
 	        }
 
 	        if (success) {
-	            // Tải lại dữ liệu sau khi thêm
 	            loadData();
-	            JOptionPane.showMessageDialog(this, "Lịch làm việc đã được tạo thành công!");
+	            JOptionPane.showMessageDialog(this, "Work schedule has been created successfully!");
 	        } else {
-	            JOptionPane.showMessageDialog(this, "Không có ngày làm việc nào được thêm.", "Thông báo", JOptionPane.WARNING_MESSAGE);
+	            JOptionPane.showMessageDialog(this, "No business days added.", "Notification", JOptionPane.WARNING_MESSAGE);
 	        }
 
 	    } catch (Exception ex) {
-	        JOptionPane.showMessageDialog(this, "Lỗi khi tạo lịch làm việc: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+	        JOptionPane.showMessageDialog(this, "Error when creating work schedule: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
 	    }
 	}
 
