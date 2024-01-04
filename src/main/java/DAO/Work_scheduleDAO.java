@@ -479,6 +479,28 @@ public class Work_scheduleDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	} 
+	
+	public void setIsHide() {
+		try {
+			Connection con = JdbcUlti.getConnection();
+			
+			
+			String sql = " update work_schedule\r\n"
+					+ "  set isHide=1\r\n"
+					+ "  where work_schedule_id = ?";
+
+			PreparedStatement statement = con.prepareStatement(sql);
+			
+			statement.setInt(1, RowClicked.work_schedule_id);
+
+			statement.executeUpdate();
+			
+
+			JdbcUlti.closeConnection(con);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

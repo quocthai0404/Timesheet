@@ -7,12 +7,20 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import database.JdbcUlti;
 import entity.Account;
 import entity.Employee;
 
 public class Run {
+	private static final String alpha = "abcdefghijklmnopqrstuvwxyz"; // a-z
+    private static final String alphaUpperCase = alpha.toUpperCase(); // A-Z
+    private static final String digits = "0123456789"; // 0-9
+    private static final String specials = "~=+%^*/()[]{}/!@#$?|";
+    private static final String ALPHA_NUMERIC = alpha + alphaUpperCase + digits;
+    private static final String ALL = alpha + alphaUpperCase + digits + specials;
+    private static Random generator = new Random();
 	public static void main(String[] args) {
 //		List<Salary_deduction> list = new ArrayList<>();
 //		Salary_deductionDAO dao = new Salary_deductionDAO();
@@ -116,26 +124,30 @@ public class Run {
 		
 		
 	        // Lấy ngày hiện tại
-	        LocalDate today = LocalDate.now();
-
-	        // Tạo một danh sách để lưu trữ các ngày tiếp theo
-	        List<LocalDate> nextSevenDays = new ArrayList<>();
-
-	        // Lặp lại 7 lần
-	        for (int i = 0; i < 7; i++) {
-	            // Thêm 1 ngày vào ngày hiện tại
-	            LocalDate nextDay = today.plusDays(i);
-
-	            // Lưu ngày hiện tại vào danh sách
-	            nextSevenDays.add(nextDay);
-	        }
-
-	        // In danh sách các ngày tiếp theo
-	        System.out.println("Danh sách 7 ngày tiếp theo:");
-	        for (LocalDate nextDay : nextSevenDays) {
-	            System.out.println(nextDay);
-	        }
-	    
+//	        LocalDate today = LocalDate.now();
+//
+//	        // Tạo một danh sách để lưu trữ các ngày tiếp theo
+//	        List<LocalDate> nextSevenDays = new ArrayList<>();
+//
+//	        // Lặp lại 7 lần
+//	        for (int i = 0; i < 7; i++) {
+//	            // Thêm 1 ngày vào ngày hiện tại
+//	            LocalDate nextDay = today.plusDays(i);
+//
+//	            // Lưu ngày hiện tại vào danh sách
+//	            nextSevenDays.add(nextDay);
+//	        }
+//
+//	        // In danh sách các ngày tiếp theo
+//	        System.out.println("Danh sách 7 ngày tiếp theo:");
+//	        for (LocalDate nextDay : nextSevenDays) {
+//	            System.out.println(nextDay);
+//	        }
+//	    
+		
+		 
+		
 	}
+
 
 }
