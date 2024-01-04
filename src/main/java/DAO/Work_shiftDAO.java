@@ -1,10 +1,12 @@
 package DAO;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import database.JdbcUlti;
@@ -55,5 +57,29 @@ public class Work_shiftDAO {
 		return workShifts;
 
 	}
+	public String selectDesFromId(int id) {
+		String des = null; // Initialize to a default value or handle appropriately
+
+		try {
+			Connection con = JdbcUlti.getConnection();
+			String sql = "SELECT description FROM work_shift WHERE work_shift_id =?";
+			PreparedStatement st = con.prepareStatement(sql);
+			st.setInt(1, id);
+			
+			ResultSet rs = st.executeQuery();
+
+			if (rs.next()) {
+				des = rs.getString("description");
+				// Additional processing if needed
+			}
+			JdbcUlti.closeConnection(con);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return des;
+
+	}
+	
 
 }

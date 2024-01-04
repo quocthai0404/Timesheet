@@ -232,9 +232,24 @@ create table forgetpassword(
 	id int primary key identity,
 	username varchar(50) not null, 
 	code varchar(8) not null, 
-	time varchar(30) not null
+	time datetime not null
 )
 go
+
+EXEC sp_RENAME 'salary_deduction.salary_deduciton_id' , 'salary_deduction_id', 'COLUMN'
+
+update work_shift
+set description='8h-12h'
+where work_shift_id=1
+update work_shift
+set description='13h-17h'
+where work_shift_id=2
+update work_shift
+set description='18h-22h'
+where work_shift_id=3
+update work_shift
+set description='22h-6h'
+where work_shift_id=4
 
 insert into admin(username, password)
 values('admin', 'admin')
@@ -250,6 +265,15 @@ inner join employee on employee.employee_id=account.employee_id
 where account.username='manager'
 go
 
+create table emprequest(
+	id int identity primary key,
+	work_schedule_id int,
+	work_date date,
+	work_shift_id int,
+	reason varchar(256),
+	isaccept bit
+)	
+go
 --proc
 CREATE PROCEDURE InsertAccount
     @employee_id INT,
@@ -356,11 +380,6 @@ GROUP BY
 	where employee_id=3
 	and MONTH(deduction_date)=12
 	and year(deduction_date)=2023
-
-
-	select employee.position from account
-	join employee on account.employee_id = employee.employee_id
-	where account.username='newaccount2'
 
 	
 	

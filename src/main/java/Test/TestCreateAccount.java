@@ -15,9 +15,10 @@ public class TestCreateAccount {
 
 	public static void main(String[] args) {
 		TestCreateAccount tc = new TestCreateAccount();
-		tc.SignUp("manager", "manager");
+		tc.SignUp("employee1", "employee1");
+//		tc.login("employee", "employee");
+//		tc.SignUp("manager", "manager");
 //		tc.login("newaccount2", "adminthaiphan");
-
 	}
 	
 	public void SignUp(String username, String password) {
@@ -25,7 +26,7 @@ public class TestCreateAccount {
 		try {
 		    con = JdbcUlti.getConnection();
 		    String sql = "insert into account(employee_id, username, password, email)\r\n"
-		    		+ "values (1, ?, ?, 'new@gmail.com' )";
+		    		+ "values (4, ?, ?, 'thathua725@gmail.com' )";
 		    PreparedStatement st = con.prepareStatement(sql);
 		    MessageDigest md5 = MessageDigest.getInstance("MD5");
 		    byte[] bytes = md5.digest(password.getBytes());

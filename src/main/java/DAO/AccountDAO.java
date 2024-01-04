@@ -8,13 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JOptionPane;
-
-import org.hsqldb.jdbc.JDBCArray;
+import javax.swing.SwingUtilities;
 
 import Test.Login2;
 import database.JdbcUlti;
 import entity.Account;
 import entity.EmployeeAfterLogin;
+import view.LoginFrame;
 
 public class AccountDAO {
 	public List<Account> selectAccounts() {
@@ -39,54 +39,54 @@ public class AccountDAO {
 		return list;
 	}
 
-//	public Boolean Login(String username, String password) {
-//		Login2 lg = new Login2();
-//		try {
-//			Connection con = JdbcUlti.getConnection();
-//			String sql = "select account.username, account.password, employee.position, account.employee_id\r\n"
-//					+ "from account\r\n" + "inner join employee on employee.employee_id=account.employee_id\r\n"
-//					+ "where account.username=?";
-//			PreparedStatement statement = con.prepareStatement(sql);
-//			statement.setString(1, username);
-//			ResultSet rs = statement.executeQuery();
-//
-//			while (rs.next()) {
-//				if (rs.getString(1).equals(username) && rs.getString(2).equals(password)) {
-//					EmployeeAfterLogin.employeePosition = rs.getString(3);
-//					EmployeeAfterLogin.employeeID = rs.getInt(4);
-//					System.out.println("login ok");
-//					return true;
-//				} else {
-//					System.out.println("ko");
-//				}
-//			}
-//
-//			JdbcUlti.closeConnection(con);
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return false;
-//	}
-
-	public String getPasswordFromAccount(String username) {
+	public Boolean Login(String username, String password) {
+		Login2 lg = new Login2();
 		try {
 			Connection con = JdbcUlti.getConnection();
-			String sql = "select password from account where username=?";
+			String sql = "select account.username, account.password, employee.position, account.employee_id\r\n"
+					+ "from account\r\n" + "inner join employee on employee.employee_id=account.employee_id\r\n"
+					+ "where account.username=?";
 			PreparedStatement statement = con.prepareStatement(sql);
 			statement.setString(1, username);
 			ResultSet rs = statement.executeQuery();
 
 			while (rs.next()) {
-				return rs.getString("password");
+				if (rs.getString(1).equals(username) && rs.getString(2).equals(password)) {
+					EmployeeAfterLogin.employeePosition = rs.getString(3);
+					EmployeeAfterLogin.employeeID = rs.getInt(4);
+					return true;
+				}
 			}
 
 			JdbcUlti.closeConnection(con);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return null;
+		return false;
 	}
 
+	
+	public String getUserNameFromEmail(String email) {
+	    try (Connection con = JdbcUlti.getConnection()) {
+	        String sql = "SELECT username FROM account WHERE email=?";
+	        try (PreparedStatement statement = con.prepareStatement(sql)) {
+	            statement.setString(1, email);
+	            try (ResultSet rs = statement.executeQuery()) {
+	                if (rs.next()) {
+	                    return rs.getString("username");
+	                } else {
+	                    // Return null or an empty string if the email is not found
+	                    return null;
+	                }
+	            }
+	        }
+	    } catch (SQLException e) {
+	        // Log or handle the exception according to your application's needs.
+	        
+	        throw new RuntimeException("Error retrieving user information", e);
+	    }
+	}
+	
 	public String getEmployeePasswordByUsernameAndEmail(String username, String email) {
 		String password = null;
 		Connection connection = null;
@@ -133,31 +133,26 @@ public class AccountDAO {
 			e.printStackTrace();
 		}
 	}
-	
-	public Boolean Login (String username, String password) {
-		Connection con = null; 
-		try {
-			con = JdbcUlti.getConnection();
-			String sql = "SELECT * FROM account \r\n"
-					+ "  join employee as emp on emp.employee_id=account.employee_id\r\n"
-					+ "  WHERE username = ? AND password = ?";
-			PreparedStatement statement = con.prepareStatement(sql);
-			statement.setString(1, username);
-			statement.setString(2, password);
-			ResultSet rs = statement.executeQuery();
-			if(rs.next()) {
-				getInfo(rs.getInt("employee_id"), 
-						rs.getString("employee_name"), rs.getString("position"));
-				return true;
-			}
-		} catch (Exception e) {
-			
-		}finally {
-			JdbcUlti.closeConnection(con);
-		}
-		return false;
-	}
-	
+
+	public boolean changePass(String password, String username) {
+        try {
+            Connection con = JdbcUlti.getConnection();
+            String sql = "UPDATE account SET password = ? WHERE username = ?";
+            try (PreparedStatement statement = con.prepareStatement(sql)) {
+                statement.setString(1, password);
+                statement.setString(2, username);
+
+                int rowsUpdated = statement.executeUpdate();
+                return rowsUpdated > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error updating password in the database", "Database Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+    }
+
+
 	public Boolean checkRoleManager(String username) {
 		Connection con = null; 
 		
@@ -181,10 +176,11 @@ public class AccountDAO {
 		}
 		return false;
 	}
+
 	public static void getInfo(int id, String Name, String Position) {
 		EmployeeAfterLogin.employeeID=id;
 		EmployeeAfterLogin.employeeName=Name;
 		EmployeeAfterLogin.employeePosition=Position;
 	}
-
+	
 }

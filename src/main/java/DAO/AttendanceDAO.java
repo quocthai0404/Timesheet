@@ -45,26 +45,26 @@ public class AttendanceDAO {
 		return list;
 	}
 
-	public List<Attendance> getAttendanceForEmployee() {
-		List<Attendance> list = new ArrayList<>();
-		try {
-			var con = JdbcUlti.getConnection();
-			var statement = con.createStatement();
-			String sql = "SELECT * FROM attendance WHERE employee_id = ?";
-			PreparedStatement st = con.prepareStatement(sql);
-			st.setInt(1, EmployeeAfterLogin.employeeID);
-			ResultSet rs = st.executeQuery();
-			while (rs.next()) {
-				list.add(new Attendance(rs.getInt("attendance_id"), rs.getInt("employee_id"),
-						rs.getInt("work_schedule_id"), rs.getTimestamp("time_in"), rs.getTimestamp("time_out"),
-						rs.getDouble("hours_worked"), rs.getString("status")));
-			}
-			JdbcUlti.closeConnection(con);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return list;
-	}
+//	public List<Attendance> getAttendanceForEmployee() {
+//		List<Attendance> list = new ArrayList<>();
+//		try {
+//			var con = JdbcUlti.getConnection();
+//			var statement = con.createStatement();
+//			String sql = "SELECT * FROM attendance WHERE employee_id = ?";
+//			PreparedStatement st = con.prepareStatement(sql);
+//			st.setInt(1, EmployeeAfterLogin.employeeID);
+//			ResultSet rs = st.executeQuery();
+//			while (rs.next()) {
+//				list.add(new Attendance(rs.getInt("attendance_id"), rs.getInt("employee_id"),
+//						rs.getInt("work_schedule_id"), rs.getTimestamp("time_in"), rs.getTimestamp("time_out"),
+//						rs.getDouble("hours_worked"), rs.getString("status")));
+//			}
+//			JdbcUlti.closeConnection(con);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return list;
+//	}
 
 	public int countRow() {
 		int count = 0;
@@ -84,29 +84,29 @@ public class AttendanceDAO {
 		return count;
 	}
 
-	public List<Attendance> selectPaginateAtt(int pageNumber, int rowOfPage) {
-		List<Attendance> list = new ArrayList<>();
-		try {
-			Connection con = JdbcUlti.getConnection();
-
-			String sql = "select * from attendance\r\n" + "	order by attendance_id\r\n" + "	offset (?-1)*? rows\r\n"
-					+ "	fetch next ? rows only";
-			PreparedStatement st = con.prepareStatement(sql);
-			st.setInt(1, pageNumber);
-			st.setInt(2, rowOfPage);
-			st.setInt(3, rowOfPage);
-			ResultSet rs = st.executeQuery();
-			while (rs.next()) {
-				list.add(new Attendance(rs.getInt("attendance_id"), rs.getInt("employee_id"),
-						rs.getInt("work_schedule_id"), rs.getTimestamp("time_in"), rs.getTimestamp("time_out"),
-						rs.getFloat("hours_worked"), rs.getString("status")));
-			}
-			JdbcUlti.closeConnection(con);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return list;
-	}
+//	public List<Attendance> selectPaginateAtt(int pageNumber, int rowOfPage) {
+//		List<Attendance> list = new ArrayList<>();
+//		try {
+//			Connection con = JdbcUlti.getConnection();
+//
+//			String sql = "select * from attendance\r\n" + "	order by attendance_id\r\n" + "	offset (?-1)*? rows\r\n"
+//					+ "	fetch next ? rows only";
+//			PreparedStatement st = con.prepareStatement(sql);
+//			st.setInt(1, pageNumber);
+//			st.setInt(2, rowOfPage);
+//			st.setInt(3, rowOfPage);
+//			ResultSet rs = st.executeQuery();
+//			while (rs.next()) {
+//				list.add(new Attendance(rs.getInt("attendance_id"), rs.getInt("employee_id"),
+//						rs.getInt("work_schedule_id"), rs.getTimestamp("time_in"), rs.getTimestamp("time_out"),
+//						rs.getFloat("hours_worked"), rs.getString("status")));
+//			}
+//			JdbcUlti.closeConnection(con);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return list;
+//	}
 
 	public void checkInOnTime(String textWorkScheduleId, String textEmpID) {
 		long currentTimeMillis = System.currentTimeMillis();

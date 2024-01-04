@@ -12,13 +12,26 @@ public class JdbcUlti {
 		String username = "sa";
 		String password = "123456";
 		String dbName = "timesheet";
-		// ------;
+//		 ------;
 //		Lộc
 //		String serverName = "DESKTOP-FICVKMH";
 //		String dbName = "timesheet2";
 //		String username = "sa";
 //		String password = "NguyenAn2004";
 //		---------;
+//		String serverName = "CPS";
+//		String dbName = "timesheet";
+//		String serverName = "DESKTOP-FICVKMH";
+//		String dbName = "timesheet2";
+
+//		String username = "sa";
+//		String password = "NguyenAn2004";
+//		---------;
+//		String serverName = "CPS";
+//		String dbName = "timesheet";
+//		String username = "sa";
+//		String password = "NguyenAn2004";
+
 //		String serverName = "CPS";
 //		String dbName = "timesheet";
 //		String username = "sa";

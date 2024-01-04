@@ -25,7 +25,9 @@ import javax.swing.plaf.FontUIResource;
 import DAO.AccountDAO;
 import attendancems_with_prepared22.AttendFrame;
 import database.JdbcUlti;
+
 import entity.EmployeeAfterLogin;
+
 import helper.Helper;
 
 import javax.swing.ImageIcon;
@@ -126,6 +128,12 @@ public class LoginFrame extends javax.swing.JFrame {
 		jPanel1buttons.setBounds(0, 0, 320, 240);
 		
 		jButtonForgetpass_1 = new JButton();
+		jButtonForgetpass_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				jButtonForgetpass_1ActionPerformed(e);
+			}
+		});
+
 		jButtonForgetpass_1.setForeground(new Color(255, 255, 255));
 		jButtonForgetpass_1.setText("Forget Password");
 		jButtonForgetpass_1.setToolTipText("");
@@ -404,4 +412,11 @@ public class LoginFrame extends javax.swing.JFrame {
 	private JButton jButtonForgetpass;
 	private JButton jButtonForgetpass_1;
 	
+	protected void jButtonForgetpass_1ActionPerformed(ActionEvent e) {
+
+		ChangePassDemo changePassDemo = new ChangePassDemo();
+        changePassDemo.setVisible(true);
+        this.dispose();
+
+	}
 }
