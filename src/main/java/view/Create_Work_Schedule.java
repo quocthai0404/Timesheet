@@ -181,14 +181,14 @@ public class Create_Work_Schedule extends javax.swing.JInternalFrame {
         lblCreateScheduleNext.setText("Number Of Day: ");
         lblCreateScheduleNext.setForeground(Color.BLACK);
         lblCreateScheduleNext.setFont(new Font("Candara", Font.BOLD, 14));
-        lblCreateScheduleNext.setBounds(73, 405, 135, 30);
+        lblCreateScheduleNext.setBounds(73, 360, 135, 30);
         getContentPane().add(lblCreateScheduleNext);
         
         String choice[] = {"1 day", "Next 7 days"};
         comboBoxNod = new JComboBox(choice);
        
         
-        comboBoxNod.setBounds(221, 403, 145, 30);
+        comboBoxNod.setBounds(221, 358, 145, 30);
         getContentPane().add(comboBoxNod);
         
         lblBeginDay = new JLabel();
@@ -209,11 +209,11 @@ public class Create_Work_Schedule extends javax.swing.JInternalFrame {
         		btnCreateScheActionPerformed(e);
         	}
         });
-        btnCreateSche.setBounds(221, 456, 145, 42);
+        btnCreateSche.setBounds(221, 399, 145, 42);
         getContentPane().add(btnCreateSche);
         
         scrollPane = new JScrollPane();
-        scrollPane.setBounds(443, 149, 482, 179);
+        scrollPane.setBounds(442, 188, 482, 179);
         getContentPane().add(scrollPane);
         
         table = new JTable();
@@ -225,7 +225,7 @@ public class Create_Work_Schedule extends javax.swing.JInternalFrame {
         		btnPreviousActionPerformed(e);
         	}
         });
-        btnPrevious.setBounds(443, 360, 85, 33);
+        btnPrevious.setBounds(443, 388, 85, 33);
         getContentPane().add(btnPrevious);
         
         btnNext = new JButton("Next");
@@ -234,21 +234,29 @@ public class Create_Work_Schedule extends javax.swing.JInternalFrame {
         		btnNextActionPerformed(e);
         	}
         });
-        btnNext.setBounds(840, 360, 85, 33);
+        btnNext.setBounds(839, 388, 85, 33);
         getContentPane().add(btnNext);
         
         String descr[] = { "8h-12h", "13h-17h", "18h-22h", 
         "22h-6h"};
         comboBoxWork_Shift = new JComboBox(descr);
-        comboBoxWork_Shift.setBounds(221, 363, 145, 30);
+        comboBoxWork_Shift.setBounds(553, 147, 145, 30);
         getContentPane().add(comboBoxWork_Shift);
         
         lblWorkShift = new JLabel();
         lblWorkShift.setText("Work Shift:");
         lblWorkShift.setForeground(Color.BLACK);
         lblWorkShift.setFont(new Font("Candara", Font.BOLD, 14));
-        lblWorkShift.setBounds(73, 359, 110, 30);
+        lblWorkShift.setBounds(442, 149, 110, 30);
         getContentPane().add(lblWorkShift);
+        
+        jButtonFind_WorkShift = new JButton();
+        jButtonFind_WorkShift.setIcon(new ImageIcon(Create_Work_Schedule.class.getResource("/view.png")));
+        jButtonFind_WorkShift.setFont(new Font("Candara", Font.BOLD, 12));
+        jButtonFind_WorkShift.setBorderPainted(false);
+        jButtonFind_WorkShift.setBorder(null);
+        jButtonFind_WorkShift.setBounds(718, 149, 30, 30);
+        getContentPane().add(jButtonFind_WorkShift);
 
 		setBounds(0, 0, 990, 550);
 	}
@@ -281,6 +289,7 @@ public class Create_Work_Schedule extends javax.swing.JInternalFrame {
 	private JButton btnNext;
 	private JComboBox comboBoxWork_Shift;
 	private JLabel lblWorkShift;
+	private JButton jButtonFind_WorkShift;
 	
 	protected void jButtonFindActionPerformed(ActionEvent e) {
 		EmployeeDAO dao = new EmployeeDAO();

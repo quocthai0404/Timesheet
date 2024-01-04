@@ -72,7 +72,6 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 		Emp_Name = new javax.swing.JLabel();
 		Position = new javax.swing.JLabel();
 		Username = new javax.swing.JLabel();
-		Passwword = new javax.swing.JLabel();
 		textField_empID = new javax.swing.JLabel();
 		textField_empName = new javax.swing.JTextField();
 
@@ -85,7 +84,7 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 		Employee_ID.setForeground(new Color(0, 0, 0));
 		Employee_ID.setText("Employee ID :");
 		getContentPane().add(Employee_ID);
-		Employee_ID.setBounds(80, 87, 110, 30);
+		Employee_ID.setBounds(80, 128, 110, 30);
 
 		Emp_Name.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
 		Emp_Name.setForeground(new Color(0, 0, 0));
@@ -103,40 +102,29 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 		Username.setForeground(new Color(0, 0, 0));
 		Username.setText("Username :");
 		getContentPane().add(Username);
-		Username.setBounds(80, 128, 109, 30);
-
-		Passwword.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
-		Passwword.setForeground(new Color(0, 0, 0));
-		Passwword.setText("Password :");
-		getContentPane().add(Passwword);
-		Passwword.setBounds(80, 169, 109, 30);
+		Username.setBounds(80, 169, 109, 30);
 
 		textField_empID.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
 		textField_empID.setForeground(new java.awt.Color(255, 255, 255));
 		getContentPane().add(textField_empID);
-		textField_empID.setBounds(221, 87, 180, 30);
+		textField_empID.setBounds(221, 128, 180, 30);
 
 		textField_empName.setFont(new java.awt.Font("Calibri", 1, 14)); // NOI18N
 	
 		getContentPane().add(textField_empName);
 		textField_empName.setBounds(635, 169, 180, 30);
 		
-		textField_Position = new JTextField();
-		textField_Position.setFont(new Font("Calibri", Font.BOLD, 14));
-		textField_Position.setBounds(635, 210, 180, 30);
-		getContentPane().add(textField_Position);
+		txtEmployee = new JTextField();
+		txtEmployee.setText("employee");
+		txtEmployee.setEditable(false);
+		txtEmployee.setFont(new Font("Calibri", Font.BOLD, 14));
+		txtEmployee.setBounds(635, 210, 180, 30);
+		getContentPane().add(txtEmployee);
 		
 		txtUsername = new JTextField();
 		txtUsername.setFont(new Font("Calibri", Font.BOLD, 14));
-		txtUsername.setBounds(221, 128, 180, 30);
+		txtUsername.setBounds(221, 169, 180, 30);
 		getContentPane().add(txtUsername);
-		
-		
-		jPasswordField1 = new JPasswordField();
-//		txtPassword = new JTextField();
-//		txtPassword.setFont(new Font("Calibri", Font.BOLD, 14));
-		jPasswordField1.setBounds(221, 169, 180, 30);
-		getContentPane().add(jPasswordField1);
 		
 		Email = new JLabel();
 		Email.setText("Email");
@@ -235,13 +223,12 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 	}
 
 	private javax.swing.JLabel Employee_ID;
-	private javax.swing.JLabel Passwword;
 	private javax.swing.JLabel textField_empID;
 	private javax.swing.JLabel Emp_Name;
 	private javax.swing.JLabel Position;
 	private javax.swing.JLabel Username;
 	private javax.swing.JTextField textField_empName;
-	private JTextField textField_Position;
+	private JTextField txtEmployee;
 	private JTextField txtUsername;
 	private JTextField txtPassword;
 	private JLabel Email;
@@ -258,7 +245,6 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 	private JLabel lblStatusPage;
 	private JScrollPane scrollPane;
 	private JTable tableEmployee;
-	private JPasswordField jPasswordField1;
 	public void loadData() {
 		DefaultTableModel model = new DefaultTableModel();
 		model.addColumn("ID");
@@ -299,7 +285,7 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 	 public void getValueFromPanel(String id, String name, String position) {
 	            textField_empID.setText(id);
 	            textField_empName.setText(name);
-	            textField_Position.setText(position);
+	            txtEmployee.setText(position);
 	    }
 	   private void tableEmployeeMouseClicked(MouseEvent e) {
 	        if (e.getButton() == MouseEvent.BUTTON1) {
@@ -318,7 +304,7 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 	            // Set các giá trị khác từ bảng vào các trường dữ liệu khác
 	            textField_empID.setText(tableEmployee.getValueAt(row, 0).toString());
 	            textField_empName.setText(tableEmployee.getValueAt(row, 1).toString());
-	            textField_Position.setText(positionValue);
+	            txtEmployee.setText(positionValue);
 
 	            // Các thao tác khác có thể được thêm tùy thuộc vào yêu cầu cụ thể của bạn
 	        }
@@ -409,7 +395,7 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 		   jPasswordField1.setText("");
 		   txtEmail.setText("");
 		   textField_empName.setText("");
-		   textField_Position.setText("");
+		   txtEmployee.setText("");
 	   }
 	protected void btnCreateActionPerformed(ActionEvent e) {
 		int id = Integer.parseInt(textField_empID.getText());
