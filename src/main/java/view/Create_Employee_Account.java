@@ -14,6 +14,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+import org.apache.commons.lang3.RandomStringUtils;
+
 import DAO.EmployeeDAO;
 import database.JdbcUlti;
 import helper.Helper;
@@ -245,6 +247,10 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 	private JLabel lblStatusPage;
 	private JScrollPane scrollPane;
 	private JTable tableEmployee;
+
+	private JPasswordField jPasswordField1;
+	private String randomCode = RandomStringUtils.randomAlphanumeric(6);
+
 	public void loadData() {
 		DefaultTableModel model = new DefaultTableModel();
 		model.addColumn("ID");
@@ -261,6 +267,8 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 		});
 		lblStatusPage.setText(firstPage + "/" + totalPage.intValue());
 		tableEmployee.setModel(model);
+		
+//		jPasswordField1.setText(randomCode);
 	}
 	
 	protected void btnPreviousActionPerformed(ActionEvent e) {
@@ -304,7 +312,12 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 	            // Set các giá trị khác từ bảng vào các trường dữ liệu khác
 	            textField_empID.setText(tableEmployee.getValueAt(row, 0).toString());
 	            textField_empName.setText(tableEmployee.getValueAt(row, 1).toString());
+
+
+	      
+
 	            txtEmployee.setText(positionValue);
+
 
 	            // Các thao tác khác có thể được thêm tùy thuộc vào yêu cầu cụ thể của bạn
 	        }
@@ -398,11 +411,12 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 	   }
 	protected void btnCreateActionPerformed(ActionEvent e) {
 		int id = Integer.parseInt(textField_empID.getText());
+		
 		if(checkAccID(id)) {
 			if(checkEmailDuplicate(txtEmail.getText())&&checkUsernameDuplicate(txtUsername.getText())){
 				SignUp(txtUsername.getText(), 
-						String.valueOf(jPasswordField1.getPassword()), txtEmail.getText(), id);
-				sendMail(String.valueOf(jPasswordField1.getPassword()),txtUsername.getText());
+						randomCode, txtEmail.getText(), id);
+				sendMail(randomCode,txtUsername.getText());
 				refresh();
 			}else {
 				JOptionPane.showMessageDialog(null, "Username or Email already exists");

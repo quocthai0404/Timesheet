@@ -267,12 +267,18 @@ public class CheckInAndCheckOut extends javax.swing.JInternalFrame {
 			if(now<RowClicked.dateWorkOut.getTime()) {
 				JOptionPane.showMessageDialog(null, "You check out before the work out time");
 				dao.checkOutBefore();
+				dao.setIsHide();
+				loadData();
 			}else if(now<RowClicked.dateMaxOut.getTime()&& now > RowClicked.dateWorkOut.getTime()) {
 				//JOptionPane.showMessageDialog(null, "Check out dung gio");
 				dao.checkOutRightTime();
+				dao.setIsHide();
+				loadData();
 			}else {
 				JOptionPane.showMessageDialog(null, "Check Out Wrong Time ");
 				dao.checkOutWrongTime();
+				dao.setIsHide();
+				loadData();
 			}
 		}
 	}
