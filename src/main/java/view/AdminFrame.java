@@ -413,7 +413,7 @@ public class AdminFrame extends javax.swing.JFrame {
 
 		jButton13.setBackground(new java.awt.Color(255, 255, 255));
 		jButton13.setFont(new Font("Candara", Font.BOLD, 14)); // NOI18N
-		jButton13.setText("<html>Employee Errors  <br> And Leave Days </html>");
+		jButton13.setText("<html>Employee Mistakes  <br> &nbsp &nbsp And Leave Days </html>");
 		jButton13.setBorder(new LineBorder(new Color(0, 0, 0), 4, true));
 		jButton13.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 		

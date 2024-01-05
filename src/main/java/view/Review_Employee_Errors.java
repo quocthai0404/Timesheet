@@ -76,7 +76,7 @@ public class Review_Employee_Errors extends javax.swing.JInternalFrame {
         lblLogo.setBounds(10, 0, 154, 76);
         panel.add(lblLogo);
         
-        lblNewLabel_1 = new JLabel("Employee Error ");
+        lblNewLabel_1 = new JLabel("Employee Mistake");
         lblNewLabel_1.setFont(new Font("Candara", Font.BOLD, 48));
         lblNewLabel_1.setBounds(271, 22, 425, 54);
         panel.add(lblNewLabel_1);

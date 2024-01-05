@@ -392,7 +392,6 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 	   public void refresh() {
 		   textField_empID.setText("");
 		   txtUsername.setText("");
-		   jPasswordField1.setText("");
 		   txtEmail.setText("");
 		   textField_empName.setText("");
 		   txtEmployee.setText("");
@@ -414,15 +413,10 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 			refresh();
 			return;
 		}
-		
-		
-
 	}
 	public void sendMail(String pass,String username) {
 		final String fromEmail = "employeemanager25@gmail.com";
 		final String password = "pvhq uixx stql luqj";
-		
-		
 		
 		var prop = new Properties();
 		prop.put("mail.smtp.host","smtp.gmail.com" );
