@@ -9,7 +9,8 @@
 	import java.util.Base64;
 	import java.util.Calendar;
 	import java.util.Date;
-	import java.util.Locale;
+import java.util.List;
+import java.util.Locale;
 	
 	import javax.swing.JOptionPane;
 	import javax.swing.table.DefaultTableCellRenderer;
@@ -19,7 +20,8 @@
 	import DAO.Work_scheduleDAO;
 	import database.JdbcUlti;
 	import entity.Employee;
-	import helper.Helper;
+import entity.Work_schedule;
+import helper.Helper;
 	
 	import javax.swing.JScrollPane;
 	import javax.swing.JTable;
@@ -385,25 +387,11 @@
 		        }
 	
 		    } catch (Exception ex) {
-		        JOptionPane.showMessageDialog(this, "Error when creating work schedule: " + ex.getMessage(), "Lỗi", JOptionPane.ERROR_MESSAGE);
+		        JOptionPane.showMessageDialog(this, "Error when creating work schedule: " + ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
 		    }
 		}
 	
-	
-		protected void loadWorkShiftData(int workShiftId) {
-		    DefaultTableModel model = new DefaultTableModel();
-		    model.addColumn("ID");
-		    model.addColumn("Employee ID");
-		    model.addColumn("Date");
-		    model.addColumn("Work Shift ID");
 
-		    Work_scheduleDAO dao = new Work_scheduleDAO();
-		    dao.getWorkShiftData(workShiftId).forEach(ws -> {
-		        model.addRow(new Object[]{ws.getWork_schedule_id(), ws.getEmployee_id(), ws.getWork_date(), ws.getWork_shift_id()});
-		    });
-
-		    table.setModel(model);
-		}
 
 		// Phương thức giúp thêm ngày vào một ngày cụ thể
 		public static Date addDays(Date date, int days) {
@@ -413,17 +401,40 @@
 		    return calendar.getTime();
 		}
 		protected void jButtonFind_WorkShiftActionPerformed(ActionEvent e) {
-		    try {
-		        // Lấy index của ca làm việc từ comboBoxWork_Shift
-		        int selectedWorkShiftIndex = comboBoxWork_Shift.getSelectedIndex() + 1;
+		    // Lấy giá trị được chọn từ comboboxWorkShift
+		    String selectedWorkShift = comboBoxWork_Shift.getSelectedItem().toString();
 
-		        // Hiển thị thông tin của ca làm việc
-		        JOptionPane.showMessageDialog(this, "Selected Work Shift: " + selectedWorkShiftIndex, "Work Shift Information", JOptionPane.INFORMATION_MESSAGE);
+		    // Kiểm tra xem giá trị có tồn tại hay không
+		    if (!selectedWorkShift.isEmpty()) {
+		        // Tạo đối tượng Work_scheduleDAO
+		        Work_scheduleDAO dao = new Work_scheduleDAO();
 
-		        // Hiển thị dữ liệu vào bảng cho ca làm việc đã chọn
-		        loadWorkShiftData(selectedWorkShiftIndex);
-		    } catch (Exception ex) {
-		        JOptionPane.showMessageDialog(this, "Error when fetching work shift information: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+		        // Lấy dữ liệu từ cơ sở dữ liệu dựa trên workShift
+		        List<Work_schedule> workShiftData = dao.searchByWorkShiftDescription(selectedWorkShift);
+
+		        // Hiển thị dữ liệu lên table
+		        displayWorkShiftData(workShiftData);
+		    } else {
+		        JOptionPane.showMessageDialog(this, "Please select a work shift.", "Notification", JOptionPane.WARNING_MESSAGE);
 		    }
 		}
+
+		// Phương thức hiển thị dữ liệu của ca làm việc lên table
+		private void displayWorkShiftData(List<Work_schedule> workShiftData) {
+		    DefaultTableModel model = new DefaultTableModel();
+		    model.addColumn("ID");
+		    model.addColumn("Employee ID");
+		    model.addColumn("Date");
+		    model.addColumn("Work Shift ID");
+
+		    // Thêm dữ liệu vào model
+		    workShiftData.forEach(ws -> {
+		        model.addRow(new Object[]{ws.getWork_schedule_id(), ws.getEmployee_id(), ws.getWork_date(), ws.getWork_shift_id()});
+		    });
+
+		    // Set model cho table
+		    table.setModel(model);
+		}
+
+
 	}

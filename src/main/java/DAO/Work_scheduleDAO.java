@@ -502,5 +502,54 @@ public class Work_scheduleDAO {
 			e.printStackTrace();
 		}
 	}
+	 public int getWorkShiftIdByDescription(String description) {
+	        switch (description) {
+	            case "8h-12h":
+	                return 1;
+	            case "13h-17h":
+	                return 2;
+	            case "18h-22h":
+	                return 3;
+	            case "22h-6h":
+	                return 4;
+	            default:
+	                return -1; // Giá trị mặc định hoặc có thể ném một ngoại lệ tùy thuộc vào logic của bạn
+	        }
+	    }
+
+	    public List<Work_schedule> searchByWorkShiftDescription(String workShiftDescription) {
+	        int workShiftId = getWorkShiftIdByDescription(workShiftDescription);
+	        if (workShiftId == -1) {
+	            // Xử lý nếu mô tả không hợp lệ
+	            return new ArrayList<>();
+	        }
+
+	        try {
+	            Connection con = JdbcUlti.getConnection();
+	            String sql = "SELECT * FROM work_schedule WHERE work_shift_id = ?";
+	            PreparedStatement st = con.prepareStatement(sql);
+	            st.setInt(1, workShiftId);
+	            ResultSet rs = st.executeQuery();
+
+	            List<Work_schedule> result = new ArrayList<>();
+	            while (rs.next()) {
+	                result.add(new Work_schedule(
+	                        rs.getInt("work_schedule_id"),
+	                        rs.getInt("employee_id"),
+	                        rs.getDate("work_date"),
+	                        rs.getInt("work_shift_id")
+	                ));
+	            }
+	            JdbcUlti.closeConnection(con);
+	            return result;
+
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	        return new ArrayList<>();
+	    }
+
+
+
 	
 }
