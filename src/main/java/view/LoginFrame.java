@@ -98,7 +98,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
 		jButtonEmployee.setBackground(new java.awt.Color(0, 0, 102));
 		jButtonEmployee.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
-		jButtonEmployee.setIcon(new ImageIcon(LoginFrame.class.getResource("/teachermainbutton.png"))); // NOI18N
+jButtonEmployee.setIcon(new ImageIcon(LoginFrame.class.getResource("/teachermainbutton.png"))); // NOI18N
 		jButtonEmployee.setIcon(new ImageIcon("media/employeemainbutton.png")); // NOI18N
 		jButtonEmployee.setToolTipText("");
 		jButtonEmployee.setBorder(null);
@@ -109,7 +109,7 @@ public class LoginFrame extends javax.swing.JFrame {
 			}
 		});
 		jPanel1buttons.add(jButtonEmployee);
-		jButtonEmployee.setBounds(80, 81, 150, 44);
+		jButtonEmployee.setBounds(80, 103, 150, 37);
 
 		jButtonManager.setIcon(new ImageIcon("media/managermainbutton.png")); // NOI18N
 		jButtonManager.setBorder(null);
@@ -121,7 +121,7 @@ public class LoginFrame extends javax.swing.JFrame {
 			}
 		});
 		jPanel1buttons.add(jButtonManager);
-		jButtonManager.setBounds(80, 136, 150, 44);
+		jButtonManager.setBounds(80, 143, 150, 37);
 
 		MainLayerBG.setIcon(new ImageIcon(LoginFrame.class.getResource("/mainlayer.png"))); // NOI18N
 		jPanel1buttons.add(MainLayerBG);
@@ -146,29 +146,34 @@ public class LoginFrame extends javax.swing.JFrame {
 		jButtonForgetpass_1.setBackground(new Color(0, 0, 102));
 		jButtonForgetpass_1.setBounds(57, 191, 211, 37);
 		jPanel1buttons.add(jButtonForgetpass_1);
-		
-		jButtonHR = new JButton("");
-		jButtonHR.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				jButtonHRActionPerformed(e);
-			}
-		});
-		jButtonHR.setBorder(new LineBorder(new Color(0, 0, 0)));
 		ImageIcon icon = new ImageIcon(LoginFrame.class.getResource("/HR_icon.png"));
 
 		// Resize the image to fit the button
 		Image img = icon.getImage().getScaledInstance(62, 37, Image.SCALE_SMOOTH);
 		ImageIcon resizedIcon = new ImageIcon(img);
-
-		jButtonHR.setIcon(resizedIcon);  // Set the resized icon
-		jButtonHR.setBounds(10, 0, 62, 37);
-		jPanel1buttons.add(jButtonHR);
+		
+		jButtonEmployee_2 = new JButton();
+		jButtonEmployee_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				jButtonEmployee_2ActionPerformed(e);
+			}
+		});
+		jButtonEmployee_2.setToolTipText("");
+		
+		jButtonEmployee_2.setBackground(new java.awt.Color(0, 0, 102));
+		jButtonEmployee_2.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
+		jButtonEmployee_2.setIcon(new ImageIcon(LoginFrame.class.getResource("/HR_icon.png"))); // NOI18N
+		jButtonEmployee_2.setBorderPainted(false);
+		jButtonEmployee_2.setBorder(null);
+		jButtonEmployee_2.setBackground(new Color(0, 0, 102));
+		jButtonEmployee_2.setBounds(80, 60, 150, 32);
+		jPanel1buttons.add(jButtonEmployee_2);
 
 
 		jPanel2teacher.setMaximumSize(new java.awt.Dimension(320, 240));
 		jPanel2teacher.setMinimumSize(new java.awt.Dimension(320, 240));
 		jPanel2teacher.setPreferredSize(new java.awt.Dimension(320, 240));
-		jPanel2teacher.setLayout(null);
+jPanel2teacher.setLayout(null);
 
 		jTextField1.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
 		jPanel2teacher.add(jTextField1);
@@ -232,7 +237,7 @@ public class LoginFrame extends javax.swing.JFrame {
 		AdminloginButton.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
 		AdminloginButton.setIcon(new ImageIcon(LoginFrame.class.getResource("/loginbutton.png"))); // NOI18N
 		AdminloginButton.setBorder(null);
-		AdminloginButton.setBorderPainted(false);
+AdminloginButton.setBorderPainted(false);
 		AdminloginButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				AdminloginButtonActionPerformed(evt);
@@ -319,7 +324,7 @@ public class LoginFrame extends javax.swing.JFrame {
 	    AccountDAO dao = new AccountDAO();
 	    if(dao.checkRoleManager(jTextField2.getText())) {
 	    	if(dao.Login(jTextField2.getText(), password)) {
-	            JOptionPane.showMessageDialog(this, "Welcome");
+JOptionPane.showMessageDialog(this, "Welcome");
 
 	            AdminFrame adminf = new AdminFrame();
 	            adminf.setVisible(true);
@@ -406,7 +411,7 @@ public class LoginFrame extends javax.swing.JFrame {
 		/* Create and display the form */
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new LoginFrame().setVisible(true);
+new LoginFrame().setVisible(true);
 			}
 		});
 	}
@@ -422,7 +427,6 @@ public class LoginFrame extends javax.swing.JFrame {
 	private javax.swing.JLabel TeacherPanelBG;
 	private javax.swing.JButton jButtonManager;
 	private javax.swing.JButton jButtonEmployee;
-	private javax.swing.JButton jButtonHR;
 	private javax.swing.JLayeredPane jLayeredPane1;
 	private javax.swing.JPanel jPanel1buttons;
 	private javax.swing.JPanel jPanel2teacher;
@@ -433,6 +437,7 @@ public class LoginFrame extends javax.swing.JFrame {
 	private javax.swing.JTextField jTextField2;
 	private JButton jButtonForgetpass;
 	private JButton jButtonForgetpass_1;
+	private JButton jButtonEmployee_2;
 	
 	protected void jButtonForgetpass_1ActionPerformed(ActionEvent e) {
 
@@ -441,7 +446,7 @@ public class LoginFrame extends javax.swing.JFrame {
         this.dispose();
 
 	}
-	protected void jButtonHRActionPerformed(ActionEvent e) {
+	protected void jButtonEmployee_2ActionPerformed(ActionEvent e) {
 		HRFrame HR = new HRFrame();
 		HR.setVisible(true);
         this.dispose();
