@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package view;
-
+import HR_view.HRlogin;
 import HR_view.HRFrame;
 import java.awt.Color;		
 import java.awt.Font;
@@ -98,7 +98,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
 		jButtonEmployee.setBackground(new java.awt.Color(0, 0, 102));
 		jButtonEmployee.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
-jButtonEmployee.setIcon(new ImageIcon(LoginFrame.class.getResource("/teachermainbutton.png"))); // NOI18N
+		jButtonEmployee.setIcon(new ImageIcon(LoginFrame.class.getResource("/teachermainbutton.png"))); // NOI18N
 		jButtonEmployee.setIcon(new ImageIcon("media/employeemainbutton.png")); // NOI18N
 		jButtonEmployee.setToolTipText("");
 		jButtonEmployee.setBorder(null);
@@ -152,22 +152,22 @@ jButtonEmployee.setIcon(new ImageIcon(LoginFrame.class.getResource("/teachermain
 		Image img = icon.getImage().getScaledInstance(62, 37, Image.SCALE_SMOOTH);
 		ImageIcon resizedIcon = new ImageIcon(img);
 		
-		jButtonEmployee_2 = new JButton();
-		jButtonEmployee_2.addActionListener(new ActionListener() {
+		jButtonHR = new JButton();
+		jButtonHR.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				jButtonEmployee_2ActionPerformed(e);
 			}
 		});
-		jButtonEmployee_2.setToolTipText("");
+		jButtonHR.setToolTipText("");
 		
-		jButtonEmployee_2.setBackground(new java.awt.Color(0, 0, 102));
-		jButtonEmployee_2.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
-		jButtonEmployee_2.setIcon(new ImageIcon(LoginFrame.class.getResource("/HR_icon.png"))); // NOI18N
-		jButtonEmployee_2.setBorderPainted(false);
-		jButtonEmployee_2.setBorder(null);
-		jButtonEmployee_2.setBackground(new Color(0, 0, 102));
-		jButtonEmployee_2.setBounds(80, 60, 150, 32);
-		jPanel1buttons.add(jButtonEmployee_2);
+		jButtonHR.setBackground(new java.awt.Color(0, 0, 102));
+		jButtonHR.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
+		jButtonHR.setIcon(new ImageIcon(LoginFrame.class.getResource("/HR_icon.png"))); // NOI18N
+		jButtonHR.setBorderPainted(false);
+		jButtonHR.setBorder(null);
+		jButtonHR.setBackground(new Color(0, 0, 102));
+		jButtonHR.setBounds(80, 60, 150, 32);
+		jPanel1buttons.add(jButtonHR);
 
 
 		jPanel2teacher.setMaximumSize(new java.awt.Dimension(320, 240));
@@ -324,7 +324,7 @@ AdminloginButton.setBorderPainted(false);
 	    AccountDAO dao = new AccountDAO();
 	    if(dao.checkRoleManager(jTextField2.getText())) {
 	    	if(dao.Login(jTextField2.getText(), password)) {
-JOptionPane.showMessageDialog(this, "Welcome");
+	    			JOptionPane.showMessageDialog(this, "Welcome");
 
 	            AdminFrame adminf = new AdminFrame();
 	            adminf.setVisible(true);
@@ -437,7 +437,7 @@ new LoginFrame().setVisible(true);
 	private javax.swing.JTextField jTextField2;
 	private JButton jButtonForgetpass;
 	private JButton jButtonForgetpass_1;
-	private JButton jButtonEmployee_2;
+	private JButton jButtonHR;
 	
 	protected void jButtonForgetpass_1ActionPerformed(ActionEvent e) {
 
@@ -447,8 +447,8 @@ new LoginFrame().setVisible(true);
 
 	}
 	protected void jButtonEmployee_2ActionPerformed(ActionEvent e) {
-		HRFrame HR = new HRFrame();
-		HR.setVisible(true);
+		HRlogin hl = new HRlogin();
+		hl.setVisible(true);
         this.dispose();
 	}
 }
