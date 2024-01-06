@@ -290,7 +290,7 @@ public class AdminFrame extends javax.swing.JFrame {
 		btnUpdateEmp.setFont(new Font("Candara", Font.BOLD, 12));
 		btnUpdateEmp.setBorderPainted(false);
 		btnUpdateEmp.setBorder(null);
-		btnUpdateEmp.setBounds(432, 267, 110, 30);
+		btnUpdateEmp.setBounds(329, 267, 110, 30);
 		jPanel1.add(btnUpdateEmp);
 			
 		btnPrevious = new JButton("Previous");
@@ -332,7 +332,7 @@ public class AdminFrame extends javax.swing.JFrame {
 		btnCreateEmpAcc.setFont(new Font("Candara", Font.BOLD, 12));
 		btnCreateEmpAcc.setBorderPainted(false);
 		btnCreateEmpAcc.setBorder(null);
-		btnCreateEmpAcc.setBounds(230, 267, 110, 30); // Đặt kích thước JButton tùy thuộc vào kích thước của ảnh
+		btnCreateEmpAcc.setBounds(198, 267, 110, 30); // Đặt kích thước JButton tùy thuộc vào kích thước của ảnh
 
 		jPanel1.add(btnCreateEmpAcc);
 		
@@ -512,8 +512,30 @@ public class AdminFrame extends javax.swing.JFrame {
 	}
 
 	
+	// Trong class AdminFrame
 	protected void jButtonUpdateActionPerformed(ActionEvent e) {
-		
+	    // Kiểm tra xem có chọn dòng trong bảng hay không
+	    int selectedRow = tableEmployee.getSelectedRow();
+	    if (selectedRow == -1) {
+	        JOptionPane.showMessageDialog(this, "Please select an employee from the table.", "Notification", JOptionPane.WARNING_MESSAGE);
+	        return;
+	    }
+
+	    // Lấy thông tin từ các trường nhập liệu
+	    int employeeID = Integer.parseInt(textField_empID.getText());
+	    String employeeName = textField_empName.getText();
+	    String position = textField_Position.getText();
+	    Date birthday = dateChooser.getDate();
+	    boolean gender = rdbtnNewRadioButton.isSelected();
+
+	    // Cập nhật thông tin nhân viên
+	    EmployeeDAO dao = new EmployeeDAO();
+	    dao.update(employeeID, employeeName, position, birthday, gender);
+
+	    // Hiển thị thông báo và làm mới dữ liệu
+	    JOptionPane.showMessageDialog(this, "Employee information updated successfully.", "Notification", JOptionPane.INFORMATION_MESSAGE);
+	    loadData();
+	    refreshAll();
 	}
 
 	
@@ -569,25 +591,43 @@ public class AdminFrame extends javax.swing.JFrame {
 	}
 	
 	protected void jButtonFindActionPerformed(ActionEvent e) {
-		DefaultTableModel model = new DefaultTableModel();
-		model.addColumn("ID");
-		model.addColumn("Employee Name");
-		model.addColumn("Position");
-		model.addColumn("Birthday");
-		model.addColumn("Gender");
-		EmployeeDAO dao = new EmployeeDAO();
-		totalPage = Math.ceil(dao.countRow() / Double.valueOf(rowOfPage));
-		dao.findName(textFind.getText()).stream().forEach(emp -> {
-			String gender = emp.getGender() ? "Male" : "Female";
-			model.addRow(new Object[] { emp.getEmployee_id(), emp.getEmployee_name(), emp.getPosition(),
-					emp.getBirthday(), gender });
-		});
+	    // Lấy giá trị tìm kiếm từ textFind
+	    String searchName = textFind.getText().trim().toLowerCase(); // Chuyển về chữ thường để tìm kiếm không phân biệt chữ hoa, chữ thường
 
-		
-		tableEmployee.setModel(model);
-	
+	    // Kiểm tra xem nếu giá trị tìm kiếm không trống
+	    if (!searchName.isEmpty()) {
+	        // Tạo model mới
+	        DefaultTableModel model = new DefaultTableModel();
+	        model.addColumn("ID");
+	        model.addColumn("Employee Name");
+	        model.addColumn("Position");
+	        model.addColumn("Birthday");
+	        model.addColumn("Gender");
 
+	        // Lấy danh sách nhân viên từ EmployeeDAO và kiểm tra xem tên chứa chuỗi tìm kiếm không
+	        EmployeeDAO dao = new EmployeeDAO();
+	        dao.selectAll().forEach(emp -> {
+	            String empName = emp.getEmployee_name().toLowerCase(); // Chuyển về chữ thường để so sánh không phân biệt chữ hoa, chữ thường
+	            if (empName.contains(searchName)) {
+	                String gender = emp.getGender() ? "Male" : "Female";
+	                model.addRow(new Object[]{emp.getEmployee_id(), emp.getEmployee_name(), emp.getPosition(),
+	                        emp.getBirthday(), gender});
+	            }
+	        });
+
+	        // Cập nhật bảng với model mới
+	        tableEmployee.setModel(model);
+
+	        // Hiển thị thông báo nếu không có kết quả
+	        if (model.getRowCount() == 0) {
+	            JOptionPane.showMessageDialog(this, "No matching records found.", "Notification", JOptionPane.INFORMATION_MESSAGE);
+	        }
+	    } else {
+	        // Hiển thị thông báo nếu trường tìm kiếm trống
+	        JOptionPane.showMessageDialog(this, "Please enter a name to search.", "Notification", JOptionPane.WARNING_MESSAGE);
+	    }
 	}
+
 	
 	protected void tableEmployeeMouseClicked(MouseEvent e) {
 		if (e.getButton() == MouseEvent.BUTTON1) {
@@ -623,33 +663,45 @@ public class AdminFrame extends javax.swing.JFrame {
 		loadData();
 	}
 	protected void btnAddEmployeeActionPerformed(ActionEvent e) {
-		if(textField_empName.getText().isEmpty()||textField_Position.getText().isEmpty()) {
+	    if (textField_empName.getText().isEmpty()) {
+	        JOptionPane.showMessageDialog(null, "Employee name cannot be blank");
+	        return;
+	    }
 
-			JOptionPane.showMessageDialog(null, "Input fields cannot be blank");
-			return;
+	    if (textField_Position.getText().isEmpty()) {
+	        JOptionPane.showMessageDialog(null, "Position cannot be blank");
+	        return;
+	    }
 
-		}
+	    if (textField_Position.getText().equalsIgnoreCase("manager")) {
+	        JOptionPane.showMessageDialog(null, "Cannot add manager");
+	        return;
+	    }
 
-		if(textField_Position.getText().toUpperCase().equals("manager".toUpperCase())) {
-			JOptionPane.showMessageDialog(null, "cannot to add manager");
-			return;
-		} 
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		EmployeeDAO empDAO = new EmployeeDAO();
-		Boolean gender = rdbtnNewRadioButton.isSelected() ? true : false;
-		Date date = dateChooser.getDate();
-		int year = date.getYear()+1900;
-		if(Calendar.getInstance().get(Calendar.YEAR)-year<18) {
-			JOptionPane.showMessageDialog(null, "Employee age must be greater than 18");
-			return;
-		}
-		empDAO.add(textField_empName.getText(), textField_Position.getText(), date, gender);
-		loadData();
-		refreshAll();
-		
-		
-		
+	    // Kiểm tra và xử lý ngày sinh
+	    Date date = dateChooser.getDate();
+	    if (date == null) {
+	        JOptionPane.showMessageDialog(null, "Invalid birthdate");
+	        return;
+	    }
+
+	    int birthYear = date.getYear() + 1900;
+	    int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+	    if (currentYear - birthYear < 18) {
+	        JOptionPane.showMessageDialog(null, "Employee age must be greater than 18");
+	        return;
+	    }
+
+	    // Thêm nhân viên với chức vụ mặc định là "employee"
+	    EmployeeDAO empDAO = new EmployeeDAO();
+	    Boolean gender = rdbtnNewRadioButton.isSelected();
+	    empDAO.add(textField_empName.getText(), "employee", date, gender);
+
+	    // Tải lại dữ liệu và làm mới giao diện
+	    loadData();
+	    refreshAll();
 	}
+
 	protected void btnCreateEmpAccActionPerformed(ActionEvent e) {
 		Connection con = null;
 		try {

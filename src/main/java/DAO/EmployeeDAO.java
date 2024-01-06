@@ -3,6 +3,8 @@ package DAO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -36,28 +38,29 @@ public class EmployeeDAO {
 	}
 
 	public void update(int employee_id, String employee_name, String position, Date birthday, Boolean gender) {
-		try {
-			Connection con = JdbcUlti.getConnection();
+	    try {
+	        Connection con = JdbcUlti.getConnection();
 
-			String sql = "update employee set employee_name = ?, position=?, birthday= ?, gender=? where employee_id=?";
+	        String sql = "update employee set employee_name = ?, position=?, birthday= ?, gender=? where employee_id=?";
 
-			PreparedStatement statement = con.prepareStatement(sql);
-			statement.setString(1, employee_name);
-			statement.setString(2, position);
-			statement.setDate(3, new java.sql.Date(birthday.getTime()));
-			statement.setBoolean(4, gender);
-			statement.setInt(5, employee_id);
+	        PreparedStatement statement = con.prepareStatement(sql);
+	        statement.setString(1, employee_name);
+	        statement.setString(2, position);
+	        statement.setDate(3, new java.sql.Date(birthday.getTime()));
+	        statement.setBoolean(4, gender);
+	        statement.setInt(5, employee_id);
 
-			int rowsUpdated = statement.executeUpdate();
-			if (rowsUpdated > 0) {
-				JOptionPane.showMessageDialog(null, "An existing employee was updated successfully!");
-			}
+	        int rowsUpdated = statement.executeUpdate();
+	        if (rowsUpdated > 0) {
+	            JOptionPane.showMessageDialog(null, "An existing employee was updated successfully!");
+	        }
 
-			JdbcUlti.closeConnection(con);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	        JdbcUlti.closeConnection(con);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
 	}
+
 
 	public void add(String employee_name, String position, Date birthday, Boolean gender) {
 		try {
@@ -233,5 +236,32 @@ public class EmployeeDAO {
 		}
 		return null;
 	}
+	public List<Employee> selectAll() {
+        List<Employee> employees = new ArrayList<>();
+
+        try (Connection connection = JdbcUlti.getConnection();
+             Statement statement = connection.createStatement()) {
+
+            String sql = "SELECT * FROM employee";
+            ResultSet resultSet = statement.executeQuery(sql);
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("employee_id");
+                String name = resultSet.getString("employee_name");
+                String position = resultSet.getString("position");
+                Date birthday = resultSet.getDate("birthday");
+                boolean gender = resultSet.getBoolean("gender");
+
+                Employee employee = new Employee(id, name, position, birthday, gender);
+                employees.add(employee);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return employees;
+    }
+	
+	
 
 }

@@ -5,8 +5,10 @@
  */
 package view;
 
-import java.awt.Color;	
+import HR_view.HRFrame;
+import java.awt.Color;		
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.security.MessageDigest;
@@ -37,6 +39,7 @@ import helper.Helper;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.border.LineBorder;
 /**
  *
  * @author Iqbal-Asi
@@ -106,7 +109,7 @@ public class LoginFrame extends javax.swing.JFrame {
 			}
 		});
 		jPanel1buttons.add(jButtonEmployee);
-		jButtonEmployee.setBounds(80, 38, 150, 60);
+		jButtonEmployee.setBounds(80, 81, 150, 44);
 
 		jButtonManager.setIcon(new ImageIcon("media/managermainbutton.png")); // NOI18N
 		jButtonManager.setBorder(null);
@@ -118,7 +121,7 @@ public class LoginFrame extends javax.swing.JFrame {
 			}
 		});
 		jPanel1buttons.add(jButtonManager);
-		jButtonManager.setBounds(80, 120, 150, 60);
+		jButtonManager.setBounds(80, 136, 150, 44);
 
 		MainLayerBG.setIcon(new ImageIcon(LoginFrame.class.getResource("/mainlayer.png"))); // NOI18N
 		jPanel1buttons.add(MainLayerBG);
@@ -143,6 +146,24 @@ public class LoginFrame extends javax.swing.JFrame {
 		jButtonForgetpass_1.setBackground(new Color(0, 0, 102));
 		jButtonForgetpass_1.setBounds(57, 191, 211, 37);
 		jPanel1buttons.add(jButtonForgetpass_1);
+		
+		jButtonHR = new JButton("");
+		jButtonHR.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				jButtonHRActionPerformed(e);
+			}
+		});
+		jButtonHR.setBorder(new LineBorder(new Color(0, 0, 0)));
+		ImageIcon icon = new ImageIcon(LoginFrame.class.getResource("/HR_icon.png"));
+
+		// Resize the image to fit the button
+		Image img = icon.getImage().getScaledInstance(62, 37, Image.SCALE_SMOOTH);
+		ImageIcon resizedIcon = new ImageIcon(img);
+
+		jButtonHR.setIcon(resizedIcon);  // Set the resized icon
+		jButtonHR.setBounds(10, 0, 62, 37);
+		jPanel1buttons.add(jButtonHR);
+
 
 		jPanel2teacher.setMaximumSize(new java.awt.Dimension(320, 240));
 		jPanel2teacher.setMinimumSize(new java.awt.Dimension(320, 240));
@@ -401,6 +422,7 @@ public class LoginFrame extends javax.swing.JFrame {
 	private javax.swing.JLabel TeacherPanelBG;
 	private javax.swing.JButton jButtonManager;
 	private javax.swing.JButton jButtonEmployee;
+	private javax.swing.JButton jButtonHR;
 	private javax.swing.JLayeredPane jLayeredPane1;
 	private javax.swing.JPanel jPanel1buttons;
 	private javax.swing.JPanel jPanel2teacher;
@@ -418,5 +440,10 @@ public class LoginFrame extends javax.swing.JFrame {
         changePassDemo.setVisible(true);
         this.dispose();
 
+	}
+	protected void jButtonHRActionPerformed(ActionEvent e) {
+		HRFrame HR = new HRFrame();
+		HR.setVisible(true);
+        this.dispose();
 	}
 }

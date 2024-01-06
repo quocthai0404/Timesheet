@@ -107,7 +107,7 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 		Username.setBounds(80, 169, 109, 30);
 
 		textField_empID.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
-		textField_empID.setForeground(new java.awt.Color(255, 255, 255));
+		textField_empID.setForeground(new Color(0, 0, 0));
 		getContentPane().add(textField_empID);
 		textField_empID.setBounds(221, 128, 180, 30);
 

@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.desktop.UserSessionEvent.Reason;
 
 import javax.swing.ImageIcon;
@@ -101,7 +102,7 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
         getContentPane().add(textField_empID);
         
         scrollPane = new JScrollPane();
-        scrollPane.setBounds(76, 158, 442, 274);
+        scrollPane.setBounds(49, 158, 514, 274);
         getContentPane().add(scrollPane);
         
         table = new JTable(); //table marked
@@ -121,7 +122,7 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
         	}
         });
         btnPrevious.setFont(new Font("Segoe UI", Font.BOLD, 12));
-        btnPrevious.setBounds(76, 466, 103, 33);
+        btnPrevious.setBounds(49, 466, 103, 33);
         getContentPane().add(btnPrevious);
         
         lblStatusPage = new JLabel("1/3");
@@ -135,7 +136,7 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
         	}
         });
         btnNext.setFont(new Font("Segoe UI", Font.BOLD, 12));
-        btnNext.setBounds(414, 466, 103, 33);
+        btnNext.setBounds(460, 466, 103, 33);
         getContentPane().add(btnNext);
         
         Emp_Name = new JLabel();
@@ -219,28 +220,6 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
 		
 		loadData();
 
-		btnPrevious = new JButton("Previous");
-		btnPrevious.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				btnPreviousActionPerformed(e);
-			}
-		});
-		btnPrevious.setFont(new Font("Segoe UI", Font.BOLD, 12));
-		btnPrevious.setBounds(76, 466, 103, 33);
-		getContentPane().add(btnPrevious);
-
-		
-
-		btnNext = new JButton("Next");
-		btnNext.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				btnNextActionPerformed(e);
-			}
-		});
-		btnNext.setFont(new Font("Segoe UI", Font.BOLD, 12));
-		btnNext.setBounds(414, 466, 103, 33);
-		getContentPane().add(btnNext);
-
 		Emp_Name = new JLabel();
 		Emp_Name.setText("Employee Name :");
 		Emp_Name.setForeground(Color.BLACK);
@@ -275,9 +254,46 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
 		textWorkTime.setFont(new Font("Calibri", Font.BOLD, 14));
 		textWorkTime.setBounds(708, 238, 180, 30);
 		getContentPane().add(textWorkTime);
+		
+		textFind = new JTextField();
+		textFind.setFont(new Font("Calibri", Font.BOLD, 14));
+		textFind.setBounds(91, 117, 180, 30);
+		getContentPane().add(textFind);
+		
+		jButtonFind = new JButton();
+		jButtonFind.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				jButtonFindActionPerformed(e);
+			}
+		});
+		jButtonFind.setIcon(new ImageIcon(Review_Employee_Request.class.getResource("/view.png")));
+		jButtonFind.setFont(new Font("Candara", Font.BOLD, 12));
+		jButtonFind.setBorderPainted(false);
+		jButtonFind.setBorder(null);
+		jButtonFind.setBounds(281, 117, 30, 30);
+		getContentPane().add(jButtonFind);
+		
+		btnRefresh = new JButton();
+		btnRefresh.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				btnRefreshActionPerformed(e);
+			}
+		});
+		btnRefresh.setFont(new Font("Candara", Font.BOLD, 12));
+		btnRefresh.setBorderPainted(false);
+		btnRefresh.setBorder(null);
+		btnRefresh.setBounds(49, 119, 30, 30);
 
+	
+		String imagePath = "/refresh-page-option.png";
+		ImageIcon icon = new ImageIcon(Review_Employee_Request.class.getResource(imagePath));
+		Image image = icon.getImage();
+		Image newImage = image.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
+		icon = new ImageIcon(newImage);
+		btnRefresh.setIcon(icon);
+		getContentPane().add(btnRefresh);
 		setBounds(0, 0, 1025, 629);
-	}// </editor-fold>//GEN-END:initComponents
+	}
 
 	private javax.swing.JLabel jLabelWorktime;
 	private JPanel panel;
@@ -300,26 +316,33 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
 	private JButton btnAccept;
 	private JButton btnReject;
 	private JTextField textWorkTime;
+	private JTextField textFind;
+	private JButton jButtonFind;
+	private JButton btnRefresh;
 
 	public void loadData() {
-		DefaultTableModel model = new DefaultTableModel();
-		model.addColumn("ID");
-		model.addColumn("Work Schedule Id");
-		model.addColumn("Work Date");
-		model.addColumn("Work Shift Id");
-		model.addColumn("Reason");
-		model.addColumn("Is Accepted");
-		emprequestDAO dao = new emprequestDAO();
-		totalPage = Math.ceil(dao.countRow() / Double.valueOf(rowOfPage));
-		dao.selectUnCheckedEmprequests(firstPage, rowOfPage).stream().forEach(emp -> {
-			String isaccept = emp.isIsaccept() ? "Yes" : "No";
-			model.addRow(new Object[] { emp.getId(), emp.getWork_schedule_id(), emp.getWork_date(),
-					emp.getWork_shift_id(), emp.getReason(), isaccept });
-		});
-		lblStatusPage.setText(firstPage + "/" + totalPage.intValue());
-		lblStatusPage.setText(firstPage + "/" + totalPage.intValue());
-		table.setModel(model);
+	    DefaultTableModel model = new DefaultTableModel();
+	    model.addColumn("ID");
+	    model.addColumn("Work Schedule Id");
+	    model.addColumn("Work Date");
+	    model.addColumn("Work Shift Id");
+	    model.addColumn("Reason");
+	    model.addColumn("Is Accepted");
+	    model.addColumn("Employee ID");
+	    model.addColumn("Employee Name");
+
+	    emprequestDAO dao = new emprequestDAO();
+	    totalPage = Math.ceil(dao.countRow() / Double.valueOf(rowOfPage));
+	    dao.selectUnCheckedEmprequests(firstPage, rowOfPage).stream().forEach(emp -> {
+	        String isaccept = emp.isIsaccept() ? "Yes" : "No";
+	        model.addRow(new Object[]{emp.getId(), emp.getWork_schedule_id(), emp.getWork_date(),
+	                emp.getWork_shift_id(), emp.getReason(), isaccept, emp.getEmployee_id(), emp.getEmployee_name()});
+	    });
+
+	    lblStatusPage.setText(firstPage + "/" + totalPage.intValue());
+	    table.setModel(model);
 	}
+
 
 	protected void btnPreviousActionPerformed(ActionEvent e) {
 		if (firstPage > 1) {
@@ -386,5 +409,14 @@ public class Review_Employee_Request extends javax.swing.JInternalFrame {
 			textReason.setText(table.getValueAt(row, 4).toString());
 		}
 	}
+
+	protected void btnRefreshActionPerformed(ActionEvent e) {
+		
+	}
+	protected void jButtonFindActionPerformed(ActionEvent e) {
+	  
+	}
+
+
 }
 
