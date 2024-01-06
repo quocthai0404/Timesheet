@@ -511,28 +511,23 @@ public class AdminFrame extends javax.swing.JFrame {
 		setLocationRelativeTo(null);
 	}
 
-	
-	// Trong class AdminFrame
 	protected void jButtonUpdateActionPerformed(ActionEvent e) {
-	    // Kiểm tra xem có chọn dòng trong bảng hay không
 	    int selectedRow = tableEmployee.getSelectedRow();
 	    if (selectedRow == -1) {
 	        JOptionPane.showMessageDialog(this, "Please select an employee from the table.", "Notification", JOptionPane.WARNING_MESSAGE);
 	        return;
 	    }
 
-	    // Lấy thông tin từ các trường nhập liệu
 	    int employeeID = Integer.parseInt(textField_empID.getText());
 	    String employeeName = textField_empName.getText();
 	    String position = textField_Position.getText();
 	    Date birthday = dateChooser.getDate();
 	    boolean gender = rdbtnNewRadioButton.isSelected();
 
-	    // Cập nhật thông tin nhân viên
+
 	    EmployeeDAO dao = new EmployeeDAO();
 	    dao.update(employeeID, employeeName, position, birthday, gender);
 
-	    // Hiển thị thông báo và làm mới dữ liệu
 	    JOptionPane.showMessageDialog(this, "Employee information updated successfully.", "Notification", JOptionPane.INFORMATION_MESSAGE);
 	    loadData();
 	    refreshAll();
