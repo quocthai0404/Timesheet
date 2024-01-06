@@ -355,7 +355,7 @@ public class Review_Employee_Mistake extends javax.swing.JInternalFrame {
 			int row = tableEmployee.getSelectedRow();
 			SD_id.setText(tableEmployee.getValueAt(row, 0).toString());
 			textField_empID.setText(tableEmployee.getValueAt(row, 1).toString());
-			textField_reason.setText(tableEmployee.getValueAt(row, 2).toString());
+			comboBox_reason.setToolTipText(tableEmployee.getValueAt(row, 2).toString());
 			textField_amount.setText(tableEmployee.getValueAt(row, 3).toString());
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 			Date date = null;
@@ -428,7 +428,7 @@ public class Review_Employee_Mistake extends javax.swing.JInternalFrame {
 		textField_SearchID.setText("");
 		textField_empID.setText("");
 		textFieldEmpName.setText("");
-		textField_reason.setText("");
+		comboBox_reason.setToolTipText("");
 		textField_CountError.setText("");
 		textField_amount.setText("");
 		dateChooser.setDate(null);
@@ -442,7 +442,7 @@ public class Review_Employee_Mistake extends javax.swing.JInternalFrame {
 		Salary_deductionDAO dao = new Salary_deductionDAO();
 		int sd_id = Integer.parseInt(SD_id.getText());
 		int emp_id = Integer.parseInt(textField_empID.getText());
-		String reason = textField_reason.getText();
+		String reason = comboBox_reason.getToolTipText();
 		Double amount = Double.parseDouble(textField_amount.getText());
 		Date date = dateChooser.getDate();
 		dao.update(sd_id, emp_id, reason, amount, date);
@@ -452,7 +452,7 @@ public class Review_Employee_Mistake extends javax.swing.JInternalFrame {
 		Salary_deductionDAO dao = new Salary_deductionDAO();
 		int sd_id = Integer.parseInt(SD_id.getText());
 		int emp_id = Integer.parseInt(textField_empID.getText());
-		String reason = textField_reason.getText();
+		String reason = comboBox_reason.getToolTipText();
 		Double amount = Double.parseDouble(textField_amount.getText());
 		Date date = dateChooser.getDate();
 		dao.add(emp_id, reason, amount, date);
