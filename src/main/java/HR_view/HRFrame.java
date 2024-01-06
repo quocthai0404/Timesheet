@@ -41,6 +41,7 @@ import DAO.EmployeeDAO;
 import database.JdbcUlti;
 import view.AdminFrame;
 import view.Create_Employee_Account;
+import view.Create_Work_Schedule;
 import view.LoginFrame;
 
 import javax.swing.JTable;
@@ -136,6 +137,11 @@ public class HRFrame extends javax.swing.JFrame {
         	}
         });
         jButton2 = new javax.swing.JButton();
+        jButton2.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		jButton2ActionPerformed(e);
+        	}
+        });
         jButton3 = new javax.swing.JButton();
         Horizontal_Panel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -596,5 +602,11 @@ public class HRFrame extends javax.swing.JFrame {
 	    } catch (Exception ex) {
 	        JOptionPane.showMessageDialog(rootPane, ex.toString());
 	    }
+	}
+	protected void jButton2ActionPerformed(ActionEvent e) {
+		Create_Work_Schedule CWS = new Create_Work_Schedule();
+	    jDesktopPane1.removeAll();
+	    jDesktopPane1.add(CWS);
+	    CWS.show();
 	}
 }
