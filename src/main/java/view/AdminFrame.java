@@ -738,7 +738,7 @@ public class AdminFrame extends javax.swing.JFrame {
 	    create_employee_account.show();
 	}
 	protected void jButton13ActionPerformed(ActionEvent e) {
-		Review_Employee_Errors REE = new Review_Employee_Errors();
+		Review_Employee_Mistake REE = new Review_Employee_Mistake();
 	    jDesktopPane1.removeAll();
 	    jDesktopPane1.add(REE);
 	    REE.show();

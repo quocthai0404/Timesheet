@@ -36,10 +36,11 @@ import java.awt.event.ActionEvent;
 import com.toedter.calendar.JDateChooser;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JComboBox;
 
-public class Review_Employee_Errors extends javax.swing.JInternalFrame {
+public class Review_Employee_Mistake extends javax.swing.JInternalFrame {
 
-    public Review_Employee_Errors() {
+    public Review_Employee_Mistake() {
     	getContentPane().setBackground(new Color(128, 255, 255));
         initComponents();
         setTitle ("Admin");
@@ -72,7 +73,7 @@ public class Review_Employee_Errors extends javax.swing.JInternalFrame {
         getContentPane().add(panel);
         
         lblLogo = new JLabel("");
-        lblLogo.setIcon(new ImageIcon(Review_Employee_Errors.class.getResource("/aptech_logo.png")));
+        lblLogo.setIcon(new ImageIcon(Review_Employee_Mistake.class.getResource("/aptech_logo.png")));
         lblLogo.setBounds(10, 0, 154, 76);
         panel.add(lblLogo);
         
@@ -158,7 +159,7 @@ public class Review_Employee_Errors extends javax.swing.JInternalFrame {
         		btnUpdateErrorActionPerformed(e);
         	}
         });
-        btnUpdateError.setIcon(new ImageIcon(Review_Employee_Errors.class.getResource("/update.png")));
+        btnUpdateError.setIcon(new ImageIcon(Review_Employee_Mistake.class.getResource("/update.png")));
         btnUpdateError.setFont(new Font("Candara", Font.BOLD, 12));
         btnUpdateError.setBorderPainted(false);
         btnUpdateError.setBorder(null);
@@ -181,7 +182,7 @@ public class Review_Employee_Errors extends javax.swing.JInternalFrame {
 			}
 		});
 		
-		jButtonSearch.setIcon(new ImageIcon(Review_Employee_Errors.class.getResource("/view.png")));
+		jButtonSearch.setIcon(new ImageIcon(Review_Employee_Mistake.class.getResource("/view.png")));
 		jButtonSearch.setFont(new Font("Candara", Font.BOLD, 12));
 		jButtonSearch.setBorderPainted(false);
 		jButtonSearch.setBorder(null);
@@ -229,11 +230,6 @@ public class Review_Employee_Errors extends javax.swing.JInternalFrame {
         textField_amount.setBounds(708, 325, 180, 30);
         getContentPane().add(textField_amount);
         
-        textField_reason = new JTextField();
-        textField_reason.setFont(new Font("Calibri", Font.BOLD, 14));
-        textField_reason.setBounds(708, 248, 180, 30);
-        getContentPane().add(textField_reason);
-        
         lblDate = new JLabel();
         lblDate.setText("Date:");
         lblDate.setForeground(Color.BLACK);
@@ -252,7 +248,7 @@ public class Review_Employee_Errors extends javax.swing.JInternalFrame {
         		jButtonSearchLoadEmpActionPerformed(e);
         	}
         });
-        jButtonSearchLoadEmp.setIcon(new ImageIcon(Review_Employee_Errors.class.getResource("/view.png")));
+        jButtonSearchLoadEmp.setIcon(new ImageIcon(Review_Employee_Mistake.class.getResource("/view.png")));
         
         jButtonSearchLoadEmp.setFont(new Font("Candara", Font.BOLD, 12));
         jButtonSearchLoadEmp.setBorderPainted(false);
@@ -266,7 +262,7 @@ public class Review_Employee_Errors extends javax.swing.JInternalFrame {
         		btnAddErrorActionPerformed(e);
         	}
         });
-        btnAddError.setIcon(new ImageIcon(Review_Employee_Errors.class.getResource("/add.png")));
+        btnAddError.setIcon(new ImageIcon(Review_Employee_Mistake.class.getResource("/add.png")));
         btnAddError.setFont(new Font("Candara", Font.BOLD, 12));
         btnAddError.setBorderPainted(false);
         btnAddError.setBorder(null);
@@ -278,6 +274,11 @@ public class Review_Employee_Errors extends javax.swing.JInternalFrame {
         SD_id.setFont(new Font("Calibri", Font.BOLD, 14));
         SD_id.setBounds(708, 113, 180, 30);
         getContentPane().add(SD_id);
+        
+        comboBox_reason = new JComboBox();
+        comboBox_reason.setModel(new DefaultComboBoxModel(new String[] {"Late", "Mistake in the work (All)", "Leave don't have request"}));
+        comboBox_reason.setBounds(708, 246, 180, 28);
+        getContentPane().add(comboBox_reason);
 
         setBounds(0, 0, 927, 589);
     }// </editor-fold>//GEN-END:initComponents
@@ -306,12 +307,12 @@ public class Review_Employee_Errors extends javax.swing.JInternalFrame {
     private JTextField textField_empID;
     private JLabel deduction;
     private JTextField textField_amount;
-    private JTextField textField_reason;
     private JLabel lblDate;
     private JDateChooser dateChooser;
     private JButton jButtonSearchLoadEmp;
     private JButton btnAddError;
     private JTextField SD_id;
+    private JComboBox comboBox_reason;
     public void loadData() {
     	DefaultTableModel model = new DefaultTableModel();
     	model.addColumn("ID");
