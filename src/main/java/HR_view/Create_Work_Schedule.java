@@ -1,4 +1,4 @@
-	package view;
+	package HR_view;
 	
 	import java.awt.Color;	
 	import java.awt.Dimension;
@@ -147,7 +147,7 @@ import helper.Helper;
 	        textField_empID.setBounds(221, 149, 67, 30);
 	        getContentPane().add(textField_empID);
 	        
-	        ImageIcon icon1 = new ImageIcon(AdminFrame.class.getResource("/search.png"));
+	        ImageIcon icon1 = new ImageIcon(HRFrame.class.getResource("/search.png"));
 			Image img1 = icon1.getImage();
 			Image newImg1 = img1.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
 			ImageIcon newIcon1 = new ImageIcon(newImg1);
@@ -166,7 +166,7 @@ import helper.Helper;
 	        getContentPane().add(jButtonFind);
 	        
 	        
-	        ImageIcon refreshIcon = new ImageIcon(AdminFrame.class.getResource("/refresh-page-option.png"));
+	        ImageIcon refreshIcon = new ImageIcon(HRFrame.class.getResource("/refresh-page-option.png"));
 			Image refreshImg = refreshIcon.getImage();
 			Image newRefreshImg = refreshImg.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
 			ImageIcon newRefreshIcon = new ImageIcon(newRefreshImg);

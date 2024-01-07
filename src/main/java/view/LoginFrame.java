@@ -4,9 +4,11 @@
  * and open the template in the editor.
  */
 package view;
-
-import java.awt.Color;	
+import HR_view.HRlogin;
+import HR_view.HRFrame;
+import java.awt.Color;		
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.security.MessageDigest;
@@ -37,6 +39,7 @@ import helper.Helper;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.border.LineBorder;
 /**
  *
  * @author Iqbal-Asi
@@ -106,7 +109,7 @@ public class LoginFrame extends javax.swing.JFrame {
 			}
 		});
 		jPanel1buttons.add(jButtonEmployee);
-		jButtonEmployee.setBounds(80, 38, 150, 60);
+		jButtonEmployee.setBounds(80, 103, 150, 37);
 
 		jButtonManager.setIcon(new ImageIcon("media/managermainbutton.png")); // NOI18N
 		jButtonManager.setBorder(null);
@@ -118,7 +121,7 @@ public class LoginFrame extends javax.swing.JFrame {
 			}
 		});
 		jPanel1buttons.add(jButtonManager);
-		jButtonManager.setBounds(80, 120, 150, 60);
+		jButtonManager.setBounds(80, 143, 150, 37);
 
 		MainLayerBG.setIcon(new ImageIcon(LoginFrame.class.getResource("/mainlayer.png"))); // NOI18N
 		jPanel1buttons.add(MainLayerBG);
@@ -143,11 +146,34 @@ public class LoginFrame extends javax.swing.JFrame {
 		jButtonForgetpass_1.setBackground(new Color(0, 0, 102));
 		jButtonForgetpass_1.setBounds(57, 191, 211, 37);
 		jPanel1buttons.add(jButtonForgetpass_1);
+		ImageIcon icon = new ImageIcon(LoginFrame.class.getResource("/HR_icon.png"));
+
+		// Resize the image to fit the button
+		Image img = icon.getImage().getScaledInstance(62, 37, Image.SCALE_SMOOTH);
+		ImageIcon resizedIcon = new ImageIcon(img);
+		
+		jButtonHR = new JButton();
+		jButtonHR.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				jButtonEmployee_2ActionPerformed(e);
+			}
+		});
+		jButtonHR.setToolTipText("");
+		
+		jButtonHR.setBackground(new java.awt.Color(0, 0, 102));
+		jButtonHR.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
+		jButtonHR.setIcon(new ImageIcon(LoginFrame.class.getResource("/HR_icon.png"))); // NOI18N
+		jButtonHR.setBorderPainted(false);
+		jButtonHR.setBorder(null);
+		jButtonHR.setBackground(new Color(0, 0, 102));
+		jButtonHR.setBounds(80, 60, 150, 32);
+		jPanel1buttons.add(jButtonHR);
+
 
 		jPanel2teacher.setMaximumSize(new java.awt.Dimension(320, 240));
 		jPanel2teacher.setMinimumSize(new java.awt.Dimension(320, 240));
 		jPanel2teacher.setPreferredSize(new java.awt.Dimension(320, 240));
-		jPanel2teacher.setLayout(null);
+jPanel2teacher.setLayout(null);
 
 		jTextField1.setFont(new java.awt.Font("Calibri", 0, 12)); // NOI18N
 		jPanel2teacher.add(jTextField1);
@@ -211,7 +237,7 @@ public class LoginFrame extends javax.swing.JFrame {
 		AdminloginButton.setFont(new java.awt.Font("Calibri", 1, 12)); // NOI18N
 		AdminloginButton.setIcon(new ImageIcon(LoginFrame.class.getResource("/loginbutton.png"))); // NOI18N
 		AdminloginButton.setBorder(null);
-		AdminloginButton.setBorderPainted(false);
+AdminloginButton.setBorderPainted(false);
 		AdminloginButton.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				AdminloginButtonActionPerformed(evt);
@@ -298,7 +324,7 @@ public class LoginFrame extends javax.swing.JFrame {
 	    AccountDAO dao = new AccountDAO();
 	    if(dao.checkRoleManager(jTextField2.getText())) {
 	    	if(dao.Login(jTextField2.getText(), password)) {
-	            JOptionPane.showMessageDialog(this, "Welcome");
+	    			JOptionPane.showMessageDialog(this, "Welcome");
 
 	            AdminFrame adminf = new AdminFrame();
 	            adminf.setVisible(true);
@@ -385,7 +411,7 @@ public class LoginFrame extends javax.swing.JFrame {
 		/* Create and display the form */
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new LoginFrame().setVisible(true);
+new LoginFrame().setVisible(true);
 			}
 		});
 	}
@@ -411,6 +437,7 @@ public class LoginFrame extends javax.swing.JFrame {
 	private javax.swing.JTextField jTextField2;
 	private JButton jButtonForgetpass;
 	private JButton jButtonForgetpass_1;
+	private JButton jButtonHR;
 	
 	protected void jButtonForgetpass_1ActionPerformed(ActionEvent e) {
 
@@ -418,5 +445,10 @@ public class LoginFrame extends javax.swing.JFrame {
         changePassDemo.setVisible(true);
         this.dispose();
 
+	}
+	protected void jButtonEmployee_2ActionPerformed(ActionEvent e) {
+		HRlogin hl = new HRlogin();
+		hl.setVisible(true);
+        this.dispose();
 	}
 }

@@ -107,7 +107,7 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 		Username.setBounds(80, 169, 109, 30);
 
 		textField_empID.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
-		textField_empID.setForeground(new java.awt.Color(255, 255, 255));
+		textField_empID.setForeground(new Color(0, 0, 0));
 		getContentPane().add(textField_empID);
 		textField_empID.setBounds(221, 128, 180, 30);
 
@@ -405,7 +405,6 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 	   public void refresh() {
 		   textField_empID.setText("");
 		   txtUsername.setText("");
-		   jPasswordField1.setText("");
 		   txtEmail.setText("");
 		   textField_empName.setText("");
 		   txtEmployee.setText("");
@@ -428,15 +427,10 @@ public class Create_Employee_Account extends javax.swing.JInternalFrame {
 			refresh();
 			return;
 		}
-		
-		
-
 	}
 	public void sendMail(String pass,String username) {
 		final String fromEmail = "employeemanager25@gmail.com";
 		final String password = "pvhq uixx stql luqj";
-		
-		
 		
 		var prop = new Properties();
 		prop.put("mail.smtp.host","smtp.gmail.com" );

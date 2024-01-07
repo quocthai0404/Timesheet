@@ -13,110 +13,98 @@ import database.JdbcUlti;
 import entity.Emprequest;
 
 public class emprequestDAO {
-	public void insert(int w_sche_id, Date work_date, int work_shift_id, String reason) {
-		Connection con = null;
-		try {
-			con = JdbcUlti.getConnection();
-			String sql = "insert into emprequest(work_schedule_id, work_date, work_shift_id, reason, isaccept)\r\n"
-					+ "  values (?, ?, ?, ?, 0)";
-			PreparedStatement statement = con.prepareStatement(sql);
-			statement.setInt(1, w_sche_id);
-			statement.setDate(2, new java.sql.Date(work_date.getTime()));
-			statement.setInt(3, work_shift_id);
-			statement.setString(4, reason);
-			int row = statement.executeUpdate();
-			if (row > 0) {
-				JOptionPane.showMessageDialog(null, "Your request has been sent successfully!");
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			JdbcUlti.closeConnection(con);
-		}
-	}
+    public void insert(int w_sche_id, Date work_date, int work_shift_id, String reason) {
+        Connection con = null;
+        try {
+            con = JdbcUlti.getConnection();
+            String sql = "INSERT INTO emprequest(work_schedule_id, work_date, work_shift_id, reason, isaccept) "
+                    + "VALUES (?, ?, ?, ?, 0)";
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setInt(1, w_sche_id);
+            statement.setDate(2, new java.sql.Date(work_date.getTime()));
+            statement.setInt(3, work_shift_id);
+            statement.setString(4, reason);
+            int row = statement.executeUpdate();
+            if (row > 0) {
+                JOptionPane.showMessageDialog(null, "Your request has been sent successfully!");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            JdbcUlti.closeConnection(con);
+        }
+    }
 
-	public List<Emprequest> selectUnCheckedEmprequests(int pageNumber, int rowOfPage) {
+    public List<Emprequest> selectUnCheckedEmprequests(int pageNumber, int rowOfPage) {
+        List<Emprequest> list = new ArrayList<>();
+        try {
+            Connection con = JdbcUlti.getConnection();
+            String sql = "SELECT * FROM emprequest WHERE isaccept = 0 ORDER BY id "
+                    + "OFFSET (?-1)*? ROWS FETCH NEXT ? ROWS ONLY";
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1, pageNumber);
+            st.setInt(2, rowOfPage);
+            st.setInt(3, rowOfPage);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                list.add(new Emprequest(rs.getInt("id"), rs.getInt("work_schedule_id"), rs.getDate("work_date"),
+                        rs.getInt("work_shift_id"), rs.getString("reason"), rs.getBoolean("isaccept"),
+                        rs.getInt("employee_id"), rs.getString("employee_name")
+                ));
+            }
+            JdbcUlti.closeConnection(con);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 
-		List<Emprequest> list = new ArrayList<>();
-		try {
-			Connection con = JdbcUlti.getConnection();
+    public int countRow() {
+        int count = 0;
+        try {
+            Connection con = JdbcUlti.getConnection();
+            var statement = con.createStatement();
+            String sql = "SELECT COUNT(*) AS count FROM emprequest";
+            ResultSet rs = statement.executeQuery(sql);
+            while (rs.next()) {
+                count = rs.getInt("count");
+            }
+            JdbcUlti.closeConnection(con);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
 
-			String sql = "select * from emprequest\r\n" + "where isaccept=0\r\n" + "	order by id\r\n"
-					+ "	offset (?-1)*? rows\r\n" + "	fetch next ? rows only";
+    public void delete(int id) {
+        try {
+            Connection con = JdbcUlti.getConnection();
+            String sql = "DELETE FROM emprequest WHERE id = ?";
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setInt(1, id);
+            int rowsDeleted = statement.executeUpdate();
+            if (rowsDeleted > 0) {
+                JOptionPane.showMessageDialog(null, "Deleted successfully!");
+            }
+            JdbcUlti.closeConnection(con);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Cannot connect to the database");
+        }
+    }
 
-			PreparedStatement st = con.prepareStatement(sql);
-			st.setInt(1, pageNumber);
-			st.setInt(2, rowOfPage);
-			st.setInt(3, rowOfPage);
-			ResultSet rs = st.executeQuery();
-			while (rs.next()) {
-				list.add(new Emprequest(rs.getInt("id"), rs.getInt("work_schedule_id"), rs.getDate("work_date"),
-						rs.getInt("work_shift_id"), rs.getString("reason"), rs.getBoolean("isaccept")
-
-				));
-
-			}
-			JdbcUlti.closeConnection(con);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return list;
-
-	}
-
-	public int countRow() {
-		int count = 0;
-		try {
-			Connection con = JdbcUlti.getConnection();
-			var statement = con.createStatement();
-			String sql = "SELECT COUNT(*) as count FROM emprequest";
-			ResultSet rs = statement.executeQuery(sql);
-			while (rs.next()) {
-				count = rs.getInt(1);
-			}
-			JdbcUlti.closeConnection(con);
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return count;
-
-	}
-
-	public void delete(int id) {
-		try {
-			Connection con = JdbcUlti.getConnection();
-
-			String sql = "delete from emprequest where id = ?";
-			PreparedStatement statement = con.prepareStatement(sql);
-			statement.setInt(1, id);
-			int rowsDeleted = statement.executeUpdate();
-			if (rowsDeleted > 0) {
-				JOptionPane.showMessageDialog(null, "delete successfully!");
-			}
-
-			JdbcUlti.closeConnection(con);
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "khong the ket noi den dtb");
-		}
-	}
-
-	public void updateStatus(int id) {
-		try {
-			Connection con = JdbcUlti.getConnection();
-
-			String sql = "update emprequest set isaccept = 1 where id = ?";
-			PreparedStatement statement = con.prepareStatement(sql);
-			statement.setInt(1, id);
-			int rowsDeleted = statement.executeUpdate();
-			if (rowsDeleted > 0) {
-				JOptionPane.showMessageDialog(null, "Accepted request!");
-			}
-
-			JdbcUlti.closeConnection(con);
-		} catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "khong the ket noi den dtb");
-		}
-	}
+    public void updateStatus(int id) {
+        try {
+            Connection con = JdbcUlti.getConnection();
+            String sql = "UPDATE emprequest SET isaccept = 1 WHERE id = ?";
+            PreparedStatement statement = con.prepareStatement(sql);
+            statement.setInt(1, id);
+            int rowsUpdated = statement.executeUpdate();
+            if (rowsUpdated > 0) {
+                JOptionPane.showMessageDialog(null, "Accepted request!");
+            }
+            JdbcUlti.closeConnection(con);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Cannot connect to the database");
+        }
+    }
 }
