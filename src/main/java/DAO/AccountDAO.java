@@ -43,7 +43,7 @@ public class AccountDAO {
 		Login2 lg = new Login2();
 		try {
 			Connection con = JdbcUlti.getConnection();
-			String sql = "select account.username, account.password, employee.position, account.employee_id\r\n"
+			String sql = "select account.username, account.password, employee.position, account.employee_id, employee.employee_name\r\n"
 					+ "from account\r\n" + "inner join employee on employee.employee_id=account.employee_id\r\n"
 					+ "where account.username=?";
 			PreparedStatement statement = con.prepareStatement(sql);
@@ -54,10 +54,11 @@ public class AccountDAO {
 				if (rs.getString(1).equals(username) && rs.getString(2).equals(password)) {
 					EmployeeAfterLogin.employeePosition = rs.getString(3);
 					EmployeeAfterLogin.employeeID = rs.getInt(4);
+					EmployeeAfterLogin.employeeName = rs.getString(5);
 					return true;
 				}
 			}
-
+			
 			JdbcUlti.closeConnection(con);
 		} catch (Exception e) {
 			e.printStackTrace();

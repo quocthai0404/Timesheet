@@ -380,8 +380,8 @@ public class ChangePassDemo extends JFrame {
 //			mes.setText("abc....");
 			String html = "<div>\r\n"
 					
-					+ "        <h2>xin chao ban</h2>\r\n"
-					+ "        <p>day la code dang nhap vao he thong <strong>"+ randomKey+"</strong></p>\r\n"
+					+ "        <h2>Hi</h2>\r\n"
+					+ "        <p>Here is your code to access the system <strong>"+ randomKey+"</strong></p>\r\n"
 					+ "    \r\n"
 					+ "    </div>";
 			mes.setContent(html,"text/html; charset = UTF-8");

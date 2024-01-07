@@ -216,11 +216,7 @@ VALUES ('13h-17h', 'regular');
 INSERT INTO work_shift(description, work_type)
 VALUES ('17h-20h', 'overtime');
 
-insert into account(employee_id, username,password, email)
-values(1, 'manager', 'manager', 'manager@gmail.com')
 
-insert into account(employee_id, username,password, email)
-values(2, 'employee', 'employee', 'employee@gmail.com')
 
 create table admin( 
 	id int primary key identity,
@@ -255,7 +251,7 @@ insert into admin(username, password)
 values('admin', 'admin')
 
 
-
+EXEC sp_RENAME 'detailed_salary.unpaid_leave_deduction' , 'deduction', 'COLUMN'
 
 
 
@@ -275,22 +271,26 @@ CREATE TABLE emprequest (
     employee_id INT FOREIGN KEY REFERENCES employee(employee_id),
     employee_name VARCHAR(100)
 );
+ALTER TABLE emprequest
+ADD employee_id int FOREIGN KEY REFERENCES employee(employee_id),
+employee_name VARCHAR(100);
+
 
 -- Chèn dữ liệu vào bảng emprequest
-INSERT INTO emprequest (work_schedule_id, work_date, work_shift_id, reason, isaccept, employee_id, employee_name)
-VALUES
-    (1, '2024-01-10', 1, 'Testing request 1', 0, 1, 'John Doe'),
-    (2, '2024-01-11', 2, 'Testing request 2', 0, 2, 'Jane Doe'),
-    (3, '2024-01-12', 3, 'Testing request 3', 0, 3, 'Bob Smith'),
-    (4, '2024-01-13', 1, 'Testing request 4', 0, 4, 'Alice Johnson'),
-    (5, '2024-01-14', 2, 'Testing request 5', 0, 5, 'David Lee'),
-    (6, '2024-01-15', 3, 'Testing request 6', 0, 6, 'Emily Davis'),
-    (7, '2024-01-16', 1, 'Testing request 7', 0, 7, 'Michael Brown'),
-    (8, '2024-01-17', 2, 'Testing request 8', 0, 8, 'Sophia Wilson'),
-    (9, '2024-01-18', 3, 'Testing request 9', 0, 9, 'Matthew Taylor'),
-    (10, '2024-01-19', 1, 'Testing request 10', 0, 10, 'Olivia Martinez'),
-    (11, '2024-01-20', 2, 'Testing request 11', 0, 11, 'William Clark'),
-    (12, '2024-01-22', 3, 'Testing request 12', 0, 12, 'Grace Harris');
+--INSERT INTO emprequest (work_schedule_id, work_date, work_shift_id, reason, isaccept, employee_id, employee_name)
+--VALUES
+--    (1, '2024-01-10', 1, 'Testing request 1', 0, 1, 'John Doe'),
+--    (2, '2024-01-11', 2, 'Testing request 2', 0, 2, 'Jane Doe'),
+--    (3, '2024-01-12', 3, 'Testing request 3', 0, 3, 'Bob Smith'),
+--    (4, '2024-01-13', 1, 'Testing request 4', 0, 4, 'Alice Johnson'),
+--    (5, '2024-01-14', 2, 'Testing request 5', 0, 5, 'David Lee'),
+--    (6, '2024-01-15', 3, 'Testing request 6', 0, 6, 'Emily Davis'),
+--    (7, '2024-01-16', 1, 'Testing request 7', 0, 7, 'Michael Brown'),
+--    (8, '2024-01-17', 2, 'Testing request 8', 0, 8, 'Sophia Wilson'),
+--    (9, '2024-01-18', 3, 'Testing request 9', 0, 9, 'Matthew Taylor'),
+--    (10, '2024-01-19', 1, 'Testing request 10', 0, 10, 'Olivia Martinez'),
+--    (11, '2024-01-20', 2, 'Testing request 11', 0, 11, 'William Clark'),
+--    (12, '2024-01-22', 3, 'Testing request 12', 0, 12, 'Grace Harris');
 
 --proc
 CREATE PROCEDURE InsertAccount

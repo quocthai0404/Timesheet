@@ -109,7 +109,7 @@ public class LoginFrame extends javax.swing.JFrame {
 			}
 		});
 		jPanel1buttons.add(jButtonEmployee);
-		jButtonEmployee.setBounds(80, 103, 150, 37);
+		jButtonEmployee.setBounds(80, 45, 150, 58);
 
 		jButtonManager.setIcon(new ImageIcon("media/managermainbutton.png")); // NOI18N
 		jButtonManager.setBorder(null);
@@ -121,7 +121,7 @@ public class LoginFrame extends javax.swing.JFrame {
 			}
 		});
 		jPanel1buttons.add(jButtonManager);
-		jButtonManager.setBounds(80, 143, 150, 37);
+		jButtonManager.setBounds(80, 113, 150, 58);
 
 		MainLayerBG.setIcon(new ImageIcon(LoginFrame.class.getResource("/mainlayer.png"))); // NOI18N
 		jPanel1buttons.add(MainLayerBG);
@@ -151,23 +151,6 @@ public class LoginFrame extends javax.swing.JFrame {
 		// Resize the image to fit the button
 		Image img = icon.getImage().getScaledInstance(62, 37, Image.SCALE_SMOOTH);
 		ImageIcon resizedIcon = new ImageIcon(img);
-		
-		jButtonHR = new JButton();
-		jButtonHR.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				jButtonEmployee_2ActionPerformed(e);
-			}
-		});
-		jButtonHR.setToolTipText("");
-		
-		jButtonHR.setBackground(new java.awt.Color(0, 0, 102));
-		jButtonHR.setFont(new java.awt.Font("Candara", 1, 14)); // NOI18N
-		jButtonHR.setIcon(new ImageIcon(LoginFrame.class.getResource("/HR_icon.png"))); // NOI18N
-		jButtonHR.setBorderPainted(false);
-		jButtonHR.setBorder(null);
-		jButtonHR.setBackground(new Color(0, 0, 102));
-		jButtonHR.setBounds(80, 60, 150, 32);
-		jPanel1buttons.add(jButtonHR);
 
 
 		jPanel2teacher.setMaximumSize(new java.awt.Dimension(320, 240));
@@ -382,6 +365,7 @@ AdminloginButton.setBorderPainted(false);
 		            adminf.setVisible(true);
 		            this.dispose();
 		            
+		            
 
 			    }else {
 			    	 JOptionPane.showMessageDialog(this, "Invalid Username or Password", "Invalid",
@@ -437,7 +421,6 @@ new LoginFrame().setVisible(true);
 	private javax.swing.JTextField jTextField2;
 	private JButton jButtonForgetpass;
 	private JButton jButtonForgetpass_1;
-	private JButton jButtonHR;
 	
 	protected void jButtonForgetpass_1ActionPerformed(ActionEvent e) {
 
@@ -445,10 +428,5 @@ new LoginFrame().setVisible(true);
         changePassDemo.setVisible(true);
         this.dispose();
 
-	}
-	protected void jButtonEmployee_2ActionPerformed(ActionEvent e) {
-		HRlogin hl = new HRlogin();
-		hl.setVisible(true);
-        this.dispose();
 	}
 }

@@ -27,6 +27,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.plaf.FontUIResource;
 
 import org.apache.commons.lang3.RandomStringUtils;
 
@@ -37,6 +38,7 @@ import helper.Helper;
 import view.LoginFrame;
 
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.JPasswordField;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -77,18 +79,29 @@ public class HRlogin extends JFrame {
     /**
      * Launch the application.
      */
-    public static void main(String[] args) {
-        EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    HRlogin frame = new HRlogin();
-                    frame.setVisible(true);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+//    public static void main(String[] args) {
+//        EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                try {
+//                    HRlogin frame = new HRlogin();
+//                    frame.setVisible(true);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        });
+//    }
+    public static void main(String args[]) {
+
+		// JOption Pane Font
+		UIManager.put("OptionPane.messageFont", new FontUIResource(new Font("Candara", Font.PLAIN, 17)));
+		/* Create and display the form */
+		java.awt.EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				new HRlogin().setVisible(true);
+			}
+		});
+	}
 
     /**
      * Create the frame.
@@ -157,6 +170,7 @@ public class HRlogin extends JFrame {
         btnBack.setIcon(new ImageIcon(HRlogin.class.getResource("/back.png")));
         btnBack.setBounds(411, 241, 52, 35);
         panelEmail.add(btnBack);
+        setLocationRelativeTo(null);
     }
 
 
@@ -174,7 +188,7 @@ public class HRlogin extends JFrame {
         Helper helper = new Helper();
         String encryptedPassword = helper.changeToMD5(password);
         HRaccountDAO hrAccountDAO = new HRaccountDAO();
-        if (hrAccountDAO.login(username, password)) {
+        if (hrAccountDAO.login(username, encryptedPassword)) {
             // Đăng nhập thành công
             JOptionPane.showMessageDialog(this, "Login Success!");
 

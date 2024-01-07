@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -15,6 +17,8 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -22,13 +26,16 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.awt.event.ActionEvent;
 import com.toedter.calendar.JDateChooser;
+import javax.swing.JTextField;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Testcombobox extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JButton btnNewButton;
-	private JDateChooser dateChooser;
+	private JTextField textField;
 
 	/**
 	 * Launch the application.
@@ -60,61 +67,32 @@ public class Testcombobox extends JFrame {
                 "TP. Ho Chi Minh", "Nha Trang" };
 		
 		btnNewButton = new JButton("New button");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				btnNewButtonActionPerformed(e);
-			}
+		
+		
+		textField = new JTextField();
+		textField.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyReleased(KeyEvent e) {
+                    	if(textField.getText().isBlank()) {
+                    		
+                    	}else {
+                    		System.out.println(Integer.parseInt(textField.getText())/2);
+                    	}
+			
+                    }
+                
+			
 		});
-		
-		dateChooser = new JDateChooser();
-		dateChooser.setDateFormatString("yyyy-MM-dd");
-		
-		
-		
 
-        // Tạo một JComboBox
-        
-        
-        
-        
-        
-        
-        
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(183)
-							.addComponent(btnNewButton))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(53)
-							.addComponent(dateChooser, GroupLayout.PREFERRED_SIZE, 134, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(158, Short.MAX_VALUE))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(54)
-					.addComponent(dateChooser, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(41)
-					.addComponent(btnNewButton)
-					.addContainerGap(118, Short.MAX_VALUE))
-		);
-		contentPane.setLayout(gl_contentPane);
+	textField.setColumns(10);
+
+	// Tạo một JComboBox
+
+	GroupLayout gl_contentPane = new GroupLayout(
+			contentPane);gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane.createSequentialGroup().addGap(109).addComponent(textField,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE).addGap(67).addComponent(btnNewButton).addContainerGap(158,Short.MAX_VALUE)));gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane.createSequentialGroup().addGap(73).addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane.createSequentialGroup().addGap(41).addComponent(btnNewButton)).addGroup(gl_contentPane.createSequentialGroup().addGap(27).addComponent(textField,GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE,GroupLayout.PREFERRED_SIZE))).addContainerGap(118,Short.MAX_VALUE)));contentPane.setLayout(gl_contentPane);
 	}
 
-	protected void btnNewButtonActionPerformed(ActionEvent e) {
-		Date date = dateChooser.getDate();
-		//biến ngày của date chooser thành localdate
-		LocalDate dateLocal = date.toInstant()
-			      .atZone(ZoneId.systemDefault())
-			      .toLocalDate();
-		
-		//lấy ra ngày tiếp theo
-        LocalDate nextDay = dateLocal.plusDays(1);
-        System.out.println(nextDay);
-		
+	protected void textFieldKeyReleased(KeyEvent e) {
+		System.out.println(textField.getText());
 	}
 }

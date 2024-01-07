@@ -16,4 +16,8 @@ public class Helper {
 	    String md5_password = new String(Base64.getEncoder().encode(bytes));
 		return md5_password;
 	}
+	
+	public static void main(String[] args) {
+		System.out.println(changeToMD5("hraccount"));
+	}
 }

@@ -13,17 +13,19 @@ import database.JdbcUlti;
 import entity.Emprequest;
 
 public class emprequestDAO {
-    public void insert(int w_sche_id, Date work_date, int work_shift_id, String reason) {
+    public void insert(int w_sche_id, Date work_date, int work_shift_id, String reason, int empID, String name) {
         Connection con = null;
         try {
             con = JdbcUlti.getConnection();
-            String sql = "INSERT INTO emprequest(work_schedule_id, work_date, work_shift_id, reason, isaccept) "
-                    + "VALUES (?, ?, ?, ?, 0)";
+            String sql = "INSERT INTO emprequest(work_schedule_id, work_date, work_shift_id, reason, isaccept, employee_id, employee_name) "
+                    + "VALUES (?, ?, ?, ?, 0, ?, ?)";
             PreparedStatement statement = con.prepareStatement(sql);
             statement.setInt(1, w_sche_id);
             statement.setDate(2, new java.sql.Date(work_date.getTime()));
             statement.setInt(3, work_shift_id);
             statement.setString(4, reason);
+            statement.setInt(5, empID);
+            statement.setString(6, name);
             int row = statement.executeUpdate();
             if (row > 0) {
                 JOptionPane.showMessageDialog(null, "Your request has been sent successfully!");
