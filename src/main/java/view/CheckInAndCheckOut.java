@@ -277,6 +277,7 @@ public class CheckInAndCheckOut extends javax.swing.JInternalFrame {
 			}else {
 				JOptionPane.showMessageDialog(null, "Check Out Wrong Time ");
 				dao.checkOutWrongTime();
+				dao.addUnpaidLeave();
 				dao.setIsHide();
 				loadData();
 			}

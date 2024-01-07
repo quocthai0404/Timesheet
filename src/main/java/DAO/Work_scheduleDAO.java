@@ -428,7 +428,7 @@ public class Work_scheduleDAO {
 			long miliNow = System.currentTimeMillis();
 			Date date = new Date(miliNow);
 			
-			Double hour = (RowClicked.dateWorkOut.getTime() - RowClicked.dateWorkIn.getTime())/3600000.0;
+//			Double hour = (RowClicked.dateWorkOut.getTime() - RowClicked.dateWorkIn.getTime())/3600000.0;
 			
 			String sql = "update attendance\r\n"
 					+ "  set time_out = ?, hours_worked= ?\r\n"
@@ -437,7 +437,7 @@ public class Work_scheduleDAO {
 			PreparedStatement statement = con.prepareStatement(sql);
 			
 			statement.setString(1, df.format(date));
-			statement.setDouble(2, hour/2.0);
+			statement.setDouble(2, 0.0);
 			statement.setInt(3, RowClicked.work_schedule_id);
 
 			int rowsUpdated = statement.executeUpdate();
@@ -502,5 +502,33 @@ public class Work_scheduleDAO {
 			e.printStackTrace();
 		}
 	}
+	
+	public void addUnpaidLeave() {
+		try {
+			Connection con = JdbcUlti.getConnection();
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			long miliNow = System.currentTimeMillis();
+			Date date = new Date(miliNow);
+			
+			
+			String sql = "insert into leave(employee_id, leave_type, startdate, number_of_days, reason)\r\n"
+					+ "  values (?, ?, ?, 1, 'check out wrong time')";
+
+			PreparedStatement statement = con.prepareStatement(sql);
+			
+			statement.setInt(1, EmployeeAfterLogin.employeeID);
+			statement.setString(2, "uppaid");
+			statement.setDate(3, new java.sql.Date(date.getTime()));
+
+			int rowsUpdated = statement.executeUpdate();
+//			if (rowsUpdated > 0) {
+//				System.out.println("ok");
+//			}
+
+			JdbcUlti.closeConnection(con);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	} 
 	
 }
