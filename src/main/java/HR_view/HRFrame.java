@@ -33,6 +33,8 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.plaf.FontUIResource;
 import javax.swing.table.DefaultTableModel;
 
 import com.toedter.calendar.JDateChooser;
@@ -43,6 +45,7 @@ import view.AdminFrame;
 import view.Create_Employee_Account;
 import view.Create_Work_Schedule;
 import view.LoginFrame;
+import view.Review_Employee_Mistake;
 
 import javax.swing.JTable;
 
@@ -52,7 +55,6 @@ public class HRFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Horizontal_Panel;
     private javax.swing.JPanel Vertical_Panel;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JDesktopPane jDesktopPane1;
@@ -81,8 +83,6 @@ public class HRFrame extends javax.swing.JFrame {
     private JButton btnCreateEmpAcc;
     private JButton btnUpdateEmp;
     private JButton btnRefresh;
-    private JTextField textFind;
-    private JButton jButtonFind;
     private JTable tableEmployee;
     private JButton btnPrevious;
     private JButton btnNext;
@@ -94,6 +94,7 @@ public class HRFrame extends javax.swing.JFrame {
     /**
      * Creates new form HRFrame
      */
+	
     public HRFrame() {
         getContentPane().setBackground(new Color(0, 255, 255));
         initComponents();
@@ -122,6 +123,7 @@ public class HRFrame extends javax.swing.JFrame {
             }
         };
         t.start();
+        loadData();
     }
 
     @SuppressWarnings("unchecked")
@@ -136,13 +138,13 @@ public class HRFrame extends javax.swing.JFrame {
         		jButton4ActionPerformed(e);
         	}
         });
-        jButton2 = new javax.swing.JButton();
-        jButton2.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		jButton2ActionPerformed(e);
-        	}
-        });
         jButton3 = new javax.swing.JButton();
+        jButton3.addActionListener(new ActionListener() {
+        	
+    			public void actionPerformed(ActionEvent e) {
+    				jButton13ActionPerformed(e);
+    			}
+        });
         Horizontal_Panel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -185,15 +187,7 @@ public class HRFrame extends javax.swing.JFrame {
         jButton4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 4, true));
 
         Vertical_Panel.add(jButton4);
-        jButton4.setBounds(10, 400, 160, 40);
-
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
-        jButton2.setFont(new Font("Candara", Font.BOLD, 14));
-        jButton2.setText("<html>Work Schedule</html>");
-        jButton2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 4, true));
-
-        Vertical_Panel.add(jButton2);
-        jButton2.setBounds(10, 240, 160, 48);
+        jButton4.setBounds(10, 313, 160, 40);
 
         jButton3.setBackground(new java.awt.Color(255, 255, 255));
         jButton3.setFont(new Font("Candara", Font.BOLD, 14));
@@ -202,7 +196,7 @@ public class HRFrame extends javax.swing.JFrame {
         jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         Vertical_Panel.add(jButton3);
-        jButton3.setBounds(10, 320, 160, 48);
+        jButton3.setBounds(10, 235, 160, 48);
 
         getContentPane().add(Vertical_Panel);
         Vertical_Panel.setBounds(0, 100, 200, 550);
@@ -217,6 +211,11 @@ public class HRFrame extends javax.swing.JFrame {
         Vertical_Panel.add(lblLogo);
 
         jButton1 = new JButton("Manager All Employee");
+        jButton1.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		jButton1ActionPerformed(e);
+        	}
+        });
         jButton1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 4));
         jButton1.setFont(new Font("Candara", Font.BOLD, 14));
         jButton1.setBounds(10, 160, 160, 48);
@@ -242,6 +241,7 @@ public class HRFrame extends javax.swing.JFrame {
         lblNewLabel.setIcon(aptechLogoIcon);
         lblNewLabel.setBounds(10, 11, 150, 79);
         Horizontal_Panel.add(lblNewLabel);
+        
         G = new ButtonGroup();
 		G.add(rdbtnNewRadioButton);
 		G.add(rdbtnNewRadioButton_1);
@@ -376,6 +376,11 @@ public class HRFrame extends javax.swing.JFrame {
         jPanel1.add(btnCreateEmpAcc);
         
         btnUpdateEmp = new JButton();
+        btnUpdateEmp.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		btnUpdateEmpActionPerformed(e);
+        	}
+        });
         btnUpdateEmp.setIcon(new ImageIcon(HRFrame.class.getResource("/update.png")));
         btnUpdateEmp.setFont(new Font("Candara", Font.BOLD, 12));
         btnUpdateEmp.setBorderPainted(false);
@@ -398,21 +403,8 @@ public class HRFrame extends javax.swing.JFrame {
 		btnRefresh.setFont(new Font("Candara", Font.BOLD, 12));
 		btnRefresh.setBorderPainted(false);
 		btnRefresh.setBorder(null);
-		btnRefresh.setBounds(551, 267, 30, 30);
+		btnRefresh.setBounds(477, 268, 30, 30);
         jPanel1.add(btnRefresh);
-        
-        textFind = new JTextField();
-        textFind.setFont(new Font("Calibri", Font.BOLD, 14));
-        textFind.setBounds(591, 267, 180, 30);
-        jPanel1.add(textFind);
-        
-        jButtonFind = new JButton();
-        jButtonFind.setIcon(new ImageIcon(HRFrame.class.getResource("/view.png")));
-        jButtonFind.setFont(new Font("Candara", Font.BOLD, 12));
-        jButtonFind.setBorderPainted(false);
-        jButtonFind.setBorder(null);
-        jButtonFind.setBounds(781, 267, 30, 30);
-        jPanel1.add(jButtonFind);
         
         btnPrevious = new JButton("Previous");
         btnPrevious.addActionListener(new ActionListener() {
@@ -463,34 +455,37 @@ public class HRFrame extends javax.swing.JFrame {
     }
 	
     protected void tableEmployeeMouseClicked(MouseEvent e) {
-		if (e.getButton() == MouseEvent.BUTTON1) {
-			int row = tableEmployee.getSelectedRow();
-			textField_empID.setText(tableEmployee.getValueAt(row, 0).toString());
-			textField_empName.setText(tableEmployee.getValueAt(row, 1).toString());
-			textField_Position.setText(tableEmployee.getValueAt(row, 2).toString());
-			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-			Date date = null;
-			try {
-				date = df.parse(tableEmployee.getValueAt(row, 3).toString());
-			} catch (ParseException e1) {
-				e1.printStackTrace();
-			}
-			dateChooser.setDate(date);
-			
+    		if (e.getButton() == MouseEvent.BUTTON1) {
+    			int row = tableEmployee.getSelectedRow();
+    			textField_empID.setText(tableEmployee.getValueAt(row, 0).toString());
+    			textField_empName.setText(tableEmployee.getValueAt(row, 1).toString());
+    			textField_Position.setText(tableEmployee.getValueAt(row, 2).toString());
+    			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    			Date date = null;
+    			try {
+    				date = df.parse(tableEmployee.getValueAt(row, 3).toString());
+    			} catch (ParseException e1) {
+    				e1.printStackTrace();
+    			}
+    			dateChooser.setDate(date);
+    			
 
 
-			if (tableEmployee.getValueAt(row, 4).toString().equals("Male")) {
-				rdbtnNewRadioButton.setSelected(true);
-			} else {
-				rdbtnNewRadioButton_1.setSelected(true);
-			}
-			
-			if(textField_Position.getText().equals("manager")) {
-				btnCreateEmpAcc.setEnabled(false);
-			}else {
-				btnCreateEmpAcc.setEnabled(true);
-			}
-		}
+    			if (tableEmployee.getValueAt(row, 4).toString().equals("Male")) {
+    				rdbtnNewRadioButton.setSelected(true);
+    				if(rdbtnNewRadioButton_1.isSelected()) {
+    					rdbtnNewRadioButton_1.setSelected(false);
+    				}
+    			} else {
+    				rdbtnNewRadioButton_1.setSelected(true);
+    				if(rdbtnNewRadioButton.isSelected()) {
+    					rdbtnNewRadioButton.setSelected(false);
+    				}
+    			}
+    			
+    			
+    		}
+
 	}
 	protected void btnRefreshActionPerformed(ActionEvent e) {
 		loadData();
@@ -523,7 +518,7 @@ public class HRFrame extends javax.swing.JFrame {
 			firstPage++;
 		}
 
-		lblStatusPage.setText(firstPage + "/" + totalPage.intValue());
+//		lblStatusPage.setText(firstPage + "/" + totalPage.intValue());
 		loadData();
 
 	}
@@ -603,10 +598,38 @@ public class HRFrame extends javax.swing.JFrame {
 	        JOptionPane.showMessageDialog(rootPane, ex.toString());
 	    }
 	}
-	protected void jButton2ActionPerformed(ActionEvent e) {
-		Create_Work_Schedule CWS = new Create_Work_Schedule();
+	
+	protected void jButton13ActionPerformed(ActionEvent e) {
+		Emp_salary empS = new Emp_salary();
 	    jDesktopPane1.removeAll();
-	    jDesktopPane1.add(CWS);
-	    CWS.show();
+	    jDesktopPane1.add(empS);
+	    empS.show();
+	}
+	
+	protected void jButton1ActionPerformed(ActionEvent e) {
+		jDesktopPane1.removeAll();
+	     jDesktopPane1.add(jPanel1);
+	     jPanel1.show();
+	}
+	protected void btnUpdateEmpActionPerformed(ActionEvent e) {
+		int selectedRow = tableEmployee.getSelectedRow();
+	    if (selectedRow == -1) {
+	        JOptionPane.showMessageDialog(this, "Please select an employee from the table.", "Notification", JOptionPane.WARNING_MESSAGE);
+	        return;
+	    }
+
+	    int employeeID = Integer.parseInt(textField_empID.getText());
+	    String employeeName = textField_empName.getText();
+	    String position = textField_Position.getText();
+	    Date birthday = dateChooser.getDate();
+	    boolean gender = rdbtnNewRadioButton.isSelected();
+
+
+	    EmployeeDAO dao = new EmployeeDAO();
+	    dao.update(employeeID, employeeName, position, birthday, gender);
+
+	    JOptionPane.showMessageDialog(this, "Employee information updated successfully.", "Notification", JOptionPane.INFORMATION_MESSAGE);
+	    loadData();
+	    refreshAll();
 	}
 }

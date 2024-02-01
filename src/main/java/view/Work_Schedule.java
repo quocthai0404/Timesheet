@@ -18,6 +18,7 @@ import DAO.EmployeeDAO;
 import DAO.Salary_deductionDAO;
 import DAO.Work_scheduleDAO;
 import DAO.emprequestDAO;
+import entity.EmployeeAfterLogin;
 
 import java.awt.Color;
 import javax.swing.DefaultComboBoxModel;
@@ -326,7 +327,7 @@ public class Work_Schedule extends javax.swing.JInternalFrame {
 		int work_shift_id = comboBoxWorkShift.getSelectedIndex()+1;
 		String reason = TextBoxReason.getText();
 		emprequestDAO dao = new emprequestDAO();
-		dao.insert(w_sche_id, work_date, work_shift_id, reason);
+		dao.insert(w_sche_id, work_date, work_shift_id, reason, EmployeeAfterLogin.employeeID, EmployeeAfterLogin.employeeName);
 		hideAll();
 	}
 }
