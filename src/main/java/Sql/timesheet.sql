@@ -247,19 +247,19 @@ update work_shift
 set description='22h-6h'
 where work_shift_id=4
 
-insert into admin(username, password)
-values('admin', 'admin')
+--insert into admin(username, password)
+--values('admin', 'admin')
 
 
 EXEC sp_RENAME 'detailed_salary.unpaid_leave_deduction' , 'deduction', 'COLUMN'
 
 
 
-select account.username, account.password, employee.position
-from account
-inner join employee on employee.employee_id=account.employee_id
-where account.username='manager'
-go
+--select account.username, account.password, employee.position
+--from account
+--inner join employee on employee.employee_id=account.employee_id
+--where account.username='manager'
+--go
 
 CREATE TABLE emprequest (
     id INT IDENTITY PRIMARY KEY,
@@ -293,111 +293,111 @@ employee_name VARCHAR(100);
 --    (12, '2024-01-22', 3, 'Testing request 12', 0, 12, 'Grace Harris');
 
 --proc
-CREATE PROCEDURE InsertAccount
-    @employee_id INT,
-    @username VARCHAR(50),
-    @password VARCHAR(255),
-    @email VARCHAR(100)
-AS
-BEGIN
-    SET NOCOUNT ON;
+--CREATE PROCEDURE InsertAccount
+--    @employee_id INT,
+--    @username VARCHAR(50),
+--    @password VARCHAR(255),
+--    @email VARCHAR(100)
+--AS
+--BEGIN
+--    SET NOCOUNT ON;
 
-    INSERT INTO account (employee_id, username, password, email)
-    VALUES (@employee_id, @username, @password, @email);
-END;
-GO
+--    INSERT INTO account (employee_id, username, password, email)
+--    VALUES (@employee_id, @username, @password, @email);
+--END;
+--GO
 -------------------------
 -------------------------
-select account.username, account.password, employee.position, account.employee_id
-from account
-inner join employee on employee.employee_id=account.employee_id
-where account.username='employee'
-go
+--select account.username, account.password, employee.position, account.employee_id
+--from account
+--inner join employee on employee.employee_id=account.employee_id
+--where account.username='employee'
+--go
 
 
-SELECT 
-    SUM(CASE WHEN MONTH(startdate) = 9 THEN number_of_days ELSE 0 END) AS total_days_in_month,
-    SUM(CASE WHEN YEAR(startdate) = 2000 THEN number_of_days ELSE 0 END) AS total_days_in_2000
-FROM
-    leave
-WHERE
-    employee_id = 9
-GROUP BY
-    employee_id;
+--SELECT 
+--    SUM(CASE WHEN MONTH(startdate) = 9 THEN number_of_days ELSE 0 END) AS total_days_in_month,
+--    SUM(CASE WHEN YEAR(startdate) = 2000 THEN number_of_days ELSE 0 END) AS total_days_in_2000
+--FROM
+--    leave
+--WHERE
+--    employee_id = 9
+--GROUP BY
+--    employee_id;
 
-	select ws.work_schedule_id, ws.employee_id,ws.work_date,ws.work_shift_id,work_shift.description
-	from work_schedule as ws
-	inner join work_shift
-	on  work_shift.work_shift_id=ws.work_shift_id
-	where ws.employee_id=2
-	go
+--	select ws.work_schedule_id, ws.employee_id,ws.work_date,ws.work_shift_id,work_shift.description
+--	from work_schedule as ws
+--	inner join work_shift
+--	on  work_shift.work_shift_id=ws.work_shift_id
+--	where ws.employee_id=2
+--	go
 
-	insert into work_schedule(employee_id, work_date, work_shift_id)
-	values (4, '2000-12-31', 2)
-	select * from work_schedule
-	where isHide!=0
+--	insert into work_schedule(employee_id, work_date, work_shift_id)
+--	values (4, '2000-12-31', 2)
+--	select * from work_schedule
+--	where isHide!=0
 
-	select ws.work_schedule_id, ws.employee_id,ws.work_date,ws.work_shift_id,work_shift.description
-	from work_schedule as ws
-		inner join work_shift
-			on  work_shift.work_shift_id=ws.work_shift_id
-		where ws.employee_id=2 and ws.isHide=0
-
-
-
-	select ws.work_schedule_id, ws.employee_id, ws.work_date, ws.work_shift_id, work_shift.description, work_shift.work_type 
-	from work_schedule as ws
-	inner join work_shift
-	on work_shift.work_shift_id=ws.work_shift_id
-	where ws.employee_id=2 and work_date='2000-12-31' and ws.isHide=0
-
-
-	select hours_worked
-	from attendance
-	where work_schedule_id=9
-
-	select * 
-	from work_schedule
-
-	select * 
-	from work_schedule
-	where employee_id=2 and work_date='2023-12-10'
+--	select ws.work_schedule_id, ws.employee_id,ws.work_date,ws.work_shift_id,work_shift.description
+--	from work_schedule as ws
+--		inner join work_shift
+--			on  work_shift.work_shift_id=ws.work_shift_id
+--		where ws.employee_id=2 and ws.isHide=0
 
 
 
-	select * from salary where employee_id=3
+--	select ws.work_schedule_id, ws.employee_id, ws.work_date, ws.work_shift_id, work_shift.description, work_shift.work_type 
+--	from work_schedule as ws
+--	inner join work_shift
+--	on work_shift.work_shift_id=ws.work_shift_id
+--	where ws.employee_id=2 and work_date='2000-12-31' and ws.isHide=0
 
 
-	-- tong so ngay nghi co phep
-	SELECT SUM(number_of_days) AS total_days_off
-	FROM leave
-	WHERE employee_id = 3
-	AND month(startdate) = 12
-	and year(startdate) = 2023
+--	select hours_worked
+--	from attendance
+--	where work_schedule_id=9
 
-	-- tong so ngay nghi ko phep
-	SELECT SUM(number_of_days) AS total_unpaid_days_off
-	FROM leave
-	WHERE employee_id = 3
-	AND month(startdate) = 12
-	and year(startdate) = 2023
+--	select * 
+--	from work_schedule
 
-	-- tong so gio tang ca
-	SELECT SUM(hours_worked) AS total_overtime_hours
-	FROM work_schedule ws
-	INNER JOIN attendance a ON a.work_schedule_id = ws.work_schedule_id
-	 join work_shift  on work_shift.work_shift_id = ws.work_shift_id
-	WHERE a.employee_id = 3
-	and work_shift.work_type = 'overtime'
-	and month(ws.work_date) = 12
-	and year (ws.work_date) = 2023
+--	select * 
+--	from work_schedule
+--	where employee_id=2 and work_date='2023-12-10'
 
-	--tong so tien bi tru
-	select sum(deduction_amount)  as totaldeduc
-	from salary_deduction
-	where employee_id=3
-	and MONTH(deduction_date)=12
-	and year(deduction_date)=2023
+
+
+--	select * from salary where employee_id=3
+
+
+--	-- tong so ngay nghi co phep
+--	SELECT SUM(number_of_days) AS total_days_off
+--	FROM leave
+--	WHERE employee_id = 3
+--	AND month(startdate) = 12
+--	and year(startdate) = 2023
+
+--	-- tong so ngay nghi ko phep
+--	SELECT SUM(number_of_days) AS total_unpaid_days_off
+--	FROM leave
+--	WHERE employee_id = 3
+--	AND month(startdate) = 12
+--	and year(startdate) = 2023
+
+--	-- tong so gio tang ca
+--	SELECT SUM(hours_worked) AS total_overtime_hours
+--	FROM work_schedule ws
+--	INNER JOIN attendance a ON a.work_schedule_id = ws.work_schedule_id
+--	 join work_shift  on work_shift.work_shift_id = ws.work_shift_id
+--	WHERE a.employee_id = 3
+--	and work_shift.work_type = 'overtime'
+--	and month(ws.work_date) = 12
+--	and year (ws.work_date) = 2023
+
+--	--tong so tien bi tru
+--	select sum(deduction_amount)  as totaldeduc
+--	from salary_deduction
+--	where employee_id=3
+--	and MONTH(deduction_date)=12
+--	and year(deduction_date)=2023
 
 	
 	
